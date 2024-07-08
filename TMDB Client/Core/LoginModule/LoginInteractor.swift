@@ -13,12 +13,13 @@ protocol LoginInteractorProtocol: AnyObject {
 
 class LoginInteractor {
     
+    let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"
     weak var presenter: LoginPresenterProtocol?
     
 }
 //MARK: - LoginInteractorProtocol
 extension LoginInteractor: LoginInteractorProtocol {
     func sendLoginRequestwith(login: String, password: String) {
-       
+        
     }
 }
