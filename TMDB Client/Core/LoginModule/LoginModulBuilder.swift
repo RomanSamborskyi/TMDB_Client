@@ -9,7 +9,7 @@ import UIKit
 
 
 class LoginModulBuilder {
-    func build() -> UIViewController {
+   static func build() -> UIViewController {
         let view = LoginViewController()
         let interactor = LoginInteractor()
         let router = LoginRouter()

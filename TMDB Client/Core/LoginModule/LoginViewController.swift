@@ -9,18 +9,25 @@ import UIKit
 
 
 protocol LoginViewControllerProtocol: AnyObject {
-    
+   
 }
 
 class LoginViewController: UIViewController {
     
     var presenter: LoginPresenterProtocol?
-    private lazy var loginView: UIView = LoginView()
+    private lazy var loginView = LoginView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loginView.delegate = self
         self.view.backgroundColor = .customBackground
         setupLayout()
+    }
+}
+//MARK: - LoginViewDelegate
+extension LoginViewController: LoginViewDelegate {
+    func didLoginButtonPressed(log: String, pass: String) {
+        presenter?.loginButtonDidTapped(login: log, password: pass)
     }
 }
 //MARK: - LoginViewControllerProtocol

@@ -7,12 +7,16 @@
 
 import UIKit
 
+protocol LoginViewDelegate: AnyObject {
+   func didLoginButtonPressed(log: String, pass: String)
+}
+
 class LoginView: UIView {
 
     //MARK: - property
-    lazy var login: String = ""
-    lazy var password: String = ""
-    private lazy var isSecuretextField: Bool = true
+    weak var delegate: LoginViewDelegate?
+    var login: String? = nil
+    var password: String? = nil
     private lazy var wellcomeLabel: UILabel = {
         let lbl = UILabel()
         return lbl
@@ -37,6 +41,10 @@ class LoginView: UIView {
         let btn = UIButton()
         return btn
     }()
+    private lazy var isSecureButton: UIButton = {
+        let btn = UIButton()
+        return btn
+    }()
     //MARK: - lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,6 +63,7 @@ private extension LoginView {
         setupPasswordLabel()
         setupPasswordTextField()
         setupLoginButton()
+        setupISSecureButton()
     }
     func setupWellcomeLabel() {
         self.addSubview(wellcomeLabel)
@@ -121,7 +130,7 @@ private extension LoginView {
         passwordTextField.layer.cornerRadius = 15
         passwordTextField.clipsToBounds = true
         passwordTextField.placeholder = "Enter password..."
-        passwordTextField.isSecureTextEntry = isSecuretextField
+        passwordTextField.isSecureTextEntry = true
         
         NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 5),
@@ -148,10 +157,38 @@ private extension LoginView {
             loginButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.06),
         ])
     }
+    func setupISSecureButton() {
+        self.addSubview(isSecureButton)
+        isSecureButton.translatesAutoresizingMaskIntoConstraints = false
+        isSecureButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        isSecureButton.imageView?.tintColor = .black
+        isSecureButton.addTarget(self, action: #selector(isSecureAction), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            isSecureButton.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 5),
+            isSecureButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -UIScreen.main.bounds.height * 0.05),
+            isSecureButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.06),
+            isSecureButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.06),
+        ])
+    }
+}
+//MARK: - button action
+extension LoginView {
     @objc func buttonAction(selectro: Selector) {
-        login = loginTextField.text ?? "no text"
-        password = passwordTextField.text ?? "no password"
-        print(login)
-        print(password)
+        self.login = loginTextField.text ?? "no text"
+        self.password = passwordTextField.text ?? "no password"
+        guard let log = login,
+              let pass = password else { return }
+        self.delegate?.didLoginButtonPressed(log: log, pass: pass)
+    }
+    @objc func isSecureAction(selecter: Selector) {
+        self.passwordTextField.isSecureTextEntry.toggle()
+        
+        switch passwordTextField.isSecureTextEntry {
+        case true:
+            self.isSecureButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        case false:
+            self.isSecureButton.setImage(UIImage(systemName: "eye"), for: .normal)
+        }
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LoginInteractorProtocol: AnyObject {
-    
+    func sendLoginRequestwith(login: String, password: String)
 }
 
 class LoginInteractor {
@@ -18,5 +18,7 @@ class LoginInteractor {
 }
 //MARK: - LoginInteractorProtocol
 extension LoginInteractor: LoginInteractorProtocol {
-    
+    func sendLoginRequestwith(login: String, password: String) {
+       
+    }
 }

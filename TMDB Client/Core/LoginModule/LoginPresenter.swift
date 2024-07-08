@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol LoginPresenterProtocol: AnyObject {
-    
+    func loginButtonDidTapped(login: String, password: String)
 }
 
 class LoginPresenter {
@@ -26,5 +26,7 @@ class LoginPresenter {
 }
 //MARK: - LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
-    
+    func loginButtonDidTapped(login: String, password: String) {
+        interactor.sendLoginRequestwith(login: login, password: password)
+    }
 }
