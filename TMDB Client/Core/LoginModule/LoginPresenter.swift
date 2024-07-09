@@ -27,6 +27,8 @@ class LoginPresenter {
 //MARK: - LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
     func loginButtonDidTapped(login: String, password: String) {
-        interactor.sendLoginRequestwith(login: login, password: password)
+        Task {
+          try await interactor.sendLoginRequestwith(login: login, password: password)
+        }
     }
 }
