@@ -9,10 +9,12 @@ import UIKit
 
 protocol LoginInteractorProtocol: AnyObject {
     func sendLoginRequestwith(login: String, password: String) async throws
+    var newSession: Session? { get }
 }
 
 class LoginInteractor {
     
+    var newSession: Session? = nil
     let networkManager = NetworkManager()
     let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"
     weak var presenter: LoginPresenterProtocol?
@@ -79,11 +81,11 @@ extension LoginInteractor: LoginInteractorProtocol {
         }
         
         if let success = validToken?.success, let token = validToken?.request_token {
-            try await createSession(with: token)
+            self.newSession = try await createSession(with: token)
         }
     }
     
-    func createSession(with token: String) async throws {
+    func createSession(with token: String) async throws -> Session? {
         guard let url = URL(string: Authantication.newSession(key: apiKey).url) else {
             throw AppError.badURL
         }
@@ -103,8 +105,7 @@ extension LoginInteractor: LoginInteractorProtocol {
         guard let data = try await networkManager.fetchGET(type: Session.self, session: session, request: request) else {
             throw AppError.invalidData
         }
-        
-        print(data.success)
-        print("session_id \(data.session_id)")
+        presenter?.didNewSessionStart()
+        return data
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LoginRouterProtocol: AnyObject {
-    
+    func navigateToWellcomeViewController()
 }
 
 class LoginRouter {
@@ -18,5 +18,8 @@ class LoginRouter {
 }
 //MARK: - LoginRouterProtocol
 extension LoginRouter: LoginRouterProtocol {
-    
+    func navigateToWellcomeViewController() {
+        let welcomeVC = WelcomeViewController()
+        view?.navigationController?.pushViewController(welcomeVC, animated: true)
+    }
 }
