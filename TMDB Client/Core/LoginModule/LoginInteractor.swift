@@ -56,7 +56,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.timeoutInterval = 10
-            request.allHTTPHeaderFields = Constatnts.createSessionWithLoginHeader
+            request.allHTTPHeaderFields = Constatnts.validateTokenWithLoginHeader
             
             let rawData = User(username: login, password: password, requestToken: requestToken)
             
@@ -71,14 +71,40 @@ extension LoginInteractor: LoginInteractorProtocol {
                 return data
             }
             
-            var validToken: String = ""
+            var validToken: TokenResponse? = nil
             for try await token in group {
-                validToken = token.request_token
-                print(token.success)
+                validToken = token
             }
             return validToken
         }
         
-        print(validToken)
+        if let success = validToken?.success, let token = validToken?.request_token {
+            try await createSession(with: token)
+        }
+    }
+    
+    func createSession(with token: String) async throws {
+        guard let url = URL(string: Authantication.newSession(key: apiKey).url) else {
+            throw AppError.badURL
+        }
+        
+        let session = URLSession.shared
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = Constatnts.createNewSessionHeader
+        
+        let rawData = [ "request_token" : token ]
+        
+        let data = try JSONSerialization.data(withJSONObject: rawData)
+        
+        request.httpBody = data
+        
+        guard let data = try await networkManager.fetchGET(type: Session.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+        
+        print(data.success)
+        print("session_id \(data.session_id)")
     }
 }

@@ -32,4 +32,9 @@ struct TokenResponse: Codable {
     }
 }
 
+struct Session: Codable {
+    let success: Bool
+    let session_id: String
+}
+
 
