@@ -16,7 +16,7 @@ class NetworkManager {
         let returnedData = try sessionHandler(data: data, response: response)
         let decoder = JSONDecoder()
         
-        return try decoder.decode(T.self, from: data)
+        return try decoder.decode(T.self, from: returnedData)
     }
     
     private func sessionHandler(data: Data?, response: URLResponse) throws -> Data {

@@ -19,7 +19,7 @@ class LoginRouter {
 //MARK: - LoginRouterProtocol
 extension LoginRouter: LoginRouterProtocol {
     func navigateToWellcomeViewController() {
-        let welcomeVC = WelcomeViewController()
+        let welcomeVC = ProfileModuleBuilder.build()
         view?.navigationController?.pushViewController(welcomeVC, animated: true)
     }
 }

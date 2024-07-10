@@ -29,7 +29,7 @@ class LoginPresenter {
 //MARK: - LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
     func didNewSessionStart() {
-        if let success = interactor.newSession?.success {
+        if let _ = interactor.newSession?.success {
             DispatchQueue.main.async {
                 self.router.navigateToWellcomeViewController()
             }
@@ -37,7 +37,11 @@ extension LoginPresenter: LoginPresenterProtocol {
     }
     func loginButtonDidTapped(login: String, password: String) {
         Task {
-          try await interactor.sendLoginRequestwith(login: login, password: password)
+            do {
+                try await interactor.sendLoginRequestwith(login: login, password: password)
+            } catch let error as AppError {
+                print(error)
+            }
         }
     }
 }

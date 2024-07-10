@@ -22,10 +22,10 @@ struct User: Codable {
 
 struct TokenResponse: Codable {
     let success: Bool
-    let expires_at: String
-    let request_token: String
+    let expiresAt: String
+    let requestToken: String
     
-    enum TokenCodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case success
         case expiresAt = "expires_at"
         case requestToken = "request_token"

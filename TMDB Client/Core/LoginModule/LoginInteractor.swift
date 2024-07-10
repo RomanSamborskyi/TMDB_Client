@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 protocol LoginInteractorProtocol: AnyObject {
     func sendLoginRequestwith(login: String, password: String) async throws
     var newSession: Session? { get }
@@ -16,7 +17,6 @@ class LoginInteractor {
     
     var newSession: Session? = nil
     let networkManager = NetworkManager()
-    let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"
     weak var presenter: LoginPresenterProtocol?
     
 }
@@ -26,14 +26,14 @@ extension LoginInteractor: LoginInteractorProtocol {
         
         let requestToken = try await withThrowingTaskGroup(of: TokenResponse.self) { group in
            
-            guard let url = URL(string: Authantication.token_request(key: apiKey).url) else {
+            guard let url = URL(string: Authantication.token_request(key: Constants.apiKey).url) else {
                 throw AppError.badURL
             }
             
             let session = URLSession.shared
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
-            request.allHTTPHeaderFields = Constatnts.tokenRequestHeader
+            request.allHTTPHeaderFields = Constants.tokenRequestHeader
             
             
             group.addTask { [request] in
@@ -44,13 +44,13 @@ extension LoginInteractor: LoginInteractorProtocol {
             var returnedToken: String = ""
             
             for try await token in group {
-                returnedToken = token.request_token
+                returnedToken = token.requestToken
             }
             return returnedToken
         }
         
         let validToken = try await withThrowingTaskGroup(of: TokenResponse.self) { group in
-            guard let  url = URL(string: Authantication.session_with_login(key: apiKey).url) else {
+            guard let  url = URL(string: Authantication.session_with_login(key: Constants.apiKey).url) else {
                 throw AppError.badURL
             }
             
@@ -58,7 +58,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.timeoutInterval = 10
-            request.allHTTPHeaderFields = Constatnts.validateTokenWithLoginHeader
+            request.allHTTPHeaderFields = Constants.validateTokenWithLoginHeader
             
             let rawData = User(username: login, password: password, requestToken: requestToken)
             
@@ -80,13 +80,13 @@ extension LoginInteractor: LoginInteractorProtocol {
             return validToken
         }
         
-        if let success = validToken?.success, let token = validToken?.request_token {
+        if let _ = validToken?.success, let token = validToken?.requestToken {
             self.newSession = try await createSession(with: token)
         }
     }
     
     func createSession(with token: String) async throws -> Session? {
-        guard let url = URL(string: Authantication.newSession(key: apiKey).url) else {
+        guard let url = URL(string: Authantication.newSession(key: Constants.apiKey).url) else {
             throw AppError.badURL
         }
         
@@ -94,7 +94,7 @@ extension LoginInteractor: LoginInteractorProtocol {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.allHTTPHeaderFields = Constatnts.createNewSessionHeader
+        request.allHTTPHeaderFields = Constants.createNewSessionHeader
         
         let rawData = [ "request_token" : token ]
         
@@ -106,6 +106,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             throw AppError.invalidData
         }
         presenter?.didNewSessionStart()
+        print("Session created successfully✅: \(data.success)")
         return data
     }
 }
