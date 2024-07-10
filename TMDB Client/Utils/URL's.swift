@@ -26,12 +26,14 @@ enum Authantication {
 }
 
 enum AccountUrl {
-    case accDetail(key: String, sessionId: String)
+    case accDetail(key: String, sessionId: String), lists(key: String, sessionId: String, accountId: Int32)
     
     var url: String {
         switch self {
         case .accDetail(let key, let sessionId):
             return "https://api.themoviedb.org/3/account?api_key=\(key)&session_id=\(sessionId)"
+        case .lists(let key, let sessionId, let accountId):
+            return "https://api.themoviedb.org/3/account/\(accountId)/lists?api_key=\(key)&session_id=\(sessionId)"
         }
     }
 }
