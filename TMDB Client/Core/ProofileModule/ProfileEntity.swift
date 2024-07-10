@@ -46,3 +46,7 @@ struct Tmdb: Codable {
         case avatarPath = "avatar_path"
     }
 }
+
+struct DeleteSession: Codable {
+    let success: Bool
+}

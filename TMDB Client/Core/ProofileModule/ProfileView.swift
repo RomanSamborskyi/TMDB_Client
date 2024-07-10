@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol ProfileViewDelegate: AnyObject {
+    func logoutButtunDidTapped()
+}
+
 class ProfileView: UIView {
     //MARK: - property
+    weak var delegate: ProfileViewDelegate?
     private lazy var avatarView: UIImageView = {
         let view = UIImageView()
         return view
@@ -45,6 +50,7 @@ private extension ProfileView {
         setupAvatarImage()
         setupNameLabel()
         setupUsernameLabel()
+        setupLogOutButton()
     }
     func setupAvatarImage() {
         self.addSubview(avatarView)
@@ -86,5 +92,29 @@ private extension ProfileView {
             usernameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             usernameLabel.heightAnchor.constraint(equalToConstant: 50),
         ])
+    }
+    func setupLogOutButton() {
+        self.addSubview(logoutButton)
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.setTitle("Logout", for: .normal)
+        logoutButton.setTitleColor(.red, for: .normal)
+        logoutButton.layer.cornerRadius = 15
+        logoutButton.layer.masksToBounds = true
+        logoutButton.backgroundColor = UIColor.customBackground
+        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            logoutButton.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 50),
+            logoutButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            logoutButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
+            logoutButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
+            logoutButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+}
+//MARK: - button actions
+extension ProfileView {
+    @objc func logout(selector: Selector) {
+        delegate?.logoutButtunDidTapped()
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileInteractorProtocol: AnyObject {
     func fetchUserData() async throws
+    func logout() async throws
 }
 
 class ProfileInteractor {
@@ -26,6 +27,39 @@ class ProfileInteractor {
 }
 //MARK: - WellcomeInteractorProtocol
 extension ProfileInteractor: ProfileInteractorProtocol {
+    func logout() async throws {
+        guard let url = URL(string: Authantication.deleteSession(key: Constants.apiKey).url) else {
+            throw AppError.badURL
+        }
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = Constants.deleteSessionHeader
+        
+        let rawData: [String: Any] = [
+            "session_id" : sessionId
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: rawData)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        guard let response = try await networkManager.fetchGET(type: DeleteSession.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+        
+        KeyChanManager.instance.deleteItem(for: Constants.sessionKey)
+        
+        if response.success {
+            print("Session delete")
+        } else {
+            print("Error of deleting session")
+        }
+    }
+    
     func fetchUserData() async throws {
         
         let userData = try await withThrowingTaskGroup(of: UserProfile.self) { group in

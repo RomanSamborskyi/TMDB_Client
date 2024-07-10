@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        profileView.delegate = self
         presenter?.viewControllerDidLoad()
         setupLayout()
     }
@@ -44,5 +45,11 @@ extension ProfileViewController: ProfileViewProtocol {
             profileView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             profileView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
+    }
+}
+//MARK: - ProfileViewDelegate
+extension ProfileViewController: ProfileViewDelegate {
+    func logoutButtunDidTapped() {
+        presenter?.didLogoutButtonTapped()
     }
 }

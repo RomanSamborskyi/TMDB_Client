@@ -58,4 +58,20 @@ class KeyChanManager {
         
         return nil
     }
+    
+    func deleteItem(for key: String) {
+        
+        let query: [String : Any] = [
+            kSecClass as String : kSecClassGenericPassword,
+            kSecAttrAccount as String : key
+        ]
+        
+        let result = SecItemDelete(query as CFDictionary)
+        
+        if result == errSecSuccess {
+            print("Item deleted")
+        } else {
+            print("Error of deleting item from keychan")
+        }
+    }
 }

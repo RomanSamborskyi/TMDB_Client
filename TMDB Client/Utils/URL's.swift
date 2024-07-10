@@ -9,7 +9,7 @@ import Foundation
 
 
 enum Authantication {
-    case token_request(key: String), session_with_login(key: String), newSession(key: String)
+    case token_request(key: String), session_with_login(key: String), newSession(key: String), deleteSession(key: String)
     
     var url: String {
         switch self {
@@ -19,6 +19,8 @@ enum Authantication {
             return "https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=\(key)"
         case .newSession(let key):
             return "https://api.themoviedb.org/3/authentication/session/new?api_key=\(key)"
+        case .deleteSession(let key):
+            return "https://api.themoviedb.org/3/authentication/session?api_key=\(key)"
         }
     }
 }

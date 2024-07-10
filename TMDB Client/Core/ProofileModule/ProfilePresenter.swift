@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfilePresenterProtocol: AnyObject {
     func viewControllerDidLoad()
+    func didLogoutButtonTapped()
     func didUserFetched(user: UserProfile, with avatar: UIImage)
 }
 
@@ -27,6 +28,16 @@ class ProfilePresenter {
 }
 //MARK: - ProfilePresenterProtocol
 extension ProfilePresenter: ProfilePresenterProtocol {
+    func didLogoutButtonTapped() {
+        Task {
+            do {
+                try await interactor.logout()
+            } catch let error as AppError {
+                print(error)
+            }
+        }
+    }
+    
     func didUserFetched(user: UserProfile, with avatar: UIImage) {
         view?.showUserData(user: user, with: avatar)
     }
