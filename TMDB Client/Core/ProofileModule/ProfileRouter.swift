@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol ProfileRouterProtocol: AnyObject {
-    
+    func navigateToLoginView()
 }
 
 
@@ -18,5 +18,8 @@ class ProfileRouter {
 }
 //MARK: - ProfileRouterProtocol
 extension ProfileRouter: ProfileRouterProtocol {
-    
+    func navigateToLoginView() {
+        let loginVC = LoginModulBuilder.build()
+        view?.navigationController?.pushViewController(loginVC, animated: true)
+    }
 }

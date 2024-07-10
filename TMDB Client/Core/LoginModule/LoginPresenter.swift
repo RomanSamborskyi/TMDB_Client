@@ -10,7 +10,7 @@ import UIKit
 
 protocol LoginPresenterProtocol: AnyObject {
     func loginButtonDidTapped(login: String, password: String)
-    func didNewSessionStart()
+    func didNewSessionStart(with session: Session)
 }
 
 class LoginPresenter {
@@ -28,10 +28,12 @@ class LoginPresenter {
 }
 //MARK: - LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
-    func didNewSessionStart() {
-        if let _ = interactor.newSession?.success, let sessinId = interactor.newSession?.session_id {
-            DispatchQueue.main.async {
-                self.router.navigateToWellcomeViewController(with: sessinId)
+    func didNewSessionStart(with session: Session) {
+        if session.success {
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.async {
+                    self.router.navigateToWellcomeViewController(with: session.session_id)
+                }
             }
         }
     }

@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginView.delegate = self
+        self.navigationItem.hidesBackButton = true
         self.view.backgroundColor = .customBackground
         setupLayout()
     }

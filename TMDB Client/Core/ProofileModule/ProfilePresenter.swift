@@ -36,6 +36,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
                 print(error)
             }
         }
+        DispatchQueue.main.async {
+            self.router.navigateToLoginView()
+        }
     }
     
     func didUserFetched(user: UserProfile, with avatar: UIImage) {

@@ -111,7 +111,7 @@ extension LoginInteractor: LoginInteractorProtocol {
         } catch let error as KeyChanManager.KeyChanError {
             print(error)
         }
-        presenter?.didNewSessionStart()
+        presenter?.didNewSessionStart(with: data)
         print("Session created successfully✅: \(data.success)")
         return data
     }

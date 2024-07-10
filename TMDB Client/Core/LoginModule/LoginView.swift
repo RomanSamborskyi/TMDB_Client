@@ -96,9 +96,15 @@ private extension LoginView {
         loginTextField.translatesAutoresizingMaskIntoConstraints = false
         loginTextField.textAlignment = .left
         loginTextField.borderStyle = .roundedRect
-        loginTextField.layer.cornerRadius = 15
+        loginTextField.layer.cornerRadius = 20
         loginTextField.clipsToBounds = true
-        loginTextField.placeholder = "Enter user name or email..."
+        loginTextField.backgroundColor = .white
+        loginTextField.textColor = .black
+        let attributes: [NSAttributedString.Key: Any] = [
+                  .foregroundColor: UIColor.lightGray,
+                  .font: UIFont.systemFont(ofSize: 16)
+              ]
+        loginTextField.attributedPlaceholder = NSAttributedString(string: "Enter user name or email...", attributes: attributes)
       
         NSLayoutConstraint.activate([
             loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 5),
@@ -127,10 +133,16 @@ private extension LoginView {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.textAlignment = .left
         passwordTextField.borderStyle = .roundedRect
-        passwordTextField.layer.cornerRadius = 15
+        passwordTextField.layer.cornerRadius = 20
         passwordTextField.clipsToBounds = true
-        passwordTextField.placeholder = "Enter password..."
+        passwordTextField.backgroundColor = .white
+        passwordTextField.textColor = .black
         passwordTextField.isSecureTextEntry = true
+        let attributes: [NSAttributedString.Key: Any] = [
+                  .foregroundColor: UIColor.lightGray,
+                  .font: UIFont.systemFont(ofSize: 16)
+              ]
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Enter your password", attributes: attributes)
         
         NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 5),
@@ -145,7 +157,7 @@ private extension LoginView {
         loginButton.setTitle("Login", for: .normal)
         loginButton.layer.borderWidth = 2
         loginButton.layer.borderColor = UIColor.white.cgColor
-        loginButton.layer.cornerRadius = 15
+        loginButton.layer.cornerRadius = 20
         loginButton.clipsToBounds = true
         loginButton.titleLabel?.textColor = .white
         loginButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
