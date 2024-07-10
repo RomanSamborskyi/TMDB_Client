@@ -11,7 +11,7 @@ import Security
 
 class KeyChanManager {
     
-    static let instace = KeyChanManager()
+    static let instance = KeyChanManager()
     private init() { }
     
     enum KeyChanError: Error {

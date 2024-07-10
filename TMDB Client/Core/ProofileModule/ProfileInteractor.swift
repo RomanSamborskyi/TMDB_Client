@@ -9,15 +9,84 @@ import UIKit
 
 
 protocol ProfileInteractorProtocol: AnyObject {
-    
+    func fetchUserData() async throws
 }
 
 class ProfileInteractor {
     
     weak var presenter: ProfilePresenterProtocol?
+    let sessionId: String
+    let networkManager = NetworkManager()
+    let imageDownloader = ImageDownloader.instance
+    
+    init(sessionId: String) {
+        self.sessionId = sessionId
+    }
     
 }
 //MARK: - WellcomeInteractorProtocol
 extension ProfileInteractor: ProfileInteractorProtocol {
-    
+    func fetchUserData() async throws {
+        
+        let userData = try await withThrowingTaskGroup(of: UserProfile.self) { group in
+            
+            guard let url = URL(string: AccountUrl.accDetail(key: Constants.apiKey, sessionId: sessionId).url) else {
+                throw AppError.badURL
+            }
+            
+            let session = URLSession.shared
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            
+            group.addTask { [request] in
+                guard let data = try await self.networkManager.fetchGET(type: UserProfile.self, session: session, request: request) else {
+                    throw AppError.invalidData
+                }
+                return data
+            }
+            var returnedUser: UserProfile?
+            
+            for try await userInfo in group {
+                returnedUser = userInfo
+            }
+           return returnedUser
+        }
+        
+        let userAvatar = try await withThrowingTaskGroup(of: UIImage.self) { group in
+            
+            guard let avatarPath = userData?.avatar.tmdb.avatarPath else {
+                throw AppError.invalidData
+            }
+           
+            
+            guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(avatarPath)") else {
+                throw AppError.badURL
+            }
+            
+            let session = URLSession.shared
+            let request = URLRequest(url: url)
+            
+            group.addTask {
+                guard let avatar = try await self.imageDownloader.fetchImage(with: session, request: request) else {
+                    throw AppError.invalidData
+                }
+                return avatar
+            }
+            
+            var avatarImage: UIImage?
+            
+            for try await userAvatar in group {
+                avatarImage = userAvatar
+            }
+            return avatarImage
+        }
+        
+        guard let user = userData,
+              let avatar = userAvatar else {
+            throw AppError.invalidData
+        }
+        
+        presenter?.didUserFetched(user: user, with: avatar)
+    }
 }

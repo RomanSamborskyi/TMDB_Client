@@ -17,6 +17,7 @@ class LoginInteractor {
     
     var newSession: Session? = nil
     let networkManager = NetworkManager()
+    let keyChan = KeyChanManager.instance
     weak var presenter: LoginPresenterProtocol?
     
 }
@@ -104,6 +105,11 @@ extension LoginInteractor: LoginInteractorProtocol {
         
         guard let data = try await networkManager.fetchGET(type: Session.self, session: session, request: request) else {
             throw AppError.invalidData
+        }
+        do {
+            try keyChan.saveSession(value: data.session_id, for: Constants.sessionKey)
+        } catch let error as KeyChanManager.KeyChanError {
+            print(error)
         }
         presenter?.didNewSessionStart()
         print("Session created successfully✅: \(data.success)")

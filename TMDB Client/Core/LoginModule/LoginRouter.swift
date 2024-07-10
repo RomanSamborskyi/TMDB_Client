@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LoginRouterProtocol: AnyObject {
-    func navigateToWellcomeViewController()
+    func navigateToWellcomeViewController(with sessionId: String)
 }
 
 class LoginRouter {
@@ -18,8 +18,8 @@ class LoginRouter {
 }
 //MARK: - LoginRouterProtocol
 extension LoginRouter: LoginRouterProtocol {
-    func navigateToWellcomeViewController() {
-        let welcomeVC = ProfileModuleBuilder.build()
+    func navigateToWellcomeViewController(with sessionId: String) {
+        let welcomeVC = ProfileModuleBuilder.build(sessionId: sessionId)
         view?.navigationController?.pushViewController(welcomeVC, animated: true)
     }
 }

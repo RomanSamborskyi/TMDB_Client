@@ -9,9 +9,9 @@ import UIKit
 
 
 class ProfileModuleBuilder {
-    static func build() -> UIViewController {
+    static func build(sessionId: String) -> UIViewController {
         let view = ProfileViewController()
-        let interactor = ProfileInteractor()
+        let interactor = ProfileInteractor(sessionId: sessionId)
         let router = ProfileRouter()
         let presenter = ProfilePresenter(interactor: interactor, router: router)
         

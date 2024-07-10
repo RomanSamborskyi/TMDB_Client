@@ -29,9 +29,9 @@ class LoginPresenter {
 //MARK: - LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
     func didNewSessionStart() {
-        if let _ = interactor.newSession?.success {
+        if let _ = interactor.newSession?.success, let sessinId = interactor.newSession?.session_id {
             DispatchQueue.main.async {
-                self.router.navigateToWellcomeViewController()
+                self.router.navigateToWellcomeViewController(with: sessinId)
             }
         }
     }

@@ -9,7 +9,8 @@ import UIKit
 
 
 protocol ProfilePresenterProtocol: AnyObject {
-    
+    func viewControllerDidLoad()
+    func didUserFetched(user: UserProfile, with avatar: UIImage)
 }
 
 class ProfilePresenter {
@@ -26,5 +27,17 @@ class ProfilePresenter {
 }
 //MARK: - ProfilePresenterProtocol
 extension ProfilePresenter: ProfilePresenterProtocol {
+    func didUserFetched(user: UserProfile, with avatar: UIImage) {
+        view?.showUserData(user: user, with: avatar)
+    }
     
+    func viewControllerDidLoad() {
+        Task {
+            do {
+                try await interactor.fetchUserData()
+            } catch let error as AppError {
+                print(error)
+            }
+        }
+    }
 }

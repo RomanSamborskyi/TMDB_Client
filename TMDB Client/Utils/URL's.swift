@@ -23,3 +23,14 @@ enum Authantication {
     }
 }
 
+enum AccountUrl {
+    case accDetail(key: String, sessionId: String)
+    
+    var url: String {
+        switch self {
+        case .accDetail(let key, let sessionId):
+            return "https://api.themoviedb.org/3/account?api_key=\(key)&session_id=\(sessionId)"
+        }
+    }
+}
+

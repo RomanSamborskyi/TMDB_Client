@@ -30,6 +30,8 @@
 		6BC683372C3EC6F30008864A /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683362C3EC6F30008864A /* ProfileModuleBuilder.swift */; };
 		6BC6833B2C3ECC9E0008864A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6833A2C3ECC9E0008864A /* ProfileView.swift */; };
 		6BC6833D2C3ECECF0008864A /* KeyChanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6833C2C3ECECF0008864A /* KeyChanManager.swift */; };
+		6BC6833F2C3EE0ED0008864A /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */; };
+		6BC683412C3EE0F70008864A /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683402C3EE0F70008864A /* CacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		6BC683362C3EC6F30008864A /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
 		6BC6833A2C3ECC9E0008864A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6BC6833C2C3ECECF0008864A /* KeyChanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChanManager.swift; sourceTree = "<group>"; };
+		6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		6BC683402C3EE0F70008864A /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,7 @@
 			children = (
 				6B56A7F82C3B2F76001032C8 /* Core */,
 				6B56A7FA2C3B3221001032C8 /* Services */,
+				6BC683422C3EE1050008864A /* Utils */,
 				6B56A7F92C3B2F7F001032C8 /* Resources */,
 			);
 			path = "TMDB Client";
@@ -136,9 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */,
-				6BC683292C3DAA250008864A /* AppError.swift */,
-				6BC683252C3D9E800008864A /* URL's.swift */,
-				6BC683272C3DA3D10008864A /* Constants.swift */,
+				6BC683402C3EE0F70008864A /* CacheManager.swift */,
+				6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */,
 				6BC6833C2C3ECECF0008864A /* KeyChanManager.swift */,
 			);
 			path = Services;
@@ -156,6 +160,16 @@
 				6BC683362C3EC6F30008864A /* ProfileModuleBuilder.swift */,
 			);
 			path = ProofileModule;
+			sourceTree = "<group>";
+		};
+		6BC683422C3EE1050008864A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6BC683292C3DAA250008864A /* AppError.swift */,
+				6BC683252C3D9E800008864A /* URL's.swift */,
+				6BC683272C3DA3D10008864A /* Constants.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +248,8 @@
 				6BC6833D2C3ECECF0008864A /* KeyChanManager.swift in Sources */,
 				6B56A7F32C3B2BD9001032C8 /* LoginEntity.swift in Sources */,
 				6BC6832A2C3DAA250008864A /* AppError.swift in Sources */,
+				6BC683412C3EE0F70008864A /* CacheManager.swift in Sources */,
+				6BC6833F2C3EE0ED0008864A /* ImageDownloader.swift in Sources */,
 				6B56A7ED2C3B2BB2001032C8 /* LoginViewController.swift in Sources */,
 				6BC6832F2C3EC4BB0008864A /* ProfileInteractor.swift in Sources */,
 				6B56A7D82C3B27A3001032C8 /* AppDelegate.swift in Sources */,

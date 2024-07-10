@@ -11,13 +11,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let keyChan = KeyChanManager.instance
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
       
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let vc = UINavigationController(rootViewController: LoginModulBuilder.build())
-        window?.rootViewController = vc
+        
+        if let session = keyChan.getSession(for: Constants.sessionKey) {
+            window?.rootViewController = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: session))
+        } else {
+            window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build())
+        }
         window?.makeKeyAndVisible()
     }
 
