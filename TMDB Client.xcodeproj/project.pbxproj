@@ -34,6 +34,7 @@
 		6BC683412C3EE0F70008864A /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683402C3EE0F70008864A /* CacheManager.swift */; };
 		6BC683442C4079DF0008864A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683432C4079DF0008864A /* TabBarController.swift */; };
 		6BC683472C407D220008864A /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683462C407D220008864A /* MoviesViewController.swift */; };
+		6BC683492C4080140008864A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683482C4080140008864A /* ActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		6BC683402C3EE0F70008864A /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		6BC683432C4079DF0008864A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		6BC683462C407D220008864A /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
+		6BC683482C4080140008864A /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				6B56A7EC2C3B2BB2001032C8 /* LoginViewController.swift */,
 				6B56A7F62C3B2E34001032C8 /* LoginModulBuilder.swift */,
+				6BC683482C4080140008864A /* ActivityView.swift */,
 				6B56A7F42C3B2BEA001032C8 /* LoginRouter.swift */,
 				6B56A7EE2C3B2BC2001032C8 /* LoginInteractor.swift */,
 				6B56A7F02C3B2BCD001032C8 /* LoginPresenter.swift */,
@@ -271,6 +274,7 @@
 				6B56A7D82C3B27A3001032C8 /* AppDelegate.swift in Sources */,
 				6B56A7EF2C3B2BC2001032C8 /* LoginInteractor.swift in Sources */,
 				6B56A7F52C3B2BEA001032C8 /* LoginRouter.swift in Sources */,
+				6BC683492C4080140008864A /* ActivityView.swift in Sources */,
 				6BC683312C3EC5260008864A /* ProfilePresenter.swift in Sources */,
 				6BC683262C3D9E800008864A /* URL's.swift in Sources */,
 				6BC683352C3EC6DE0008864A /* ProfileRouter.swift in Sources */,

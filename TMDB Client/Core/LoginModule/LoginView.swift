@@ -104,7 +104,7 @@ private extension LoginView {
                   .foregroundColor: UIColor.lightGray,
                   .font: UIFont.systemFont(ofSize: 16)
               ]
-        loginTextField.attributedPlaceholder = NSAttributedString(string: "Enter user name or email...", attributes: attributes)
+        loginTextField.attributedPlaceholder = NSAttributedString(string: "Enter username", attributes: attributes)
       
         NSLayoutConstraint.activate([
             loginTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 5),
