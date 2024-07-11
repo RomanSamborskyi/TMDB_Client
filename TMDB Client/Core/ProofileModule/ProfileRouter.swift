@@ -20,6 +20,7 @@ class ProfileRouter {
 extension ProfileRouter: ProfileRouterProtocol {
     func navigateToLoginView() {
         let loginVC = LoginModulBuilder.build()
+        loginVC.hidesBottomBarWhenPushed = true
         view?.navigationController?.pushViewController(loginVC, animated: true)
     }
 }
