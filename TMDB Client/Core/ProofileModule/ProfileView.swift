@@ -72,7 +72,7 @@ private extension ProfileView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "[NAME]"
         nameLabel.font = .systemFont(ofSize: 40, weight: .bold)
-        nameLabel.textColor = .black
+        nameLabel.textColor = .white
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 50),
@@ -100,7 +100,7 @@ private extension ProfileView {
         logoutButton.setTitleColor(.red, for: .normal)
         logoutButton.layer.cornerRadius = 15
         logoutButton.layer.masksToBounds = true
-        logoutButton.backgroundColor = UIColor.customBackground
+        logoutButton.backgroundColor = UIColor.white
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
         NSLayoutConstraint.activate([

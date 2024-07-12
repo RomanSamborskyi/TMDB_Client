@@ -29,6 +29,8 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
+        self.tabBar.tintColor = UIColor.white
+        self.tabBar.barTintColor = UIColor.black
         setupLayout()
     }
 }
@@ -39,7 +41,7 @@ private extension TabBarController {
         setupTabs()
     }
     func setupTabs() {
-        profileTab.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
-        moviesTab.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(systemName: "popcorn"), tag: 1)
+        profileTab.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 0)
+        moviesTab.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(systemName: "popcorn.fill"), tag: 1)
     }
 }

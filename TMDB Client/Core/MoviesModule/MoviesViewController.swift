@@ -7,10 +7,27 @@
 
 import UIKit
 
-class MoviesViewController: UIViewController {
+protocol MovieViewProtocol: AnyObject {
+    
+}
 
+class MoviesViewController: UIViewController {
+    //MARK: - property
+    var presenter: MoviePresenterProtocol?
+    //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.customBackground
+        setupLayout()
     }
+}
+//MARK: - UI layout
+private extension MoviesViewController {
+    func setupLayout() {
+        
+    }
+}
+//MARK: - MovieViewProtocol
+extension MoviesViewController: MovieViewProtocol {
+    
 }
