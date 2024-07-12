@@ -30,7 +30,9 @@ class LoginViewController: UIViewController {
 extension LoginViewController: LoginViewDelegate {
     func didLoginButtonPressed(log: String, pass: String) {
         presenter?.loginButtonDidTapped(login: log, password: pass)
-        setupActivityView()
+        if !log.isEmpty && !pass.isEmpty {
+            setupActivityView()
+        }
     }
 }
 //MARK: - LoginViewControllerProtocol

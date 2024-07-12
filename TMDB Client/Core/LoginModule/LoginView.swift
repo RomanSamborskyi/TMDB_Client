@@ -100,6 +100,12 @@ private extension LoginView {
         loginTextField.clipsToBounds = true
         loginTextField.backgroundColor = .white
         loginTextField.textColor = .black
+        let padding = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: self.frame.height))
+        loginTextField.leftView = padding
+        loginTextField.leftViewMode = .always
+        loginTextField.rightView = padding
+        loginTextField.rightViewMode = .always
+        
         let attributes: [NSAttributedString.Key: Any] = [
                   .foregroundColor: UIColor.lightGray,
                   .font: UIFont.systemFont(ofSize: 16)
@@ -138,6 +144,12 @@ private extension LoginView {
         passwordTextField.backgroundColor = .white
         passwordTextField.textColor = .black
         passwordTextField.isSecureTextEntry = true
+        let padding = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: self.frame.height))
+        passwordTextField.leftView = padding
+        passwordTextField.rightView = padding
+        passwordTextField.leftViewMode = .always
+        passwordTextField.rightViewMode = .always
+        
         let attributes: [NSAttributedString.Key: Any] = [
                   .foregroundColor: UIColor.lightGray,
                   .font: UIFont.systemFont(ofSize: 16)
@@ -155,11 +167,10 @@ private extension LoginView {
         self.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.setTitle("Login", for: .normal)
-        loginButton.layer.borderWidth = 2
-        loginButton.layer.borderColor = UIColor.white.cgColor
+        loginButton.setTitleColor(UIColor.customBackground, for: .normal)
+        loginButton.backgroundColor = .white
         loginButton.layer.cornerRadius = 20
         loginButton.clipsToBounds = true
-        loginButton.titleLabel?.textColor = .white
         loginButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
