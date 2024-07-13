@@ -9,7 +9,8 @@ import UIKit
 
 
 protocol MoviePresenterProtocol: AnyObject {
-        
+    func viewControllerDidLoad(with tab: TopTabs)
+    func didMoviesFertched(movies: [Movie], with posters: [Int : UIImage])
 }
 
 class MoviePresenter {
@@ -27,5 +28,25 @@ class MoviePresenter {
 }
 //MARK: - MoviePresenterProtocol
 extension MoviePresenter: MoviePresenterProtocol {
-    
+    func didMoviesFertched(movies: [Movie], with posters: [Int : UIImage]) {
+        DispatchQueue.main.async {
+            self.view?.show(movies: movies, with: posters)
+        }
+    }
+    func viewControllerDidLoad(with tab: TopTabs) {
+        Task {
+            do {
+                switch tab {
+                case .trending:
+                    try await interactor.fetchMovies(with: MoviesUrls.trending(key: Constants.apiKey).url)
+                case .topRated:
+                    try await interactor.fetchMovies(with: MoviesUrls.topRated(key: Constants.apiKey).url)
+                case .upcoming:
+                    try await interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey).url)
+                }
+            } catch let error as AppError {
+                print(error)
+            }
+        }
+    }
 }

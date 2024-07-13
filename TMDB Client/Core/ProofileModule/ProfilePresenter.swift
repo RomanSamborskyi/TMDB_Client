@@ -15,7 +15,7 @@ protocol ProfilePresenterProtocol: AnyObject {
 }
 
 class ProfilePresenter {
-    
+    //MARK: - property
     weak var view: ProfileViewProtocol?
     let interactor: ProfileInteractorProtocol
     let router: ProfileRouterProtocol

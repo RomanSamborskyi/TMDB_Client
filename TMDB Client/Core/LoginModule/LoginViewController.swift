@@ -13,7 +13,7 @@ protocol LoginViewControllerProtocol: AnyObject {
 }
 
 class LoginViewController: UIViewController {
-    
+    //MARK: - property
     var presenter: LoginPresenterProtocol?
     private lazy var loginView = LoginView()
     private lazy var acticityView = ActivityView()

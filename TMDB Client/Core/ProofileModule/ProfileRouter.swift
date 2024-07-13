@@ -14,6 +14,7 @@ protocol ProfileRouterProtocol: AnyObject {
 
 
 class ProfileRouter {
+    //MARK: - property
     weak var view: ProfileViewController?
 }
 //MARK: - ProfileRouterProtocol

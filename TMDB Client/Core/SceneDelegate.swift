@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         if let session = keyChan.getSession(for: Constants.sessionKey) {
-            window?.rootViewController = UINavigationController(rootViewController: TabBarController(sessionId: session))
+            window?.rootViewController = TabBarController(sessionId: session)
         } else {
             window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build())
         }

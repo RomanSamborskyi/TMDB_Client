@@ -13,7 +13,7 @@ protocol MovieRouterProtocol: AnyObject {
 }
 
 class MovieRouter {
-    
+    //MARK: - property
     weak var view: MoviesViewController?
     
 }

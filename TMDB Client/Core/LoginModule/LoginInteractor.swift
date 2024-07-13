@@ -14,7 +14,7 @@ protocol LoginInteractorProtocol: AnyObject {
 }
 
 class LoginInteractor {
-    
+    //MARK: - property
     var newSession: Session? = nil
     let networkManager = NetworkManager()
     let keyChan = KeyChanManager.instance

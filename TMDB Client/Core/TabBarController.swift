@@ -14,9 +14,9 @@ class TabBarController: UITabBarController {
     //MARK: - property
     let sessionId: String
     private lazy var profileTab = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: sessionId))
-    private lazy var moviesTab = UINavigationController(rootViewController: MoviesViewController())
+    private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build())
+    private lazy var listsTab = UINavigationController(rootViewController: ListsViewController())
     //MARK: - lifecycle
-    
     init(sessionId: String) {
         self.sessionId = sessionId
         super.init(nibName: nil, bundle: nil)
@@ -29,6 +29,7 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
+        self.overrideUserInterfaceStyle = .dark
         self.tabBar.tintColor = UIColor.white
         self.tabBar.barTintColor = UIColor.black
         setupLayout()
@@ -37,11 +38,12 @@ class TabBarController: UITabBarController {
 //MARK: - UILayout
 private extension TabBarController {
     func setupLayout() {
-        self.viewControllers = [moviesTab, profileTab]
+        self.viewControllers = [moviesTab, listsTab, profileTab]
         setupTabs()
     }
     func setupTabs() {
         profileTab.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 0)
         moviesTab.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(systemName: "popcorn.fill"), tag: 1)
+        listsTab.tabBarItem = UITabBarItem(title: "Lists", image: UIImage(systemName: "list.star"), tag: 2)
     }
 }

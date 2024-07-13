@@ -14,7 +14,7 @@ protocol ProfileInteractorProtocol: AnyObject {
 }
 
 class ProfileInteractor {
-    
+    //MARK: - property
     weak var presenter: ProfilePresenterProtocol?
     let sessionId: String
     let networkManager = NetworkManager()

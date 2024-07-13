@@ -38,3 +38,19 @@ enum AccountUrl {
     }
 }
 
+enum MoviesUrls {
+    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int)
+    
+    var url: String {
+        switch self {
+        case .trending(let key):
+            return "https://api.themoviedb.org/3/trending/movie/day?api_key=\(key)"
+        case .upcoming(let key):
+            return "https://api.themoviedb.org/3/movie/upcoming?api_key=\(key)&page=1"
+        case .topRated(let key):
+            return "https://api.themoviedb.org/3/movie/top_rated?api_key=\(key)&page=1"
+        case .byGenre(key: let key, genre: let genre):
+            return "https://api.themoviedb.org/3/discover/movie?api_key=\(key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=\(genre)"
+        }
+    }
+}

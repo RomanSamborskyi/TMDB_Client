@@ -12,7 +12,7 @@ protocol ProfileViewProtocol: AnyObject {
 }
 
 class ProfileViewController: UIViewController {
-
+    //MARK: - property
     var presenter: ProfilePresenterProtocol?
     private lazy var profileView = ProfileView()
     
