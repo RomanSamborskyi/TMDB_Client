@@ -7,10 +7,26 @@
 
 import UIKit
 
+
+protocol ListsViewControllerProtocol: AnyObject {
+    
+}
+
 class ListsViewController: UIViewController {
 
+    //MARK: - property
+    var presenter: ListsPresenterProtocol?
+    //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .customBackground
     }
+}
+//MARK: - UI layout
+private extension ListsViewController {
+    
+}
+//MARK: - ListsViewControllerProtocol
+extension ListsViewController: ListsViewControllerProtocol {
+    
 }

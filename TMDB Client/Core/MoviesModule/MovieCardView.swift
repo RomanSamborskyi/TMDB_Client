@@ -28,7 +28,7 @@ class MovieCardView: UIView {
     }
     
     func updateMovieCard(with movie: Movie) {
-        rateLabel.text = String(movie.voteAverage ?? 0)
+        rateLabel.text = movie.voteAverage?.twoCharacktersStrings
     }
     func updatePoster(with image: UIImage) {
         posterImage.image = image

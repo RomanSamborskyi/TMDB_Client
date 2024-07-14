@@ -14,7 +14,7 @@ enum TopTabs: String, CaseIterable {
     var description: String {
         switch self {
         case .trending:
-           return "Tranding"
+           return "Trending"
         case .topRated:
            return "Top Rated"
         case .upcoming:
@@ -87,11 +87,6 @@ class MoviesViewController: UIViewController {
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.customBackground
-        self.navigationItem.title = "Movies"
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.searchController = searchController
         presenter?.viewControllerDidLoad(with: selectedTab)
         presenter?.viewControllerDidLoad(genre: selectedGenre)
         setupLayout()
@@ -100,6 +95,11 @@ class MoviesViewController: UIViewController {
 //MARK: - UI layout
 private extension MoviesViewController {
     func setupLayout() {
+        self.view.backgroundColor = UIColor.customBackground
+        self.navigationItem.title = "Movies"
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.searchController = searchController
         setupScrollView()
         setupPickerView()
         setupTopCollectionCell()
