@@ -31,7 +31,6 @@ class TabBarController: UITabBarController {
         self.navigationItem.hidesBackButton = true
         self.overrideUserInterfaceStyle = .dark
         self.tabBar.tintColor = UIColor.white
-        self.tabBar.barTintColor = UIColor.black
         setupLayout()
     }
 }

@@ -68,7 +68,7 @@ class MoviesViewController: UIViewController {
     }()
     private lazy var topPicker: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
-        flow.itemSize = .init(width: UIScreen.main.bounds.width / 4, height: 50)
+        flow.itemSize = .init(width: UIScreen.main.bounds.width / 3.5, height: 50)
         flow.scrollDirection = .horizontal
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(TopPickerViewCell.self, forCellWithReuseIdentifier: TopPickerViewCell.identifire)
@@ -110,6 +110,7 @@ private extension MoviesViewController {
         let margins = self.view.layoutMarginsGuide
         self.view.addSubview(scroll)
         scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.bounces = true
         
         NSLayoutConstraint.activate([
             scroll.topAnchor.constraint(equalTo: margins.topAnchor),
@@ -119,7 +120,7 @@ private extension MoviesViewController {
         ])
     }
     func setupTopCollectionCell() {
-        self.view.addSubview(topCollection)
+        self.scroll.addSubview(topCollection)
         topCollection.translatesAutoresizingMaskIntoConstraints = false
         topCollection.backgroundColor = UIColor.customBackground
         topCollection.showsHorizontalScrollIndicator = false
@@ -129,12 +130,12 @@ private extension MoviesViewController {
         NSLayoutConstraint.activate([
             topCollection.topAnchor.constraint(equalTo: topPicker.bottomAnchor, constant: 5),
             topCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 5),
-            topCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor, constant: -5),
-            topCollection.heightAnchor.constraint(equalToConstant: 190)
+            topCollection.heightAnchor.constraint(equalToConstant: 190),
+            topCollection.widthAnchor.constraint(equalTo: scroll.widthAnchor)
         ])
     }
     func setupBottomCollectionCell() {
-        self.view.addSubview(bottomCollection)
+        self.scroll.addSubview(bottomCollection)
         bottomCollection.translatesAutoresizingMaskIntoConstraints = false
         bottomCollection.backgroundColor = UIColor.customBackground
         bottomCollection.showsHorizontalScrollIndicator = false
@@ -144,12 +145,13 @@ private extension MoviesViewController {
         NSLayoutConstraint.activate([
             bottomCollection.topAnchor.constraint(equalTo: genrePicker.bottomAnchor, constant: 5),
             bottomCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 5),
-            bottomCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor, constant: -5),
-            bottomCollection.heightAnchor.constraint(equalToConstant: 190)
+            bottomCollection.heightAnchor.constraint(equalToConstant: 190),
+            bottomCollection.widthAnchor.constraint(equalTo: scroll.widthAnchor),
+            bottomCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor)
         ])
     }
     func setupPickerView() {
-        scroll.addSubview(topPicker)
+        self.scroll.addSubview(topPicker)
         topPicker.translatesAutoresizingMaskIntoConstraints = false
         topPicker.dataSource = self
         topPicker.delegate = self
@@ -157,13 +159,13 @@ private extension MoviesViewController {
         
         NSLayoutConstraint.activate([
             topPicker.topAnchor.constraint(equalTo: scroll.topAnchor),
-            topPicker.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 50),
+            topPicker.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 30),
             topPicker.heightAnchor.constraint(equalToConstant: 60),
             topPicker.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
     }
     func setupGenrePickerView() {
-        scroll.addSubview(genrePicker)
+        self.scroll.addSubview(genrePicker)
         genrePicker.translatesAutoresizingMaskIntoConstraints = false
         genrePicker.showsHorizontalScrollIndicator = false
         genrePicker.dataSource = self
@@ -171,7 +173,7 @@ private extension MoviesViewController {
         genrePicker.backgroundColor = UIColor.customBackground
         
         NSLayoutConstraint.activate([
-            genrePicker.topAnchor.constraint(equalTo: topCollection.bottomAnchor, constant: 15),
+            genrePicker.topAnchor.constraint(equalTo: topCollection.bottomAnchor, constant: 45),
             genrePicker.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             genrePicker.heightAnchor.constraint(equalToConstant: 60),
             genrePicker.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
