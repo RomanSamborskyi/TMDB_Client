@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol ListsPresenterProtocol: AnyObject {
-    
+    func viewControllerDidLoad()
 }
 
 
@@ -27,5 +27,13 @@ class ListsPresenter {
 }
 //MARK: - ListsPresenterProtocol
 extension ListsPresenter: ListsPresenterProtocol {
-    
+    func viewControllerDidLoad() {
+        Task {
+            do {
+                try await interactor.fetchLists()
+            } catch let error as AppError {
+                print(error)
+            }
+        }
+    }
 }

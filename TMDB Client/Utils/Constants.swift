@@ -10,6 +10,8 @@ import Foundation
 
 struct Constants {
     
+    static let userIdKey: String = "userId"
+    
     static let sessionKey: String = "session_id"
     
     static let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"

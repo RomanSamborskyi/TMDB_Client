@@ -20,6 +20,7 @@ class ListsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .customBackground
+        presenter?.viewControllerDidLoad()
     }
 }
 //MARK: - UI layout

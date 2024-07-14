@@ -15,7 +15,7 @@ class TabBarController: UITabBarController {
     let sessionId: String
     private lazy var profileTab = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: sessionId))
     private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build())
-    private lazy var listsTab = UINavigationController(rootViewController: ListsViewController())
+    private lazy var listsTab = UINavigationController(rootViewController: ListsModuleBuilder.build())
     //MARK: - lifecycle
     init(sessionId: String) {
         self.sessionId = sessionId

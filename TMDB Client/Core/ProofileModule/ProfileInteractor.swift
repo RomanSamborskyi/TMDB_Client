@@ -84,6 +84,10 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             for try await userInfo in group {
                 returnedUser = userInfo
             }
+            if let userId = returnedUser?.id {
+                UserDefaults.standard.setValue(userId, forKey: Constants.userIdKey)
+            }
+            
            return returnedUser
         }
         
