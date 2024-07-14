@@ -26,14 +26,20 @@ enum TopTabs: String, CaseIterable {
 
 protocol MovieViewProtocol: AnyObject {
     func show(movies: [Movie], with posters: [Int : UIImage])
+    func showGenre(genre: [Genre])
+    func showMoviesByGenre(movies: [Movie], with posters: [Int : UIImage])
 }
 
 class MoviesViewController: UIViewController {
     //MARK: - property
     var presenter: MoviePresenterProtocol?
     private var movies: [Movie] = []
+    private var genres: [Genre] = []
     private var posters: [Int : UIImage] = [:]
+    private var moviesByGenre: [Movie] = []
+    private var postersByGenre: [Int : UIImage] = [:]
     private var selectedTab: TopTabs = .trending
+    private var selectedGenre: Genre = DeveloperPreview.instance.action
     private lazy var scroll: UIScrollView = {
         let view = UIScrollView()
         return view
@@ -51,6 +57,15 @@ class MoviesViewController: UIViewController {
         cell.tag = 0
         return cell
     }()
+    private lazy var bottomCollection: UICollectionView = {
+        let flow = UICollectionViewFlowLayout()
+        flow.itemSize = .init(width: UIScreen.main.bounds.width / 3.17, height: 190)
+        flow.scrollDirection = .horizontal
+        let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(TopCollectionViewCell.self, forCellWithReuseIdentifier: TopCollectionViewCell.identifire)
+        cell.tag = 2
+        return cell
+    }()
     private lazy var topPicker: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.itemSize = .init(width: UIScreen.main.bounds.width / 4, height: 50)
@@ -58,6 +73,15 @@ class MoviesViewController: UIViewController {
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(TopPickerViewCell.self, forCellWithReuseIdentifier: TopPickerViewCell.identifire)
         cell.tag = 1
+        return cell
+    }()
+    private lazy var genrePicker: UICollectionView = {
+        let flow = UICollectionViewFlowLayout()
+        flow.itemSize = .init(width: UIScreen.main.bounds.width / 4, height: 50)
+        flow.scrollDirection = .horizontal
+        let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(GenrePickerCell.self, forCellWithReuseIdentifier: GenrePickerCell.identifire)
+        cell.tag = 3
         return cell
     }()
     //MARK: - lifecycle
@@ -69,17 +93,18 @@ class MoviesViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.searchController = searchController
         presenter?.viewControllerDidLoad(with: selectedTab)
+        presenter?.viewControllerDidLoad(genre: selectedGenre)
         setupLayout()
     }
 }
 //MARK: - UI layout
 private extension MoviesViewController {
     func setupLayout() {
-       // DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.setupScrollView()
-            self.setupPickerView()
-            self.setupTopCollectionCell()
-       // }
+        setupScrollView()
+        setupPickerView()
+        setupTopCollectionCell()
+        setupGenrePickerView()
+        setupBottomCollectionCell()
     }
     func setupScrollView() {
         let margins = self.view.layoutMarginsGuide
@@ -97,6 +122,7 @@ private extension MoviesViewController {
         self.view.addSubview(topCollection)
         topCollection.translatesAutoresizingMaskIntoConstraints = false
         topCollection.backgroundColor = UIColor.customBackground
+        topCollection.showsHorizontalScrollIndicator = false
         topCollection.dataSource = self
         topCollection.delegate = self
         
@@ -105,6 +131,21 @@ private extension MoviesViewController {
             topCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 5),
             topCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor, constant: -5),
             topCollection.heightAnchor.constraint(equalToConstant: 190)
+        ])
+    }
+    func setupBottomCollectionCell() {
+        self.view.addSubview(bottomCollection)
+        bottomCollection.translatesAutoresizingMaskIntoConstraints = false
+        bottomCollection.backgroundColor = UIColor.customBackground
+        bottomCollection.showsHorizontalScrollIndicator = false
+        bottomCollection.dataSource = self
+        bottomCollection.delegate = self
+        
+        NSLayoutConstraint.activate([
+            bottomCollection.topAnchor.constraint(equalTo: genrePicker.bottomAnchor, constant: 5),
+            bottomCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 5),
+            bottomCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor, constant: -5),
+            bottomCollection.heightAnchor.constraint(equalToConstant: 190)
         ])
     }
     func setupPickerView() {
@@ -121,9 +162,38 @@ private extension MoviesViewController {
             topPicker.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
     }
+    func setupGenrePickerView() {
+        scroll.addSubview(genrePicker)
+        genrePicker.translatesAutoresizingMaskIntoConstraints = false
+        genrePicker.showsHorizontalScrollIndicator = false
+        genrePicker.dataSource = self
+        genrePicker.delegate = self
+        genrePicker.backgroundColor = UIColor.customBackground
+        
+        NSLayoutConstraint.activate([
+            genrePicker.topAnchor.constraint(equalTo: topCollection.bottomAnchor, constant: 15),
+            genrePicker.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            genrePicker.heightAnchor.constraint(equalToConstant: 60),
+            genrePicker.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+    }
 }
 //MARK: - MovieViewProtocol
 extension MoviesViewController: MovieViewProtocol {
+    func showMoviesByGenre(movies: [Movie], with posters: [Int : UIImage]) {
+        DispatchQueue.main.async {
+            self.moviesByGenre.append(contentsOf: movies)
+            self.postersByGenre.merge(posters) { image, _ in image }
+            self.bottomCollection.reloadData()
+        }
+    }
+    func showGenre(genre: [Genre]) {
+        DispatchQueue.main.async {
+            self.genres = genre
+            self.genrePicker.reloadData()
+        }
+    }
+    
     func show(movies: [Movie], with posters: [Int : UIImage]) {
         DispatchQueue.main.async {
             self.movies.append(contentsOf: movies)
@@ -140,6 +210,10 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             return self.movies.count
         case 1:
             return TopTabs.allCases.count
+        case 2:
+            return self.moviesByGenre.count
+        case 3:
+            return genres.count
         default:
             return 1
         }
@@ -173,6 +247,31 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
                 
             }
             return cell
+        case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopCollectionViewCell.identifire, for: indexPath) as! TopCollectionViewCell
+            let item = self.moviesByGenre[indexPath.row]
+            cell.movie = item
+            cell.poster = self.postersByGenre[item.id ?? 0]
+            return cell
+        case 3:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenrePickerCell.identifire, for: indexPath) as! GenrePickerCell
+            let item = genres[indexPath.row]
+            cell.tab = item
+            
+            cell.label.font = .systemFont(ofSize: 17, weight: .regular)
+            cell.label.textAlignment = .left
+            cell.label.clipsToBounds = false
+            cell.label.layer.cornerRadius = 0
+            cell.label.backgroundColor = .clear
+            
+            if item == selectedGenre {
+                cell.label.font = .systemFont(ofSize: 17, weight: .bold)
+                cell.label.textAlignment = .center
+                cell.label.clipsToBounds = true
+                cell.label.layer.cornerRadius = 15
+                cell.label.backgroundColor = .white.withAlphaComponent(0.5)
+            }
+            return cell
         default:
             let cell = UICollectionViewCell()
             return cell
@@ -181,7 +280,7 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView.tag {
         case 0:
-            let item = self.movies[indexPath.row]
+            let _ = self.movies[indexPath.row]
         case 1:
             let item = TopTabs.allCases[indexPath.row]
             self.selectedTab = item
@@ -189,6 +288,15 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             self.movies.removeAll()
             self.posters.removeAll()
             self.topPicker.reloadData()
+        case 2:
+            let _ = self.moviesByGenre[indexPath.row]
+        case 3:
+            let item = genres[indexPath.row]
+            self.selectedGenre = item
+            self.presenter?.viewControllerDidLoad(genre: item)
+            self.moviesByGenre.removeAll()
+            self.postersByGenre.removeAll()
+            self.genrePicker.reloadData()
         default:
             break
         }

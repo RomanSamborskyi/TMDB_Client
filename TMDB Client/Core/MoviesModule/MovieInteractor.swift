@@ -23,9 +23,77 @@ class MovieInteractor {
 extension MovieInteractor: MovieInteractorProtocol {
     func fetchGenres() async throws {
         
+        guard let url = URL(string: MoviesUrls.allGenres(key: Constants.apiKey).url) else {
+            throw AppError.badURL
+        }
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 10
+        
+        guard let response = try await networkManager.fetchGET(type: GenreResponse.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+        
+        presenter?.didGenreFetched(genre: response.genres)
     }
     func fetchMovies(by genre: Int) async throws {
         
+        let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
+            
+            guard let url = URL(string: MoviesUrls.byGenre(key: Constants.apiKey, genre: genre).url) else {
+                throw AppError.badURL
+            }
+            
+            let session = URLSession.shared
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            
+            group.addTask { [request] in
+                guard let result = try await self.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {
+                    throw AppError.invalidData
+                }
+                return result
+            }
+            
+            var movies: [Movie] = []
+            
+            for try await movie in group {
+                movies.append(contentsOf: movie.results)
+            }
+            return movies
+        }
+        
+        let posters = try await withThrowingTaskGroup(of: [Int : UIImage].self) { group in
+            
+            for movie in movies {
+                guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")") else {
+                    throw AppError.badURL
+                }
+                
+                let session = URLSession.shared
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+                request.timeoutInterval = 10
+                
+                group.addTask { [request, weak self] in
+                    guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
+                        throw AppError.invalidData
+                    }
+                    return [movie.id ?? 0 : result]
+                }
+            }
+            
+            var images: [Int : UIImage] = [:]
+            
+            for try await poster in group {
+                images.merge(poster) { image, _ in image }
+            }
+            
+            return images
+        }
+        presenter?.didMoviesByGenreFetched(movie: movies, with: posters)
     }
     func fetchMovies(with url: String) async throws {
         guard let url = URL(string: url) else {
@@ -82,7 +150,6 @@ extension MovieInteractor: MovieInteractorProtocol {
             
             return posters
         }
-        
         presenter?.didMoviesFertched(movies: movies, with: images)
     }
 }

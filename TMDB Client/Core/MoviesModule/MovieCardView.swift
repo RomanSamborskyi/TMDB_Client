@@ -54,7 +54,7 @@ private extension MovieCardView {
         NSLayoutConstraint.activate([
             posterImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             posterImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            posterImage.widthAnchor.constraint(equalToConstant: 105),
+            posterImage.widthAnchor.constraint(equalToConstant: 115),
             posterImage.heightAnchor.constraint(equalToConstant: 170)
         ])
     }

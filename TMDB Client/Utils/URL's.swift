@@ -39,7 +39,7 @@ enum AccountUrl {
 }
 
 enum MoviesUrls {
-    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int)
+    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String)
     
     var url: String {
         switch self {
@@ -51,6 +51,8 @@ enum MoviesUrls {
             return "https://api.themoviedb.org/3/movie/top_rated?api_key=\(key)&page=1"
         case .byGenre(key: let key, genre: let genre):
             return "https://api.themoviedb.org/3/discover/movie?api_key=\(key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=\(genre)"
+        case .allGenres(key: let key):
+            return  "https://api.themoviedb.org/3/genre/movie/list?api_key=\(key)"
         }
     }
 }

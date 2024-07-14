@@ -11,6 +11,9 @@ import UIKit
 protocol MoviePresenterProtocol: AnyObject {
     func viewControllerDidLoad(with tab: TopTabs)
     func didMoviesFertched(movies: [Movie], with posters: [Int : UIImage])
+    func didGenreFetched(genre: [Genre])
+    func didMoviesByGenreFetched(movie: [Movie], with posters: [Int : UIImage])
+    func viewControllerDidLoad(genre: Genre)
 }
 
 class MoviePresenter {
@@ -24,10 +27,24 @@ class MoviePresenter {
         self.interactor = interactor
         self.router = router
     }
-    
 }
 //MARK: - MoviePresenterProtocol
 extension MoviePresenter: MoviePresenterProtocol {
+    func viewControllerDidLoad(genre: Genre) {
+        _ = Task {
+            do {
+                try await interactor.fetchMovies(by: genre.id)
+            } catch let error as AppError {
+                print(error)
+            }
+        }
+    }
+    func didMoviesByGenreFetched(movie: [Movie], with posters: [Int : UIImage]) {
+        view?.showMoviesByGenre(movies: movie, with: posters)
+    }
+    func didGenreFetched(genre: [Genre]) {
+        view?.showGenre(genre: genre)
+    }
     func didMoviesFertched(movies: [Movie], with posters: [Int : UIImage]) {
         DispatchQueue.main.async {
             self.view?.show(movies: movies, with: posters)
@@ -46,6 +63,13 @@ extension MoviePresenter: MoviePresenterProtocol {
                 }
             } catch let error as AppError {
                 print(error)
+            }
+        }
+        Task {
+            do {
+                try await interactor.fetchGenres()
+            } catch let error as AppError {
+                print("Error of fetching genre: \(error)")
             }
         }
     }
