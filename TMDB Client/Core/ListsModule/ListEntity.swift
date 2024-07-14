@@ -10,9 +10,10 @@ import UIKit
 
 // MARK: - Lists
 struct ListsResponse: Codable {
-    let page: Int
-    let results: [List]
-    let totalPages, totalResults: Int
+    let page: Int?
+    let results: [List]?
+    let totalPages: Int?
+    let totalResults: Int?
 
     enum CodingKeys: String, CodingKey {
         case page, results
@@ -23,10 +24,14 @@ struct ListsResponse: Codable {
 
 // MARK: - Result
 struct List: Codable {
-    let description: String
-    let favoriteCount, id, itemCount: Int
-    let iso639_1, listType, name: String
-    let posterPath: String
+    let description: String?
+    let favoriteCount: Int?
+    let id: Int?
+    let itemCount: Int?
+    let iso639_1: String?
+    let listType: String?
+    let name: String?
+    let posterPath: String?
 
     enum CodingKeys: String, CodingKey {
         case description

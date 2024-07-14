@@ -22,11 +22,7 @@ class ListsInterator {
 extension ListsInterator: ListsInteratorProtocol {
     func fetchLists() async throws {
         
-        guard let userId = UserDefaults.standard.value(forKey: Constants.userIdKey) as? Int32 else {
-            throw AppError.invalidData
-        }
-        
-        guard let url = URL(string: AccountUrl.lists(key: Constants.apiKey, accountId: userId).url) else {
+        guard let url = URL(string: AccountUrl.lists(key: Constants.apiKey, accountId: 00000).url) else {
             throw AppError.badURL
         }
         
@@ -34,11 +30,13 @@ extension ListsInterator: ListsInteratorProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.timeoutInterval = 10
+        request.allHTTPHeaderFields = Constants.listsHeader
         
         guard let result = try await networkManager.fetchGET(type: ListsResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
-        
-        print(result.results)
+        if let list = result.results {
+            print(list.first?.id)
+        }
     }
 }

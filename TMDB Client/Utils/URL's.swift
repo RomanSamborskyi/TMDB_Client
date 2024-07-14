@@ -26,7 +26,7 @@ enum Authantication {
 }
 
 enum AccountUrl {
-    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int32)
+    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int)
     
     var url: String {
         switch self {

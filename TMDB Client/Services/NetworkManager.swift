@@ -8,7 +8,7 @@
 import Foundation
 
 
-class NetworkManager {
+actor NetworkManager {
    
     func fetchGET<T: Codable>(type: T.Type, session: URLSession, request: URLRequest) async throws -> T? {
         
