@@ -16,7 +16,7 @@ class ListsInterator {
     //MARK: - property
     weak var presenter: ListsPresenterProtocol?
     let networkManager = NetworkManager()
-    let imageDownloader = ImageDownloader.instance
+    let imageDownloader = ImageDownloader()
 }
 //MARK: - ListsIteratorProtocol
 extension ListsInterator: ListsInteratorProtocol {
@@ -36,7 +36,7 @@ extension ListsInterator: ListsInteratorProtocol {
             throw AppError.invalidData
         }
         if let list = result.results {
-            print(list.first?.id)
+            print(list)
         }
     }
 }

@@ -18,7 +18,7 @@ class ProfileInteractor {
     weak var presenter: ProfilePresenterProtocol?
     let sessionId: String
     let networkManager = NetworkManager()
-    let imageDownloader = ImageDownloader.instance
+    let imageDownloader = ImageDownloader()
     
     init(sessionId: String) {
         self.sessionId = sessionId

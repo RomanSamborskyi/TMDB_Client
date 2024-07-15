@@ -17,7 +17,7 @@ class MovieInteractor {
     //MARK: - property
     weak var presenter: MoviePresenterProtocol?
     let networkManager = NetworkManager()
-    let imageDownloader = ImageDownloader.instance
+    let imageDownloader = ImageDownloader()
 }
 //MARK: - MovieInteractorProtocol
 extension MovieInteractor: MovieInteractorProtocol {

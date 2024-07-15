@@ -10,10 +10,6 @@ import UIKit
 
 class ImageDownloader {
     
-    static let instance = ImageDownloader()
-    private init() { }
-    
-    
     func fetchImage(with session: URLSession, request: URLRequest) async throws -> UIImage? {
         
         let (data, response) = try await session.data(for: request)
