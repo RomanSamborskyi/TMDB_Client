@@ -18,10 +18,15 @@ class WatchListViewController: UIViewController {
     var presenter: WatchListPresenterProtocol?
     private lazy var movies: [Movie] = []
     private lazy var posters: [Int : UIImage] = [:]
+    private lazy var scroll: UIScrollView = {
+        let view = UIScrollView()
+        return view
+    }()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        presenter?.viewControllerDidLoad()
     }
 }
 //MARK: - UI layout
@@ -31,6 +36,20 @@ private extension WatchListViewController {
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor.customBackground
+        setupScrollView()
+    }
+    func setupScrollView() {
+        self.view.addSubview(scroll)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        
+        let margins = self.view.layoutMarginsGuide
+        
+        NSLayoutConstraint.activate([
+            scroll.topAnchor.constraint(equalTo: margins.topAnchor),
+            scroll.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scroll.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            scroll.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
+        ])
     }
 }
 //MARK: -

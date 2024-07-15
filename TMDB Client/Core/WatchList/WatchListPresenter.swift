@@ -28,7 +28,7 @@ class WatchListPresenter {
 //MARK: - WatchListPresenterProtocol
 extension WatchListPresenter: WatchListPresenterProtocol {
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
-        
+        view?.show(movies: movies, posters: posters)
     }
     func viewControllerDidLoad() {
         Task {
