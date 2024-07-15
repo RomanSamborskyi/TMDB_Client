@@ -98,11 +98,25 @@ extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.layer.cornerRadius = 15
         cell.clipsToBounds = true
         cell.backgroundColor = .black.withAlphaComponent(0.4)
+        cell.actionButtons = self
         let item = self.movies[indexPath.row]
         cell.movie = item
         if let posterImage = self.posters[item.id ?? 0] {
             cell.poster = posterImage
         }
         return cell
+    }
+}
+extension WatchlistViewController: MovieToWatchCellDelegate {
+    func didRateButtonPressed() {
+        print(#function)
+    }
+    
+    func didFavoriteButtonPressed() {
+        print(#function)
+    }
+    
+    func didAddToListButtonPressed() {
+        print(#function)
     }
 }

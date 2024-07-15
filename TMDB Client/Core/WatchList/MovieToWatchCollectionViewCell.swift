@@ -7,9 +7,17 @@
 
 import UIKit
 
+//MARK: - MovieToWatchCollectionViewCell delegate
+protocol MovieToWatchCellDelegate: AnyObject {
+    func didRateButtonPressed()
+    func didFavoriteButtonPressed()
+    func didAddToListButtonPressed()
+}
+
 class MovieToWatchCollectionViewCell: UICollectionViewCell {
     //MARK: - property
     static let identifier: String = "MovieToWatchCollectionViewCell"
+    weak var actionButtons: MovieToWatchCellDelegate?
     var movie: Movie? {
         didSet {
             guard let movie = movie else { return }
@@ -39,20 +47,13 @@ class MovieToWatchCollectionViewCell: UICollectionViewCell {
         return lbl
     }()
     private lazy var rateButton: UIButton = {
-        let btn = UIButton()
-        return btn
+        return createButton(with: "star.circle", with: .white)
     }()
     private lazy var favoriteButton: UIButton = {
-        let btn = UIButton()
-        return btn
+        return createButton(with: "heart.circle", with: .white)
     }()
     private lazy var addToListButton: UIButton = {
-        let btn = UIButton()
-        return btn
-    }()
-    private lazy var removeButton: UIButton = {
-        let btn = UIButton()
-        return btn
+        return createButton(with: "list.bullet.circle", with: .white)
     }()
     //MARK: - lifecycle
     override init(frame: CGRect) {
@@ -75,7 +76,7 @@ private extension MovieToWatchCollectionViewCell {
         setupTitleLabel()
         setupDateLabel()
         setupOverviewLabel()
-        setupRateButton()
+        setupButtons()
     }
     func setupImageView() {
         self.contentView.addSubview(posterImage)
@@ -94,14 +95,15 @@ private extension MovieToWatchCollectionViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
         titleLabel.textColor = .white
-        titleLabel.minimumScaleFactor = 0.7
         titleLabel.numberOfLines = 2
         titleLabel.clipsToBounds = true
+        titleLabel.minimumScaleFactor = 0.7
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: posterImage.trailingAnchor, constant: 15),
-            titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+            titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
+            titleLabel.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05)
         ])
     }
     func setupDateLabel() {
@@ -123,7 +125,7 @@ private extension MovieToWatchCollectionViewCell {
         overviewLabel.font = .systemFont(ofSize: 15)
         overviewLabel.textColor = .white
         overviewLabel.minimumScaleFactor = 0.7
-        overviewLabel.numberOfLines = 4
+        overviewLabel.numberOfLines = 3
         overviewLabel.clipsToBounds = true
         
         NSLayoutConstraint.activate([
@@ -133,7 +135,59 @@ private extension MovieToWatchCollectionViewCell {
             
         ])
     }
-    func setupRateButton() {
+    func setupButtons() {
+        self.contentView.addSubview(rateButton)
+        rateButton.translatesAutoresizingMaskIntoConstraints = false
+        rateButton.addTarget(self, action: #selector(rateButtonPressed), for: .touchUpInside)
         
+        self.contentView.addSubview(favoriteButton)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.addTarget(self, action: #selector(favoritePressed), for: .touchUpInside)
+        
+        self.contentView.addSubview(addToListButton)
+        addToListButton.translatesAutoresizingMaskIntoConstraints = false
+        addToListButton.addTarget(self, action: #selector(adddToListPressed), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            rateButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 15),
+            rateButton.leadingAnchor.constraint(equalTo: posterImage.trailingAnchor, constant: 15),
+            rateButton.widthAnchor.constraint(equalToConstant: 40),
+            rateButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            favoriteButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 15),
+            favoriteButton.leadingAnchor.constraint(equalTo: rateButton.trailingAnchor, constant: 10),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 40),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            addToListButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 15),
+            addToListButton.leadingAnchor.constraint(equalTo: favoriteButton.trailingAnchor, constant: 10),
+            addToListButton.widthAnchor.constraint(equalToConstant: 40),
+            addToListButton.heightAnchor.constraint(equalToConstant: 40),
+            ])
+    }
+}
+private extension MovieToWatchCollectionViewCell {
+    /// Function to creat button in MovieDetailView. It return a button with specific image labele, with background and color .buttonColor and corner radius = 30
+    func createButton(with label: String, with color: UIColor) -> UIButton {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if let originalImage = UIImage(systemName: label) {
+            let resizedImage = originalImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
+            button.setImage(resizedImage, for: .normal)
+        }
+        
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        return button
+    }
+}
+extension MovieToWatchCollectionViewCell {
+    @objc func rateButtonPressed(selector: Selector) {
+        actionButtons?.didRateButtonPressed()
+    }
+    @objc func favoritePressed(selector: Selector) {
+        actionButtons?.didFavoriteButtonPressed()
+    }
+    @objc func adddToListPressed(selector: Selector) {
+        actionButtons?.didAddToListButtonPressed()
     }
 }
