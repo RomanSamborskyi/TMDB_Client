@@ -8,25 +8,25 @@
 import UIKit
 
 
-protocol WatchListPresenterProtocol: AnyObject {
+protocol WatchlistPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
 }
 
-class WatchListPresenter {
+class WatchlistPresenter {
     //MARK: - property
-    weak var view: WatchListViewProtocol?
-    let interactor: WatchListInteractorProtocol?
-    let router: WatchListRouterProtocol?
+    weak var view: WatchlistViewProtocol?
+    let interactor: WatchlistInteractorProtocol?
+    let router: WatchlistRouterProtocol?
     
     //MARK: - lifecycle
-    init(interactor: WatchListInteractorProtocol, router: WatchListRouterProtocol) {
+    init(interactor: WatchlistInteractorProtocol, router: WatchlistRouterProtocol) {
         self.interactor = interactor
         self.router = router
     }
 }
 //MARK: - WatchListPresenterProtocol
-extension WatchListPresenter: WatchListPresenterProtocol {
+extension WatchlistPresenter: WatchlistPresenterProtocol {
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
         view?.show(movies: movies, posters: posters)
     }

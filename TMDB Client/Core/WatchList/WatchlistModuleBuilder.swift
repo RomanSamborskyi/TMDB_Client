@@ -8,12 +8,12 @@
 import UIKit
 
 
-class WatchListModuleBuilder {
+class WatchlistModuleBuilder {
     static func build() -> UIViewController {
-        let view = WatchListViewController()
-        let interactor = WatchListInteractor()
-        let router = WatchListRouter()
-        let presenter = WatchListPresenter(interactor: interactor, router: router)
+        let view = WatchlistViewController()
+        let interactor = WatchlistInteractor()
+        let router = WatchlistRouter()
+        let presenter = WatchlistPresenter(interactor: interactor, router: router)
         
         view.presenter = presenter
         interactor.presenter = presenter

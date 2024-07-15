@@ -8,15 +8,15 @@
 import UIKit
 
 
-protocol WatchListRouterProtocol: AnyObject {
+protocol WatchlistRouterProtocol: AnyObject {
     
 }
 
-class WatchListRouter {
+class WatchlistRouter {
     //MARK: - property
-    weak var view: WatchListViewController?
+    weak var view: WatchlistViewController?
 }
 //MARK: - WatchListRouterProtocol
-extension WatchListRouter: WatchListRouterProtocol {
+extension WatchlistRouter: WatchlistRouterProtocol {
     
 }

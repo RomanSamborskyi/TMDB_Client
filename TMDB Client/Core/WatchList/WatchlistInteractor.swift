@@ -8,18 +8,18 @@
 import UIKit
 
 
-protocol WatchListInteractorProtocol: AnyObject {
+protocol WatchlistInteractorProtocol: AnyObject {
     func fetchWatchList() async throws
 }
 
-class WatchListInteractor {
+class WatchlistInteractor {
     //MARK: - property
-    weak var presenter: WatchListPresenterProtocol?
+    weak var presenter: WatchlistPresenterProtocol?
     let networkManager = NetworkManager()
     let imageDownloader = ImageDownloader()
 }
 //MARK: - WatchListInteractorProtocol
-extension WatchListInteractor: WatchListInteractorProtocol {
+extension WatchlistInteractor: WatchlistInteractorProtocol {
     func fetchWatchList() async throws {
         
         guard let url = URL(string: AccountUrl.watchList(accountId: 19306725, key: Constants.apiKey).url) else {
@@ -35,7 +35,7 @@ extension WatchListInteractor: WatchListInteractorProtocol {
             request.allHTTPHeaderFields = Constants.watchListheader
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: WatchListResponse.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetchGET(type: WatchlistResponse.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result.results ?? []
