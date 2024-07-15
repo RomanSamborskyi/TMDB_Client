@@ -26,7 +26,7 @@ enum Authantication {
 }
 
 enum AccountUrl {
-    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int)
+    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int), watchList(accountId: Int, key: String)
     
     var url: String {
         switch self {
@@ -34,6 +34,8 @@ enum AccountUrl {
             return "https://api.themoviedb.org/3/account?api_key=\(key)&session_id=\(sessionId)"
         case .lists(let key, let accountId):
             return "https://api.themoviedb.org/3/account/\(accountId)/lists?api_key=\(key)"
+        case .watchList(accountId: let accountId, key: let key):
+            return "https://api.themoviedb.org/3/account/\(accountId)/watchlist/movies?api_key=\(key)"
         }
     }
 }
@@ -52,7 +54,7 @@ enum MoviesUrls {
         case .byGenre(key: let key, genre: let genre):
             return "https://api.themoviedb.org/3/discover/movie?api_key=\(key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=\(genre)"
         case .allGenres(key: let key):
-            return  "https://api.themoviedb.org/3/genre/movie/list?api_key=\(key)"
+            return "https://api.themoviedb.org/3/genre/movie/list?api_key=\(key)"
         }
     }
 }

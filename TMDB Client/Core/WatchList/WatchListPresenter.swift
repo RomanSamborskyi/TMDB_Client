@@ -9,7 +9,8 @@ import UIKit
 
 
 protocol WatchListPresenterProtocol: AnyObject {
-    
+    func viewControllerDidLoad()
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
 }
 
 class WatchListPresenter {
@@ -26,5 +27,16 @@ class WatchListPresenter {
 }
 //MARK: - WatchListPresenterProtocol
 extension WatchListPresenter: WatchListPresenterProtocol {
-    
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
+        
+    }
+    func viewControllerDidLoad() {
+        Task {
+            do {
+                try await interactor?.fetchWatchList()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
