@@ -25,7 +25,7 @@ class WatchlistViewController: UIViewController {
     private lazy var movieCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
-        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 4)
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
         var cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(MovieToWatchCollectionViewCell.self, forCellWithReuseIdentifier: MovieToWatchCollectionViewCell.identifier)
         return cell

@@ -98,6 +98,7 @@ private extension MovieToWatchCollectionViewCell {
         titleLabel.numberOfLines = 2
         titleLabel.clipsToBounds = true
         titleLabel.minimumScaleFactor = 0.7
+        titleLabel.adjustsFontSizeToFitWidth = true
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
@@ -112,6 +113,7 @@ private extension MovieToWatchCollectionViewCell {
         dateLabel.font = .systemFont(ofSize: 15)
         dateLabel.textColor = .lightGray
         dateLabel.clipsToBounds = true
+        dateLabel.adjustsFontSizeToFitWidth = true
         
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
@@ -127,6 +129,7 @@ private extension MovieToWatchCollectionViewCell {
         overviewLabel.minimumScaleFactor = 0.7
         overviewLabel.numberOfLines = 3
         overviewLabel.clipsToBounds = true
+        overviewLabel.adjustsFontSizeToFitWidth = true
         
         NSLayoutConstraint.activate([
             overviewLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
