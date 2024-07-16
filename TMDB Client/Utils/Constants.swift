@@ -14,6 +14,12 @@ struct Constants {
     
     static let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"
     
+    static let addToWatchListHeader = [
+        "accept": "application/json",
+        "content-type": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyMTE0NTkxMC4xMjA1MTMsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lcCwZRSZKtDGUo5Bri9YQ7cFZzABb07mqhKY_jt8MGg"
+      ]
+    
     static let watchListheader = [
           "accept": "application/json",
           "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyMTA0NjkyNC4wMjgyNDksInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KgpKgDGA6OQQ2-8QP2QcjH0eqi7Xz_40gxlbU5OhnBo"

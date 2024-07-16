@@ -283,7 +283,9 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
         switch collectionView.tag {
         case 0:
             let item = self.movies[indexPath.row]
-            guard let poster = posters[item.id ?? 0] else { return }
+            guard let poster = posters[item.id ?? 0] else {
+                return
+            }
             presenter?.didMovieSelected(with: item.id ?? 0, poster: poster)
         case 1:
             let item = TopTabs.allCases[indexPath.row]
@@ -294,7 +296,9 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             self.topPicker.reloadData()
         case 2:
             let item = self.moviesByGenre[indexPath.row]
-            guard let poster = posters[item.id ?? 0] else { return }
+            guard let poster = postersByGenre[item.id ?? 0] else {
+                return
+            }
             presenter?.didMovieSelected(with: item.id ?? 0, poster: poster)
         case 3:
             let item = genres[indexPath.row]

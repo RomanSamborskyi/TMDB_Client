@@ -13,7 +13,6 @@ protocol WatchlistViewProtocol: AnyObject {
 }
 
 class WatchlistViewController: UIViewController {
-
     //MARK: - property
     var presenter: WatchlistPresenterProtocol?
     private lazy var movies: [Movie] = []

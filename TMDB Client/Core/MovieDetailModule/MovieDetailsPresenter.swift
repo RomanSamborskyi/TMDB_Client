@@ -11,6 +11,7 @@ import UIKit
 protocol MovieDetailsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMovieFetched(movie: Movie, poster: UIImage)
+    func didMovieAddedToWatchlist()
 }
 
 class MovieDetailsPresenter {
@@ -26,6 +27,15 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
+    func didMovieAddedToWatchlist() {
+        Task {
+            do {
+                try await interactor.addToWatchlist()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+    }
     func didMovieFetched(movie: Movie, poster: UIImage) {
         view?.show(movie: movie, poster: poster)
     }

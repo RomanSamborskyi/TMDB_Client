@@ -30,6 +30,7 @@ class MovieDetailsViewController: UIViewController {
 private extension MovieDetailsViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor.customBackground
+        self.detailView.delegate = self
         setupScrollView()
         setupDetailsView()
     }
@@ -65,5 +66,11 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.detailView.updateView(with: movie, poster: poster)
         }
+    }
+}
+//MARK: - MovieDetailsView delegate
+extension MovieDetailsViewController: MovieDetailsViewDelegate {
+    func didMovieAddedToWatchList() {
+        presenter?.didMovieAddedToWatchlist()
     }
 }
