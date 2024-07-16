@@ -30,7 +30,7 @@ class TopCollectionViewCell: UICollectionViewCell {
         setupLayout()
     }
     required init?(coder: NSCoder) {
-        fatalError("Fatal error TopCollectionViewCell")
+        super.init(coder: coder)
     }
 }
 //MARK: - setup

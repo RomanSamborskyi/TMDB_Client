@@ -36,7 +36,7 @@ class ProfileView: UIView {
         setupLayout()
     }
     required init?(coder: NSCoder) {
-        fatalError("Fatal error from WelcomeView")
+        super.init(coder: coder)
     }
     func updateView(with user: UserProfile, with avatar: UIImage) {
         avatarView.image = avatar

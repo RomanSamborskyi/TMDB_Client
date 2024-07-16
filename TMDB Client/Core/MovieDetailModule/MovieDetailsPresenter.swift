@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol MovieDetailsPresenterProtocol: AnyObject {
-    
+    func viewControllerDidLoad()
 }
 
 class MovieDetailsPresenter {
@@ -25,5 +25,13 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
-    
+    func viewControllerDidLoad() {
+        let fetchTask = Task {
+            do {
+                try await interactor.fetchMovieDetails()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

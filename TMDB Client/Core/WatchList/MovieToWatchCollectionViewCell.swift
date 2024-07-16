@@ -61,7 +61,7 @@ class MovieToWatchCollectionViewCell: UICollectionViewCell {
         setupLayout()
     }
     required init?(coder: NSCoder) {
-        fatalError("Fatal error from MovieToWatchCollectionViewCell")
+        super.init(coder: coder)
     }
     func updateWith(movie: Movie) {
         self.titleLabel.text = movie.title ?? "no title"

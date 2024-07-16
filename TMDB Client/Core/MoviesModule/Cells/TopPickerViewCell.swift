@@ -27,7 +27,7 @@ class TopPickerViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("Fatal error TopPickerViewCell")
+        super.init(coder: coder)
     }
     
     private func setupLabel() {

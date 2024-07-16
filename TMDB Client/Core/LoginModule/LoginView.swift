@@ -51,7 +51,7 @@ class LoginView: UIView {
         setupLayout()
     }
     required init?(coder: NSCoder) {
-        fatalError("Fatal errror from LoginView")
+        super.init(coder: coder)
     }
 }
 //MARK: - UI Layout
