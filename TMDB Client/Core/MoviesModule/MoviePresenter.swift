@@ -14,6 +14,7 @@ protocol MoviePresenterProtocol: AnyObject {
     func didGenreFetched(genre: [Genre])
     func didMoviesByGenreFetched(movie: [Movie], with posters: [Int : UIImage])
     func viewControllerDidLoad(genre: Genre)
+    func didMovieSelected(with id: Int, poster: UIImage)
 }
 
 class MoviePresenter {
@@ -30,6 +31,11 @@ class MoviePresenter {
 }
 //MARK: - MoviePresenterProtocol
 extension MoviePresenter: MoviePresenterProtocol {
+    func didMovieSelected(with id: Int, poster: UIImage) {
+        DispatchQueue.main.async { [weak self] in
+            self?.router.navigateTo(movie: id, poster: poster)
+        }
+    }
     func viewControllerDidLoad(genre: Genre) {
         _ = Task {
             do {

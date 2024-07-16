@@ -106,6 +106,11 @@ extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = self.movies[indexPath.row]
+        guard let poster = self.posters[item.id ?? 0] else { return }
+        presenter?.didMovieSelected(movie: item.id ?? 0, poster: poster)
+    }
 }
 extension WatchlistViewController: MovieToWatchCellDelegate {
     func didRateButtonPressed() {

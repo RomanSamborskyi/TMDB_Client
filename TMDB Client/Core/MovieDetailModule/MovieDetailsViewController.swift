@@ -29,14 +29,41 @@ class MovieDetailsViewController: UIViewController {
 //MARK: - UI layout
 private extension MovieDetailsViewController {
     func setupLayout() {
+        self.view.backgroundColor = UIColor.customBackground
+        setupScrollView()
+        setupDetailsView()
+    }
+    func setupScrollView() {
+        let margins = self.view.layoutMarginsGuide
+        self.view.addSubview(scroll)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
         
+        NSLayoutConstraint.activate([
+            scroll.topAnchor.constraint(equalTo: margins.topAnchor),
+            scroll.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scroll.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            scroll.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+        ])
+    }
+    func setupDetailsView() {
+        self.view.addSubview(detailView)
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            detailView.topAnchor.constraint(equalTo: scroll.topAnchor),
+            detailView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            detailView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            detailView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
+            detailView.heightAnchor.constraint(equalTo: scroll.heightAnchor),
+            detailView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
+        ])
     }
 }
 //MARK: - MovieDetailsViewProtocol
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
     func show(movie: Movie, poster: UIImage) {
-        DispatchQueue.main.async {
-            
+        DispatchQueue.main.async { [weak self] in
+            self?.detailView.updateView(with: movie, poster: poster)
         }
     }
 }

@@ -11,6 +11,7 @@ import UIKit
 protocol WatchlistPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
+    func didMovieSelected(movie id: Int, poster: UIImage)
 }
 
 class WatchlistPresenter {
@@ -27,6 +28,11 @@ class WatchlistPresenter {
 }
 //MARK: - WatchListPresenterProtocol
 extension WatchlistPresenter: WatchlistPresenterProtocol {
+    func didMovieSelected(movie id: Int, poster: UIImage) {
+        DispatchQueue.main.async { [weak self] in
+            self?.router?.navigateToDetail(movie: id, poster: poster)
+        }
+    }
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
         view?.show(movies: movies, posters: posters)
     }

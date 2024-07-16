@@ -10,6 +10,7 @@ import UIKit
 
 protocol MovieDetailsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
+    func didMovieFetched(movie: Movie, poster: UIImage)
 }
 
 class MovieDetailsPresenter {
@@ -25,8 +26,11 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
+    func didMovieFetched(movie: Movie, poster: UIImage) {
+        view?.show(movie: movie, poster: poster)
+    }
     func viewControllerDidLoad() {
-        let fetchTask = Task {
+        let _ = Task {
             do {
                 try await interactor.fetchMovieDetails()
             } catch let error as AppError {

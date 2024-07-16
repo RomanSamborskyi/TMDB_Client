@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol MovieRouterProtocol: AnyObject {
-    
+    func navigateTo(movie id: Int, poster: UIImage)
 }
 
 class MovieRouter {
@@ -19,5 +19,8 @@ class MovieRouter {
 }
 //MARK: - MovieRouterProtocol
 extension MovieRouter: MovieRouterProtocol {
-    
+    func navigateTo(movie id: Int, poster: UIImage) {
+        let detailVC = MovieDetailsModuleBuilder.build(movieId: id, poster: poster)
+        view?.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }

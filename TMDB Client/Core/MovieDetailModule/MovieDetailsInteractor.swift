@@ -28,6 +28,6 @@ class MovieDetailsInteractor {
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
     func fetchMovieDetails() async throws {
-        
+        presenter?.didMovieFetched(movie: DeveloperPreview.instance.movie, poster: poster)
     }
 }
