@@ -25,7 +25,9 @@ class MovieDetailsView: UIView {
         return label
     }()
     private lazy var addToWatchlistButton: UIButton = {
-        return createButton(with: "bookmark", with: .white)
+        let button = UIButton()
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        return button
     }()
     //MARK: - lifecycle
     override init(frame: CGRect) {
@@ -38,6 +40,18 @@ class MovieDetailsView: UIView {
     func updateView(with: Movie, poster: UIImage) {
         self.posterView.image = poster
         self.movieTitleLabel.text = with.title ?? ""
+        
+        if with.isFavorite ?? false {
+            guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
+            let image = resizedImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.red)
+            self.addToWatchlistButton.setImage(image, for: .normal)
+            self.layoutIfNeeded()
+        } else {
+            guard let resizedImage = UIImage(systemName: "bookmark") else { return }
+            let image = resizedImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.white)
+            self.addToWatchlistButton.setImage(image, for: .normal)
+            self.layoutIfNeeded()
+        }
     }
 }
 //MARK: - UI layout
@@ -53,9 +67,8 @@ private extension MovieDetailsView {
         addToWatchlistButton.addTarget(self, action: #selector(saveToWatchlist), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            addToWatchlistButton.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: 30),
-            addToWatchlistButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            addToWatchlistButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            addToWatchlistButton.topAnchor.constraint(equalTo: self.topAnchor),
+            addToWatchlistButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
         ])
     }
     func setupPosterView() {
@@ -90,20 +103,12 @@ private extension MovieDetailsView {
 }
 extension MovieDetailsView {
     @objc func saveToWatchlist(selector: Selector) {
-        delegate?.didMovieAddedToWatchList()
-    }
-}
-private extension MovieDetailsView {
-    /// Function to creat button in MovieDetailView. It return a button with specific image labele, with background and color .buttonColor and corner radius = 30
-    func createButton(with label: String, with color: UIColor) -> UIButton {
-        let button: UIButton = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        if let originalImage = UIImage(systemName: label) {
-            let resizedImage = originalImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
-            button.setImage(resizedImage, for: .normal)
+        DispatchQueue.main.async {
+            self.delegate?.didMovieAddedToWatchList()
+            guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
+            let image = resizedImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.red)
+            self.addToWatchlistButton.setImage(image, for: .normal)
+            self.layoutIfNeeded()
         }
-        
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        return button
     }
 }

@@ -33,10 +33,9 @@ class GenrePickerCell: UICollectionViewCell {
     
     private func setupLabel() {
         self.contentView.addSubview(label)
-        self.label.translatesAutoresizingMaskIntoConstraints = false
-        self.label.textColor = .white
-        
-        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .gray
+      
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: self.topAnchor),
             label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),

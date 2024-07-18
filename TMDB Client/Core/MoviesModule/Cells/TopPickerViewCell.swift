@@ -33,7 +33,7 @@ class TopPickerViewCell: UICollectionViewCell {
     private func setupLabel() {
         self.contentView.addSubview(label)
         self.label.translatesAutoresizingMaskIntoConstraints = false
-        self.label.textColor = .white
+        self.label.textColor = .gray
         
         
         NSLayoutConstraint.activate([

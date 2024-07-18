@@ -45,6 +45,7 @@ struct Movie: Identifiable, Hashable, Codable, IteratorProtocol, Sequence {
     let video: Bool?
     let voteAverage: Double?
     let voteCount: Int?
+    var isFavorite: Bool?
 
     enum CodingKeys: String, CodingKey {
         case adult

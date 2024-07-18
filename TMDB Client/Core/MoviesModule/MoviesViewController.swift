@@ -235,18 +235,20 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.tab = item
             
             cell.label.font = .systemFont(ofSize: 17, weight: .regular)
-            cell.label.textAlignment = .left
             cell.label.clipsToBounds = false
             cell.label.layer.cornerRadius = 0
             cell.label.backgroundColor = .clear
+            cell.label.textColor = .gray
+            cell.label.textAlignment = .center
+            cell.label.clipsToBounds = true
+            cell.label.layer.cornerRadius = 15
+            cell.label.layer.borderWidth = 3
+            cell.label.layer.borderColor = UIColor.gray.cgColor
+            cell.label.backgroundColor = .white.withAlphaComponent(0.5)
             
             if item == selectedTab {
-                cell.label.font = .systemFont(ofSize: 20, weight: .bold)
-                cell.label.textAlignment = .center
-                cell.label.clipsToBounds = true
-                cell.label.layer.cornerRadius = 15
-                cell.label.backgroundColor = .white.withAlphaComponent(0.5)
-                
+                cell.label.textColor = .white
+                cell.label.layer.borderColor = UIColor.white.cgColor
             }
             return cell
         case 2:
@@ -261,17 +263,17 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.tab = item
             
             cell.label.font = .systemFont(ofSize: 17, weight: .regular)
-            cell.label.textAlignment = .left
-            cell.label.clipsToBounds = false
-            cell.label.layer.cornerRadius = 0
-            cell.label.backgroundColor = .clear
+            cell.label.textAlignment = .center
+            cell.label.clipsToBounds = true
+            cell.label.layer.cornerRadius = 15
+            cell.label.layer.borderWidth = 3
+            cell.label.layer.borderColor = UIColor.gray.cgColor
+            cell.label.textColor = .gray
+            cell.label.backgroundColor = .white.withAlphaComponent(0.5)
             
             if item == selectedGenre {
-                cell.label.font = .systemFont(ofSize: 17, weight: .bold)
-                cell.label.textAlignment = .center
-                cell.label.clipsToBounds = true
-                cell.label.layer.cornerRadius = 15
-                cell.label.backgroundColor = .white.withAlphaComponent(0.5)
+                cell.label.textColor = .white
+                cell.label.layer.borderColor = UIColor.white.cgColor
             }
             return cell
         default:

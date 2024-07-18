@@ -64,7 +64,9 @@ private extension MovieDetailsViewController {
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
     func show(movie: Movie, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
-            self?.detailView.updateView(with: movie, poster: poster)
+            var returnedMovie = movie
+            returnedMovie.isFavorite = false
+            self?.detailView.updateView(with: returnedMovie, poster: poster)
         }
     }
 }
