@@ -17,6 +17,10 @@ class LoginView: UIView {
     weak var delegate: LoginViewDelegate?
     var login: String? = nil
     var password: String? = nil
+    //MARK: - constraints
+    var loginViewTopConstraint: NSLayoutConstraint!
+    var logibViewTopConstraintValue: CGFloat = UIScreen.main.bounds.height / 6
+    
     private lazy var wellcomeLabel: UILabel = {
         let lbl = UILabel()
         return lbl
@@ -53,6 +57,16 @@ class LoginView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    func updateConstraint(with value: CGFloat) {
+        UIView.animate(withDuration: 0.3) {
+            let newValue = self.logibViewTopConstraintValue - value
+            self.loginViewTopConstraint.constant = newValue
+            self.layoutIfNeeded()
+        }
+    }
+    func resetConstraint() {
+        self.loginViewTopConstraint.constant = UIScreen.main.bounds.height / 6
+    }
 }
 //MARK: - UI Layout
 private extension LoginView {
@@ -72,8 +86,9 @@ private extension LoginView {
         wellcomeLabel.font = .systemFont(ofSize: 35, weight: .bold)
         wellcomeLabel.textColor = .white
         
+        loginViewTopConstraint = wellcomeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: logibViewTopConstraintValue)
         NSLayoutConstraint.activate([
-            wellcomeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height / 6),
+            loginViewTopConstraint,
             wellcomeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
     }

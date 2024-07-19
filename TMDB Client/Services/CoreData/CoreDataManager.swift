@@ -27,6 +27,15 @@ class CoreDataManager {
         }
     }
     
+    func addToCoreData(movie: Movie) {
+        let newItem = MovieEntity(context: container.viewContext)
+        newItem.id = Int32(movie.id ?? 0)
+        newItem.title = movie.title
+        save()
+    }
+    
+    
+    
     func save() {
         do {
            try container.viewContext.save()
