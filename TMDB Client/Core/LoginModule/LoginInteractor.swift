@@ -17,7 +17,7 @@ class LoginInteractor {
     //MARK: - property
     var newSession: Session? = nil
     let networkManager = NetworkManager()
-    let keyChan = KeyChanManager.instance
+    let keyChan = KeyChainManager.instance
     weak var presenter: LoginPresenterProtocol?
     
 }
@@ -107,8 +107,8 @@ extension LoginInteractor: LoginInteractorProtocol {
             throw AppError.invalidData
         }
         do {
-            try keyChan.saveSession(value: data.session_id, for: Constants.sessionKey)
-        } catch let error as KeyChanManager.KeyChanError {
+            try keyChan.save(value: data.session_id, for: Constants.sessionKey)
+        } catch let error as KeyChanError {
             print(error)
         }
         presenter?.didNewSessionStart(with: data)

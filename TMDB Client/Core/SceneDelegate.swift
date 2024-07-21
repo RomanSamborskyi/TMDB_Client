@@ -11,14 +11,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    let keyChan = KeyChanManager.instance
+    let keyChan = KeyChainManager.instance
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
       
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        if let session = keyChan.getSession(for: Constants.sessionKey) {
+        if let session = keyChan.get(for: Constants.sessionKey) {
             window?.rootViewController = TabBarController(sessionId: session)
         } else {
             window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build())

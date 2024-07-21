@@ -13,14 +13,13 @@ protocol LoginViewDelegate: AnyObject {
 
 class LoginView: UIView {
 
+    //MARK: - constraints
+    var loginViewTopConstraint: NSLayoutConstraint!
+    var logibViewTopConstraintValue: CGFloat = UIScreen.main.bounds.height / 6
     //MARK: - property
     weak var delegate: LoginViewDelegate?
     var login: String? = nil
     var password: String? = nil
-    //MARK: - constraints
-    var loginViewTopConstraint: NSLayoutConstraint!
-    var logibViewTopConstraintValue: CGFloat = UIScreen.main.bounds.height / 6
-    
     private lazy var wellcomeLabel: UILabel = {
         let lbl = UILabel()
         return lbl
@@ -57,6 +56,7 @@ class LoginView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    //MARK: - methods
     func updateConstraint(with value: CGFloat) {
         UIView.animate(withDuration: 0.3) {
             let newValue = self.logibViewTopConstraintValue - value

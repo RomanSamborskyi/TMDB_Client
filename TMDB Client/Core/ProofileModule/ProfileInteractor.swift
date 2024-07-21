@@ -51,7 +51,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             throw AppError.invalidData
         }
         
-        KeyChanManager.instance.deleteItem(for: Constants.sessionKey)
+        KeyChainManager.instance.delete(for: Constants.sessionKey)
         
         if response.success {
             print("Session delete")

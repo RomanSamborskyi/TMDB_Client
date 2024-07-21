@@ -54,7 +54,7 @@
 		6BC683352C3EC6DE0008864A /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683342C3EC6DE0008864A /* ProfileRouter.swift */; };
 		6BC683372C3EC6F30008864A /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683362C3EC6F30008864A /* ProfileModuleBuilder.swift */; };
 		6BC6833B2C3ECC9E0008864A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6833A2C3ECC9E0008864A /* ProfileView.swift */; };
-		6BC6833D2C3ECECF0008864A /* KeyChanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6833C2C3ECECF0008864A /* KeyChanManager.swift */; };
+		6BC6833D2C3ECECF0008864A /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6833C2C3ECECF0008864A /* KeyChainManager.swift */; };
 		6BC6833F2C3EE0ED0008864A /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */; };
 		6BC683412C3EE0F70008864A /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683402C3EE0F70008864A /* CacheManager.swift */; };
 		6BC683442C4079DF0008864A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683432C4079DF0008864A /* TabBarController.swift */; };
@@ -121,7 +121,7 @@
 		6BC683342C3EC6DE0008864A /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		6BC683362C3EC6F30008864A /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
 		6BC6833A2C3ECC9E0008864A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		6BC6833C2C3ECECF0008864A /* KeyChanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChanManager.swift; sourceTree = "<group>"; };
+		6BC6833C2C3ECECF0008864A /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		6BC683402C3EE0F70008864A /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		6BC683432C4079DF0008864A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 				6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */,
 				6BC683402C3EE0F70008864A /* CacheManager.swift */,
 				6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */,
-				6BC6833C2C3ECECF0008864A /* KeyChanManager.swift */,
+				6BC6833C2C3ECECF0008864A /* KeyChainManager.swift */,
 				6B0A3C9D2C4ABE2200579CA5 /* NotificationCenterManager.swift */,
 			);
 			path = Services;
@@ -414,7 +414,7 @@
 				6B44B1F92C43CB89006F0084 /* ListsRouter.swift in Sources */,
 				6B44B2012C45507C006F0084 /* WatchlistInteractor.swift in Sources */,
 				6BC6834D2C41CAA50008864A /* MoviePresenter.swift in Sources */,
-				6BC6833D2C3ECECF0008864A /* KeyChanManager.swift in Sources */,
+				6BC6833D2C3ECECF0008864A /* KeyChainManager.swift in Sources */,
 				6B56A7F32C3B2BD9001032C8 /* LoginEntity.swift in Sources */,
 				6BC6832A2C3DAA250008864A /* AppError.swift in Sources */,
 				6BC683412C3EE0F70008864A /* CacheManager.swift in Sources */,

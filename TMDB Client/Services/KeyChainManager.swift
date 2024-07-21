@@ -9,16 +9,13 @@ import UIKit
 import Security
 
 
-class KeyChanManager {
+class KeyChainManager {
     
-    static let instance = KeyChanManager()
+    static let instance = KeyChainManager()
     private init() { }
     
-    enum KeyChanError: Error {
-        case duplicateEntry, unknown(OSStatus)
-    }
-    
-    func saveSession(value: String, for key: String) throws {
+    ///Add value to keychain
+    func save(value: String, for key: String) throws {
         if let data = value.data(using: .utf8) {
             let query: [String: Any] = [
                 kSecClass as String : kSecClassGenericPassword,
@@ -39,7 +36,8 @@ class KeyChanManager {
         }
     }
     
-    func getSession(for key: String) -> String? {
+    ///Retreive value from keichain
+    func get(for key: String) -> String? {
         
         let query: [String : Any] = [
             kSecClass as String : kSecClassGenericPassword,
@@ -59,7 +57,8 @@ class KeyChanManager {
         return nil
     }
     
-    func deleteItem(for key: String) {
+    ///Delete value from keychain
+    func delete(for key: String) {
         
         let query: [String : Any] = [
             kSecClass as String : kSecClassGenericPassword,

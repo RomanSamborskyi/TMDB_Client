@@ -12,3 +12,7 @@ import Foundation
 enum AppError: Error, LocalizedError {
     case badURL, badResponse, invalidData, incorrectUserNameOrPass
 }
+
+enum KeyChanError: Error {
+    case duplicateEntry, unknown(OSStatus)
+}
