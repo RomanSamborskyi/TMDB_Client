@@ -9,7 +9,7 @@ import UIKit
 import NotificationCenter
 
 protocol LoginViewControllerProtocol: AnyObject {
-   
+   //Empty protocol for communicating with another components in the module
 }
 
 class LoginViewController: UIViewController {
