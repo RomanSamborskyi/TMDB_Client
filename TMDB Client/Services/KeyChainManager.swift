@@ -27,18 +27,17 @@ class KeyChainManager {
             let status = SecItemAdd(query as CFDictionary, nil)
             
             guard status != errSecDuplicateItem else {
-                throw KeyChanError.duplicateEntry
+                throw KeychainError.duplicateEntry
             }
             
             guard status == errSecSuccess else {
-                throw KeyChanError.unknown(status)
+                throw KeychainError.unknown(status)
             }
         }
     }
     
     ///Retreive value from keichain
     func get(for key: String) -> String? {
-        
         let query: [String : Any] = [
             kSecClass as String : kSecClassGenericPassword,
             kSecAttrAccount as String : key,

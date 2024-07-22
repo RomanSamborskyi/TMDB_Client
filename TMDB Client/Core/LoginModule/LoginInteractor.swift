@@ -108,7 +108,7 @@ extension LoginInteractor: LoginInteractorProtocol {
         }
         do {
             try keyChan.save(value: data.session_id, for: Constants.sessionKey)
-        } catch let error as KeyChanError {
+        } catch let error as KeychainError {
             print(error)
         }
         presenter?.didNewSessionStart(with: data)
