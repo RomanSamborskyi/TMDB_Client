@@ -8,7 +8,6 @@
 import UIKit
 import Security
 
-
 class KeyChainManager {
     
     static let instance = KeyChainManager()
@@ -17,7 +16,7 @@ class KeyChainManager {
     ///Add value to keychain
     func save(value: String, for key: String) throws {
         if let data = value.data(using: .utf8) {
-            let query: [String: Any] = [
+            let query: [String : Any] = [
                 kSecClass as String : kSecClassGenericPassword,
                 kSecAttrAccount as String : key,
                 kSecValueData as String : data,
@@ -38,6 +37,7 @@ class KeyChainManager {
     
     ///Retreive value from keichain
     func get(for key: String) -> String? {
+        
         let query: [String : Any] = [
             kSecClass as String : kSecClassGenericPassword,
             kSecAttrAccount as String : key,
@@ -45,15 +45,15 @@ class KeyChainManager {
             kSecMatchLimit as String : kSecMatchLimitOne
         ]
         
-        var dataTypeRef: AnyObject?
+        var value: CFTypeRef?
         
-        let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+        let status = SecItemCopyMatching(query as CFDictionary, &value)
         
-        if status == errSecSuccess, let data = dataTypeRef as? Data {
+        if status == errSecSuccess, let data = value as? Data {
             return String(data: data, encoding: .utf8)
         }
         
-        return nil
+       return nil
     }
     
     ///Delete value from keychain
