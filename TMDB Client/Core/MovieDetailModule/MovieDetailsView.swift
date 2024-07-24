@@ -20,7 +20,19 @@ class MovieDetailsView: UIView {
         let view = UIImageView()
         return view
     }()
+    private lazy var backdropView: UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
     private lazy var movieTitleLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private lazy var moviesGenreLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private lazy var moviesAdditionalInfoLabel: UILabel = {
         let label = UILabel()
         return label
     }()
@@ -37,9 +49,16 @@ class MovieDetailsView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    func updateView(with: Movie, poster: UIImage) {
+    func updateView(with: Movie, poster: UIImage, backdeopPoster: UIImage) {
+        self.backdropView.image = backdeopPoster
         self.posterView.image = poster
         self.movieTitleLabel.text = with.title ?? ""
+        self.moviesGenreLabel.text = with.genres?.map { genre in
+            genre.name
+        }
+        .joined(separator: " | ")
+        
+        self.moviesAdditionalInfoLabel.text = Array(arrayLiteral: "\(with.runtime ?? 0) min", with.releaseDate ?? "").joined(separator: " | ")
         
         if with.isFavorite ?? false {
             guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
@@ -57,8 +76,11 @@ class MovieDetailsView: UIView {
 //MARK: - UI layout
 private extension MovieDetailsView {
     func setupLayout() {
+        setupBackdropView()
         setupPosterView()
         setupTitleLabel()
+        setupGenreLabel()
+        setupAdditionalInfoLabel()
         setupButtons()
     }
     func setupButtons() {
@@ -67,8 +89,21 @@ private extension MovieDetailsView {
         addToWatchlistButton.addTarget(self, action: #selector(saveToWatchlist), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            addToWatchlistButton.topAnchor.constraint(equalTo: self.topAnchor),
-            addToWatchlistButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            addToWatchlistButton.topAnchor.constraint(equalTo: moviesAdditionalInfoLabel.bottomAnchor, constant: 20),
+            addToWatchlistButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+        ])
+    }
+    func setupBackdropView() {
+        self.addSubview(backdropView)
+        backdropView.translatesAutoresizingMaskIntoConstraints = false
+//        backdropView.layer.cornerRadius = 25
+//        backdropView.clipsToBounds = true
+        
+        NSLayoutConstraint.activate([
+            backdropView.topAnchor.constraint(equalTo: self.topAnchor),
+            backdropView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            backdropView.widthAnchor.constraint(equalTo: self.widthAnchor),
+            backdropView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.7),
         ])
     }
     func setupPosterView() {
@@ -78,7 +113,7 @@ private extension MovieDetailsView {
         posterView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
-            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
+            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 150),
             posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             posterView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
             posterView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.7),
@@ -98,6 +133,38 @@ private extension MovieDetailsView {
             movieTitleLabel.topAnchor.constraint(equalTo: posterView.bottomAnchor, constant: 20),
             movieTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             movieTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+        ])
+    }
+    func setupGenreLabel() {
+        self.addSubview(moviesGenreLabel)
+        moviesGenreLabel.translatesAutoresizingMaskIntoConstraints = false
+        moviesGenreLabel.font = .systemFont(ofSize: 18, weight: .medium)
+        moviesGenreLabel.textColor = .white
+        moviesGenreLabel.textAlignment = .center
+        moviesGenreLabel.numberOfLines = 3
+        moviesGenreLabel.minimumScaleFactor = 0.6
+        moviesGenreLabel.clipsToBounds = true
+        
+        NSLayoutConstraint.activate([
+            moviesGenreLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: 10),
+            moviesGenreLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            moviesGenreLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+        ])
+    }
+    func setupAdditionalInfoLabel() {
+        self.addSubview(moviesAdditionalInfoLabel)
+        moviesAdditionalInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        moviesAdditionalInfoLabel.font = .systemFont(ofSize: 18, weight: .medium)
+        moviesAdditionalInfoLabel.textColor = .white
+        moviesAdditionalInfoLabel.textAlignment = .center
+        moviesAdditionalInfoLabel.numberOfLines = 3
+        moviesAdditionalInfoLabel.minimumScaleFactor = 0.6
+        moviesAdditionalInfoLabel.clipsToBounds = true
+        
+        NSLayoutConstraint.activate([
+            moviesAdditionalInfoLabel.topAnchor.constraint(equalTo: moviesGenreLabel.bottomAnchor, constant: 10),
+            moviesAdditionalInfoLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            moviesAdditionalInfoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
         ])
     }
 }

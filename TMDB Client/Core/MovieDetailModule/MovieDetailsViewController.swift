@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MovieDetailsViewProtocol: AnyObject {
-    func show(movie: Movie, poster: UIImage)
+    func show(movie: Movie, poster: UIImage, backdropPoster: UIImage)
 }
 
 class MovieDetailsViewController: UIViewController {
@@ -40,7 +40,7 @@ private extension MovieDetailsViewController {
         scroll.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            scroll.topAnchor.constraint(equalTo: margins.topAnchor),
+            scroll.topAnchor.constraint(equalTo: self.view.topAnchor),
             scroll.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             scroll.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             scroll.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
@@ -62,11 +62,11 @@ private extension MovieDetailsViewController {
 }
 //MARK: - MovieDetailsViewProtocol
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
-    func show(movie: Movie, poster: UIImage) {
+    func show(movie: Movie, poster: UIImage, backdropPoster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             var returnedMovie = movie
             returnedMovie.isFavorite = false
-            self?.detailView.updateView(with: returnedMovie, poster: poster)
+            self?.detailView.updateView(with: returnedMovie, poster: poster, backdeopPoster: backdropPoster)
         }
     }
 }

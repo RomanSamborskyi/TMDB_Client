@@ -10,7 +10,7 @@ import UIKit
 
 protocol MovieDetailsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
-    func didMovieFetched(movie: Movie, poster: UIImage)
+    func didMovieFetched(movie: Movie, poster: UIImage, backdropPOster: UIImage)
     func didMovieAddedToWatchlist()
 }
 
@@ -36,8 +36,8 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
             }
         }
     }
-    func didMovieFetched(movie: Movie, poster: UIImage) {
-        view?.show(movie: movie, poster: poster)
+    func didMovieFetched(movie: Movie, poster: UIImage, backdropPOster: UIImage) {
+        view?.show(movie: movie, poster: poster, backdropPoster: backdropPOster)
     }
     func viewControllerDidLoad() {
         let _ = Task {
