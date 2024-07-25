@@ -21,9 +21,13 @@ class MovieDetailsViewController: UIViewController {
     private lazy var detailView = MovieDetailsView()
     //MARK: - lifecycle
     override func viewDidLoad() {
+        self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
         presenter?.viewControllerDidLoad()
         setupLayout()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
 }
 //MARK: - UI layout
@@ -31,6 +35,7 @@ private extension MovieDetailsViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor.customBackground
         self.detailView.delegate = self
+        scroll.contentInsetAdjustmentBehavior = .never
         setupScrollView()
         setupDetailsView()
     }
@@ -47,7 +52,7 @@ private extension MovieDetailsViewController {
         ])
     }
     func setupDetailsView() {
-        self.view.addSubview(detailView)
+        self.scroll.addSubview(detailView)
         detailView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -56,7 +61,7 @@ private extension MovieDetailsViewController {
             detailView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             detailView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
             detailView.heightAnchor.constraint(equalTo: scroll.heightAnchor),
-            detailView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
+            detailView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height / 6),
         ])
     }
 }

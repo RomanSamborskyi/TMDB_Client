@@ -36,6 +36,14 @@ class MovieDetailsView: UIView {
         let label = UILabel()
         return label
     }()
+    private lazy var overviewTextLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private lazy var overviewLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
     private lazy var addToWatchlistButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -58,8 +66,9 @@ class MovieDetailsView: UIView {
         }
         .joined(separator: " | ")
         
-        self.moviesAdditionalInfoLabel.text = Array(arrayLiteral: "\(with.runtime ?? 0) min", with.releaseDate ?? "").joined(separator: " | ")
-        
+        self.moviesAdditionalInfoLabel.text = Array(arrayLiteral: "\(with.runtime ?? 0) min", with.releaseDate ?? "")
+            .joined(separator: " | ")
+        self.overviewLabel.text = with.overview ?? ""
         if with.isFavorite ?? false {
             guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
             let image = resizedImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.red)
@@ -82,6 +91,35 @@ private extension MovieDetailsView {
         setupGenreLabel()
         setupAdditionalInfoLabel()
         setupButtons()
+        setupOverviewTextLabel()
+        setupOverviewLabel()
+    }
+    func setupOverviewTextLabel() {
+        self.addSubview(overviewTextLabel)
+        overviewTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        overviewTextLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        overviewTextLabel.textColor = .white
+        overviewTextLabel.text = "Overview"
+        
+        NSLayoutConstraint.activate([
+            overviewTextLabel.topAnchor.constraint(equalTo: addToWatchlistButton.bottomAnchor, constant: 30),
+            overviewTextLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+        ])
+    }
+    func setupOverviewLabel() {
+        self.addSubview(overviewLabel)
+        overviewLabel.translatesAutoresizingMaskIntoConstraints = false
+        overviewLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        overviewLabel.textColor = .white
+        overviewLabel.textAlignment = .left
+        overviewLabel.numberOfLines = 0
+        overviewLabel.text = "Overview"
+        
+        NSLayoutConstraint.activate([
+            overviewLabel.topAnchor.constraint(equalTo: overviewTextLabel.bottomAnchor, constant: 15),
+            overviewLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            overviewLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+        ])
     }
     func setupButtons() {
         self.addSubview(addToWatchlistButton)
