@@ -40,7 +40,6 @@ private extension MovieDetailsViewController {
         setupDetailsView()
     }
     func setupScrollView() {
-        let margins = self.view.layoutMarginsGuide
         self.view.addSubview(scroll)
         scroll.translatesAutoresizingMaskIntoConstraints = false
         
@@ -48,7 +47,7 @@ private extension MovieDetailsViewController {
             scroll.topAnchor.constraint(equalTo: self.view.topAnchor),
             scroll.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             scroll.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            scroll.bottomAnchor.constraint(equalTo: margins.bottomAnchor)
+            scroll.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
     func setupDetailsView() {
