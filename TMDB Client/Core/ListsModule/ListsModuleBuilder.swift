@@ -9,9 +9,9 @@ import UIKit
 
 
 class ListsModuleBuilder {
-    static func build() -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader) -> UIViewController {
         let view = ListsViewController()
-        let interactor = ListsInterator()
+        let interactor = ListsInterator(networkManager: networkManager, imageDownloader: imageDownloader)
         let router = ListsRouter()
         let presenter = ListsPresenter(interactor: interactor, router: router)
         

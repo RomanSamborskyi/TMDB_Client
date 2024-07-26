@@ -9,9 +9,9 @@ import UIKit
 
 
 class ProfileModuleBuilder {
-    static func build(sessionId: String) -> UIViewController {
+    static func build(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader) -> UIViewController {
         let view = ProfileViewController()
-        let interactor = ProfileInteractor(sessionId: sessionId)
+        let interactor = ProfileInteractor(sessionId: sessionId, networkManager: networkManager, imageDownloader: imageDownloader)
         let router = ProfileRouter()
         let presenter = ProfilePresenter(interactor: interactor, router: router)
         

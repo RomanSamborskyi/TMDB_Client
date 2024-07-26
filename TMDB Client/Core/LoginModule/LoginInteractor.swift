@@ -23,6 +23,7 @@ class LoginInteractor {
 }
 //MARK: - LoginInteractorProtocol
 extension LoginInteractor: LoginInteractorProtocol {
+    //Receive access token
     func sendLoginRequestwith(login: String, password: String) async throws {
         
         let requestToken = try await withThrowingTaskGroup(of: TokenResponse.self) { group in
@@ -49,7 +50,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             }
             return returnedToken
         }
-        
+        //Validate token with username and password
         let validToken = try await withThrowingTaskGroup(of: TokenResponse.self) { group in
             guard let  url = URL(string: Authantication.session_with_login(key: Constants.apiKey).url) else {
                 throw AppError.badURL
@@ -85,7 +86,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             self.newSession = try await createSession(with: token)
         }
     }
-    
+    //Create session with valid access token and save it in to keychain
     func createSession(with token: String) async throws -> Session? {
         guard let url = URL(string: Authantication.newSession(key: Constants.apiKey).url) else {
             throw AppError.badURL

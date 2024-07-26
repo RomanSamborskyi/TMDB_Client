@@ -10,13 +10,15 @@ import UIKit
 
 
 class TabBarController: UITabBarController {
-    
+    //MARK: - managers
+    private var networkManager = NetworkManager()
+    private var imageDownloader = ImageDownloader()
     //MARK: - property
     let sessionId: String
-    private lazy var profileTab = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: sessionId))
-    private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build())
-    private lazy var listsTab = UINavigationController(rootViewController: ListsModuleBuilder.build())
-    private lazy var watchListTab = UINavigationController(rootViewController: WatchlistModuleBuilder.build())
+    private lazy var profileTab = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: self.sessionId, networkManager: self.networkManager, imageDownloader: self.imageDownloader))
+    private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader))
+    private lazy var listsTab = UINavigationController(rootViewController: ListsModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader))
+    private lazy var watchListTab = UINavigationController(rootViewController: WatchlistModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader))
     //MARK: - lifecycle
     init(sessionId: String) {
         self.sessionId = sessionId

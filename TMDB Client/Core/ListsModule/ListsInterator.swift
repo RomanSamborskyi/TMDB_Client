@@ -15,14 +15,19 @@ protocol ListsInteratorProtocol: AnyObject {
 class ListsInterator {
     //MARK: - property
     weak var presenter: ListsPresenterProtocol?
-    let networkManager = NetworkManager()
-    let imageDownloader = ImageDownloader()
+    let networkManager: NetworkManager
+    let imageDownloader: ImageDownloader
+    
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+        self.networkManager = networkManager
+        self.imageDownloader = imageDownloader
+    }
 }
 //MARK: - ListsIteratorProtocol
 extension ListsInterator: ListsInteratorProtocol {
     func fetchLists() async throws {
         
-        guard let url = URL(string: AccountUrl.lists(key: Constants.apiKey, accountId: 00000).url) else {
+        guard let url = URL(string: AccountUrl.lists(key: Constants.apiKey, accountId: 19306725).url) else {
             throw AppError.badURL
         }
         

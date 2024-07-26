@@ -17,11 +17,13 @@ class ProfileInteractor {
     //MARK: - property
     weak var presenter: ProfilePresenterProtocol?
     let sessionId: String
-    let networkManager = NetworkManager()
-    let imageDownloader = ImageDownloader()
+    let networkManager: NetworkManager
+    let imageDownloader: ImageDownloader
     
-    init(sessionId: String) {
+    init(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
         self.sessionId = sessionId
+        self.networkManager = networkManager
+        self.imageDownloader = ImageDownloader()
     }
     
 }

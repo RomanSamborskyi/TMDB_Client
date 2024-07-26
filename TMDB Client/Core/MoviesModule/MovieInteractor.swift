@@ -16,8 +16,13 @@ protocol MovieInteractorProtocol: AnyObject {
 class MovieInteractor {
     //MARK: - property
     weak var presenter: MoviePresenterProtocol?
-    let networkManager = NetworkManager()
-    let imageDownloader = ImageDownloader()
+    let networkManager: NetworkManager
+    let imageDownloader: ImageDownloader
+    
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+        self.networkManager = networkManager
+        self.imageDownloader = imageDownloader
+    }
 }
 //MARK: - MovieInteractorProtocol
 extension MovieInteractor: MovieInteractorProtocol {
