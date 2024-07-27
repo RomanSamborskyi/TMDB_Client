@@ -12,6 +12,7 @@ protocol WatchlistPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
     func didMovieSelected(movie id: Int, poster: UIImage)
+    func viewControllerWillAppear()
 }
 
 class WatchlistPresenter {
@@ -28,6 +29,9 @@ class WatchlistPresenter {
 }
 //MARK: - WatchListPresenterProtocol
 extension WatchlistPresenter: WatchlistPresenterProtocol {
+    func viewControllerWillAppear() {
+        addObserver()
+    }
     func didMovieSelected(movie id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             self?.router?.navigateToDetail(movie: id, poster: poster)
@@ -37,6 +41,21 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
         view?.show(movies: movies, posters: posters)
     }
     func viewControllerDidLoad() {
+        Task {
+            do {
+                try await interactor?.fetchWatchList()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+//MARK: - watchlist observer
+extension WatchlistPresenter {
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didMovieAddedToWatchList), name: .movieAddedToWatchList, object: nil)
+    }
+    @objc func didMovieAddedToWatchList(selector: Notification ) {
         Task {
             do {
                 try await interactor?.fetchWatchList()

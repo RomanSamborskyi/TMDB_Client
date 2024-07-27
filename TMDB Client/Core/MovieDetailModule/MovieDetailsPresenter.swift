@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import NotificationCenter
 
 protocol MovieDetailsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
@@ -35,6 +35,7 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
                 print(error.localizedDescription)
             }
         }
+        NotificationCenter.default.post(name: .movieAddedToWatchList, object: nil)
     }
     func didMovieFetched(movie: Movie, poster: UIImage, backdropPOster: UIImage) {
         view?.show(movie: movie, poster: poster, backdropPoster: backdropPOster)

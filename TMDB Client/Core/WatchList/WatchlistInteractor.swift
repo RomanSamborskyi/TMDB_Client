@@ -49,7 +49,7 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
             var returnedMovies: [Movie] = []
             
             for try await movies in group {
-                returnedMovies.append(contentsOf: movies)
+                returnedMovies = movies
             }
             return returnedMovies
         }

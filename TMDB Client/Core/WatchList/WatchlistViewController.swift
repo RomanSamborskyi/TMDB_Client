@@ -36,6 +36,9 @@ class WatchlistViewController: UIViewController {
         setupLayout()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.viewControllerWillAppear()
+    }
 }
 //MARK: - UI layout
 private extension WatchlistViewController {
@@ -81,7 +84,7 @@ private extension WatchlistViewController {
 extension WatchlistViewController: WatchlistViewProtocol {
     func show(movies: [Movie], posters: [Int : UIImage]) {
         DispatchQueue.main.async { [weak self] in
-            self?.movies.append(contentsOf: movies)
+            self?.movies = movies
             self?.posters.merge(posters, uniquingKeysWith: { image, _ in image})
             self?.movieCollection.reloadData()
         }
