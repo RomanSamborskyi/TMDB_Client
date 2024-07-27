@@ -41,7 +41,7 @@ extension ListsInterator: ListsInteratorProtocol {
             throw AppError.invalidData
         }
         if let list = result.results {
-            print(list)
+            presenter?.didListsFetched(lists: list)
         }
     }
 }

@@ -86,7 +86,6 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             for try await userInfo in group {
                 returnedUser = userInfo
             }
-            
            return returnedUser
         }
         

@@ -9,7 +9,7 @@ import Foundation
 
 
 struct AddToWatchlist: Codable {
-   let media_type: String
+   let media_type: String?
    let media_id: Int
    let watchlist: Bool
 }

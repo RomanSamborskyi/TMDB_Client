@@ -17,10 +17,6 @@ class WatchlistViewController: UIViewController {
     var presenter: WatchlistPresenterProtocol?
     private lazy var movies: [Movie] = []
     private lazy var posters: [Int : UIImage] = [:]
-    private lazy var scroll: UIScrollView = {
-        let view = UIScrollView()
-        return view
-    }()
     private lazy var movieCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
@@ -33,6 +29,7 @@ class WatchlistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewControllerDidLoad()
+        presenter?.viewControllerWillAppear()
         setupLayout()
         
     }
@@ -49,34 +46,21 @@ private extension WatchlistViewController {
         self.view.backgroundColor = UIColor.customBackground
         movieCollection.dataSource = self
         movieCollection.delegate = self
-        setupScrollView()
         setupCollectionView()
     }
-    func setupScrollView() {
-        self.view.addSubview(scroll)
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        
-        let margins = self.view.layoutMarginsGuide
-        
-        NSLayoutConstraint.activate([
-            scroll.topAnchor.constraint(equalTo: margins.topAnchor),
-            scroll.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            scroll.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            scroll.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
-        ])
-    }
+    
     func setupCollectionView() {
-        self.scroll.addSubview(movieCollection)
+        self.view.addSubview(movieCollection)
         movieCollection.translatesAutoresizingMaskIntoConstraints = false
         movieCollection.backgroundColor = UIColor.customBackground
         
         NSLayoutConstraint.activate([
-            movieCollection.topAnchor.constraint(equalTo: scroll.topAnchor),
-            movieCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
-            movieCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
-            movieCollection.widthAnchor.constraint(equalTo: scroll.widthAnchor),
-            movieCollection.heightAnchor.constraint(equalTo: scroll.heightAnchor),
-            movieCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
+            movieCollection.topAnchor.constraint(equalTo: self.view.topAnchor),
+            movieCollection.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            movieCollection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            movieCollection.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            movieCollection.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            movieCollection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
 }

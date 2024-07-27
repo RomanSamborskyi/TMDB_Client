@@ -71,7 +71,7 @@ extension MoviePresenter: MoviePresenterProtocol {
                 print(error)
             }
         }
-        Task {
+        Task(priority: .userInitiated) {
             do {
                 try await interactor.fetchGenres()
             } catch let error as AppError {

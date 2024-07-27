@@ -42,6 +42,7 @@ private extension MovieDetailsViewController {
     func setupScrollView() {
         self.view.addSubview(scroll)
         scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.showsVerticalScrollIndicator = false
         
         NSLayoutConstraint.activate([
             scroll.topAnchor.constraint(equalTo: self.view.topAnchor),

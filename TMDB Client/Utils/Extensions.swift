@@ -24,5 +24,8 @@ extension UIImage {
     }
 }
 
-
-
+extension Notification.Name {
+    static var movieAddedToWatchList: Notification.Name {
+        return .init("movieAddedToWatchList")
+    }
+}

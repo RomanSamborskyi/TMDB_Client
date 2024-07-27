@@ -10,6 +10,7 @@ import UIKit
 
 protocol ListsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
+    func didListsFetched(lists: [List])
 }
 
 
@@ -35,5 +36,8 @@ extension ListsPresenter: ListsPresenterProtocol {
                 print(error)
             }
         }
+    }
+    func didListsFetched(lists: [List]) {
+        view?.show(lists: lists)
     }
 }
