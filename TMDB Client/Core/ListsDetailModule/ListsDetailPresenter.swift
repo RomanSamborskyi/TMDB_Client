@@ -9,7 +9,7 @@ import Foundation
 
 
 protocol ListsDetailPresenterProtocol: AnyObject {
-    
+    func didViewControllerLoad()
 }
 
 class ListsDetailPresenter {
@@ -25,5 +25,13 @@ class ListsDetailPresenter {
 }
 //MARK: - ListsDetailPresenterProtocol
 extension ListsDetailPresenter: ListsDetailPresenterProtocol {
-    
+    func didViewControllerLoad() {
+        Task {
+            do {
+                try await interactor?.fetchDetails()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

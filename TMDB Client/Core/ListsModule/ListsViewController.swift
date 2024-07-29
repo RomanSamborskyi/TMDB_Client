@@ -77,4 +77,8 @@ extension ListsViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.list = self.lists[indexPath.row]
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = self.lists[indexPath.row]
+        self.presenter?.didListsSelected(list: item.id ?? 0)
+    }
 }

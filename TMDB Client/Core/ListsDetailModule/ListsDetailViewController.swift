@@ -18,7 +18,8 @@ class ListsDetailViewController: UIViewController {
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.presenter?.didViewControllerLoad()
+        self.view.backgroundColor = .green
     }
 }
 //MARK: - ListsViewProtocol

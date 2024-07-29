@@ -9,9 +9,9 @@ import UIKit
 
 
 class ListsDetailModuleBuilder {
-    static func build() -> UIViewController {
+    static func build(list id: Int) -> UIViewController {
         let view = ListsDetailViewController()
-        let interactor = ListsDetailInteractor()
+        let interactor = ListsDetailInteractor(listId: id)
         let router = ListsDetailRouter()
         let presenter = ListsDetailPresenter(interactor: interactor, router: router)
         

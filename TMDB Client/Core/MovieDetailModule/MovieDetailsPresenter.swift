@@ -28,7 +28,7 @@ class MovieDetailsPresenter {
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
     func didMovieAddedToWatchlist() {
-        Task {
+        Task(priority: .userInitiated) {
             do {
                 try await interactor.addToWatchlist()
             } catch let error as AppError {

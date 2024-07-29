@@ -8,6 +8,19 @@
 import Foundation
 
 
+enum ListURL {
+    case listDetail(listsId: Int, apiKey: String), lists
+    
+    var url: String {
+        switch self {
+        case .listDetail(let id, let key):
+            return "https://api.themoviedb.org/3/list/\(id)?api_key=\(key)"
+        case .lists:
+            return ""
+        }
+    }
+}
+
 enum Authantication {
     case token_request(key: String), session_with_login(key: String), newSession(key: String), deleteSession(key: String)
     

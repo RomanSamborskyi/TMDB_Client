@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol ListsRouterProtocol: AnyObject {
-    
+    func navigateToList(with id: Int)
 }
 
 class ListsRouter {
@@ -18,5 +18,8 @@ class ListsRouter {
 }
 //MARK: - ListsRouterProtocol
 extension ListsRouter: ListsRouterProtocol {
-    
+    func navigateToList(with id: Int) {
+        let detailVC = ListsDetailModuleBuilder.build(list: id)
+        self.view?.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
