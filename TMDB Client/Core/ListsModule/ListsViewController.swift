@@ -20,7 +20,7 @@ class ListsViewController: UIViewController {
     private lazy var collectionCell: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
-        flow.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 4)
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 5.5)
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(ListsCollectionViewCell.self, forCellWithReuseIdentifier: ListsCollectionViewCell.identifier)
         return cell
@@ -30,10 +30,7 @@ class ListsViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .customBackground
         presenter?.viewControllerDidLoad()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.setupLayout()
-        }
-        
+        setupLayout()
     }
 }
 //MARK: - UI layout
@@ -65,6 +62,7 @@ extension ListsViewController: ListsViewControllerProtocol {
     func show(lists: [List]) {
         DispatchQueue.main.async { [weak self] in
             self?.lists = lists
+            self?.collectionCell.reloadData()
         }
     }
 }
