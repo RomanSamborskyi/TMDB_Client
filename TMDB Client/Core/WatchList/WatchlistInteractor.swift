@@ -15,6 +15,7 @@ protocol WatchlistInteractorProtocol: AnyObject {
 class WatchlistInteractor {
     //MARK: - property
     weak var presenter: WatchlistPresenterProtocol?
+    private var keychain = KeyChainManager.instance
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     
@@ -27,7 +28,11 @@ class WatchlistInteractor {
 extension WatchlistInteractor: WatchlistInteractorProtocol {
     func fetchWatchList() async throws {
         
-        guard let url = URL(string: AccountUrl.watchList(accountId: 19306725, key: Constants.apiKey).url) else {
+        guard let acoountID = Int(keychain.get(for: Constants.account_id) ?? "") else {
+            throw AppError.incorrectAccoutId
+        }
+        
+        guard let url = URL(string: AccountUrl.watchList(accountId: acoountID, key: Constants.apiKey).url) else {
             throw AppError.badURL
         }
         

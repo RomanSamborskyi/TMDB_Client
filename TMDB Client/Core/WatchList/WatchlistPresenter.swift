@@ -26,6 +26,9 @@ class WatchlistPresenter {
         self.interactor = interactor
         self.router = router
     }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 //MARK: - WatchListPresenterProtocol
 extension WatchlistPresenter: WatchlistPresenterProtocol {

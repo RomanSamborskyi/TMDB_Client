@@ -5,11 +5,12 @@
 //  Created by Roman Samborskyi on 27.07.2024.
 //
 
-import Foundation
+import UIKit
 
 
 protocol ListsDetailPresenterProtocol: AnyObject {
     func didViewControllerLoad()
+    func didListFetched(list: ListDetail, posters: [Int : UIImage])
 }
 
 class ListsDetailPresenter {
@@ -25,6 +26,9 @@ class ListsDetailPresenter {
 }
 //MARK: - ListsDetailPresenterProtocol
 extension ListsDetailPresenter: ListsDetailPresenterProtocol {
+    func didListFetched(list: ListDetail, posters: [Int : UIImage]) {
+        view?.showListDetail(list: list, posters: posters)
+    }
     func didViewControllerLoad() {
         Task {
             do {

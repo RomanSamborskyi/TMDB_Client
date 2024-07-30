@@ -16,6 +16,7 @@ protocol ProfileInteractorProtocol: AnyObject {
 class ProfileInteractor {
     //MARK: - property
     weak var presenter: ProfilePresenterProtocol?
+    private var keychain = KeyChainManager.instance
     let sessionId: String
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
@@ -52,8 +53,10 @@ extension ProfileInteractor: ProfileInteractorProtocol {
         guard let response = try await networkManager.fetchGET(type: DeleteSession.self, session: session, request: request) else {
             throw AppError.invalidData
         }
-        
-        KeyChainManager.instance.delete(for: Constants.sessionKey)
+        //Delete session ID
+        keychain.delete(for: Constants.sessionKey)
+        //Delete account ID
+        keychain.delete(for: Constants.account_id)
         
         if response.success {
             print("Session delete")
@@ -123,6 +126,12 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             throw AppError.invalidData
         }
         
+        
+        do {
+            try keychain.save(value: String(user.id), for: Constants.account_id)
+        } catch let error {
+            print("error of saving account ID: \(error.localizedDescription)")
+        }
         presenter?.didUserFetched(user: user, with: avatar)
     }
 }

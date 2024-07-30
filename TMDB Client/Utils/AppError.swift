@@ -10,7 +10,7 @@ import Foundation
 
 
 enum AppError: Error, LocalizedError {
-    case badURL, badResponse, invalidData, incorrectUserNameOrPass
+    case badURL, badResponse, invalidData, incorrectUserNameOrPass, incorrectAccoutId
 }
 
 enum KeychainError: Error {

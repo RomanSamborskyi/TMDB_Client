@@ -15,6 +15,7 @@ protocol ListsInteratorProtocol: AnyObject {
 class ListsInterator {
     //MARK: - property
     weak var presenter: ListsPresenterProtocol?
+    private var keychain = KeyChainManager.instance
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     
@@ -27,7 +28,11 @@ class ListsInterator {
 extension ListsInterator: ListsInteratorProtocol {
     func fetchLists() async throws {
         
-        guard let url = URL(string: AccountUrl.lists(key: Constants.apiKey, accountId: 19306725).url) else {
+        guard let acoountID = Int(keychain.get(for: Constants.account_id) ?? "") else {
+            throw AppError.incorrectAccoutId
+        }
+        
+        guard let url = URL(string: AccountUrl.lists(key: Constants.apiKey, accountId: acoountID).url) else {
             throw AppError.badURL
         }
         
