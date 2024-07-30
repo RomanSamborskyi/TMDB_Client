@@ -11,6 +11,7 @@ import UIKit
 protocol ListsDetailPresenterProtocol: AnyObject {
     func didViewControllerLoad()
     func didListFetched(list: ListDetail, posters: [Int : UIImage])
+    func didMovieSelected(movie: Movie, poster: UIImage)
 }
 
 class ListsDetailPresenter {
@@ -26,6 +27,11 @@ class ListsDetailPresenter {
 }
 //MARK: - ListsDetailPresenterProtocol
 extension ListsDetailPresenter: ListsDetailPresenterProtocol {
+    func didMovieSelected(movie: Movie, poster: UIImage) {
+        DispatchQueue.main.async { [weak self] in
+            self?.router?.navigateTo(movie: movie, poster: poster)
+        }
+    }
     func didListFetched(list: ListDetail, posters: [Int : UIImage]) {
         view?.showListDetail(list: list, posters: posters)
     }

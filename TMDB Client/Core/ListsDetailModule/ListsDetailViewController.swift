@@ -77,4 +77,11 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
         cell.poster = self.posters[item.id ?? 0]
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = self.movies[indexPath.row]
+        guard let itemPoster = self.posters[item.id ?? 0] else {
+            return
+        }
+        presenter?.didMovieSelected(movie: item, poster: itemPoster)
+    }
 }
