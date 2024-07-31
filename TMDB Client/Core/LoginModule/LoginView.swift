@@ -20,6 +20,10 @@ class LoginView: UIView {
     weak var delegate: LoginViewDelegate?
     var login: String? = nil
     var password: String? = nil
+    private lazy var logoImage: UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
     private lazy var wellcomeLabel: UILabel = {
         let lbl = UILabel()
         return lbl
@@ -71,7 +75,8 @@ class LoginView: UIView {
 //MARK: - UI Layout
 private extension LoginView {
     func setupLayout() {
-        setupWellcomeLabel()
+       // setupWellcomeLabel()
+        setupLogoImageView()
         setupLoginLabel()
         setupLoginTextField()
         setupPasswordLabel()
@@ -79,10 +84,25 @@ private extension LoginView {
         setupLoginButton()
         setupISSecureButton()
     }
+    func setupLogoImageView() {
+        self.addSubview(logoImage)
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
+        logoImage.image = UIImage(named: "logo")
+        logoImage.contentMode = .scaleAspectFill
+        
+        loginViewTopConstraint = logoImage.topAnchor.constraint(equalTo: self.topAnchor, constant: logibViewTopConstraintValue)
+        NSLayoutConstraint.activate([
+            loginViewTopConstraint,
+            logoImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            logoImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
+            logoImage.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.1)
+        ])
+        
+    }
     func setupWellcomeLabel() {
         self.addSubview(wellcomeLabel)
         wellcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-        wellcomeLabel.text = "TMDB Client"
+        wellcomeLabel.text = ""
         wellcomeLabel.font = .systemFont(ofSize: 35, weight: .bold)
         wellcomeLabel.textColor = .white
         
@@ -100,7 +120,7 @@ private extension LoginView {
         loginLabel.textColor = .lightGray
         
         NSLayoutConstraint.activate([
-            loginLabel.topAnchor.constraint(equalTo: wellcomeLabel.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
+            loginLabel.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
             loginLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIScreen.main.bounds.height * 0.04),
             loginLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 6),
             loginLabel.heightAnchor.constraint(equalToConstant: 30)

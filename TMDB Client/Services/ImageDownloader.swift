@@ -15,7 +15,6 @@ class ImageDownloader {
     func fetchImage(with session: URLSession, request: URLRequest) async throws -> UIImage? {
         
         if let image = cache.getImage(for: request.url?.description ?? "") {
-            print("Image from cache")
             return image
         } else {
             let (data, response) = try await session.data(for: request)
@@ -25,7 +24,6 @@ class ImageDownloader {
                 throw AppError.invalidData
             }
             cache.add(image: image, with: request.url?.description ?? "")
-            print("New image")
             return image
         }
     }
