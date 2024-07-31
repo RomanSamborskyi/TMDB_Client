@@ -75,7 +75,6 @@ class LoginView: UIView {
 //MARK: - UI Layout
 private extension LoginView {
     func setupLayout() {
-       // setupWellcomeLabel()
         setupLogoImageView()
         setupLoginLabel()
         setupLoginTextField()
@@ -83,6 +82,7 @@ private extension LoginView {
         setupPasswordTextField()
         setupLoginButton()
         setupISSecureButton()
+        setupWellcomeLabel()
     }
     func setupLogoImageView() {
         self.addSubview(logoImage)
@@ -102,14 +102,16 @@ private extension LoginView {
     func setupWellcomeLabel() {
         self.addSubview(wellcomeLabel)
         wellcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-        wellcomeLabel.text = ""
-        wellcomeLabel.font = .systemFont(ofSize: 35, weight: .bold)
+        wellcomeLabel.text = "This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB"
+        wellcomeLabel.font = .systemFont(ofSize: 12, weight: .regular)
+        wellcomeLabel.textAlignment = .center
+        wellcomeLabel.numberOfLines = 0
         wellcomeLabel.textColor = .white
         
-        loginViewTopConstraint = wellcomeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: logibViewTopConstraintValue)
         NSLayoutConstraint.activate([
-            loginViewTopConstraint,
+            wellcomeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30),
             wellcomeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            wellcomeLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
         ])
     }
     func setupLoginLabel() {
