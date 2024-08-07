@@ -32,7 +32,7 @@ class MovieRateView: UIView {
 //MARK: - ui layout
 private extension MovieRateView {
     func setupLayout() {
-        
+        setupButtonsLayot()
     }
     func setupButtonsLayot() {
         self.addSubview(button1)
@@ -52,16 +52,16 @@ private extension MovieRateView {
             button1.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             
             button2.topAnchor.constraint(equalTo: self.topAnchor),
-            button2.leadingAnchor.constraint(equalTo: button1.leadingAnchor),
+            button2.leadingAnchor.constraint(equalTo: button1.trailingAnchor),
             
             button3.topAnchor.constraint(equalTo: self.topAnchor),
-            button3.leadingAnchor.constraint(equalTo: button2.leadingAnchor),
+            button3.leadingAnchor.constraint(equalTo: button2.trailingAnchor),
             
             button4.topAnchor.constraint(equalTo: self.topAnchor),
-            button4.leadingAnchor.constraint(equalTo: button3.leadingAnchor),
+            button4.leadingAnchor.constraint(equalTo: button3.trailingAnchor),
             
             button5.topAnchor.constraint(equalTo: self.topAnchor),
-            button5.leadingAnchor.constraint(equalTo: button4.leadingAnchor),
+            button5.leadingAnchor.constraint(equalTo: button4.trailingAnchor),
         ])
     }
 }

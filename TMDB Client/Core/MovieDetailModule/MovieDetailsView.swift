@@ -101,7 +101,8 @@ private extension MovieDetailsView {
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-        
+            buttonsView.topAnchor.constraint(equalTo: moviesAdditionalInfoLabel.bottomAnchor, constant: 20),
+            buttonsView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
         ])
     }
     func setupOverviewTextLabel() {
