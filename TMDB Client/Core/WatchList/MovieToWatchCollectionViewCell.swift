@@ -46,9 +46,6 @@ class MovieToWatchCollectionViewCell: UICollectionViewCell {
         let lbl = UILabel()
         return lbl
     }()
-    private lazy var rateButton: UIButton = {
-        return createButton(with: "star.circle", with: .white)
-    }()
     private lazy var favoriteButton: UIButton = {
         return createButton(with: "heart.circle", with: .white)
     }()
@@ -139,9 +136,6 @@ private extension MovieToWatchCollectionViewCell {
         ])
     }
     func setupButtons() {
-        self.contentView.addSubview(rateButton)
-        rateButton.translatesAutoresizingMaskIntoConstraints = false
-        rateButton.addTarget(self, action: #selector(rateButtonPressed), for: .touchUpInside)
         
         self.contentView.addSubview(favoriteButton)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -152,13 +146,8 @@ private extension MovieToWatchCollectionViewCell {
         addToListButton.addTarget(self, action: #selector(adddToListPressed), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            rateButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 15),
-            rateButton.leadingAnchor.constraint(equalTo: posterImage.trailingAnchor, constant: 15),
-            rateButton.widthAnchor.constraint(equalToConstant: 40),
-            rateButton.heightAnchor.constraint(equalToConstant: 40),
-            
             favoriteButton.topAnchor.constraint(equalTo: overviewLabel.bottomAnchor, constant: 15),
-            favoriteButton.leadingAnchor.constraint(equalTo: rateButton.trailingAnchor, constant: 10),
+            favoriteButton.leadingAnchor.constraint(equalTo: posterImage.trailingAnchor, constant: 10),
             favoriteButton.widthAnchor.constraint(equalToConstant: 40),
             favoriteButton.heightAnchor.constraint(equalToConstant: 40),
             
@@ -184,9 +173,6 @@ private extension MovieToWatchCollectionViewCell {
     }
 }
 extension MovieToWatchCollectionViewCell {
-    @objc func rateButtonPressed(selector: Selector) {
-        actionButtons?.didRateButtonPressed()
-    }
     @objc func favoritePressed(selector: Selector) {
         actionButtons?.didFavoriteButtonPressed()
     }
