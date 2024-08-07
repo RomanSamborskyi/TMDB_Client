@@ -1,7 +1,8 @@
 # TMDB Client
 
 The appliaction for those who have an account on tnemoviedb.org 
-This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB
+
+#This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB
 
 With this application you can login in to your account, to take a look on your watchlist, add movies to your watchlist, to take a look on your movies lists.
 
