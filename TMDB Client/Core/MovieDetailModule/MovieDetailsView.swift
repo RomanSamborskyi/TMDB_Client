@@ -49,6 +49,7 @@ class MovieDetailsView: UIView {
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         return button
     }()
+    private lazy var buttonsView = MovieRateView()
     //MARK: - lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -93,6 +94,15 @@ private extension MovieDetailsView {
         setupButtons()
         setupOverviewTextLabel()
         setupOverviewLabel()
+        setupRateView()
+    }
+    func setupRateView() {
+        self.addSubview(buttonsView)
+        buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+        
+        ])
     }
     func setupOverviewTextLabel() {
         self.addSubview(overviewTextLabel)
