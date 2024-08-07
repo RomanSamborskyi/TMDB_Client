@@ -17,24 +17,20 @@ Skils used in this project:
  - REST Full API
  - async/await
 
-![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 33 Medium](https://github.com/user-attachments/assets/98f60ea8-33c1-41bb-bca4-3b53a52a4fca)
+![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 56 18 Medium](https://github.com/user-attachments/assets/30ce2241-4806-40a4-b2ec-236274b2d5b6)
 
 
-![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 23 Medium](https://github.com/user-attachments/assets/7b2f2134-d033-46ed-bdcb-b1dc4a581149)
+![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 00 Medium](https://github.com/user-attachments/assets/390d512c-2474-4787-a2a7-b74c5bf7140e)
 
 
-![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 15 Medium](https://github.com/user-attachments/assets/85888d9c-d6f0-4953-8770-f334df8c32b4)
+![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 23 Medium](https://github.com/user-attachments/assets/24f28af1-b51e-4927-a9ef-cf25a7c07d8d)
 
 
-![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 07 Medium](https://github.com/user-attachments/assets/e08e3237-2e72-44b4-8443-ed9bddca9fd0)
+![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 07 Medium](https://github.com/user-attachments/assets/1f42fa26-b83d-440f-b4f8-3889de772e04)
 
 
-![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 00 Medium](https://github.com/user-attachments/assets/bee4c92e-72cc-4867-97c1-c76bbf5fa51e)
+![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 57 33 Medium](https://github.com/user-attachments/assets/b944fac7-d057-4c0a-82df-69f58efdeeab)
 
 
-![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 56 53 Medium](https://github.com/user-attachments/assets/125cbe06-fb7d-496b-816f-146245be4098)
-
-
-![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 56 18 Medium](https://github.com/user-attachments/assets/0b580734-bac3-42ab-bfb8-cd98e798b70d)
-
+![Simulator Screenshot - iPhone 15 Pro - 2024-08-07 at 09 56 53 Medium](https://github.com/user-attachments/assets/6b217753-6876-44b4-afba-dc8589b2f23a)
 
