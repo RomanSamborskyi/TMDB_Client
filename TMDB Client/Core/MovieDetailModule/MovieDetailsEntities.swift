@@ -11,12 +11,12 @@ import Foundation
 struct MovieStat: Codable {
     let id: Int?
     let favorite: Bool?
-    let rated: RateValue?
+    let rated: Bool?
     let watchlist: Bool?
 }
 //MARK: - Rate value
 struct RateValue: Codable {
-    let value: Double
+    let value: Double?
 }
 //MARK: - AddToWatchlist
 struct AddToWatchlist: Codable {
@@ -54,7 +54,7 @@ struct MovieDetail: Codable {
     let voteAverage: Double?
     let voteCount: Int?
     var watchList: Bool?
-    var rate: Double?
+   
     
     enum CodingKeys: String, CodingKey {
         case adult

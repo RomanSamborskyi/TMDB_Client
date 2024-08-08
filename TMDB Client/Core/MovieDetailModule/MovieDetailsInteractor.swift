@@ -11,6 +11,7 @@ import UIKit
 protocol MovieDetailsInteractorProtocol: AnyObject {
     func fetchMovieDetails() async throws
     func addToWatchlist() async throws
+    func fetchMovieStat() async throws -> MovieStat
 }
 
 
@@ -30,6 +31,25 @@ class MovieDetailsInteractor {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
+    func fetchMovieStat() async throws -> MovieStat {
+        
+        guard let sessionID = keychain.get(for: Constants.sessionKey) else {
+            throw AppError.badURL
+        }
+        guard let url = URL(string: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: sessionID).url) else {
+            throw AppError.badURL
+        }
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 10
+        
+        guard let result = try await self.networkManager.fetchGET(type: MovieStat.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+        
+        return result
+    }
     func addToWatchlist() async throws {
         
         guard let accoutID = keychain.get(for: Constants.account_id) else {
@@ -114,6 +134,9 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             throw AppError.invalidData
         }
         
-        presenter?.didMovieFetched(movie: requesteedMovie, poster: poster, backdropPOster: backdrop)
+        let movieStat = try await fetchMovieStat()
+        
+        presenter?.didMovieFetched(movie: requesteedMovie, poster: poster, backdropPOster: backdrop, stat: movieStat)
     }
+    
 }
