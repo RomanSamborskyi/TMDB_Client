@@ -39,7 +39,7 @@ enum Authantication {
 }
 
 enum AccountUrl {
-    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int), watchList(accountId: Int, key: String)
+    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int), watchList(accountId: Int, key: String), accountState(key: String, movieId: Int, sessionId: String)
     
     var url: String {
         switch self {
@@ -49,6 +49,8 @@ enum AccountUrl {
             return "https://api.themoviedb.org/3/account/\(accountId)/lists?api_key=\(key)"
         case .watchList(accountId: let accountId, key: let key):
             return "https://api.themoviedb.org/3/account/\(accountId)/watchlist/movies?api_key=\(key)"
+        case .accountState(key: let key, movieId: let movieId, sessionId: let sessionId):
+            return "https://api.themoviedb.org/3/movie/\(movieId)/account_states?api_key=\(key)&session_id=\(sessionId)"
         }
     }
 }

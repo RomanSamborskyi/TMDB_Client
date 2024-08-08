@@ -7,6 +7,17 @@
 
 import Foundation
 
+//MARK: - Movie Stat
+struct MovieStat: Codable {
+    let id: Int?
+    let favorite: Bool?
+    let rated: RateValue?
+    let watchlist: Bool?
+}
+//MARK: - Rate value
+struct RateValue: Codable {
+    let value: Double
+}
 //MARK: - AddToWatchlist
 struct AddToWatchlist: Codable {
    let media_type: String?
@@ -42,11 +53,12 @@ struct MovieDetail: Codable {
     let video: Bool?
     let voteAverage: Double?
     let voteCount: Int?
+    var watchList: Bool?
+    var rate: Double?
     
-    enum CodingKeysDetail: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case belongsToCollection = "belongs_to_collection"
         case budget
         case genres
         case homepage

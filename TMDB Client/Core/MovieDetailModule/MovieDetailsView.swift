@@ -49,7 +49,7 @@ class MovieDetailsView: UIView {
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         return button
     }()
-    private lazy var buttonsView = MovieRateView()
+    private lazy var rateButtonsView = MovieRateView()
     //MARK: - lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,7 +58,7 @@ class MovieDetailsView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    func updateView(with: Movie, poster: UIImage, backdeopPoster: UIImage) {
+    func updateView(with: MovieDetail, poster: UIImage, backdeopPoster: UIImage) {
         self.backdropView.image = backdeopPoster
         self.posterView.image = poster
         self.movieTitleLabel.text = with.title ?? ""
@@ -70,7 +70,7 @@ class MovieDetailsView: UIView {
         self.moviesAdditionalInfoLabel.text = Array(arrayLiteral: "\(with.runtime ?? 0) min", with.releaseDate ?? "")
             .joined(separator: " | ")
         self.overviewLabel.text = with.overview ?? ""
-        if with.isFavorite ?? false {
+        if with.watchList ?? false {
             guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
             let image = resizedImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.red)
             self.addToWatchlistButton.setImage(image, for: .normal)
@@ -91,18 +91,22 @@ private extension MovieDetailsView {
         setupTitleLabel()
         setupGenreLabel()
         setupAdditionalInfoLabel()
-        setupButtons()
+        setupRateView()
+        setupAddToWatchlistButton()
         setupOverviewTextLabel()
         setupOverviewLabel()
-        setupRateView()
     }
     func setupRateView() {
-        self.addSubview(buttonsView)
-        buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(rateButtonsView)
+        rateButtonsView.translatesAutoresizingMaskIntoConstraints = false
+        rateButtonsView.backgroundColor = UIColor.customBackground
+        rateButtonsView.delegate = self
         
         NSLayoutConstraint.activate([
-            buttonsView.topAnchor.constraint(equalTo: moviesAdditionalInfoLabel.bottomAnchor, constant: 20),
-            buttonsView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            rateButtonsView.topAnchor.constraint(equalTo: moviesAdditionalInfoLabel.bottomAnchor, constant: 20),
+            rateButtonsView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            rateButtonsView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
+            rateButtonsView.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
     func setupOverviewTextLabel() {
@@ -124,7 +128,6 @@ private extension MovieDetailsView {
         overviewLabel.textColor = .white
         overviewLabel.textAlignment = .left
         overviewLabel.numberOfLines = 0
-        overviewLabel.text = "Overview"
         
         NSLayoutConstraint.activate([
             overviewLabel.topAnchor.constraint(equalTo: overviewTextLabel.bottomAnchor, constant: 15),
@@ -132,21 +135,19 @@ private extension MovieDetailsView {
             overviewLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }
-    func setupButtons() {
+    func setupAddToWatchlistButton() {
         self.addSubview(addToWatchlistButton)
         addToWatchlistButton.translatesAutoresizingMaskIntoConstraints = false
         addToWatchlistButton.addTarget(self, action: #selector(saveToWatchlist), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            addToWatchlistButton.topAnchor.constraint(equalTo: moviesAdditionalInfoLabel.bottomAnchor, constant: 20),
+            addToWatchlistButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
             addToWatchlistButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
     }
     func setupBackdropView() {
         self.addSubview(backdropView)
         backdropView.translatesAutoresizingMaskIntoConstraints = false
-//        backdropView.layer.cornerRadius = 25
-//        backdropView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             backdropView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -226,5 +227,23 @@ extension MovieDetailsView {
             self.addToWatchlistButton.setImage(image, for: .normal)
             self.layoutIfNeeded()
         }
+    }
+}
+//MARK: - RateViewDelegate
+extension MovieDetailsView: RateViewDelegate {
+    func firstStarPressed() {
+        print(#function)
+    }
+    func secondStarPressed() {
+        print(#function)
+    }
+    func thirdStarPressed() {
+        print(#function)
+    }
+    func fourthStarPressed() {
+        print(#function)
+    }
+    func fifthStarPressed() {
+        print(#function)
     }
 }

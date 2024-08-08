@@ -20,6 +20,7 @@ class MovieDetailsInteractor {
     let movieId: Int
     let poster: UIImage
     let networkManager = NetworkManager()
+    let keychain = KeyChainManager.instance
     let imageDownloader = ImageDownloader()
     //MARK: - lifecycle
     init(movieId: Int, poster: UIImage) {
@@ -31,7 +32,11 @@ class MovieDetailsInteractor {
 extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
     func addToWatchlist() async throws {
         
-        guard let url = URL(string: "https://api.themoviedb.org/3/account/\(19306725)/watchlist?api_key=\(Constants.apiKey)") else {
+        guard let accoutID = keychain.get(for: Constants.account_id) else {
+            throw AppError.incorrectAccoutId
+        }
+        
+        guard let url = URL(string: "https://api.themoviedb.org/3/account/\(accoutID)/watchlist?api_key=\(Constants.apiKey)") else {
             throw AppError.badURL
         }
         
@@ -53,25 +58,24 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             throw AppError.badURL
         }
         
-        let movie = try await withThrowingTaskGroup(of: Movie.self) { group in
+        let movie = try await withThrowingTaskGroup(of: MovieDetail.self) { group in
             
             let session = URLSession.shared
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: Movie.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetchGET(type: MovieDetail.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result
             }
             
-            var returnedMovie: Movie?
+            var returnedMovie: MovieDetail?
             
             for try await movie in group {
                 returnedMovie = movie
             }
-            
             return returnedMovie
         }
         
