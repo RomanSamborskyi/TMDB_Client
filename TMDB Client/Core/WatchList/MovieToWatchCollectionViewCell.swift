@@ -47,7 +47,8 @@ class MovieToWatchCollectionViewCell: UICollectionViewCell {
         return lbl
     }()
     private lazy var favoriteButton: UIButton = {
-        return createButton(with: "heart.circle", with: .white)
+        let btn = UIButton()
+        return btn
     }()
     private lazy var addToListButton: UIButton = {
         return createButton(with: "list.bullet.circle", with: .white)
@@ -64,6 +65,15 @@ class MovieToWatchCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = movie.title ?? "no title"
         self.dateLabel.text = movie.releaseDate ?? "no date"
         self.overviewLabel.text = movie.overview ?? "no overview"
+        if movie.isFavorite == true {
+            let image = UIImage(systemName: "heart.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.red)
+            self.favoriteButton.setImage(image, for: .normal)
+            self.layoutIfNeeded()
+        } else {
+            let image = UIImage(systemName: "heart.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.white)
+            self.favoriteButton.setImage(image, for: .normal)
+            self.layoutIfNeeded()
+        }
     }
 }
 //MARK: - setupLayout

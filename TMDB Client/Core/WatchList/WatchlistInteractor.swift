@@ -10,6 +10,7 @@ import UIKit
 
 protocol WatchlistInteractorProtocol: AnyObject {
     func fetchWatchList() async throws
+    func fetchMovieStat(movieId: Int) async throws -> MovieStat
 }
 
 class WatchlistInteractor {
@@ -26,6 +27,25 @@ class WatchlistInteractor {
 }
 //MARK: - WatchListInteractorProtocol
 extension WatchlistInteractor: WatchlistInteractorProtocol {
+    func fetchMovieStat(movieId: Int) async throws -> MovieStat {
+        
+        guard let sessionID = keychain.get(for: Constants.sessionKey) else {
+            throw AppError.badURL
+        }
+        guard let url = URL(string: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: sessionID).url) else {
+            throw AppError.badURL
+        }
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 10
+        
+        guard let result = try await self.networkManager.fetchGET(type: MovieStat.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+        
+        return result
+    }
     func fetchWatchList() async throws {
         
         guard let acoountID = Int(keychain.get(for: Constants.account_id) ?? "") else {
@@ -88,6 +108,16 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
             return posters
         }
         
-        presenter?.didMoviesFetched(movies: watchList, posters: posters)
+        var mapedWatchlist: [Movie] = []
+        
+        for movie in watchList {
+            let movieStatus = try await fetchMovieStat(movieId: movie.id ?? 0)
+            var mov = movie
+            mov.isFavorite = movieStatus.favorite ?? false
+            mapedWatchlist.append(mov)
+        }
+        
+        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters)
+        
     }
 }
