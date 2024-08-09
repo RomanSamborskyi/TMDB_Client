@@ -54,7 +54,12 @@ struct AddToWatchlist: Codable {
    let media_id: Int
    let watchlist: Bool
 }
-
+//MARK: - AddToFavorite
+struct AddToFavorite: Codable {
+   let media_type: String?
+   let media_id: Int
+   let favorite: Bool
+}
 
 // MARK: - MovieDetail
 struct MovieDetail: Codable {

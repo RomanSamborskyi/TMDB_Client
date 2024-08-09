@@ -99,14 +99,9 @@ extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDat
     }
 }
 extension WatchlistViewController: MovieToWatchCellDelegate {
-    func didRateButtonPressed() {
-        print(#function)
+    func didFavoriteButtonPressed(movieId: Int) {
+        self.presenter?.didAddToFavoriteButtonPressed(for: movieId)
     }
-    
-    func didFavoriteButtonPressed() {
-        print(#function)
-    }
-    
     func didAddToListButtonPressed() {
         print(#function)
     }

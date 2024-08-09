@@ -13,6 +13,7 @@ protocol WatchlistPresenterProtocol: AnyObject {
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
     func didMovieSelected(movie id: Int, poster: UIImage)
     func viewControllerWillAppear()
+    func didAddToFavoriteButtonPressed(for movie: Int)
 }
 
 class WatchlistPresenter {
@@ -32,6 +33,16 @@ class WatchlistPresenter {
 }
 //MARK: - WatchListPresenterProtocol
 extension WatchlistPresenter: WatchlistPresenterProtocol {
+    func didAddToFavoriteButtonPressed(for movie: Int) {
+        Task {
+            do {
+                try await interactor?.addToFavorite(movieId: movie)
+                try await interactor?.fetchWatchList()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+    }
     func viewControllerWillAppear() {
         addObserver()
     }

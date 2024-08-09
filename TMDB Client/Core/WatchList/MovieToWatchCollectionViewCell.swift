@@ -9,8 +9,7 @@ import UIKit
 
 //MARK: - MovieToWatchCollectionViewCell delegate
 protocol MovieToWatchCellDelegate: AnyObject {
-    func didRateButtonPressed()
-    func didFavoriteButtonPressed()
+    func didFavoriteButtonPressed(movieId: Int)
     func didAddToListButtonPressed()
 }
 
@@ -51,7 +50,8 @@ class MovieToWatchCollectionViewCell: UICollectionViewCell {
         return btn
     }()
     private lazy var addToListButton: UIButton = {
-        return createButton(with: "list.bullet.circle", with: .white)
+        let btn = UIButton()
+        return btn
     }()
     //MARK: - lifecycle
     override init(frame: CGRect) {
@@ -66,13 +66,9 @@ class MovieToWatchCollectionViewCell: UICollectionViewCell {
         self.dateLabel.text = movie.releaseDate ?? "no date"
         self.overviewLabel.text = movie.overview ?? "no overview"
         if movie.isFavorite == true {
-            let image = UIImage(systemName: "heart.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.red)
-            self.favoriteButton.setImage(image, for: .normal)
-            self.layoutIfNeeded()
+            setColorForFavoriteButton(color: .systemPink)
         } else {
-            let image = UIImage(systemName: "heart.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.white)
-            self.favoriteButton.setImage(image, for: .normal)
-            self.layoutIfNeeded()
+            setColorForFavoriteButton(color: .white)
         }
     }
 }
@@ -146,13 +142,14 @@ private extension MovieToWatchCollectionViewCell {
         ])
     }
     func setupButtons() {
-        
         self.contentView.addSubview(favoriteButton)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.addTarget(self, action: #selector(favoritePressed), for: .touchUpInside)
         
         self.contentView.addSubview(addToListButton)
         addToListButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "list.bullet.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.white)
+        addToListButton.setImage(image, for: .normal)
         addToListButton.addTarget(self, action: #selector(adddToListPressed), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -167,24 +164,16 @@ private extension MovieToWatchCollectionViewCell {
             addToListButton.heightAnchor.constraint(equalToConstant: 40),
             ])
     }
-}
-private extension MovieToWatchCollectionViewCell {
-    /// Function to creat button in MovieDetailView. It return a button with specific image labele, with background and color .buttonColor and corner radius = 30
-    func createButton(with label: String, with color: UIColor) -> UIButton {
-        let button: UIButton = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        if let originalImage = UIImage(systemName: label) {
-            let resizedImage = originalImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
-            button.setImage(resizedImage, for: .normal)
-        }
-        
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        return button
+    func setColorForFavoriteButton(color: UIColor) {
+        let image = UIImage(systemName: "heart.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
+        self.favoriteButton.setImage(image, for: .normal)
+        self.layoutIfNeeded()
     }
 }
 extension MovieToWatchCollectionViewCell {
     @objc func favoritePressed(selector: Selector) {
-        actionButtons?.didFavoriteButtonPressed()
+        actionButtons?.didFavoriteButtonPressed(movieId: movie!.id!)
+        setColorForFavoriteButton(color: .systemPink)
     }
     @objc func adddToListPressed(selector: Selector) {
         actionButtons?.didAddToListButtonPressed()

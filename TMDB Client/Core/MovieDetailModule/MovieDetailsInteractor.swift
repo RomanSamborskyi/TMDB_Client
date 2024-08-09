@@ -59,7 +59,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         guard let url = URL(string: "https://api.themoviedb.org/3/account/\(accoutID)/watchlist?api_key=\(Constants.apiKey)") else {
             throw AppError.badURL
         }
-        
+    
         let session = URLSession.shared
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
