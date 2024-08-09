@@ -37,7 +37,6 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
         Task {
             do {
                 try await interactor?.addToFavorite(movieId: movie)
-                try await interactor?.fetchWatchList()
             } catch let error as AppError {
                 print(error.localizedDescription)
             }

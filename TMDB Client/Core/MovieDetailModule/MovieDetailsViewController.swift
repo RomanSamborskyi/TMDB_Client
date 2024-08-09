@@ -75,6 +75,9 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
 }
 //MARK: - MovieDetailsView delegate
 extension MovieDetailsViewController: MovieDetailsViewDelegate {
+    func didMovieAddedToFavorite() {
+        presenter?.didMovieAddedToFavorite()
+    }
     func didMovieAddedToWatchList() {
         presenter?.didMovieAddedToWatchlist()
     }

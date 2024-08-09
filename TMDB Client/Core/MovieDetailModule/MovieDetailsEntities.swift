@@ -89,6 +89,7 @@ struct MovieDetail: Codable {
     let voteAverage: Double?
     let voteCount: Int?
     var watchList: Bool?
+    var favorite: Bool?
    
     
     enum CodingKeys: String, CodingKey {

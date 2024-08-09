@@ -12,6 +12,7 @@ protocol MovieDetailsInteractorProtocol: AnyObject {
     func fetchMovieDetails() async throws
     func addToWatchlist() async throws
     func fetchMovieStat() async throws -> MovieStat
+    func addToFavorite() async throws
 }
 
 
@@ -31,6 +32,29 @@ class MovieDetailsInteractor {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
+    func addToFavorite() async throws {
+        
+        guard let accountID = Int(keychain.get(for: Constants.account_id) ?? "") else {
+            throw AppError.incorrectAccoutId
+        }
+        
+        guard let url = URL(string: MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey).url) else {
+            throw AppError.badURL
+        }
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 10
+        request.allHTTPHeaderFields = Constants.addToFavoriteHeader
+        
+        let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
+        
+        request.httpBody = try JSONEncoder().encode(body)
+        
+        let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
+        
+    }
     func fetchMovieStat() async throws -> MovieStat {
         
         guard let sessionID = keychain.get(for: Constants.sessionKey) else {

@@ -12,6 +12,7 @@ protocol MovieDetailsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMovieFetched(movie: MovieDetail, poster: UIImage, backdropPOster: UIImage, stat: MovieStat)
     func didMovieAddedToWatchlist()
+    func didMovieAddedToFavorite()
 }
 
 class MovieDetailsPresenter {
@@ -27,6 +28,15 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
+    func didMovieAddedToFavorite() {
+        Task {
+            do {
+                try await interactor.addToFavorite()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+    }
     func didMovieAddedToWatchlist() {
         Task(priority: .userInitiated) {
             do {
@@ -40,6 +50,7 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
     func didMovieFetched(movie: MovieDetail, poster: UIImage, backdropPOster: UIImage, stat: MovieStat) {
         var fetchedMovie = movie
         fetchedMovie.watchList = stat.watchlist
+        fetchedMovie.favorite = stat.favorite
         view?.show(movie: fetchedMovie, poster: poster, backdropPoster: backdropPOster)
     }
     func viewControllerDidLoad() {
