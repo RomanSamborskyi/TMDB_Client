@@ -7,11 +7,41 @@
 
 import Foundation
 
+
+//MARK: - Rate state
+enum RateStatus: Codable {
+    case notRated(Bool)
+    case rated(RateValue)
+    
+
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        
+        if let boolValue = try? container.decode(Bool.self) {
+            self = .notRated(boolValue)
+        } else if let ratedValue = try? container.decode(RateValue.self) {
+            self = .rated(ratedValue)
+        } else {
+            throw DecodingError.typeMismatch(RateStatus.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Invalid to decode"))
+        }
+    }
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .notRated(let boolValue):
+                try container.encode(boolValue)
+            case .rated(let rateValue):
+                try container.encode(rateValue)
+            }
+        }
+}
 //MARK: - Movie Stat
 struct MovieStat: Codable {
     let id: Int?
     let favorite: Bool?
-    let rated: Bool?
+    let rated: RateStatus?
     let watchlist: Bool?
 }
 //MARK: - Rate value
