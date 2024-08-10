@@ -13,6 +13,7 @@ protocol MovieDetailsPresenterProtocol: AnyObject {
     func didMovieFetched(movie: MovieDetail, poster: UIImage, backdropPOster: UIImage, stat: MovieStat)
     func didMovieAddedToWatchlist()
     func didMovieAddedToFavorite()
+    func rateMovie(rate: Double)
 }
 
 class MovieDetailsPresenter {
@@ -32,6 +33,15 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
+    func rateMovie(rate: Double) {
+        Task {
+            do {
+                try await interactor.addRate(rate: rate)
+            } catch let error as AppError {
+                print("Error of adding rate: \(error)")
+            }
+        }
+    }
     func didMovieAddedToFavorite() {
         Task {
             do {

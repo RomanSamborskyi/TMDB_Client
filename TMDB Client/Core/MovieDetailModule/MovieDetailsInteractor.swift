@@ -13,6 +13,7 @@ protocol MovieDetailsInteractorProtocol: AnyObject {
     func addToWatchlist() async throws
     func fetchMovieStat() async throws -> MovieStat
     func addToFavorite() async throws
+    func addRate(rate: Double) async throws
 }
 
 
@@ -32,6 +33,34 @@ class MovieDetailsInteractor {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
+    func addRate(rate: Double) async throws {
+        
+        guard let sessioId = keychain.get(for: Constants.sessionKey) else {
+            throw AppError.invalidData
+        }
+        
+        guard let url = URL(string: MoviesUrls.addRating(movieId: self.movieId, sessionId: sessioId, key: Constants.apiKey).url) else {
+            throw AppError.badURL
+        }
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 10
+        request.allHTTPHeaderFields = Constants.addRatingHeaders
+        
+        let data = RateBody(value: rate)
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(data)
+        } catch let error {
+            print("Error of encoding data: \(error)")
+        }
+        
+        guard let result = try await networkManager.fetchGET(type: RateBody.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+    }
     func addToFavorite() async throws {
         
         guard let accountID = Int(keychain.get(for: Constants.account_id) ?? "") else {

@@ -7,6 +7,10 @@
 
 import Foundation
 
+//MARK: - rate body
+struct RateBody: Codable {
+    let value: Double
+}
 
 //MARK: - Rate state
 enum RateStatus: Codable {

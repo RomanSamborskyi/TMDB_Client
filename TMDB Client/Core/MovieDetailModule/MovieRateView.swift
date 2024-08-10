@@ -32,22 +32,37 @@ class MovieRateView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    //TODO: - write some convinient method to hendle all this stuff, I mean seting of colors
     func setColorForRateButtons(rate: Double) {
         switch rate {
         case 1...2:
             self.button1.tintColor = .yellow
+            
+            self.button2.tintColor = .gray
+            self.button3.tintColor = .gray
+            self.button4.tintColor = .gray
+            self.button5.tintColor = .gray
         case 3...4:
             self.button1.tintColor = .yellow
             self.button2.tintColor = .yellow
+            
+            self.button3.tintColor = .gray
+            self.button4.tintColor = .gray
+            self.button5.tintColor = .gray
         case 5...6:
             self.button1.tintColor = .yellow
             self.button2.tintColor = .yellow
             self.button3.tintColor = .yellow
+            
+            self.button4.tintColor = .gray
+            self.button5.tintColor = .gray
         case 7...8:
             self.button1.tintColor = .yellow
             self.button2.tintColor = .yellow
             self.button3.tintColor = .yellow
             self.button4.tintColor = .yellow
+            
+            self.button5.tintColor = .gray
         case 9...10:
             self.button1.tintColor = .yellow
             self.button2.tintColor = .yellow
@@ -99,6 +114,7 @@ private extension MovieRateView {
             
             button5.topAnchor.constraint(equalTo: self.topAnchor),
             button5.leadingAnchor.constraint(equalTo: button4.trailingAnchor, constant: 10),
+            button5.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
 }

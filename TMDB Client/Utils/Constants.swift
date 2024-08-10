@@ -16,6 +16,12 @@ struct Constants {
     
     static let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"
     
+    static let addRatingHeaders =  [
+        "accept": "application/json",
+        "Content-Type": "application/json;charset=utf-8",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyMzAxOTc1NC4zOTY1MTMsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IdySVI1EWaIw5YpFeOLP4mbv2FW37mGMs4V9gwps0r8"
+      ]
+    
     static let addToFavoriteHeader = [
         "accept": "application/json",
         "content-type": "application/json",

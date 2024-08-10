@@ -75,6 +75,21 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
 }
 //MARK: - MovieDetailsView delegate
 extension MovieDetailsViewController: MovieDetailsViewDelegate {
+    func firstStarPressed() {
+        presenter?.rateMovie(rate: 2)
+    }
+    func secondStarPressed() {
+        presenter?.rateMovie(rate: 4)
+    }
+    func thirdStarPressed() {
+        presenter?.rateMovie(rate: 6)
+    }
+    func fourthStarPressed() {
+        presenter?.rateMovie(rate: 8)
+    }
+    func fifthStarPressed() {
+        presenter?.rateMovie(rate: 10)
+    }
     func didMovieAddedToFavorite() {
         presenter?.didMovieAddedToFavorite()
     }

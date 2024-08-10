@@ -11,6 +11,11 @@ import UIKit
 protocol MovieDetailsViewDelegate: AnyObject {
     func didMovieAddedToWatchList()
     func didMovieAddedToFavorite()
+    func firstStarPressed()
+    func secondStarPressed()
+    func thirdStarPressed()
+    func fourthStarPressed()
+    func fifthStarPressed()
 }
 
 class MovieDetailsView: UIView {
@@ -82,7 +87,7 @@ class MovieDetailsView: UIView {
             setColorForAddToWatchlist(color: .white, title: "Add to watchlist")
         }
         if with.favorite ?? false {
-            setColorForFavoriteButton(color: .systemPink, title: "Your favirite")
+            setColorForFavoriteButton(color: .systemPink, title: "Your favorite")
         } else {
             setColorForFavoriteButton(color: .white, title: "Add to favorite")
         }
@@ -111,8 +116,7 @@ private extension MovieDetailsView {
         
         NSLayoutConstraint.activate([
             rateButtonsView.topAnchor.constraint(equalTo: moviesAdditionalInfoLabel.bottomAnchor, constant: 20),
-            rateButtonsView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
-            rateButtonsView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
+            rateButtonsView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             rateButtonsView.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
@@ -272,24 +276,24 @@ extension MovieDetailsView {
     }
     @objc func addMovieToFavorite(selector: Selector) {
         self.delegate?.didMovieAddedToFavorite()
-        setColorForFavoriteButton(color: .systemPink, title: "Your favirite")
+        setColorForFavoriteButton(color: .systemPink, title: "Your favorite")
     }
 }
 //MARK: - RateViewDelegate
 extension MovieDetailsView: RateViewDelegate {
     func firstStarPressed() {
-        print(#function)
+        self.delegate?.firstStarPressed()
     }
     func secondStarPressed() {
-        print(#function)
+        self.delegate?.secondStarPressed()
     }
     func thirdStarPressed() {
-        print(#function)
+        self.delegate?.thirdStarPressed()
     }
     func fourthStarPressed() {
-        print(#function)
+        self.delegate?.fourthStarPressed()
     }
     func fifthStarPressed() {
-        print(#function)
+        self.delegate?.fifthStarPressed()
     }
 }
