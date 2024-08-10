@@ -29,3 +29,12 @@ extension Notification.Name {
         return .init("movieAddedToWatchList")
     }
 }
+
+extension UIViewController {
+    public func showAlert(title: String, messege: String, action: UIAlertAction) {
+        let alert = UIAlertController(title: title, message: messege, preferredStyle: .alert)
+        
+        alert.addAction(action)
+        self.present(alert, animated: true)
+    }
+}

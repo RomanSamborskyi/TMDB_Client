@@ -9,7 +9,7 @@ import UIKit
 import NotificationCenter
 
 protocol LoginViewControllerProtocol: AnyObject {
-   //Empty protocol for communicating with another components in the module
+    func showAlert(title: String, messege: String)
 }
 
 class LoginViewController: UIViewController {
@@ -18,7 +18,6 @@ class LoginViewController: UIViewController {
     private lazy var loginView = LoginView()
     private lazy var acticityView = ActivityView()
     private lazy var isKeyboardShown: Bool = false
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,18 +37,25 @@ extension LoginViewController: LoginViewDelegate {
     func didLoginButtonPressed(log: String, pass: String) {
         presenter?.loginButtonDidTapped(login: log, password: pass)
         if !log.isEmpty && !pass.isEmpty {
-            setupActivityView()
+            acticityView.isHidden = false
         }
     }
 }
 //MARK: - LoginViewControllerProtocol
 extension LoginViewController: LoginViewControllerProtocol {
-    
+    func showAlert(title: String, messege: String) {
+        let action = UIAlertAction(title: "Retry", style: .default) { _ in
+            self.acticityView.isHidden = true
+        }
+        self.showAlert(title: title, messege: messege, action: action)
+    }
 }
 //MARK: - UI Layout
 private extension LoginViewController {
     func setupLayout() {
         setupLoginView()
+        setupActivityView()
+        acticityView.isHidden = true
     }
     func setupLoginView() {
         self.view.addSubview(loginView)

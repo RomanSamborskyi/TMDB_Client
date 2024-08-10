@@ -39,7 +39,9 @@ extension LoginInteractor: LoginInteractorProtocol {
             
             
             group.addTask { [request] in
-                guard let data = try await self.networkManager.fetchGET(type: TokenResponse.self, session: session, request: request) else { throw AppError.invalidData }
+                guard let data = try await self.networkManager.fetchGET(type: TokenResponse.self, session: session, request: request) else {
+                    throw AppError.invalidData
+                }
                 return data
             }
             
@@ -68,11 +70,18 @@ extension LoginInteractor: LoginInteractorProtocol {
             
             request.httpBody = bodyData
             
-            group.addTask { [request] in
-                guard let data = try await self.networkManager.fetchGET(type: TokenResponse.self, session: session, request: request) else {
-                    throw AppError.invalidData
+            group.addTask { [request, weak self] in
+                do {
+                    guard let data = try await self?.networkManager.fetchGET(type: TokenResponse.self, session: session, request: request) else {
+                        throw AppError.invalidData
+                    }
+                    return data
+                } catch let error as AppError {
+                    if error == .badResponse {
+                        throw AppError.incorrectUserNameOrPass
+                    }
+                    throw error
                 }
-                return data
             }
             
             var validToken: TokenResponse? = nil

@@ -42,7 +42,20 @@ extension LoginPresenter: LoginPresenterProtocol {
             do {
                 try await interactor.sendLoginRequestwith(login: login, password: password)
             } catch let error as AppError {
-                print(error)
+                DispatchQueue.main.async { [weak self] in
+                    switch error {
+                    case .badURL:
+                        self?.view?.showAlert(title: "Error", messege: error.localized)
+                    case .badResponse:
+                        self?.view?.showAlert(title: "Error", messege: error.localized)
+                    case .invalidData:
+                        self?.view?.showAlert(title: "Error", messege: error.localized)
+                    case .incorrectUserNameOrPass:
+                        self?.view?.showAlert(title: "Error", messege: error.localized)
+                    case .incorrectAccoutId:
+                        self?.view?.showAlert(title: "Error", messege: error.localized)
+                    }
+                }
             }
         }
     }

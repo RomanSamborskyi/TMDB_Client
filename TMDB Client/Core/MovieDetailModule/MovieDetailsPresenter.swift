@@ -25,6 +25,10 @@ class MovieDetailsPresenter {
         self.interactor = interactor
         self.router = router
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
