@@ -46,7 +46,6 @@ xcuserdata/
 !*.xcodeproj/xcshareddata/
 !*.xcodeproj/project.xcworkspace/
 *.xcuserstate
-!*.xcworkspace/contents.xcworkspacedata
+*.xcworkspace/xcuserdata/**  # Generalized rule to ignore all xcuserdata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
-TMDBClient.xcodeproj/project.xcworkspace/xcuserdata/romansamborskyi.xcuserdatad/UserInterfaceState.xcuserstate
