@@ -159,7 +159,6 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         }
         
         let movieStat = try await fetchMovieStat()
-        
         presenter?.didMovieFetched(movie: requesteedMovie, poster: poster, backdropPOster: backdrop, stat: movieStat)
     }
     

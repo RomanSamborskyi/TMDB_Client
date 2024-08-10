@@ -77,15 +77,16 @@ class MovieDetailsView: UIView {
             .joined(separator: " | ")
         self.overviewLabel.text = with.overview ?? ""
         if with.watchList ?? false {
-            setColorForAddToWatchlist(color: .red)
+            setColorForAddToWatchlist(color: .red, title: "In your watchlist")
         } else {
-            setColorForAddToWatchlist(color: .white)
+            setColorForAddToWatchlist(color: .white, title: "Add to watchlist")
         }
         if with.favorite ?? false {
-            setColorForFavoriteButton(color: .systemPink)
+            setColorForFavoriteButton(color: .systemPink, title: "Your favirite")
         } else {
-            setColorForFavoriteButton(color: .white)
+            setColorForFavoriteButton(color: .white, title: "Add to favorite")
         }
+        self.rateButtonsView.setColorForRateButtons(rate: with.myRate ?? 0)
     }
 }
 //MARK: - UI layout
@@ -145,20 +146,37 @@ private extension MovieDetailsView {
         self.addSubview(addToWatchlistButton)
         addToWatchlistButton.translatesAutoresizingMaskIntoConstraints = false
         addToWatchlistButton.addTarget(self, action: #selector(saveToWatchlist), for: .touchUpInside)
+        addToWatchlistButton.clipsToBounds = true
+        addToWatchlistButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        addToWatchlistButton.titleLabel?.textColor = .white
+        addToWatchlistButton.layer.cornerRadius = 10
+        addToWatchlistButton.layer.borderWidth = 2
+        addToWatchlistButton.layer.borderColor = UIColor.white.cgColor
         
         NSLayoutConstraint.activate([
             addToWatchlistButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
-            addToWatchlistButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            addToWatchlistButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            addToWatchlistButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.2),
+            addToWatchlistButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
         ])
     }
     func setupAddToFavoriteButton() {
         self.addSubview(addToFavoriteButton)
         addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
         addToFavoriteButton.addTarget(self, action: #selector(addMovieToFavorite), for: .touchUpInside)
+        addToFavoriteButton.clipsToBounds = true
+        addToFavoriteButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        addToFavoriteButton.titleLabel?.textColor = .white
+        addToFavoriteButton.layer.cornerRadius = 10
+        addToFavoriteButton.layer.borderWidth = 2
+        addToFavoriteButton.layer.borderColor = UIColor.white.cgColor
         
         NSLayoutConstraint.activate([
             addToFavoriteButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
-            addToFavoriteButton.leadingAnchor.constraint(equalTo: addToWatchlistButton.trailingAnchor, constant: 30)
+            addToFavoriteButton.leadingAnchor.constraint(equalTo: addToWatchlistButton.trailingAnchor, constant: 20),
+            addToFavoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            addToFavoriteButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.2),
+            addToFavoriteButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
         ])
     }
     func setupBackdropView() {
@@ -233,26 +251,28 @@ private extension MovieDetailsView {
             moviesAdditionalInfoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
         ])
     }
-    func setColorForAddToWatchlist(color: UIColor) {
+    func setColorForAddToWatchlist(color: UIColor, title: String) {
         guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
         let image = resizedImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
-        self.addToWatchlistButton.setImage(image, for: .normal)
+        addToWatchlistButton.setImage(image, for: .normal)
+        addToWatchlistButton.setTitle(title, for: .normal)
         self.layoutIfNeeded()
     }
-    func setColorForFavoriteButton(color: UIColor) {
+    func setColorForFavoriteButton(color: UIColor, title: String) {
         let image = UIImage(systemName: "heart.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
         self.addToFavoriteButton.setImage(image, for: .normal)
+        addToFavoriteButton.setTitle(title, for: .normal)
         self.layoutIfNeeded()
     }
 }
 extension MovieDetailsView {
     @objc func saveToWatchlist(selector: Selector) {
         self.delegate?.didMovieAddedToWatchList()
-        setColorForAddToWatchlist(color: .red)
+        setColorForAddToWatchlist(color: .red, title: "In your watchlist")
     }
     @objc func addMovieToFavorite(selector: Selector) {
         self.delegate?.didMovieAddedToFavorite()
-        setColorForFavoriteButton(color: .systemPink)
+        setColorForFavoriteButton(color: .systemPink, title: "Your favirite")
     }
 }
 //MARK: - RateViewDelegate

@@ -235,7 +235,6 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.tab = item
             
             cell.label.font = .systemFont(ofSize: 17, weight: .regular)
-            cell.label.clipsToBounds = false
             cell.label.layer.cornerRadius = 0
             cell.label.backgroundColor = .clear
             cell.label.textColor = .gray

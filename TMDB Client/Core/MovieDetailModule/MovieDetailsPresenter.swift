@@ -53,8 +53,18 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
     }
     func didMovieFetched(movie: MovieDetail, poster: UIImage, backdropPOster: UIImage, stat: MovieStat) {
         var fetchedMovie = movie
+        
         fetchedMovie.watchList = stat.watchlist
         fetchedMovie.favorite = stat.favorite
+        
+        switch stat.rated {
+        case .notRated:
+            print("not rated")
+        case .rated(let ratedValue):
+            fetchedMovie.myRate = ratedValue.value ?? 0
+        case .none:
+            break
+        }
         view?.show(movie: fetchedMovie, poster: poster, backdropPoster: backdropPOster)
     }
     func viewControllerDidLoad() {
@@ -62,7 +72,6 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
             do {
                 try await interactor.fetchMovieDetails()
             } catch let error as AppError {
-                print(error)
                 print(error.localizedDescription)
             }
         }

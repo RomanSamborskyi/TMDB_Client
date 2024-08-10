@@ -32,6 +32,33 @@ class MovieRateView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    func setColorForRateButtons(rate: Double) {
+        switch rate {
+        case 1...2:
+            self.button1.tintColor = .yellow
+        case 3...4:
+            self.button1.tintColor = .yellow
+            self.button2.tintColor = .yellow
+        case 5...6:
+            self.button1.tintColor = .yellow
+            self.button2.tintColor = .yellow
+            self.button3.tintColor = .yellow
+        case 7...8:
+            self.button1.tintColor = .yellow
+            self.button2.tintColor = .yellow
+            self.button3.tintColor = .yellow
+            self.button4.tintColor = .yellow
+        case 9...10:
+            self.button1.tintColor = .yellow
+            self.button2.tintColor = .yellow
+            self.button3.tintColor = .yellow
+            self.button4.tintColor = .yellow
+            self.button5.tintColor = .yellow
+        default:
+            break
+        }
+        self.layoutIfNeeded()
+    }
 }
 //MARK: - ui layout
 private extension MovieRateView {
