@@ -57,7 +57,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             print("Error of encoding data: \(error)")
         }
         
-        guard let result = try await networkManager.fetchGET(type: RateBody.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetchGET(type: RateBody.self, session: session, request: request) else {
             throw AppError.invalidData
         }
     }

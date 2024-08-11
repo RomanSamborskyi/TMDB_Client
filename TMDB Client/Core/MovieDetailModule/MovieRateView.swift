@@ -129,17 +129,22 @@ private extension MovieRateView {
 extension MovieRateView {
     @objc func firstButtonPressed(selector: Selector) {
         self.delegate?.firstStarPressed()
+        setColorForRateButtons(rate: 2)
     }
     @objc func secondButtonPressed(selector: Selector) {
         self.delegate?.secondStarPressed()
+        setColorForRateButtons(rate: 4)
     }
     @objc func thirdButtonPressed(selector: Selector) {
         self.delegate?.thirdStarPressed()
+        setColorForRateButtons(rate: 6)
     }
     @objc func fourthButtonPressed(selector: Selector) {
         self.delegate?.fourthStarPressed()
+        setColorForRateButtons(rate: 8)
     }
     @objc func fifthButtonPressed(selector: Selector) {
         self.delegate?.fifthStarPressed()
+        setColorForRateButtons(rate: 10)
     }
 }
