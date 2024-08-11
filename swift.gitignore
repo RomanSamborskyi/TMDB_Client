@@ -49,4 +49,3 @@ xcuserdata/
 *.xcworkspace/xcuserdata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
-static let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"
