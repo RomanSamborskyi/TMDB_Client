@@ -69,7 +69,7 @@
 		6BC683582C426DFB0008864A /* MokData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683572C426DFB0008864A /* MokData.swift */; };
 		6BC6835C2C426EED0008864A /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6835B2C426EED0008864A /* MovieCardView.swift */; };
 		6BC683612C4271250008864A /* TopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683602C4271250008864A /* TopCollectionViewCell.swift */; };
-		6BFAA0E12C55496F002D8F1A /* ListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E02C55496F002D8F1A /* ListsCollectionViewCell.swift */; };
+		6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */; };
 		6BFAA0E42C556899002D8F1A /* ListsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E32C556899002D8F1A /* ListsDetailViewController.swift */; };
 		6BFAA0E62C556908002D8F1A /* ListsDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E52C556908002D8F1A /* ListsDetailInteractor.swift */; };
 		6BFAA0E82C556954002D8F1A /* ListsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E72C556954002D8F1A /* ListsDetailPresenter.swift */; };
@@ -143,7 +143,7 @@
 		6BC683572C426DFB0008864A /* MokData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MokData.swift; sourceTree = "<group>"; };
 		6BC6835B2C426EED0008864A /* MovieCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
 		6BC683602C4271250008864A /* TopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCollectionViewCell.swift; sourceTree = "<group>"; };
-		6BFAA0E02C55496F002D8F1A /* ListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsCollectionViewCell.swift; sourceTree = "<group>"; };
+		6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
 		6BFAA0E32C556899002D8F1A /* ListsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailViewController.swift; sourceTree = "<group>"; };
 		6BFAA0E52C556908002D8F1A /* ListsDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailInteractor.swift; sourceTree = "<group>"; };
 		6BFAA0E72C556954002D8F1A /* ListsDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailPresenter.swift; sourceTree = "<group>"; };
@@ -322,7 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				6BC683552C426A120008864A /* ListsViewController.swift */,
-				6BFAA0E02C55496F002D8F1A /* ListsCollectionViewCell.swift */,
+				6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */,
 				6B44B1F22C43CABD006F0084 /* ListsInterator.swift */,
 				6B44B1F42C43CB26006F0084 /* ListsPresenter.swift */,
 				6B44B1F62C43CB61006F0084 /* ListEntity.swift */,
@@ -395,7 +395,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6B56A7CF2C3B27A3001032C8 /* Build configuration list for PBXProject "TMDB Client" */;
+			buildConfigurationList = 6B56A7CF2C3B27A3001032C8 /* Build configuration list for PBXProject "TMDBClient" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -463,7 +463,7 @@
 				6BA605FF2C46D28D007E205C /* MovieDetailsInteractor.swift in Sources */,
 				6B56A7F52C3B2BEA001032C8 /* LoginRouter.swift in Sources */,
 				6BC683492C4080140008864A /* ActivityView.swift in Sources */,
-				6BFAA0E12C55496F002D8F1A /* ListsCollectionViewCell.swift in Sources */,
+				6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */,
 				6BA606032C46D37A007E205C /* MovieDetailsRouter.swift in Sources */,
 				6BC683312C3EC5260008864A /* ProfilePresenter.swift in Sources */,
 				6B44B1FB2C43CBF5006F0084 /* ListsModuleBuilder.swift in Sources */,
@@ -700,7 +700,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6B56A7CF2C3B27A3001032C8 /* Build configuration list for PBXProject "TMDB Client" */ = {
+		6B56A7CF2C3B27A3001032C8 /* Build configuration list for PBXProject "TMDBClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B56A7E62C3B27A4001032C8 /* Debug */,

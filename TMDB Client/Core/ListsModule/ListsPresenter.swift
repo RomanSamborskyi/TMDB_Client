@@ -12,6 +12,7 @@ protocol ListsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didListsFetched(lists: [List])
     func didListsSelected(list: Int)
+    func clearList(with id: Int)
 }
 
 
@@ -29,6 +30,9 @@ class ListsPresenter {
 }
 //MARK: - ListsPresenterProtocol
 extension ListsPresenter: ListsPresenterProtocol {
+    func clearList(with id: Int) {
+        
+    }
     func didListsSelected(list: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.router.navigateToList(with: list)

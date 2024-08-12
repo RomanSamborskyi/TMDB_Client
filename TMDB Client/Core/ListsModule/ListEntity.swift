@@ -8,6 +8,20 @@
 import UIKit
 
 
+//MARK: - clear list response
+struct ClearList: Codable {
+    let success: Bool
+    let statusCode: Int
+    let statusMessege: String
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case success
+        case statusCode = "status_code"
+        case statusMessege = "status_message"
+    }
+}
+
 // MARK: - Lists
 struct ListsResponse: Codable {
     let page: Int?

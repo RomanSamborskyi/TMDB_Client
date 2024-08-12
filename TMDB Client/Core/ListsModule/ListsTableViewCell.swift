@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListsCollectionViewCell: UICollectionViewCell {
+class ListsTableViewCell: UITableViewCell {
     //MARK: - property
     static let identifier: String = "ListsCollectionViewCell"
     var list: List? {
@@ -29,21 +29,21 @@ class ListsCollectionViewCell: UICollectionViewCell {
         return lbl
     }()
     //MARK: - life cycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    func updateCell(with list: List) {
+    public func updateCell(with list: List) {
         self.titleLabel.text = list.name ?? ""
         self.descriptionLabel.text = list.description ?? ""
         self.itemCountLabel.text = "Items in list: \(list.itemCount ?? 0)"
     }
 }
 //MARK: - setup layout
-private extension ListsCollectionViewCell {
+private extension ListsTableViewCell {
     func setupLayout() {
         self.contentView.backgroundColor = .black.withAlphaComponent(0.4)
         setupTitleLabel()
