@@ -31,7 +31,13 @@ class ListsPresenter {
 //MARK: - ListsPresenterProtocol
 extension ListsPresenter: ListsPresenterProtocol {
     func clearList(with id: Int) {
-        
+        Task {
+            do {
+                try await interactor.clearList(with: id)
+            } catch let error as AppError {
+                print(error)
+            }
+        }
     }
     func didListsSelected(list: Int) {
         DispatchQueue.main.async { [weak self] in

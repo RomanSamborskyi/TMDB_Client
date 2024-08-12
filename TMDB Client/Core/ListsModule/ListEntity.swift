@@ -10,9 +10,9 @@ import UIKit
 
 //MARK: - clear list response
 struct ClearList: Codable {
-    let success: Bool
-    let statusCode: Int
-    let statusMessege: String
+    let success: Bool?
+    let statusCode: Int?
+    let statusMessege: String?
     
     
     enum CodingKeys: String, CodingKey {

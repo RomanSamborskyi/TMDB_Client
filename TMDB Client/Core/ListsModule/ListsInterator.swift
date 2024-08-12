@@ -33,7 +33,7 @@ extension ListsInterator: ListsInteratorProtocol {
             throw AppError.badResponse
         }
         
-        guard let url = URL(string: ListURL.clearList(listId: id, key: Constants.apiKey).url) else {
+        guard let url = URL(string: ListURL.clearList(listId: id, key: Constants.apiKey, sessionId: sessionId).url) else {
             throw AppError.badURL
         }
         
@@ -42,15 +42,12 @@ extension ListsInterator: ListsInteratorProtocol {
         request.httpMethod = "POST"
         request.timeoutInterval = 10
         request.allHTTPHeaderFields = Constants.clearListHeader
-        
-        let parameters: [String : Any] = ["session_id" : sessionId]
-        
-        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
-        
-        guard let result = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
+    
+        guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
+        try await fetchLists()
     }
     func fetchLists() async throws {
         
@@ -73,8 +70,6 @@ extension ListsInterator: ListsInteratorProtocol {
         }
         if let list = result.results {
             presenter?.didListsFetched(lists: list)
-            print(list.first?.id)
-            print(keychain.get(for: Constants.sessionKey))
         }
     }
 }

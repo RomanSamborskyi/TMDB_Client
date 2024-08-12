@@ -83,4 +83,22 @@ extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
         let item = self.lists[indexPath.row]
         self.presenter?.didListsSelected(list: item.id ?? 0)
     }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let item = self.lists[indexPath.row]
+        
+        let clear = UIContextualAction(style: .normal, title: "Clear") { action, view, complition in
+            self.presenter?.clearList(with: item.id ?? 0)
+            complition(true)
+        }
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { action, view, complition in
+            
+        }
+        clear.backgroundColor = .systemBlue
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [delete, clear])
+        
+        tableView.reloadData()
+        
+        return swipeConfiguration
+    }
 }
+

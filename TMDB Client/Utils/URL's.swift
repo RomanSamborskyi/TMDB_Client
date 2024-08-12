@@ -9,14 +9,14 @@ import Foundation
 
 
 enum ListURL {
-    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String)
+    case listDetail(listsId: Int, apiKey: String),clearList(listId: Int, key: String, sessionId: String)
     
     var url: String {
         switch self {
         case .listDetail(let id, let key):
             return "https://api.themoviedb.org/3/list/\(id)?api_key=\(key)"
-        case .clearList(listId: let listId, key: let key):
-            return "https://api.themoviedb.org/3/list/\(listId)/clear?api_key=\(key)"
+        case .clearList(listId: let listId, key: let key, sessionId: let sessionId):
+            return "https://api.themoviedb.org/3/list/\(listId)/clear?api_key=\(key)&session_id=\(sessionId)&confirm=true"
         }
     }
 }
