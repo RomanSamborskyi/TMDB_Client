@@ -91,7 +91,8 @@ extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
             complition(true)
         }
         let delete = UIContextualAction(style: .destructive, title: "Delete") { action, view, complition in
-            
+            self.presenter?.deleteList(with: item.id ?? 0)
+            complition(true)
         }
         clear.backgroundColor = .systemBlue
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [delete, clear])

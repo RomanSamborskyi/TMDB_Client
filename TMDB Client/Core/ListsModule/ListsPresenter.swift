@@ -13,6 +13,7 @@ protocol ListsPresenterProtocol: AnyObject {
     func didListsFetched(lists: [List])
     func didListsSelected(list: Int)
     func clearList(with id: Int)
+    func deleteList(with id: Int)
 }
 
 
@@ -30,6 +31,15 @@ class ListsPresenter {
 }
 //MARK: - ListsPresenterProtocol
 extension ListsPresenter: ListsPresenterProtocol {
+    func deleteList(with id: Int) {
+        Task {
+            do {
+                try await interactor.deleteList(with: id)
+            } catch let error as AppError {
+                print(error)
+            }
+        }
+    }
     func clearList(with id: Int) {
         Task {
             do {
