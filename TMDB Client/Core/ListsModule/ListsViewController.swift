@@ -17,13 +17,10 @@ class ListsViewController: UIViewController {
     //MARK: - property
     var presenter: ListsPresenterProtocol?
     private var lists: [List] = []
-    private lazy var collectionCell: UICollectionView = {
-        let flow = UICollectionViewFlowLayout()
-        flow.scrollDirection = .vertical
-        flow.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 5.5)
-        let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
-        cell.register(ListsCollectionViewCell.self, forCellWithReuseIdentifier: ListsCollectionViewCell.identifier)
-        return cell
+    private lazy var tableViewCell: UITableView = {
+        let tableView = UITableView()
+        tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: ListsTableViewCell.identifier)
+        return tableView
     }()
     //MARK: - lifecycle
     override func viewDidLoad() {
@@ -41,19 +38,19 @@ private extension ListsViewController {
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        collectionCell.delegate = self
-        collectionCell.dataSource = self
+        tableViewCell.delegate = self
+        tableViewCell.dataSource = self
     }
     func setupCollectionView() {
-        self.view.addSubview(collectionCell)
-        collectionCell.translatesAutoresizingMaskIntoConstraints = false
-        collectionCell.backgroundColor = UIColor.customBackground
+        self.view.addSubview(tableViewCell)
+        tableViewCell.translatesAutoresizingMaskIntoConstraints = false
+        tableViewCell.backgroundColor = UIColor.customBackground
         
         NSLayoutConstraint.activate([
-            collectionCell.topAnchor.constraint(equalTo: self.view.topAnchor),
-            collectionCell.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            collectionCell.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionCell.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            tableViewCell.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableViewCell.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableViewCell.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableViewCell.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
 }
@@ -62,23 +59,46 @@ extension ListsViewController: ListsViewControllerProtocol {
     func show(lists: [List]) {
         DispatchQueue.main.async { [weak self] in
             self?.lists = lists
-            self?.collectionCell.reloadData()
+            self?.tableViewCell.reloadData()
         }
     }
 }
-//MARK: -
-extension ListsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//MARK: - UITableViewDelegate, UITableViewDataSource
+extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.lists.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsCollectionViewCell.identifier, for: indexPath) as! ListsCollectionViewCell
-        cell.list = self.lists[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListsTableViewCell.identifier, for: indexPath) as! ListsTableViewCell
+        cell.backgroundColor = UIColor.customBackground
+        let item = self.lists[indexPath.row]
+        cell.updateCell(with: item)
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIScreen.main.bounds.height / 5
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.lists[indexPath.row]
         self.presenter?.didListsSelected(list: item.id ?? 0)
     }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let item = self.lists[indexPath.row]
+        
+        let clear = UIContextualAction(style: .normal, title: "Clear") { action, view, complition in
+            self.presenter?.clearList(with: item.id ?? 0)
+            complition(true)
+        }
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { action, view, complition in
+            
+        }
+        clear.backgroundColor = .systemBlue
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [delete, clear])
+        
+        tableView.reloadData()
+        
+        return swipeConfiguration
+    }
 }
+

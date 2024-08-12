@@ -10,13 +10,15 @@ import Foundation
 
 struct Constants {
     
-    
-    
     static let account_id: String = "account_id"
     
     static let sessionKey: String = "session_id"
     static let apiKey: String = ProcessInfo.processInfo.environment["API_KEY"] ?? "NO KEY"
     
+    static let clearListHeader = [
+        "accept": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyMzMxOTkyMi42NjQ0Mywic3ViIjoiNjQ1M2RlYzZkNDhjZWUwMGUxMzNhMDZkIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.KOpOq5eq7eJrAXTTIubRiN9Qxo4dz1cxGIc0wYeH5ec"
+      ]
     
     static let addRatingHeaders =  [
         "accept": "application/json",
