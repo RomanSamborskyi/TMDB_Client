@@ -159,7 +159,7 @@ private extension MovieDetailsView {
         
         NSLayoutConstraint.activate([
             addToWatchlistButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
-            addToWatchlistButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            addToWatchlistButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             addToWatchlistButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.2),
             addToWatchlistButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
         ])
@@ -177,8 +177,8 @@ private extension MovieDetailsView {
         
         NSLayoutConstraint.activate([
             addToFavoriteButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
-            addToFavoriteButton.leadingAnchor.constraint(equalTo: addToWatchlistButton.trailingAnchor, constant: 20),
-            addToFavoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            addToFavoriteButton.leadingAnchor.constraint(equalTo: addToWatchlistButton.trailingAnchor, constant: 10),
+           // addToFavoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             addToFavoriteButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.2),
             addToFavoriteButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
         ])

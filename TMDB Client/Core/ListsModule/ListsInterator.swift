@@ -11,6 +11,7 @@ import UIKit
 protocol ListsInteratorProtocol: AnyObject {
     func fetchLists() async throws
     func clearList(with id: Int) async throws
+    func deleteList(with id: Int) async throws
 }
 
 class ListsInterator {
@@ -27,6 +28,27 @@ class ListsInterator {
 }
 //MARK: - ListsIteratorProtocol
 extension ListsInterator: ListsInteratorProtocol {
+    func deleteList(with id: Int) async throws {
+        guard let sessionId = keychain.get(for: Constants.sessionKey) else {
+            throw AppError.badResponse
+        }
+        
+        guard let url = URL(string: ListURL.deleteList(listId: id, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
+            throw AppError.badURL
+        }
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.timeoutInterval = 10
+        request.allHTTPHeaderFields = Constants.deleteListHeader
+    
+        guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+        
+        try await fetchLists()
+    }
     func clearList(with id: Int) async throws {
         
         guard let sessionId = keychain.get(for: Constants.sessionKey) else {
