@@ -55,6 +55,7 @@ private extension WatchlistViewController {
     func setupViews() {
         if movies.count > 0 {
             self.emptyListView.removeFromSuperview()
+            movieCollection.isHidden = false
             setupCollectionView()
             movieCollection.reloadData()
         } else if movies.count == 0 {

@@ -48,6 +48,7 @@ private extension ListsViewController {
     func setupViews() {
         if lists.count > 0 {
             self.emptyListView.removeFromSuperview()
+            tableViewCell.isHidden = false
             setupCollectionView()
         } else {
             tableViewCell.isHidden = true
@@ -84,11 +85,7 @@ extension ListsViewController: ListsViewControllerProtocol {
     func show(lists: [List]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-           // UIView.animate(withDuration: 0.3, delay: 0.0, options: [.showHideTransitionViews], animations: {
-                self.lists = lists
-         //   }, completion: { _ in
-                
-       //     })
+            self.lists = lists
         }
     }
 }
