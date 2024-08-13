@@ -69,7 +69,7 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         
         switch stat.rated {
         case .notRated:
-            print("not rated")
+            break
         case .rated(let ratedValue):
             fetchedMovie.myRate = ratedValue.value ?? 0
         case .none:

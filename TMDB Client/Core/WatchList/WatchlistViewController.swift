@@ -15,7 +15,11 @@ protocol WatchlistViewProtocol: AnyObject {
 class WatchlistViewController: UIViewController {
     //MARK: - property
     var presenter: WatchlistPresenterProtocol?
-    private lazy var movies: [Movie] = []
+    private lazy var movies: [Movie] = [] {
+        didSet {
+            setupViews()
+        }
+    }
     private lazy var posters: [Int : UIImage] = [:]
     private lazy var movieCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
@@ -25,13 +29,13 @@ class WatchlistViewController: UIViewController {
         cell.register(MovieToWatchCollectionViewCell.self, forCellWithReuseIdentifier: MovieToWatchCollectionViewCell.identifier)
         return cell
     }()
+    private lazy var emptyListView = ListsEmptyView()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewControllerDidLoad()
         presenter?.viewControllerWillAppear()
         setupLayout()
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         presenter?.viewControllerWillAppear()
@@ -44,11 +48,21 @@ private extension WatchlistViewController {
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor.customBackground
+        
         movieCollection.dataSource = self
         movieCollection.delegate = self
-        setupCollectionView()
     }
-    
+    func setupViews() {
+        if movies.count > 0 {
+            self.emptyListView.removeFromSuperview()
+            setupCollectionView()
+            movieCollection.reloadData()
+        } else if movies.count == 0 {
+            movieCollection.isHidden = true
+            self.setupEmptyListView()
+            self.view.layoutIfNeeded()
+        }
+    }
     func setupCollectionView() {
         self.view.addSubview(movieCollection)
         movieCollection.translatesAutoresizingMaskIntoConstraints = false
@@ -63,14 +77,26 @@ private extension WatchlistViewController {
             movieCollection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
+    func setupEmptyListView() {
+        self.view.addSubview(emptyListView)
+        emptyListView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyListView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            emptyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
+    }
 }
 //MARK: - WatchlistViewProtocol
 extension WatchlistViewController: WatchlistViewProtocol {
     func show(movies: [Movie], posters: [Int : UIImage]) {
         DispatchQueue.main.async { [weak self] in
-            self?.movies = movies
-            self?.posters.merge(posters, uniquingKeysWith: { image, _ in image})
-            self?.movieCollection.reloadData()
+            guard let self = self else { return }
+            self.movies = movies
+            self.posters.merge(posters, uniquingKeysWith: { image, _ in image})
+            self.movieCollection.reloadData()
         }
     }
 }

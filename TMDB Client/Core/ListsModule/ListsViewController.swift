@@ -16,12 +16,17 @@ class ListsViewController: UIViewController {
 
     //MARK: - property
     var presenter: ListsPresenterProtocol?
-    private var lists: [List] = []
+    private var lists: [List] = [] {
+        didSet {
+            setupViews()
+        }
+    }
     private lazy var tableViewCell: UITableView = {
         let tableView = UITableView()
         tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: ListsTableViewCell.identifier)
         return tableView
     }()
+    private lazy var emptyListView = ListsEmptyView()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +38,33 @@ class ListsViewController: UIViewController {
 //MARK: - UI layout
 private extension ListsViewController {
     func setupLayout() {
-        setupCollectionView()
         self.navigationItem.title = "Lists"
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
         tableViewCell.delegate = self
         tableViewCell.dataSource = self
+    }
+    func setupViews() {
+        if lists.count > 0 {
+            self.emptyListView.removeFromSuperview()
+            setupCollectionView()
+        } else {
+            tableViewCell.isHidden = true
+            self.setupEmptyListView()
+            self.view.layoutIfNeeded()
+        }
+    }
+    func setupEmptyListView() {
+        self.view.addSubview(emptyListView)
+        emptyListView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyListView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            emptyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
     }
     func setupCollectionView() {
         self.view.addSubview(tableViewCell)
@@ -58,8 +83,12 @@ private extension ListsViewController {
 extension ListsViewController: ListsViewControllerProtocol {
     func show(lists: [List]) {
         DispatchQueue.main.async { [weak self] in
-            self?.lists = lists
-            self?.tableViewCell.reloadData()
+            guard let self = self else { return }
+           // UIView.animate(withDuration: 0.3, delay: 0.0, options: [.showHideTransitionViews], animations: {
+                self.lists = lists
+         //   }, completion: { _ in
+                
+       //     })
         }
     }
 }
