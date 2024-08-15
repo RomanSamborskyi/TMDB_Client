@@ -11,6 +11,8 @@ protocol MovieInteractorProtocol: AnyObject {
     func fetchMovies(with ulr: String) async throws
     func fetchGenres() async throws
     func fetchMovies(by genre: Int) async throws
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
 }
 
 class MovieInteractor {

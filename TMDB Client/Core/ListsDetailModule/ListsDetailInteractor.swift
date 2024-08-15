@@ -10,17 +10,22 @@ import UIKit
 
 protocol ListsDetailInteractorProtocol: AnyObject {
     func fetchDetails() async throws
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
+    var listId: Int { get } 
 }
 
 class ListsDetailInteractor {
     //MARK: - property
     weak var presenter: ListsDetailPresenterProtocol?
-    private let networkManager = NetworkManager()
-    private let imageDownloader = ImageDownloader()
+    let networkManager: NetworkManager
+    let imageDownloader: ImageDownloader
     let listId: Int
     //MARK: - lifecycle
-    init(listId: Int) {
+    init(listId: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
         self.listId = listId
+        self.networkManager = networkManager
+        self.imageDownloader = imageDownloader
     }
 }
 //MARK: - ListsDetailInteractorProtocol

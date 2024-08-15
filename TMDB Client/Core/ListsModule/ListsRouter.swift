@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol ListsRouterProtocol: AnyObject {
-    func navigateToList(with id: Int)
+    func navigateToList(with id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader)
 }
 
 class ListsRouter {
@@ -18,8 +18,8 @@ class ListsRouter {
 }
 //MARK: - ListsRouterProtocol
 extension ListsRouter: ListsRouterProtocol {
-    func navigateToList(with id: Int) {
-        let detailVC = ListsDetailModuleBuilder.build(list: id)
+    func navigateToList(with id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+        let detailVC = ListsDetailModuleBuilder.build(list: id, networkManager: networkManager, imageDownloader: imageDownloader)
         self.view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

@@ -22,13 +22,15 @@ class MovieDetailsInteractor {
     weak var presenter: MovieDetailsPresenterProtocol?
     let movieId: Int
     let poster: UIImage
-    let networkManager = NetworkManager()
+    let networkManager: NetworkManager
+    let imageDownloader: ImageDownloader
     let keychain = KeyChainManager.instance
-    let imageDownloader = ImageDownloader()
     //MARK: - lifecycle
-    init(movieId: Int, poster: UIImage) {
+    init(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
         self.movieId = movieId
         self.poster = poster
+        self.networkManager = networkManager
+        self.imageDownloader = imageDownloader
     }
 }
 //MARK: - MovieDetailsInteractorProtocol

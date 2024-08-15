@@ -51,9 +51,10 @@ private extension ListsDetailViewController {
         self.collection.delegate = self
         self.collection.dataSource = self
         setupCollectionView()
+        setupNavigationBar()
     }
     func setupNavigationBar() {
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addMovie))
     }
     func setupCollectionView() {
         self.view.addSubview(collection)
@@ -66,6 +67,9 @@ private extension ListsDetailViewController {
             collection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             collection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
+    }
+    @objc func addMovie(selector: Selector) {
+        presenter?.didAddMovieToList()
     }
 }
 //MARK: - UICollectionDataSource & Delegate

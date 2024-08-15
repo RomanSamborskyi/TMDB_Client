@@ -19,8 +19,8 @@ protocol WatchlistPresenterProtocol: AnyObject {
 class WatchlistPresenter {
     //MARK: - property
     weak var view: WatchlistViewProtocol?
-    let interactor: WatchlistInteractorProtocol?
-    let router: WatchlistRouterProtocol?
+    let interactor: WatchlistInteractorProtocol
+    let router: WatchlistRouterProtocol
     
     //MARK: - lifecycle
     init(interactor: WatchlistInteractorProtocol, router: WatchlistRouterProtocol) {
@@ -36,7 +36,7 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     func didAddToFavoriteButtonPressed(for movie: Int) {
         Task {
             do {
-                try await interactor?.addToFavorite(movieId: movie)
+                try await interactor.addToFavorite(movieId: movie)
             } catch let error as AppError {
                 print(error.localizedDescription)
             }
@@ -47,7 +47,8 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     }
     func didMovieSelected(movie id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
-            self?.router?.navigateToDetail(movie: id, poster: poster)
+            guard let self = self else { return }
+            self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader)
         }
     }
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
@@ -56,7 +57,7 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     func viewControllerDidLoad() {
         Task {
             do {
-                try await interactor?.fetchWatchList()
+                try await interactor.fetchWatchList()
             } catch let error as AppError {
                 print(error.localizedDescription)
             }
@@ -71,7 +72,7 @@ extension WatchlistPresenter {
     @objc func didMovieAddedToWatchList(selector: Notification ) {
         Task {
             do {
-                try await interactor?.fetchWatchList()
+                try await interactor.fetchWatchList()
             } catch let error as AppError {
                 print(error.localizedDescription)
             }

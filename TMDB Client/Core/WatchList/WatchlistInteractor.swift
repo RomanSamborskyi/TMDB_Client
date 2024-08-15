@@ -12,6 +12,8 @@ protocol WatchlistInteractorProtocol: AnyObject {
     func fetchWatchList() async throws
     func fetchMovieStat(movieId: Int) async throws -> MovieStat
     func addToFavorite(movieId: Int) async throws
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
 }
 
 class WatchlistInteractor {

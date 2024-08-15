@@ -33,7 +33,8 @@ class MoviePresenter {
 extension MoviePresenter: MoviePresenterProtocol {
     func didMovieSelected(with id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
-            self?.router.navigateTo(movie: id, poster: poster)
+            guard let self = self else { return }
+            self.router.navigateTo(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader)
         }
     }
     func viewControllerDidLoad(genre: Genre) {

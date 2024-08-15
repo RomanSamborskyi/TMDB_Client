@@ -12,6 +12,8 @@ protocol ListsInteratorProtocol: AnyObject {
     func fetchLists() async throws
     func clearList(with id: Int) async throws
     func deleteList(with id: Int) async throws
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
 }
 
 class ListsInterator {
