@@ -70,6 +70,12 @@
 		6BC6835C2C426EED0008864A /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6835B2C426EED0008864A /* MovieCardView.swift */; };
 		6BC683612C4271250008864A /* TopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC683602C4271250008864A /* TopCollectionViewCell.swift */; };
 		6BCD38172C6B41C700A0C2BB /* ListsEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD38162C6B41C700A0C2BB /* ListsEmptyView.swift */; };
+		6BCD381C2C6E704100A0C2BB /* AddToListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD381B2C6E704100A0C2BB /* AddToListViewController.swift */; };
+		6BCD381E2C6E70C500A0C2BB /* AddToListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD381D2C6E70C500A0C2BB /* AddToListInteractor.swift */; };
+		6BCD38202C6E764A00A0C2BB /* AddToListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD381F2C6E764A00A0C2BB /* AddToListPresenter.swift */; };
+		6BCD38222C6E76BD00A0C2BB /* AddTolistEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD38212C6E76BD00A0C2BB /* AddTolistEntities.swift */; };
+		6BCD38242C6E76D000A0C2BB /* AddToListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD38232C6E76D000A0C2BB /* AddToListRouter.swift */; };
+		6BCD38262C6E772400A0C2BB /* AddToListModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD38252C6E772400A0C2BB /* AddToListModuleBuilder.swift */; };
 		6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */; };
 		6BFAA0E42C556899002D8F1A /* ListsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E32C556899002D8F1A /* ListsDetailViewController.swift */; };
 		6BFAA0E62C556908002D8F1A /* ListsDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E52C556908002D8F1A /* ListsDetailInteractor.swift */; };
@@ -145,6 +151,12 @@
 		6BC6835B2C426EED0008864A /* MovieCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
 		6BC683602C4271250008864A /* TopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BCD38162C6B41C700A0C2BB /* ListsEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsEmptyView.swift; sourceTree = "<group>"; };
+		6BCD381B2C6E704100A0C2BB /* AddToListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListViewController.swift; sourceTree = "<group>"; };
+		6BCD381D2C6E70C500A0C2BB /* AddToListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListInteractor.swift; sourceTree = "<group>"; };
+		6BCD381F2C6E764A00A0C2BB /* AddToListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListPresenter.swift; sourceTree = "<group>"; };
+		6BCD38212C6E76BD00A0C2BB /* AddTolistEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTolistEntities.swift; sourceTree = "<group>"; };
+		6BCD38232C6E76D000A0C2BB /* AddToListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListRouter.swift; sourceTree = "<group>"; };
+		6BCD38252C6E772400A0C2BB /* AddToListModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListModuleBuilder.swift; sourceTree = "<group>"; };
 		6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
 		6BFAA0E32C556899002D8F1A /* ListsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailViewController.swift; sourceTree = "<group>"; };
 		6BFAA0E52C556908002D8F1A /* ListsDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailInteractor.swift; sourceTree = "<group>"; };
@@ -236,6 +248,7 @@
 				6B56A7D92C3B27A3001032C8 /* SceneDelegate.swift */,
 				6B56A7D72C3B27A3001032C8 /* AppDelegate.swift */,
 				6BC683432C4079DF0008864A /* TabBarController.swift */,
+				6BCD381A2C6E6FD400A0C2BB /* AddMovieToListModule */,
 				6BFAA0E22C55687D002D8F1A /* ListsDetailModule */,
 				6BC683542C4269F60008864A /* ListsModule */,
 				6B44B1FD2C454FD8006F0084 /* WatchList */,
@@ -350,6 +363,19 @@
 			path = MovieDetailModule;
 			sourceTree = "<group>";
 		};
+		6BCD381A2C6E6FD400A0C2BB /* AddMovieToListModule */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD381B2C6E704100A0C2BB /* AddToListViewController.swift */,
+				6BCD38252C6E772400A0C2BB /* AddToListModuleBuilder.swift */,
+				6BCD381F2C6E764A00A0C2BB /* AddToListPresenter.swift */,
+				6BCD381D2C6E70C500A0C2BB /* AddToListInteractor.swift */,
+				6BCD38212C6E76BD00A0C2BB /* AddTolistEntities.swift */,
+				6BCD38232C6E76D000A0C2BB /* AddToListRouter.swift */,
+			);
+			path = AddMovieToListModule;
+			sourceTree = "<group>";
+		};
 		6BFAA0E22C55687D002D8F1A /* ListsDetailModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,12 +466,14 @@
 				6B56A7F12C3B2BCD001032C8 /* LoginPresenter.swift in Sources */,
 				6BC45F752C42B45100F688D1 /* GenrePickerCell.swift in Sources */,
 				6B0A3C992C498BE200579CA5 /* MovieConatainer.xcdatamodeld in Sources */,
+				6BCD381E2C6E70C500A0C2BB /* AddToListInteractor.swift in Sources */,
 				6BC683562C426A120008864A /* ListsViewController.swift in Sources */,
 				6BFAA0EC2C577969002D8F1A /* ListsDetailRouter.swift in Sources */,
 				6B44B1F52C43CB26006F0084 /* ListsPresenter.swift in Sources */,
 				6B56A7F72C3B2E34001032C8 /* LoginModulBuilder.swift in Sources */,
 				6B44B1F92C43CB89006F0084 /* ListsRouter.swift in Sources */,
 				6B44B2012C45507C006F0084 /* WatchlistInteractor.swift in Sources */,
+				6BCD38202C6E764A00A0C2BB /* AddToListPresenter.swift in Sources */,
 				6BC6834D2C41CAA50008864A /* MoviePresenter.swift in Sources */,
 				6BC6833D2C3ECECF0008864A /* KeyChainManager.swift in Sources */,
 				6B56A7F32C3B2BD9001032C8 /* LoginEntity.swift in Sources */,
@@ -455,6 +483,7 @@
 				6B56A7ED2C3B2BB2001032C8 /* LoginViewController.swift in Sources */,
 				6BC683442C4079DF0008864A /* TabBarController.swift in Sources */,
 				6BC6832F2C3EC4BB0008864A /* ProfileInteractor.swift in Sources */,
+				6BCD38262C6E772400A0C2BB /* AddToListModuleBuilder.swift in Sources */,
 				6BA605F92C4565AD007E205C /* MovieToWatchCollectionViewCell.swift in Sources */,
 				6B44B2092C4551B5006F0084 /* WatchlistModuleBuilder.swift in Sources */,
 				6BFAA0E82C556954002D8F1A /* ListsDetailPresenter.swift in Sources */,
@@ -462,6 +491,7 @@
 				6B56A7D82C3B27A3001032C8 /* AppDelegate.swift in Sources */,
 				6B56A7EF2C3B2BC2001032C8 /* LoginInteractor.swift in Sources */,
 				6BCD38172C6B41C700A0C2BB /* ListsEmptyView.swift in Sources */,
+				6BCD38222C6E76BD00A0C2BB /* AddTolistEntities.swift in Sources */,
 				6BFAA0E42C556899002D8F1A /* ListsDetailViewController.swift in Sources */,
 				6B0A3C9C2C498C1800579CA5 /* CoreDataManager.swift in Sources */,
 				6BA605FF2C46D28D007E205C /* MovieDetailsInteractor.swift in Sources */,
@@ -494,9 +524,11 @@
 				6BC683582C426DFB0008864A /* MokData.swift in Sources */,
 				6BFAA0EA2C5569AA002D8F1A /* ListsEntity.swift in Sources */,
 				6BC683332C3EC6D30008864A /* ProfileEntity.swift in Sources */,
+				6BCD38242C6E76D000A0C2BB /* AddToListRouter.swift in Sources */,
 				6BA606072C46D5BA007E205C /* MovieDetailsView.swift in Sources */,
 				6BFAA0EE2C5779D0002D8F1A /* ListsDetailModuleBuilder.swift in Sources */,
 				6BC6832D2C3DCDCF0008864A /* ProfileViewController.swift in Sources */,
+				6BCD381C2C6E704100A0C2BB /* AddToListViewController.swift in Sources */,
 				6B44B1FF2C454FF6006F0084 /* WatchlistViewController.swift in Sources */,
 				6B44B2032C4550C4006F0084 /* WatchlistPresenter.swift in Sources */,
 				6BC6834F2C41CAD90008864A /* MovieEntity.swift in Sources */,

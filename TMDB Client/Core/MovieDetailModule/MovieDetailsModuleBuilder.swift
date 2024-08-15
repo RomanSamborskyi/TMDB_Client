@@ -9,11 +9,11 @@ import UIKit
 
 
 class MovieDetailsModuleBuilder {
-    static func build(movieId: Int, poster: UIImage) -> UIViewController {
+    static func build(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader) -> UIViewController {
         
         let view = MovieDetailsViewController()
-        let interactor = MovieDetailsInteractor(movieId: movieId, poster: poster)
-        let router = MovieDetailsRouter() 
+        let interactor = MovieDetailsInteractor(movieId: movieId, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader)
+        let router = MovieDetailsRouter()
         let presenter = MovieDetailsPresenter(interactor: interactor, router: router)
         
         view.presenter = presenter

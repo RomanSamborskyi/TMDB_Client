@@ -9,7 +9,8 @@ import UIKit
 
 
 protocol ListsDetailRouterProtocol: AnyObject {
-    func navigateTo(movie: Movie, poster: UIImage)
+    func navigateTo(movie: Movie, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader)
+    func addMovieToList(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int)
 }
 
 class ListsDetailRouter {
@@ -18,8 +19,12 @@ class ListsDetailRouter {
 }
 //MARK: - ListsDetailRouterProtocol
 extension ListsDetailRouter: ListsDetailRouterProtocol {
-    func navigateTo(movie: Movie, poster: UIImage) {
-        let detailVC = MovieDetailsModuleBuilder.build(movieId: movie.id ?? 0, poster: poster)
+    func addMovieToList(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int) {
+        let vc = AddToListModuleBuilder.build(networkManager: networkManager, imageDownloader: imageDownloader, listId: listId)
+        self.view?.navigationController?.present(vc, animated: true)
+    }
+    func navigateTo(movie: Movie, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+        let detailVC = MovieDetailsModuleBuilder.build(movieId: movie.id ?? 0, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader)
         self.view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
