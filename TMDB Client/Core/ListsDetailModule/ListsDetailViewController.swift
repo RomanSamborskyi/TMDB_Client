@@ -52,6 +52,9 @@ private extension ListsDetailViewController {
         self.collection.dataSource = self
         setupCollectionView()
     }
+    func setupNavigationBar() {
+        
+    }
     func setupCollectionView() {
         self.view.addSubview(collection)
         collection.translatesAutoresizingMaskIntoConstraints = false

@@ -13,7 +13,8 @@ struct Constants {
     static let account_id: String = "account_id"
     
     static let sessionKey: String = "session_id"
-    static let apiKey: String = ProcessInfo.processInfo.environment["API_KEY"] ?? "NO KEY"
+    //static let apiKey: String = ProcessInfo.processInfo.environment["API_KEY"] ?? "NO KEY"
+    static let apiKey: String = "14512c9189d3ba6fe3a1de6324ad576a"
     
     static let deleteListHeader = [
         "accept": "application/json",
