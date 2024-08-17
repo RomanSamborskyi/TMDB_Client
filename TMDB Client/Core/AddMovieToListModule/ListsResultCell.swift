@@ -24,9 +24,9 @@ class ListsResultCell: UICollectionViewCell {
         didSet {
             switch buttonStyle {
             case .add:
-                button.setTitle("add", for: .normal)
+                updateButtonStyle(with: "plus", color: .white)
             case .delete:
-                button.setTitle("delete", for: .normal)
+                updateButtonStyle(with: "trash", color: .red)
             case nil:
                 break
             }
@@ -71,6 +71,13 @@ class ListsResultCell: UICollectionViewCell {
         guard let movie else { return }
         titleLabel.text = movie.title
         yearLabel.text = movie.releaseDate
+    }
+    private func updateButtonStyle(with image: String, color: UIColor) {
+        button.setImage(UIImage(systemName: image), for: .normal)
+        button.tintColor = color
+        button.layer.borderWidth = 2
+        button.layer.borderColor = color.cgColor
+        button.layer.cornerRadius = 15
     }
 }
 //MARK: - setup layout
@@ -134,8 +141,9 @@ private extension ListsResultCell {
         
         NSLayoutConstraint.activate([
             button.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 10),
-            button.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
-            
+            button.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            button.widthAnchor.constraint(equalToConstant: 35),
+            button.heightAnchor.constraint(equalToConstant: 35),
         ])
     }
 }
@@ -143,5 +151,12 @@ private extension ListsResultCell {
 private extension ListsResultCell {
     @objc func buttonAction(selector: Selector) {
         self.delegate?.didButtonTapped(for: movie?.id ?? 0)
+        if buttonStyle == .add {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.4) {
+                    self.updateButtonStyle(with: "checkmark", color: .green)
+                }
+            }
+        }
     }
 }

@@ -31,8 +31,11 @@ class ListsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .customBackground
-        presenter?.viewControllerDidLoad()
         setupLayout()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.viewControllerDidLoad()
+        tableViewCell.reloadData()
     }
 }
 //MARK: - UI layout
