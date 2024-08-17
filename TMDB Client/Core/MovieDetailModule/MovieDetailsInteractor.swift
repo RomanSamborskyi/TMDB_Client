@@ -160,7 +160,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         
         let backdropPoster = try await withThrowingTaskGroup(of: UIImage.self) { group in
             
-            guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(requesteedMovie.backdropPath ?? "")") else {
+            guard let url = URL(string: ImageURL.imagePath(path: movie?.backdropPath ?? "").url) else {
                 throw AppError.badURL
             }
             

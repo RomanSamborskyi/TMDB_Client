@@ -92,14 +92,19 @@ extension ProfileInteractor: ProfileInteractorProtocol {
            return returnedUser
         }
         
+        
         let userAvatar = try await withThrowingTaskGroup(of: UIImage.self) { group in
             
-            guard let avatarPath = userData?.avatar.tmdb.avatarPath else {
-                throw AppError.invalidData
+            var baseURL: URL? = nil
+            
+            if let userPath = userData?.avatar?.tmdb?.avatarPath {
+                baseURL = URL(string: ImageURL.imagePath(path: userPath).url)
+            } else if let gravatarPath = userData?.avatar?.gravatar?.hash {
+                baseURL = URL(string: ImageURL.gravatarPath(path: gravatarPath).url)
             }
            
             
-            guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(avatarPath)") else {
+            guard let url = baseURL else {
                 throw AppError.badURL
             }
             
@@ -120,7 +125,6 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             }
             return avatarImage
         }
-        
         guard let user = userData,
               let avatar = userAvatar else {
             throw AppError.invalidData
@@ -128,7 +132,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
         
         
         do {
-            try keychain.save(value: String(user.id), for: Constants.account_id)
+            try keychain.save(value: String(user.id ?? 0), for: Constants.account_id)
         } catch let error {
             print("error of saving account ID: \(error.localizedDescription)")
         }

@@ -27,6 +27,6 @@ extension AddToListViewController: AddToListViewProtocol {
 //MARK: - setup layout
 private extension AddToListViewController {
     func setupLayout() {
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = UIColor.customBackground
     }
 }

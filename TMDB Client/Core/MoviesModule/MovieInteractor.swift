@@ -75,7 +75,7 @@ extension MovieInteractor: MovieInteractorProtocol {
         let posters = try await withThrowingTaskGroup(of: [Int : UIImage].self) { group in
             
             for movie in movies {
-                guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")") else {
+                guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
                     throw AppError.badURL
                 }
                 

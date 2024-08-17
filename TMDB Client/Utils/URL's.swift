@@ -8,6 +8,19 @@
 import Foundation
 
 
+enum ImageURL {
+    case imagePath(path: String), gravatarPath(path: String)
+    
+    var url: String {
+        switch self {
+        case .imagePath(let path):
+            return "https://image.tmdb.org/t/p/w500\(path)"
+        case .gravatarPath(let path):
+            return "https://www.gravatar.com/avatar/\(path)?s=200"
+        }
+    }
+}
+
 enum ListURL {
     case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String)
     
