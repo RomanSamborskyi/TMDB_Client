@@ -76,13 +76,14 @@ private extension AddToListViewController {
 }
 extension AddToListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.searchResult.count
+       1
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
-        let item = self.searchResult[indexPath.row]
-        cell.movie = item
-        cell.poster = self.searchResultPosters[item.id ?? 0]
+       // let item = self.searchResult[indexPath.row]
+        cell.movie = DeveloperPreview.instance.movie
+        cell.buttonStyle = .add
+        cell.poster = UIImage(named: "image")
         
         cell.clipsToBounds = true
         cell.backgroundColor = .black.withAlphaComponent(0.4)
