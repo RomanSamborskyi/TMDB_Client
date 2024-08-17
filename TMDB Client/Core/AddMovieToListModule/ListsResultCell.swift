@@ -7,9 +7,31 @@
 
 import UIKit
 
+
+protocol ListsResultCellDelegate: AnyObject {
+    func didButtonTapped(for id: Int)
+}
+
+enum ButtonStyle {
+    case add, delete
+}
+
 class ListsResultCell: UICollectionViewCell {
     //MARK: - property
     static let identifier: String = "ListsResultCell"
+    weak var delegate: ListsResultCellDelegate?
+    var buttonStyle: ButtonStyle? {
+        didSet {
+            switch buttonStyle {
+            case .add:
+                button.setTitle("add", for: .normal)
+            case .delete:
+                button.setTitle("delete", for: .normal)
+            case nil:
+                break
+            }
+        }
+    }
     var movie: Movie? {
         didSet {
             updateCell(with: movie)
@@ -57,6 +79,7 @@ private extension ListsResultCell {
         setupPosterView()
         setupTitleLabel()
         setupReliseLabel()
+        setupButton()
     }
     func setupPosterView() {
         self.contentView.addSubview(posterView)
@@ -101,5 +124,24 @@ private extension ListsResultCell {
             yearLabel.leadingAnchor.constraint(equalTo: self.posterView.trailingAnchor, constant: 10),
             
         ])
+    }
+    func setupButton() {
+        self.contentView.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            button.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 10),
+            button.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
+            
+        ])
+    }
+}
+//MARK: - button action
+private extension ListsResultCell {
+    @objc func buttonAction(selector: Selector) {
+        self.delegate?.didButtonTapped(for: movie?.id ?? 0)
     }
 }

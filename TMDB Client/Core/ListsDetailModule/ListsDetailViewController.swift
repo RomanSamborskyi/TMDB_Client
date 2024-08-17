@@ -81,6 +81,8 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
         let item = self.movies[indexPath.row]
         cell.movie = item
         cell.poster = self.posters[item.id ?? 0]
+        cell.buttonStyle = .delete
+        cell.delegate = self
         cell.clipsToBounds = true
         cell.backgroundColor = .black.withAlphaComponent(0.4)
         cell.layer.cornerRadius = 15
@@ -92,5 +94,11 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
             return
         }
         presenter?.didMovieSelected(movie: item, poster: itemPoster)
+    }
+}
+//MARK: - ListsResult cell delegate
+extension ListsDetailViewController: ListsResultCellDelegate {
+    func didButtonTapped(for id: Int) {
+        presenter?.deleteMovieFromList(with: id)
     }
 }

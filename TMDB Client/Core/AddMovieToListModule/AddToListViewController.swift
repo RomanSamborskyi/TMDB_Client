@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddToListViewProtocol: AnyObject {
-    
+    func showResults(movies: [Movie], posters: [Int : UIImage])
 }
 
 class AddToListViewController: UIViewController {
@@ -16,6 +16,7 @@ class AddToListViewController: UIViewController {
     var persenter: AddToListPresenterProtocol?
     private lazy var textFieldView = TextFieldView()
     private lazy var searchResult: [Movie] = []
+    private lazy var searchResultPosters: [Int : UIImage] = [:]
     private lazy var collectionCell: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
@@ -32,7 +33,12 @@ class AddToListViewController: UIViewController {
 }
 //MARK: - AddToListViewProtocol
 extension AddToListViewController: AddToListViewProtocol {
-    
+    func showResults(movies: [Movie], posters: [Int : UIImage]) {
+        DispatchQueue.main.async {
+            self.searchResult.append(contentsOf: movies)
+            self.searchResultPosters.merge(posters) { image, _ in image }
+        }
+    }
 }
 //MARK: - setup layout
 private extension AddToListViewController {
@@ -70,12 +76,14 @@ private extension AddToListViewController {
 }
 extension AddToListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        self.searchResult.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
-        cell.movie = DeveloperPreview.instance.movie
-        cell.poster = UIImage(named: "image")
+        let item = self.searchResult[indexPath.row]
+        cell.movie = item
+        cell.poster = self.searchResultPosters[item.id ?? 0]
+        
         cell.clipsToBounds = true
         cell.backgroundColor = .black.withAlphaComponent(0.4)
         cell.layer.cornerRadius = 15
