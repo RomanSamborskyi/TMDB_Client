@@ -8,8 +8,21 @@
 import Foundation
 
 
+enum ImageURL {
+    case imagePath(path: String), gravatarPath(path: String)
+    
+    var url: String {
+        switch self {
+        case .imagePath(let path):
+            return "https://image.tmdb.org/t/p/w500\(path)"
+        case .gravatarPath(let path):
+            return "https://www.gravatar.com/avatar/\(path)?s=200"
+        }
+    }
+}
+
 enum ListURL {
-    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String)
+    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String), deleteMovie(listId: Int, apiKey: String, sessionId: String)
     
     var url: String {
         switch self {
@@ -19,6 +32,8 @@ enum ListURL {
             return "https://api.themoviedb.org/3/list/\(listId)/clear?api_key=\(key)&session_id=\(sessionId)&confirm=true"
         case .deleteList(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
             return "https://api.themoviedb.org/3/list/\(listId)?api_key=\(apiKey)&session_id=\(sessionId)"
+        case .deleteMovie(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
+            return "https://api.themoviedb.org/3/list/\(listId)/remove_item?api_key=\(apiKey)&session_id=\(sessionId)"
         }
     }
 }

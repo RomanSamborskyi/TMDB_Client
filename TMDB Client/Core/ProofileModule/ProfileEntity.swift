@@ -11,11 +11,11 @@ import Foundation
 
 // MARK: - User
 struct UserProfile: Codable {
-    let avatar: Avatar
-    let id: Int
-    let iso639_1, iso3166_1, name: String
-    let includeAdult: Bool
-    let username: String
+    let avatar: Avatar?
+    let id: Int?
+    let iso639_1, iso3166_1, name: String?
+    let includeAdult: Bool?
+    let username: String?
 
     enum CodingKeys: String, CodingKey {
         case avatar, id
@@ -29,18 +29,18 @@ struct UserProfile: Codable {
 
 // MARK: - Avatar
 struct Avatar: Codable {
-    let gravatar: Gravatar
-    let tmdb: Tmdb
+    let gravatar: Gravatar?
+    let tmdb: Tmdb?
 }
 
 // MARK: - Gravatar
 struct Gravatar: Codable {
-    let hash: String
+    let hash: String?
 }
 
 // MARK: - Tmdb
 struct Tmdb: Codable {
-    let avatarPath: String
+    let avatarPath: String?
 
     enum CodingKeys: String, CodingKey {
         case avatarPath = "avatar_path"

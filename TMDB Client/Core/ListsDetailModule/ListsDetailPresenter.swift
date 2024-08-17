@@ -13,6 +13,7 @@ protocol ListsDetailPresenterProtocol: AnyObject {
     func didListFetched(list: ListDetail, posters: [Int : UIImage])
     func didMovieSelected(movie: Movie, poster: UIImage)
     func didAddMovieToList()
+    func deleteMovieFromList(with id: Int)
 }
 
 class ListsDetailPresenter {
@@ -28,6 +29,15 @@ class ListsDetailPresenter {
 }
 //MARK: - ListsDetailPresenterProtocol
 extension ListsDetailPresenter: ListsDetailPresenterProtocol {
+    func deleteMovieFromList(with id: Int) {
+        Task {
+            do {
+                try await interactor.deleteMovie(with: id)
+            } catch let error as AppError {
+                print(error.localized)
+            }
+        }
+    }
     func didAddMovieToList() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

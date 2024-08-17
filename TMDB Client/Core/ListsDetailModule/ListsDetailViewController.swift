@@ -20,10 +20,9 @@ class ListsDetailViewController: UIViewController {
     private lazy var collection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
-        flow.itemSize = CGSize(width: UIScreen.main.bounds.width / 3.17, height: 190)
-        flow.minimumInteritemSpacing = 5
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15 , height: UIScreen.main.bounds.height * 0.2)
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
-        cell.register(TopCollectionViewCell.self, forCellWithReuseIdentifier: TopCollectionViewCell.identifire)
+        cell.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
         return cell
     }()
     //MARK: - lifecycle
@@ -78,10 +77,15 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
         self.movies.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopCollectionViewCell.identifire, for: indexPath) as! TopCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
         let item = self.movies[indexPath.row]
         cell.movie = item
         cell.poster = self.posters[item.id ?? 0]
+        cell.buttonStyle = .delete
+        cell.delegate = self
+        cell.clipsToBounds = true
+        cell.backgroundColor = .black.withAlphaComponent(0.4)
+        cell.layer.cornerRadius = 15
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -90,5 +94,11 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
             return
         }
         presenter?.didMovieSelected(movie: item, poster: itemPoster)
+    }
+}
+//MARK: - ListsResult cell delegate
+extension ListsDetailViewController: ListsResultCellDelegate {
+    func didButtonTapped(for id: Int) {
+        presenter?.deleteMovieFromList(with: id)
     }
 }
