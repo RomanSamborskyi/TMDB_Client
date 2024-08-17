@@ -14,6 +14,7 @@ protocol AddToListViewProtocol: AnyObject {
 class AddToListViewController: UIViewController {
     //MARK: - property
     var persenter: AddToListPresenterProtocol?
+    private lazy var textFieldView = TextFieldView()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,5 +29,18 @@ extension AddToListViewController: AddToListViewProtocol {
 private extension AddToListViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor.customBackground
+        
+        setupTextFieldView()
+    }
+    func setupTextFieldView() {
+        self.view.addSubview(textFieldView)
+        textFieldView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            textFieldView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            textFieldView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            textFieldView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            textFieldView.heightAnchor.constraint(equalToConstant: 200)
+        ])
     }
 }
