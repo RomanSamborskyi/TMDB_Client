@@ -13,7 +13,8 @@ protocol AddToListViewProtocol: AnyObject {
 
 class AddToListViewController: UIViewController {
     //MARK: - property
-    var persenter: AddToListPresenterProtocol?
+    var presenter: AddToListPresenterProtocol?
+    
     private lazy var textFieldView = TextFieldView()
     private lazy var searchResult: [Movie] = []
     private lazy var searchResultPosters: [Int : UIImage] = [:]
@@ -83,11 +84,18 @@ extension AddToListViewController: UICollectionViewDelegate, UICollectionViewDat
        // let item = self.searchResult[indexPath.row]
         cell.movie = DeveloperPreview.instance.movie
         cell.buttonStyle = .add
+        cell.delegate = self
         cell.poster = UIImage(named: "image")
         
         cell.clipsToBounds = true
         cell.backgroundColor = .black.withAlphaComponent(0.4)
         cell.layer.cornerRadius = 15
         return cell
+    }
+}
+//MARK: - cell delegate
+extension AddToListViewController: ListsResultCellDelegate {
+    func didButtonTapped(for id: Int) {
+        presenter?.didMovieAddedToList(with: id)
     }
 }

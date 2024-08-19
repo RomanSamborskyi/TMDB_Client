@@ -6,10 +6,10 @@
 //
 
 import UIKit
-
+import NotificationCenter
 
 protocol AddToListPresenterProtocol: AnyObject {
-    
+    func didMovieAddedToList(with id: Int)
 }
 
 
@@ -26,5 +26,14 @@ class AddToListPresenter {
 }
 //MARK: - AddToListPresenterProtocol
 extension AddToListPresenter: AddToListPresenterProtocol {
-    
+    func didMovieAddedToList(with id: Int) {
+        Task {
+            do {
+                try await interactor.addMovieToList(with: id)
+                NotificationCenter.default.post(name: .movieAddedToList, object: nil)
+            } catch let error as AppError {
+                print(error.localized)
+            }
+        }
+    }
 }

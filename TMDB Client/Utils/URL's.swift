@@ -22,7 +22,7 @@ enum ImageURL {
 }
 
 enum ListURL {
-    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String), deleteMovie(listId: Int, apiKey: String, sessionId: String)
+    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String), deleteMovie(listId: Int, apiKey: String, sessionId: String), addMovie(listId: Int, movieId: Int, apiKey: String, sessionId: String)
     
     var url: String {
         switch self {
@@ -34,6 +34,8 @@ enum ListURL {
             return "https://api.themoviedb.org/3/list/\(listId)?api_key=\(apiKey)&session_id=\(sessionId)"
         case .deleteMovie(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
             return "https://api.themoviedb.org/3/list/\(listId)/remove_item?api_key=\(apiKey)&session_id=\(sessionId)"
+        case .addMovie(listId: let listId, movieId: let movieId, apiKey: let apiKey, sessionId: let sessionId):
+            return "https://api.themoviedb.org/3/list/\(listId)/add_item?api_key=\(apiKey)&session_id=\(sessionId)"
         }
     }
 }
