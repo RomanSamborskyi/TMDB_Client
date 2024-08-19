@@ -7,9 +7,14 @@
 
 import UIKit
 
+//MARK: - TextFieldView delegate
+protocol TextFieldViewDelegate: AnyObject {
+    func performSearch(text: String)
+}
+ 
 class TextFieldView: UIView {
     //MARK: - property
-    var searchResult: String = ""
+    weak var delegate: TextFieldViewDelegate?
     private lazy var textLabel: UILabel = {
         let txt = UILabel()
         return txt
@@ -60,7 +65,7 @@ private extension TextFieldView {
         searchFiled.rightViewMode = .always
         searchFiled.backgroundColor = .white
         searchFiled.textColor = .black
-        self.searchResult = searchFiled.text ?? "no result"
+        searchFiled.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         
         NSLayoutConstraint.activate([
             searchFiled.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
@@ -68,5 +73,13 @@ private extension TextFieldView {
             searchFiled.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             searchFiled.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05),
         ])
+    }
+}
+//MARK: - search field target
+extension TextFieldView {
+    @objc func textChanged(text: UITextField) {
+        if let result = text.text {
+            self.delegate?.performSearch(text: result)
+        }
     }
 }

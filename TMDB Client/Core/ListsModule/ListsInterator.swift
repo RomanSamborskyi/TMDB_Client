@@ -14,26 +14,26 @@ protocol ListsInteratorProtocol: AnyObject {
     func deleteList(with id: Int) async throws
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
+    var sessionId: String { get }
 }
 
 class ListsInterator {
     //MARK: - property
-    weak var presenter: ListsPresenterProtocol?
     private var keychain = KeyChainManager.instance
+    weak var presenter: ListsPresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
+    let sessionId: String
     
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.sessionId = sessionId
     }
 }
 //MARK: - ListsIteratorProtocol
 extension ListsInterator: ListsInteratorProtocol {
     func deleteList(with id: Int) async throws {
-        guard let sessionId = keychain.get(for: Constants.sessionKey) else {
-            throw AppError.badResponse
-        }
         
         guard let url = URL(string: ListURL.deleteList(listId: id, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
             throw AppError.badURL
@@ -52,10 +52,6 @@ extension ListsInterator: ListsInteratorProtocol {
         try await fetchLists()
     }
     func clearList(with id: Int) async throws {
-        
-        guard let sessionId = keychain.get(for: Constants.sessionKey) else {
-            throw AppError.badResponse
-        }
         
         guard let url = URL(string: ListURL.clearList(listId: id, key: Constants.apiKey, sessionId: sessionId).url) else {
             throw AppError.badURL

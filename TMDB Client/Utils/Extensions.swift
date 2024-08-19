@@ -28,6 +28,9 @@ extension Notification.Name {
     static var movieAddedToWatchList: Notification.Name {
         return .init("movieAddedToWatchList")
     }
+    static var movieAddedToList: Notification.Name {
+        return .init("movieAddedToList")
+    }
 }
 
 extension UIViewController {

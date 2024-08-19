@@ -13,30 +13,29 @@ protocol ListsDetailInteractorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var listId: Int { get } 
+    var sessionId: String { get }
     func deleteMovie(with id: Int) async throws
 }
 
 class ListsDetailInteractor {
     //MARK: - property
     weak var presenter: ListsDetailPresenterProtocol?
-    private var keychain = KeyChainManager.instance
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     let listId: Int
+    let sessionId: String
+    
     //MARK: - lifecycle
-    init(listId: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+    init(listId: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
         self.listId = listId
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.sessionId = sessionId
     }
 }
 //MARK: - ListsDetailInteractorProtocol
 extension ListsDetailInteractor: ListsDetailInteractorProtocol {
     func deleteMovie(with id: Int) async throws {
-        
-        guard let sessionId = keychain.get(for: Constants.sessionKey) else {
-            throw AppError.badResponse
-        }
         
         guard let url = URL(string: ListURL.deleteMovie(listId: self.listId, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
             throw AppError.badURL

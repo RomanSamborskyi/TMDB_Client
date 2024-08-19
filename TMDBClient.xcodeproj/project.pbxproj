@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B0A3C992C498BE200579CA5 /* MovieConatainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B0A3C972C498BE200579CA5 /* MovieConatainer.xcdatamodeld */; };
-		6B0A3C9C2C498C1800579CA5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0A3C9B2C498C1800579CA5 /* CoreDataManager.swift */; };
 		6B42EEBD2C6367F50018FE66 /* MovieRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */; };
 		6B44B1F12C43C99E006F0084 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B44B1F02C43C99E006F0084 /* Extensions.swift */; };
 		6B44B1F32C43CABD006F0084 /* ListsInterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B44B1F22C43CABD006F0084 /* ListsInterator.swift */; };
@@ -88,8 +86,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6B0A3C982C498BE200579CA5 /* MovieConatainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieConatainer.xcdatamodel; sourceTree = "<group>"; };
-		6B0A3C9B2C498C1800579CA5 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRateView.swift; sourceTree = "<group>"; };
 		6B44B1F02C43C99E006F0084 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6B44B1F22C43CABD006F0084 /* ListsInterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsInterator.swift; sourceTree = "<group>"; };
@@ -181,15 +177,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6B0A3C9A2C498BE800579CA5 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				6B0A3C972C498BE200579CA5 /* MovieConatainer.xcdatamodeld */,
-				6B0A3C9B2C498C1800579CA5 /* CoreDataManager.swift */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
 		6B44B1FD2C454FD8006F0084 /* WatchList */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,7 +264,6 @@
 		6B56A7FA2C3B3221001032C8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				6B0A3C9A2C498BE800579CA5 /* CoreData */,
 				6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */,
 				6BC683402C3EE0F70008864A /* CacheManager.swift */,
 				6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */,
@@ -471,7 +457,6 @@
 				6B56A7FC2C3B3236001032C8 /* NetworkManager.swift in Sources */,
 				6B56A7F12C3B2BCD001032C8 /* LoginPresenter.swift in Sources */,
 				6BC45F752C42B45100F688D1 /* GenrePickerCell.swift in Sources */,
-				6B0A3C992C498BE200579CA5 /* MovieConatainer.xcdatamodeld in Sources */,
 				6BCD381E2C6E70C500A0C2BB /* AddToListInteractor.swift in Sources */,
 				6BC683562C426A120008864A /* ListsViewController.swift in Sources */,
 				6BFAA0EC2C577969002D8F1A /* ListsDetailRouter.swift in Sources */,
@@ -500,7 +485,6 @@
 				6BCD38172C6B41C700A0C2BB /* ListsEmptyView.swift in Sources */,
 				6BCD38222C6E76BD00A0C2BB /* AddTolistEntities.swift in Sources */,
 				6BFAA0E42C556899002D8F1A /* ListsDetailViewController.swift in Sources */,
-				6B0A3C9C2C498C1800579CA5 /* CoreDataManager.swift in Sources */,
 				6BA605FF2C46D28D007E205C /* MovieDetailsInteractor.swift in Sources */,
 				6B56A7F52C3B2BEA001032C8 /* LoginRouter.swift in Sources */,
 				6BC683492C4080140008864A /* ActivityView.swift in Sources */,
@@ -763,19 +747,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		6B0A3C972C498BE200579CA5 /* MovieConatainer.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				6B0A3C982C498BE200579CA5 /* MovieConatainer.xcdatamodel */,
-			);
-			currentVersion = 6B0A3C982C498BE200579CA5 /* MovieConatainer.xcdatamodel */;
-			path = MovieConatainer.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 6B56A7CC2C3B27A3001032C8 /* Project object */;
 }

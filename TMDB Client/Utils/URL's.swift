@@ -22,7 +22,7 @@ enum ImageURL {
 }
 
 enum ListURL {
-    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String), deleteMovie(listId: Int, apiKey: String, sessionId: String)
+    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String), deleteMovie(listId: Int, apiKey: String, sessionId: String), addMovie(listId: Int, apiKey: String, sessionId: String)
     
     var url: String {
         switch self {
@@ -34,6 +34,8 @@ enum ListURL {
             return "https://api.themoviedb.org/3/list/\(listId)?api_key=\(apiKey)&session_id=\(sessionId)"
         case .deleteMovie(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
             return "https://api.themoviedb.org/3/list/\(listId)/remove_item?api_key=\(apiKey)&session_id=\(sessionId)"
+        case .addMovie(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
+            return "https://api.themoviedb.org/3/list/\(listId)/add_item?api_key=\(apiKey)&session_id=\(sessionId)"
         }
     }
 }
@@ -73,7 +75,7 @@ enum AccountUrl {
 }
 
 enum MoviesUrls {
-    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String), addRating(movieId: Int, sessionId: String, key: String)
+    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String)
     
     var url: String {
         switch self {
@@ -93,6 +95,8 @@ enum MoviesUrls {
             return "https://api.themoviedb.org/3/account/\(accoutId)/favorite?api_key=\(key)"
         case .addRating(movieId: let movieId, sessionId: let sessionId, key: let key):
             return "https://api.themoviedb.org/3/movie/\(movieId)/rating?api_key=\(key)&session_id=\(sessionId)"
+        case .searchMovie(apiKey: let apiKey, title: let title):
+            return "https://api.themoviedb.org/3/search/movie?api_key=\(apiKey)&query=\(title)"
         }
     }
 }

@@ -52,7 +52,7 @@ extension ListsPresenter: ListsPresenterProtocol {
     func didListsSelected(list: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateToList(with: list, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader)
+            self.router.navigateToList(with: list, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId)
         }
     }
     func viewControllerDidLoad() {

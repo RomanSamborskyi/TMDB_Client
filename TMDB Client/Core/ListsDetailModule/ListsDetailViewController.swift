@@ -31,6 +31,9 @@ class ListsDetailViewController: UIViewController {
         self.presenter?.didViewControllerLoad()
         setupLayout()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.viewControllerWillAppear()
+    }
 }
 //MARK: - ListsViewProtocol
 extension ListsDetailViewController: ListsDetailViewProtocol {
