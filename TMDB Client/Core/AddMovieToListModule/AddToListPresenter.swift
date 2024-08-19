@@ -10,6 +10,8 @@ import NotificationCenter
 
 protocol AddToListPresenterProtocol: AnyObject {
     func didMovieAddedToList(with id: Int)
+    func didSearchResultFetched(movies: [Movie], posters: [Int : UIImage])
+    func didSearchStart(with text: String)
 }
 
 
@@ -26,6 +28,21 @@ class AddToListPresenter {
 }
 //MARK: - AddToListPresenterProtocol
 extension AddToListPresenter: AddToListPresenterProtocol {
+    func didSearchStart(with text: String) {
+        Task {
+            do {
+                try await interactor.searchMovies(title: text)
+            } catch let error as AppError {
+                print(error.localized)
+            }
+        }
+    }
+    func didSearchResultFetched(movies: [Movie], posters: [Int : UIImage]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.view?.showResults(movies: movies, posters: posters)
+        }
+    }
     func didMovieAddedToList(with id: Int) {
         Task {
             do {

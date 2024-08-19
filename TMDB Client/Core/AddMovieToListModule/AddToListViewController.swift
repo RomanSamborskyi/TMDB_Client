@@ -35,9 +35,11 @@ class AddToListViewController: UIViewController {
 //MARK: - AddToListViewProtocol
 extension AddToListViewController: AddToListViewProtocol {
     func showResults(movies: [Movie], posters: [Int : UIImage]) {
-        DispatchQueue.main.async {
-            self.searchResult.append(contentsOf: movies)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.searchResult = movies
             self.searchResultPosters.merge(posters) { image, _ in image }
+            self.collectionCell.reloadData()
         }
     }
 }
@@ -54,6 +56,7 @@ private extension AddToListViewController {
     func setupTextFieldView() {
         self.view.addSubview(textFieldView)
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
+        textFieldView.delegate = self
         
         NSLayoutConstraint.activate([
             textFieldView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -75,17 +78,18 @@ private extension AddToListViewController {
         ])
     }
 }
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension AddToListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       1
+        self.searchResult.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
-       // let item = self.searchResult[indexPath.row]
-        cell.movie = DeveloperPreview.instance.movie
+        let item = self.searchResult[indexPath.row]
+        cell.movie = item
         cell.buttonStyle = .add
         cell.delegate = self
-        cell.poster = UIImage(named: "image")
+        cell.poster = self.searchResultPosters[item.id ?? 0]
         
         cell.clipsToBounds = true
         cell.backgroundColor = .black.withAlphaComponent(0.4)
@@ -97,5 +101,11 @@ extension AddToListViewController: UICollectionViewDelegate, UICollectionViewDat
 extension AddToListViewController: ListsResultCellDelegate {
     func didButtonTapped(for id: Int) {
         presenter?.didMovieAddedToList(with: id)
+    }
+}
+//MARK: - Text field view delegate
+extension AddToListViewController: TextFieldViewDelegate {
+    func performSearch(text: String) {
+        presenter?.didSearchStart(with: text)
     }
 }
