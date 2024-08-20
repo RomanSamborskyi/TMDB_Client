@@ -15,6 +15,12 @@ struct Constants {
     static let sessionKey: String = "session_id"
     static let apiKey: String = ProcessInfo.processInfo.environment["API_KEY"] ?? "NO KEY"
     
+    static let createListHeaders = [
+        "accept": "application/json",
+        "content-type": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyNDA0NzIzOS41NDk5NjIsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2dmT4RCVVSibsak5Eq4XMFeMJtY6gKGic29qmh5TePk"
+      ]
+    
     static let searchHeaders = [
         "accept": "application/json",
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyNDA0NzIzOS41NDk5NjIsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2dmT4RCVVSibsak5Eq4XMFeMJtY6gKGic29qmh5TePk"

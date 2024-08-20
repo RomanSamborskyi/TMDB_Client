@@ -73,7 +73,7 @@ extension AddToListInteractor: AddToListInteractorProtocol {
                 }
                 
                 let session = URLSession.shared
-                var request = URLRequest(url: url)
+                let request = URLRequest(url: url)
                 
                 guard let poster = try await imageDownloader.fetchImage(with: session, request: request) else {
                     throw AppError.invalidData
