@@ -22,20 +22,22 @@ enum ImageURL {
 }
 
 enum ListURL {
-    case listDetail(listsId: Int, apiKey: String), clearList(listId: Int, key: String, sessionId: String), deleteList(listId: Int, apiKey: String, sessionId: String), deleteMovie(listId: Int, apiKey: String, sessionId: String), addMovie(listId: Int, apiKey: String, sessionId: String)
+    case detail(listsId: Int, apiKey: String), clear(listId: Int, key: String, sessionId: String), delete(listId: Int, apiKey: String, sessionId: String), deleteMovie(listId: Int, apiKey: String, sessionId: String), addMovie(listId: Int, apiKey: String, sessionId: String), create(apiKey: String, sessionId: String)
     
     var url: String {
         switch self {
-        case .listDetail(let id, let key):
+        case .detail(let id, let key):
             return "https://api.themoviedb.org/3/list/\(id)?api_key=\(key)"
-        case .clearList(listId: let listId, key: let key, sessionId: let sessionId):
+        case .clear(listId: let listId, key: let key, sessionId: let sessionId):
             return "https://api.themoviedb.org/3/list/\(listId)/clear?api_key=\(key)&session_id=\(sessionId)&confirm=true"
-        case .deleteList(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
+        case .delete(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
             return "https://api.themoviedb.org/3/list/\(listId)?api_key=\(apiKey)&session_id=\(sessionId)"
         case .deleteMovie(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
             return "https://api.themoviedb.org/3/list/\(listId)/remove_item?api_key=\(apiKey)&session_id=\(sessionId)"
         case .addMovie(listId: let listId, apiKey: let apiKey, sessionId: let sessionId):
             return "https://api.themoviedb.org/3/list/\(listId)/add_item?api_key=\(apiKey)&session_id=\(sessionId)"
+        case .create(apiKey: let apiKey, sessionId: let sessionId):
+            return "https://api.themoviedb.org/3/list?api_key=\(apiKey)&session_id=\(sessionId)"
         }
     }
 }

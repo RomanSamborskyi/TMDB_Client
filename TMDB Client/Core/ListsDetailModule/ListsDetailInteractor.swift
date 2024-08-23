@@ -60,7 +60,7 @@ extension ListsDetailInteractor: ListsDetailInteractorProtocol {
     func fetchDetails() async throws {
         let list = try await withThrowingTaskGroup(of: ListDetail.self) { group in
             
-            guard let url = URL(string: ListURL.listDetail(listsId: self.listId, apiKey: Constants.apiKey).url) else {
+            guard let url = URL(string: ListURL.detail(listsId: self.listId, apiKey: Constants.apiKey).url) else {
                 throw AppError.badURL
             }
             

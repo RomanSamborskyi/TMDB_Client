@@ -56,7 +56,7 @@ private extension ListsDetailViewController {
         setupNavigationBar()
     }
     func setupNavigationBar() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addMovie))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Movie +", style: .plain, target: self, action: #selector(addMovie))
     }
     func setupCollectionView() {
         self.view.addSubview(collection)
