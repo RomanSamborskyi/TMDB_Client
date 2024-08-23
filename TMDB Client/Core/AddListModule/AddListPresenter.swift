@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol AddListPresenterProtocol: AnyObject {
-    
+    func createList(with title: String, _ description: String)
 }
 
 
@@ -26,5 +26,13 @@ class AddListPresenter {
 }
 //MARK: - AddListPresenterProtocol
 extension AddListPresenter: AddListPresenterProtocol {
-    
+    func createList(with title: String, _ description: String) {
+        Task {
+            do {
+                try await interactor.addList(title: title, description: description)
+            } catch let error as AppError {
+                print(error.localized)
+            }
+        }
+    }
 }

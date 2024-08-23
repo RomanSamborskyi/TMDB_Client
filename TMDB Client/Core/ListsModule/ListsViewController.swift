@@ -32,6 +32,7 @@ class ListsViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .customBackground
         setupLayout()
+        setupNavigationBarItems()
     }
     override func viewDidAppear(_ animated: Bool) {
         presenter?.viewControllerDidLoad()
@@ -47,6 +48,12 @@ private extension ListsViewController {
         
         tableViewCell.delegate = self
         tableViewCell.dataSource = self
+    }
+    func setupNavigationBarItems() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addListButton))
+    }
+    @objc func addListButton(selector: Selector) {
+        presenter?.didAddListButtonPressed()
     }
     func setupViews() {
         if lists.count > 0 {

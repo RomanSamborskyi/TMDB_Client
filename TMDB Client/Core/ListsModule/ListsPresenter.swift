@@ -14,6 +14,7 @@ protocol ListsPresenterProtocol: AnyObject {
     func didListsSelected(list: Int)
     func clearList(with id: Int)
     func deleteList(with id: Int)
+    func didAddListButtonPressed()
 }
 
 
@@ -31,6 +32,12 @@ class ListsPresenter {
 }
 //MARK: - ListsPresenterProtocol
 extension ListsPresenter: ListsPresenterProtocol {
+    func didAddListButtonPressed() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.router.addList(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId)
+        }
+    }
     func deleteList(with id: Int) {
         Task {
             do {

@@ -35,7 +35,7 @@ class ListsInterator {
 extension ListsInterator: ListsInteratorProtocol {
     func deleteList(with id: Int) async throws {
         
-        guard let url = URL(string: ListURL.deleteList(listId: id, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
+        guard let url = URL(string: ListURL.delete(listId: id, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
             throw AppError.badURL
         }
         
@@ -53,7 +53,7 @@ extension ListsInterator: ListsInteratorProtocol {
     }
     func clearList(with id: Int) async throws {
         
-        guard let url = URL(string: ListURL.clearList(listId: id, key: Constants.apiKey, sessionId: sessionId).url) else {
+        guard let url = URL(string: ListURL.clear(listId: id, key: Constants.apiKey, sessionId: sessionId).url) else {
             throw AppError.badURL
         }
         
