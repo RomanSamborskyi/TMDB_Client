@@ -30,6 +30,7 @@ private extension AddListViewController {
     func setupAddListView() {
         self.view.addSubview(addListView)
         addListView.translatesAutoresizingMaskIntoConstraints = false
+        addListView.delegate = self
         
         NSLayoutConstraint.activate([
             addListView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -42,4 +43,10 @@ private extension AddListViewController {
 //MARK: - AddListViewProtocol
 extension AddListViewController: AddListViewProtocol {
     
+}
+//MARK: - AddListViewDelegate
+extension AddListViewController: AddListViewDelegate {
+    func didCreateButtonPressed(with title: String, _ description: String) {
+        presenter?.createList(with: title, description)
+    }
 }
