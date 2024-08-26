@@ -38,6 +38,9 @@ class ListsViewController: UIViewController {
         presenter?.viewControllerDidLoad()
         tableViewCell.reloadData()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.viewWillAppear()
+    }
 }
 //MARK: - UI layout
 private extension ListsViewController {

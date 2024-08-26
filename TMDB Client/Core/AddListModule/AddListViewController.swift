@@ -15,6 +15,7 @@ class AddListViewController: UIViewController {
     //MARK: - property
     var presenter: AddListPresenter?
     private lazy var addListView = AddListView()
+    private lazy var activityView = ActivityView()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class AddListViewController: UIViewController {
 private extension AddListViewController {
     func setupLayout() {
         setupAddListView()
+        activityViewSetup()
     }
     func setupAddListView() {
         self.view.addSubview(addListView)
@@ -39,6 +41,18 @@ private extension AddListViewController {
             addListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
+    func activityViewSetup() {
+        self.view.addSubview(activityView)
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            activityView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            activityView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            activityView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            activityView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
+    }
 }
 //MARK: - AddListViewProtocol
 extension AddListViewController: AddListViewProtocol {
@@ -48,5 +62,9 @@ extension AddListViewController: AddListViewProtocol {
 extension AddListViewController: AddListViewDelegate {
     func didCreateButtonPressed(with title: String, _ description: String) {
         presenter?.createList(with: title, description)
+        self.activityView.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 }

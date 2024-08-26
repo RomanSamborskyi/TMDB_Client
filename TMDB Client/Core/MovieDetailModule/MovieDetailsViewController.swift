@@ -77,23 +77,30 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
 extension MovieDetailsViewController: MovieDetailsViewDelegate {
     func firstStarPressed() {
         presenter?.rateMovie(rate: 2)
+        presenter?.haptic.tacticNotification(style: .success)
     }
     func secondStarPressed() {
         presenter?.rateMovie(rate: 4)
+        presenter?.haptic.tacticNotification(style: .success)
     }
     func thirdStarPressed() {
         presenter?.rateMovie(rate: 6)
+        presenter?.haptic.tacticNotification(style: .success)
     }
     func fourthStarPressed() {
         presenter?.rateMovie(rate: 8)
+        presenter?.haptic.tacticNotification(style: .success)
     }
     func fifthStarPressed() {
         presenter?.rateMovie(rate: 10)
+        presenter?.haptic.tacticNotification(style: .success)
     }
     func didMovieAddedToFavorite() {
         presenter?.didMovieAddedToFavorite()
+        presenter?.haptic.tacticNotification(style: .success)
     }
     func didMovieAddedToWatchList() {
         presenter?.didMovieAddedToWatchlist()
+        presenter?.haptic.tacticNotification(style: .success)
     }
 }

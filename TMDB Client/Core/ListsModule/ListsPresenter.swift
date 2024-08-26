@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import NotificationCenter
 
 protocol ListsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
@@ -15,6 +15,7 @@ protocol ListsPresenterProtocol: AnyObject {
     func clearList(with id: Int)
     func deleteList(with id: Int)
     func didAddListButtonPressed()
+    func viewWillAppear()
     var haptic: HapticFeedback { get }
 }
 
@@ -35,6 +36,9 @@ class ListsPresenter {
 }
 //MARK: - ListsPresenterProtocol
 extension ListsPresenter: ListsPresenterProtocol {
+    func viewWillAppear() {
+        addObservers()
+    }
     func didAddListButtonPressed() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -76,5 +80,20 @@ extension ListsPresenter: ListsPresenterProtocol {
     }
     func didListsFetched(lists: [List]) {
         view?.show(lists: lists)
+    }
+}
+//MARK: - add observers
+extension ListsPresenter {
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(observerAction), name: .listAdded, object: nil)
+    }
+    @objc func observerAction(notification: Notification) {
+        Task {
+            do {
+                try await interactor.fetchLists()
+            } catch let error as AppError {
+                print(error)
+            }
+        }
     }
 }

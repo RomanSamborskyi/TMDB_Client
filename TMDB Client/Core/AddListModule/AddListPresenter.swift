@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import NotificationCenter
 
 protocol AddListPresenterProtocol: AnyObject {
     func createList(with title: String, _ description: String)
@@ -30,6 +30,7 @@ extension AddListPresenter: AddListPresenterProtocol {
         Task {
             do {
                 try await interactor.addList(title: title, description: description)
+                NotificationCenter.default.post(name: .listAdded, object: nil)
             } catch let error as AppError {
                 print(error.localized)
             }
