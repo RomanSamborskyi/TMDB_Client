@@ -24,7 +24,7 @@ class ProfileInteractor {
     init(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
         self.sessionId = sessionId
         self.networkManager = networkManager
-        self.imageDownloader = ImageDownloader()
+        self.imageDownloader = imageDownloader
     }
     
 }

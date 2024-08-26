@@ -15,6 +15,7 @@ protocol MoviePresenterProtocol: AnyObject {
     func didMoviesByGenreFetched(movie: [Movie], with posters: [Int : UIImage])
     func viewControllerDidLoad(genre: Genre)
     func didMovieSelected(with id: Int, poster: UIImage)
+    var haptic: HapticFeedback { get }
 }
 
 class MoviePresenter {
@@ -22,11 +23,13 @@ class MoviePresenter {
     weak var view: MovieViewProtocol?
     let interactor: MovieInteractorProtocol
     let router: MovieRouterProtocol
+    let haptic: HapticFeedback
     
     //MARK: - lifecycle
-    init(interactor: MovieInteractorProtocol, router: MovieRouterProtocol) {
+    init(interactor: MovieInteractorProtocol, router: MovieRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
 }
 //MARK: - MoviePresenterProtocol
@@ -34,7 +37,7 @@ extension MoviePresenter: MoviePresenterProtocol {
     func didMovieSelected(with id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateTo(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader)
+            self.router.navigateTo(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic)
         }
     }
     func viewControllerDidLoad(genre: Genre) {

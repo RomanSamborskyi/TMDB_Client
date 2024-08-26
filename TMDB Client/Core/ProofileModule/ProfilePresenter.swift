@@ -19,10 +19,12 @@ class ProfilePresenter {
     weak var view: ProfileViewProtocol?
     let interactor: ProfileInteractorProtocol
     let router: ProfileRouterProtocol
+    let haptic: HapticFeedback
     
-    init(interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol) {
+    init(interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
     
 }
@@ -37,7 +39,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
             }
         }
         DispatchQueue.main.async {
-            self.router.navigateToLoginView()
+            self.router.navigateToLoginView(haptic: self.haptic)
         }
     }
     

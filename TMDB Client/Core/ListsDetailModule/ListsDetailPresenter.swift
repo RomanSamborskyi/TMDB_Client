@@ -15,6 +15,7 @@ protocol ListsDetailPresenterProtocol: AnyObject {
     func didAddMovieToList()
     func deleteMovieFromList(with id: Int)
     func viewControllerWillAppear()
+    var haptic: HapticFeedback { get }
 }
 
 class ListsDetailPresenter {
@@ -22,10 +23,12 @@ class ListsDetailPresenter {
     weak var view: ListsDetailViewProtocol?
     let interactor: ListsDetailInteractorProtocol
     let router: ListsDetailRouterProtocol
+    let haptic: HapticFeedback
     //MARK: - lifecycle
-    init(interactor: ListsDetailInteractorProtocol, router: ListsDetailRouterProtocol) {
+    init(interactor: ListsDetailInteractorProtocol, router: ListsDetailRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
 }
 //MARK: - ListsDetailPresenterProtocol
@@ -51,7 +54,7 @@ extension ListsDetailPresenter: ListsDetailPresenterProtocol {
     func didMovieSelected(movie: Movie, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateTo(movie: movie, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader)
+            self.router.navigateTo(movie: movie, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: haptic)
         }
     }
     func didListFetched(list: ListDetail, posters: [Int : UIImage]) {

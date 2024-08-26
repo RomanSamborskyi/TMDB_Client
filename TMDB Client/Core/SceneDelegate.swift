@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     let keyChan = KeyChainManager.instance
+    let haptic = HapticFeedback()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
       
@@ -19,9 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         if let session = keyChan.get(for: Constants.sessionKey) {
-            window?.rootViewController = TabBarController(sessionId: session)
+            window?.rootViewController = TabBarController(sessionId: session, haptic: haptic)
         } else {
-            window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build())
+            window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build(haptic: haptic))
         }
         window?.makeKeyAndVisible()
     }

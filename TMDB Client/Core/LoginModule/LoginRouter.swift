@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LoginRouterProtocol: AnyObject {
-    func navigateToWellcomeViewController(with sessionId: String)
+    func navigateToWellcomeViewController(with sessionId: String, haptic: HapticFeedback)
 }
 
 class LoginRouter {
@@ -18,8 +18,8 @@ class LoginRouter {
 }
 //MARK: - LoginRouterProtocol
 extension LoginRouter: LoginRouterProtocol {
-    func navigateToWellcomeViewController(with sessionId: String) {
-        let welcomeVC = TabBarController(sessionId: sessionId)
+    func navigateToWellcomeViewController(with sessionId: String, haptic: HapticFeedback) {
+        let welcomeVC = TabBarController(sessionId: sessionId, haptic: haptic)
         view?.navigationController?.pushViewController(welcomeVC, animated: true)
     }
 }

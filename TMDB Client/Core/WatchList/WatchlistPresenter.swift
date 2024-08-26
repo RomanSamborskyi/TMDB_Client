@@ -14,6 +14,7 @@ protocol WatchlistPresenterProtocol: AnyObject {
     func didMovieSelected(movie id: Int, poster: UIImage)
     func viewControllerWillAppear()
     func didAddToFavoriteButtonPressed(for movie: Int)
+    var haptic: HapticFeedback { get }
 }
 
 class WatchlistPresenter {
@@ -21,11 +22,13 @@ class WatchlistPresenter {
     weak var view: WatchlistViewProtocol?
     let interactor: WatchlistInteractorProtocol
     let router: WatchlistRouterProtocol
+    let haptic: HapticFeedback
     
     //MARK: - lifecycle
-    init(interactor: WatchlistInteractorProtocol, router: WatchlistRouterProtocol) {
+    init(interactor: WatchlistInteractorProtocol, router: WatchlistRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -48,7 +51,7 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     func didMovieSelected(movie id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader)
+            self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic)
         }
     }
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {

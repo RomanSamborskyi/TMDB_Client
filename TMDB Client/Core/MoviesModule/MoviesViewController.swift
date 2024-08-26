@@ -204,7 +204,7 @@ extension MoviesViewController: MovieViewProtocol {
         }
     }
 }
-//MARK: -
+//MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView.tag {
@@ -244,7 +244,7 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.label.layer.borderWidth = 3
             cell.label.layer.borderColor = UIColor.gray.cgColor
             cell.label.backgroundColor = .white.withAlphaComponent(0.5)
-            
+            presenter?.haptic.tacticFeddback(style: .light)
             if item == selectedTab {
                 cell.label.textColor = .white
                 cell.label.layer.borderColor = UIColor.white.cgColor
@@ -269,6 +269,7 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.label.layer.borderColor = UIColor.gray.cgColor
             cell.label.textColor = .gray
             cell.label.backgroundColor = .white.withAlphaComponent(0.5)
+            presenter?.haptic.tacticFeddback(style: .light)
             
             if item == selectedGenre {
                 cell.label.textColor = .white

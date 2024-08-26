@@ -15,6 +15,7 @@ protocol ListsPresenterProtocol: AnyObject {
     func clearList(with id: Int)
     func deleteList(with id: Int)
     func didAddListButtonPressed()
+    var haptic: HapticFeedback { get }
 }
 
 
@@ -23,11 +24,13 @@ class ListsPresenter {
     weak var view: ListsViewControllerProtocol?
     let interactor: ListsInteratorProtocol
     let router: ListsRouterProtocol
+    let haptic: HapticFeedback
     
     //MARK: - lifecycle
-    init(interactor: ListsInteratorProtocol, router: ListsRouterProtocol) {
+    init(interactor: ListsInteratorProtocol, router: ListsRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
 }
 //MARK: - ListsPresenterProtocol
@@ -59,7 +62,7 @@ extension ListsPresenter: ListsPresenterProtocol {
     func didListsSelected(list: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateToList(with: list, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId)
+            self.router.navigateToList(with: list, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId, haptic: self.haptic)
         }
     }
     func viewControllerDidLoad() {

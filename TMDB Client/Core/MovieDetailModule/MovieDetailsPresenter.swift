@@ -14,6 +14,7 @@ protocol MovieDetailsPresenterProtocol: AnyObject {
     func didMovieAddedToWatchlist()
     func didMovieAddedToFavorite()
     func rateMovie(rate: Double)
+    var haptic: HapticFeedback { get }
 }
 
 class MovieDetailsPresenter {
@@ -21,10 +22,12 @@ class MovieDetailsPresenter {
     weak var view: MovieDetailsViewProtocol?
     let interactor: MovieDetailsInteractorProtocol
     let router: MovieDetailsRouterProtocol
+    let haptic: HapticFeedback
     //MARK: - lifecycle
-    init(interactor: MovieDetailsInteractorProtocol, router: MovieDetailsRouterProtocol) {
+    init(interactor: MovieDetailsInteractorProtocol, router: MovieDetailsRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
     
     deinit {

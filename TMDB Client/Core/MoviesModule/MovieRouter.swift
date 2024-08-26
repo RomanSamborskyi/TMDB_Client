@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol MovieRouterProtocol: AnyObject {
-    func navigateTo(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader)
+    func navigateTo(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback)
 }
 
 class MovieRouter {
@@ -19,8 +19,8 @@ class MovieRouter {
 }
 //MARK: - MovieRouterProtocol
 extension MovieRouter: MovieRouterProtocol {
-    func navigateTo(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
-        let detailVC = MovieDetailsModuleBuilder.build(movieId: id, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader)
+    func navigateTo(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback) {
+        let detailVC = MovieDetailsModuleBuilder.build(movieId: id, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic)
         view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

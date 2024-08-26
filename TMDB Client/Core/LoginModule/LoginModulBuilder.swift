@@ -9,11 +9,11 @@ import UIKit
 
 
 class LoginModulBuilder {
-   static func build() -> UIViewController {
+   static func build(haptic: HapticFeedback) -> UIViewController {
         let view = LoginViewController()
         let interactor = LoginInteractor()
         let router = LoginRouter()
-        let presenter = LoginPresenter(interactor: interactor, router: router)
+        let presenter = LoginPresenter(interactor: interactor, router: router, haptic: haptic)
         
         view.presenter = presenter
         interactor.presenter = presenter

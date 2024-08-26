@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol ProfileRouterProtocol: AnyObject {
-    func navigateToLoginView()
+    func navigateToLoginView(haptic: HapticFeedback)
 }
 
 
@@ -19,8 +19,8 @@ class ProfileRouter {
 }
 //MARK: - ProfileRouterProtocol
 extension ProfileRouter: ProfileRouterProtocol {
-    func navigateToLoginView() {
-        let loginVC = LoginModulBuilder.build()
+    func navigateToLoginView(haptic: HapticFeedback) {
+        let loginVC = LoginModulBuilder.build(haptic: haptic)
         loginVC.hidesBottomBarWhenPushed = true
         view?.navigationController?.pushViewController(loginVC, animated: true)
     }
