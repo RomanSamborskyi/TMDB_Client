@@ -54,7 +54,9 @@ private extension ListsViewController {
         tableViewCell.dataSource = self
     }
     func setupNavigationBarItems() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus")?.withTintColor(.white), style: .plain, target: self, action: #selector(addListButton))
+        let barButton = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addListButton))
+        barButton.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = barButton
     }
     @objc func addListButton(selector: Selector) {
         presenter?.didAddListButtonPressed()

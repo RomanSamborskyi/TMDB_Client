@@ -14,7 +14,6 @@ struct Constants {
     
     static let sessionKey: String = "session_id"
     static let apiKey: String = ProcessInfo.processInfo.environment["API_KEY"] ?? "NO KEY"
-    
     static let createListHeaders = [
         "accept": "application/json",
         "content-type": "application/json",
