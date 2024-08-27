@@ -7,11 +7,11 @@ The appliaction for those who have an account on tnemoviedb.org
 With this application you can login in to your account, to take a look on your watchlist, add movies to your watchlist, to take a look on your movies lists.
 
 This application is not finished, the features what will be added: 
-  - Rate movie
-  - Add movie to movies lists
-  - Create list
-  - Delete list
-  - Clear list
+  - ~Rate movie~
+  - ~Add movie to movies lists~
+  - ~Create list~
+  - ~Delete list~
+  - ~Clear list~
 
 Skils used in this project:
  - Swift programming language
