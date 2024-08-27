@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 protocol AddToListViewProtocol: AnyObject {
     func showResults(movies: [Movie], posters: [Int : UIImage])
@@ -52,6 +53,7 @@ private extension AddToListViewController {
         
         setupTextFieldView()
         setupCollectionView()
+        addKeyboardObserver()
     }
     func setupTextFieldView() {
         self.view.addSubview(textFieldView)
@@ -107,5 +109,19 @@ extension AddToListViewController: ListsResultCellDelegate {
 extension AddToListViewController: TextFieldViewDelegate {
     func performSearch(text: String) {
         presenter?.didSearchStart(with: text)
+    }
+}
+//MARK: - add observers to hide keyboard by tap
+extension AddToListViewController {
+    func addKeyboardObserver() {
+        setupObserver()
+    }
+    func setupObserver() {
+        let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(tapHandler))
+        view.addGestureRecognizer(gesture)
+    }
+    @objc func tapHandler(_ notification: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
 }
