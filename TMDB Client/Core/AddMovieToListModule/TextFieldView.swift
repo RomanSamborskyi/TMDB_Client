@@ -69,8 +69,8 @@ private extension TextFieldView {
         
         NSLayoutConstraint.activate([
             searchFiled.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
-            searchFiled.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            searchFiled.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            searchFiled.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIScreen.main.bounds.height * 0.03),
+            searchFiled.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -UIScreen.main.bounds.height * 0.03),
             searchFiled.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05),
         ])
     }

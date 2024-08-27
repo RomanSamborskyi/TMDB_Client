@@ -79,8 +79,8 @@ private extension AddListView {
         
         NSLayoutConstraint.activate([
             titleFiled.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
-            titleFiled.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            titleFiled.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            titleFiled.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIScreen.main.bounds.height * 0.03),
+            titleFiled.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -UIScreen.main.bounds.height * 0.03),
             titleFiled.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05),
         ])
     }
@@ -101,8 +101,8 @@ private extension AddListView {
         
         NSLayoutConstraint.activate([
             descriptionFiled.topAnchor.constraint(equalTo: titleFiled.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
-            descriptionFiled.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            descriptionFiled.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            descriptionFiled.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIScreen.main.bounds.height * 0.03),
+            descriptionFiled.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -UIScreen.main.bounds.height * 0.03),
             descriptionFiled.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05),
         ])
     }
