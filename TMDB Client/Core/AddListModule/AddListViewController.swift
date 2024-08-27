@@ -62,9 +62,11 @@ extension AddListViewController: AddListViewProtocol {
 extension AddListViewController: AddListViewDelegate {
     func didCreateButtonPressed(with title: String, _ description: String) {
         presenter?.createList(with: title, description)
+        self.presenter?.haptic.tacticFeddback(style: .light)
         self.activityView.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
             self?.dismiss(animated: true)
+            self?.presenter?.haptic.tacticNotification(style: .success)
         }
     }
 }

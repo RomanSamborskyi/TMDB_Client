@@ -26,7 +26,7 @@ class ListsPresenter {
     let interactor: ListsInteratorProtocol
     let router: ListsRouterProtocol
     let haptic: HapticFeedback
-    
+    private lazy var count: Int = 0
     //MARK: - lifecycle
     init(interactor: ListsInteratorProtocol, router: ListsRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
@@ -42,13 +42,14 @@ extension ListsPresenter: ListsPresenterProtocol {
     func didAddListButtonPressed() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.addList(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId)
+            self.router.addList(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId, haptic: self.haptic)
         }
     }
     func deleteList(with id: Int) {
         Task {
             do {
                 try await interactor.deleteList(with: id)
+                view?.updateLayoutIfNeeded()
             } catch let error as AppError {
                 print(error)
             }
@@ -58,6 +59,7 @@ extension ListsPresenter: ListsPresenterProtocol {
         Task {
             do {
                 try await interactor.clearList(with: id)
+                view?.updateLayoutIfNeeded()
             } catch let error as AppError {
                 print(error)
             }
@@ -91,6 +93,7 @@ extension ListsPresenter {
         Task {
             do {
                 try await interactor.fetchLists()
+                view?.updateLayoutIfNeeded()
             } catch let error as AppError {
                 print(error)
             }

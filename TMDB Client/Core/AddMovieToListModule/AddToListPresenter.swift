@@ -20,10 +20,12 @@ class AddToListPresenter {
     weak var view: AddToListViewProtocol?
     let interactor: AddToListInteractorProtocol
     let router: AddToListRouterProtocol
+    let haptic: HapticFeedback
     //MARK: - lifecycle
-    init(interactor: AddToListInteractorProtocol, router: AddToListRouterProtocol) {
+    init(interactor: AddToListInteractorProtocol, router: AddToListRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
 }
 //MARK: - AddToListPresenterProtocol
@@ -48,6 +50,7 @@ extension AddToListPresenter: AddToListPresenterProtocol {
             do {
                 try await interactor.addMovieToList(with: id)
                 NotificationCenter.default.post(name: .movieAddedToList, object: nil)
+                haptic.tacticNotification(style: .success)
             } catch let error as AppError {
                 print(error.localized)
             }

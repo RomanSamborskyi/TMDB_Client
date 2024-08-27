@@ -18,10 +18,12 @@ class AddListPresenter {
     weak var view: AddListViewProtocol?
     let interactor: AddListInteractorProtocol
     let router: AddListRouterProtocol
+    let haptic: HapticFeedback
     //MARK: - lifecycle
-    init(interactor: AddListInteractorProtocol, router: AddListRouterProtocol) {
+    init(interactor: AddListInteractorProtocol, router: AddListRouterProtocol,haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
+        self.haptic = haptic
     }
 }
 //MARK: - AddListPresenterProtocol
@@ -31,6 +33,7 @@ extension AddListPresenter: AddListPresenterProtocol {
             do {
                 try await interactor.addList(title: title, description: description)
                 NotificationCenter.default.post(name: .listAdded, object: nil)
+            
             } catch let error as AppError {
                 print(error.localized)
             }

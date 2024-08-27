@@ -9,11 +9,11 @@ import UIKit
 
 
 class AddListModuleBuilder {
-    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback) -> UIViewController {
         let view = AddListViewController()
         let interactor = AddListInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId)
         let router = AddListRouter()
-        let presenter = AddListPresenter(interactor: interactor, router: router)
+        let presenter = AddListPresenter(interactor: interactor, router: router, haptic: haptic)
         
         view.presenter = presenter
         presenter.view = view

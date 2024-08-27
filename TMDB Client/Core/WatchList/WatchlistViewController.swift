@@ -128,8 +128,10 @@ extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDat
 extension WatchlistViewController: MovieToWatchCellDelegate {
     func didFavoriteButtonPressed(movieId: Int) {
         self.presenter?.didAddToFavoriteButtonPressed(for: movieId)
+        self.presenter?.haptic.tacticNotification(style: .success)
     }
     func didAddToListButtonPressed() {
+        self.presenter?.haptic.tacticFeddback(style: .light)
         print(#function)
     }
 }

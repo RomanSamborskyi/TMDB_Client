@@ -10,6 +10,7 @@ import UIKit
 
 protocol ListsViewControllerProtocol: AnyObject {
     func show(lists: [List])
+    func updateLayoutIfNeeded()
 }
 
 class ListsViewController: UIViewController {
@@ -36,7 +37,7 @@ class ListsViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         presenter?.viewControllerDidLoad()
-        tableViewCell.reloadData()
+        updateLayoutIfNeeded()
     }
     override func viewWillAppear(_ animated: Bool) {
         presenter?.viewWillAppear()
@@ -53,7 +54,7 @@ private extension ListsViewController {
         tableViewCell.dataSource = self
     }
     func setupNavigationBarItems() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addListButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus")?.withTintColor(.white), style: .plain, target: self, action: #selector(addListButton))
     }
     @objc func addListButton(selector: Selector) {
         presenter?.didAddListButtonPressed()
@@ -95,6 +96,13 @@ private extension ListsViewController {
 }
 //MARK: - ListsViewControllerProtocol
 extension ListsViewController: ListsViewControllerProtocol {
+    func updateLayoutIfNeeded() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.tableViewCell.reloadData()
+            self.view.layoutIfNeeded()
+        }
+    }
     func show(lists: [List]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
