@@ -35,16 +35,10 @@ class ListsInterator {
 extension ListsInterator: ListsInteratorProtocol {
     func deleteList(with id: Int) async throws {
         
-        guard let url = URL(string: ListURL.delete(listId: id, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.deleteListHeader
-    
+
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: ListURL.delete(listId: id, apiKey: Constants.apiKey, sessionId: sessionId))
+        
         guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
@@ -53,16 +47,10 @@ extension ListsInterator: ListsInteratorProtocol {
     }
     func clearList(with id: Int) async throws {
         
-        guard let url = URL(string: ListURL.clear(listId: id, key: Constants.apiKey, sessionId: sessionId).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.clearListHeader
-    
+
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: ListURL.clear(listId: id, key: Constants.apiKey, sessionId: sessionId))
+        
         guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
@@ -74,16 +62,10 @@ extension ListsInterator: ListsInteratorProtocol {
         guard let acoountID = Int(keychain.get(for: Constants.account_id) ?? "") else {
             throw AppError.incorrectAccoutId
         }
-        
-        guard let url = URL(string: AccountUrl.lists(key: Constants.apiKey, accountId: acoountID).url) else {
-            throw AppError.badURL
-        }
-        
+
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.listsHeader
+        
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.lists(key: Constants.apiKey, accountId: acoountID))
         
         guard let result = try await networkManager.fetchGET(type: ListsResponse.self, session: session, request: request) else {
             throw AppError.invalidData

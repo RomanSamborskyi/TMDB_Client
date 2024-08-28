@@ -37,19 +37,11 @@ class ListsDetailInteractor {
 extension ListsDetailInteractor: ListsDetailInteractorProtocol {
     func deleteMovie(with id: Int) async throws {
         
-        guard let url = URL(string: ListURL.deleteMovie(listId: self.listId, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.deleteMovieFromListHeader
-        
-        let body: [String : Any] = [ "media_id" : id ]
-        
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+   
+        let body = [ "media_id" : id ]
+
+        let request = try networkManager.requestFactory(type: body, urlData: ListURL.deleteMovie(listId: self.listId, apiKey: Constants.apiKey, sessionId: sessionId))
         
         guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
@@ -59,15 +51,10 @@ extension ListsDetailInteractor: ListsDetailInteractorProtocol {
     }
     func fetchDetails() async throws {
         let list = try await withThrowingTaskGroup(of: ListDetail.self) { group in
-            
-            guard let url = URL(string: ListURL.detail(listsId: self.listId, apiKey: Constants.apiKey).url) else {
-                throw AppError.badURL
-            }
-            
+
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.timeoutInterval = 10
+
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: ListURL.detail(listsId: self.listId, apiKey: Constants.apiKey))
             
             group.addTask { [request, weak self] in
                 guard let result = try await self?.networkManager.fetchGET(type: ListDetail.self, session: session, request: request) else {
@@ -90,7 +77,7 @@ extension ListsDetailInteractor: ListsDetailInteractorProtocol {
             if let movies = list?.items {
                 for movie in movies {
                     
-                    guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")") else {
+                    guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
                         throw AppError.badURL
                     }
                     

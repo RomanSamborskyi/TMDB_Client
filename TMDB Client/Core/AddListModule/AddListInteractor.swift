@@ -30,24 +30,14 @@ class AddListInteractor {
 extension AddListInteractor: AddListInteractorProtocol {
     func addList(title: String, description: String) async throws {
         
-        guard let url = URL(string: ListURL.create(apiKey: Constants.apiKey, sessionId: self.sessionId).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.createListHeaders
-        
+
         let body = CreateListRequest(name: title, description: description)
         
-        request.httpBody = try JSONEncoder().encode(body)
+        let request = try networkManager.requestFactory(type: body, urlData: ListURL.create(apiKey: Constants.apiKey, sessionId: self.sessionId))
         
-        guard let result = try await networkManager.fetchGET(type: CreateListResponse.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetchGET(type: CreateListResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
-        
-        print(result)
     }
 }

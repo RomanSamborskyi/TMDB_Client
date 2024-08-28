@@ -27,16 +27,9 @@ extension LoginInteractor: LoginInteractorProtocol {
     func sendLoginRequestwith(login: String, password: String) async throws {
         
         let requestToken = try await withThrowingTaskGroup(of: TokenResponse.self) { group in
-           
-            guard let url = URL(string: Authantication.token_request(key: Constants.apiKey).url) else {
-                throw AppError.badURL
-            }
-            
+
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.allHTTPHeaderFields = Constants.tokenRequestHeader
-            
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: Authantication.token_request(key: Constants.apiKey))
             
             group.addTask { [request] in
                 guard let data = try await self.networkManager.fetchGET(type: TokenResponse.self, session: session, request: request) else {
@@ -54,21 +47,11 @@ extension LoginInteractor: LoginInteractorProtocol {
         }
         //Validate token with username and password
         let validToken = try await withThrowingTaskGroup(of: TokenResponse.self) { group in
-            guard let  url = URL(string: Authantication.session_with_login(key: Constants.apiKey).url) else {
-                throw AppError.badURL
-            }
             
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.timeoutInterval = 10
-            request.allHTTPHeaderFields = Constants.validateTokenWithLoginHeader
-            
             let rawData = User(username: login, password: password, requestToken: requestToken)
-            
-            let bodyData = try JSONEncoder().encode(rawData)
-            
-            request.httpBody = bodyData
+
+            let request = try networkManager.requestFactory(type: rawData, urlData: Authantication.session_with_login(key: Constants.apiKey))
             
             group.addTask { [request, weak self] in
                 do {
@@ -97,21 +80,11 @@ extension LoginInteractor: LoginInteractorProtocol {
     }
     //Create session with valid access token and save it in to keychain
     func createSession(with token: String) async throws -> Session? {
-        guard let url = URL(string: Authantication.newSession(key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
+
         let session = URLSession.shared
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.allHTTPHeaderFields = Constants.createNewSessionHeader
-        
         let rawData = [ "request_token" : token ]
         
-        let data = try JSONSerialization.data(withJSONObject: rawData)
-        
-        request.httpBody = data
+        let request = try networkManager.requestFactory(type: rawData, urlData: Authantication.newSession(key: Constants.apiKey))
         
         guard let data = try await networkManager.fetchGET(type: Session.self, session: session, request: request) else {
             throw AppError.invalidData
