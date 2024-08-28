@@ -31,24 +31,14 @@ class ProfileInteractor {
 //MARK: - WellcomeInteractorProtocol
 extension ProfileInteractor: ProfileInteractorProtocol {
     func logout() async throws {
-        guard let url = URL(string: Authantication.deleteSession(key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
+
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        request.allHTTPHeaderFields = Constants.deleteSessionHeader
-        
-        let rawData: [String: Any] = [
+
+        let rawData = [
             "session_id" : sessionId
         ]
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: rawData)
-        } catch {
-            print(error.localizedDescription)
-        }
+
+        let request = try networkManager.requestFactory(type: rawData, urlData: Authantication.deleteSession(key: Constants.apiKey))
         
         guard let response = try await networkManager.fetchGET(type: DeleteSession.self, session: session, request: request) else {
             throw AppError.invalidData
@@ -68,15 +58,9 @@ extension ProfileInteractor: ProfileInteractorProtocol {
     func fetchUserData() async throws {
         
         let userData = try await withThrowingTaskGroup(of: UserProfile.self) { group in
-            
-            guard let url = URL(string: AccountUrl.accDetail(key: Constants.apiKey, sessionId: sessionId).url) else {
-                throw AppError.badURL
-            }
-            
+
             let session = URLSession.shared
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accDetail(key: Constants.apiKey, sessionId: sessionId))
             
             group.addTask { [request] in
                 guard let data = try await self.networkManager.fetchGET(type: UserProfile.self, session: session, request: request) else {

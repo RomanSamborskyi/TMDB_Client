@@ -35,20 +35,12 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
         guard let accountID = Int(keychain.get(for: Constants.account_id) ?? "") else {
             throw AppError.incorrectAccoutId
         }
-        
-        guard let url = URL(string: MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
+  
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.addToFavoriteHeader
-        
+ 
         let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
         
-        request.httpBody = try JSONEncoder().encode(body)
+        let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey))
         
         let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
         
@@ -58,13 +50,10 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
         guard let sessionID = keychain.get(for: Constants.sessionKey) else {
             throw AppError.badURL
         }
-        guard let url = URL(string: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: sessionID).url) else {
-            throw AppError.badURL
-        }
+
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.timeoutInterval = 10
+
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: sessionID))
         
         guard let result = try await self.networkManager.fetchGET(type: MovieStat.self, session: session, request: request) else {
             throw AppError.invalidData
@@ -78,16 +67,10 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
             throw AppError.incorrectAccoutId
         }
         
-        guard let url = URL(string: AccountUrl.watchList(accountId: acoountID, key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.timeoutInterval = 10
+            var request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.watchList(accountId: acoountID, key: Constants.apiKey))
             request.allHTTPHeaderFields = Constants.watchListheader
             
             group.addTask { [request, weak self] in
@@ -111,7 +94,7 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
             
             for movie in watchList {
                 
-                guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")") else {
+                guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
                     throw AppError.badURL
                 }
                 

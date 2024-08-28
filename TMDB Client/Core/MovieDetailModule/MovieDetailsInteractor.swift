@@ -41,23 +41,11 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             throw AppError.invalidData
         }
         
-        guard let url = URL(string: MoviesUrls.addRating(movieId: self.movieId, sessionId: sessioId, key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.addRatingHeaders
-        
+
         let data = RateBody(value: rate)
         
-        do {
-            request.httpBody = try JSONEncoder().encode(data)
-        } catch let error {
-            print("Error of encoding data: \(error)")
-        }
+        let request = try networkManager.requestFactory(type: data, urlData: MoviesUrls.addRating(movieId: self.movieId, sessionId: sessioId, key: Constants.apiKey))
         
         guard let _ = try await networkManager.fetchGET(type: RateBody.self, session: session, request: request) else {
             throw AppError.invalidData
@@ -69,19 +57,11 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             throw AppError.incorrectAccoutId
         }
         
-        guard let url = URL(string: MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.addToFavoriteHeader
-        
+
         let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
-        
-        request.httpBody = try JSONEncoder().encode(body)
+
+        let request = try networkManager.requestFactory(type: body, urlData:  MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey))
         
         let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
         
@@ -91,13 +71,10 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         guard let sessionID = keychain.get(for: Constants.sessionKey) else {
             throw AppError.badURL
         }
-        guard let url = URL(string: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: sessionID).url) else {
-            throw AppError.badURL
-        }
+
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.timeoutInterval = 10
+
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: sessionID))
         
         guard let result = try await self.networkManager.fetchGET(type: MovieStat.self, session: session, request: request) else {
             throw AppError.invalidData
@@ -107,37 +84,25 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
     }
     func addToWatchlist() async throws {
         
-        guard let accoutID = keychain.get(for: Constants.account_id) else {
+        guard let accoutID = Int(keychain.get(for: Constants.account_id) ?? "") else {
             throw AppError.incorrectAccoutId
         }
         
-        guard let url = URL(string: "https://api.themoviedb.org/3/account/\(accoutID)/watchlist?api_key=\(Constants.apiKey)") else {
-            throw AppError.badURL
-        }
-    
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.addToWatchListHeader
-        
+
         let body = AddToWatchlist(media_type: "movie", media_id: movieId, watchlist: true)
-        
-        request.httpBody = try? JSONEncoder().encode(body)
+    
+        let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToWatchList(accoutId: accoutID, apiKey: Constants.apiKey))
         
         let _ = try await networkManager.fetchGET(type: AddToWatchlist.self, session: session, request: request)
         
     }
     func fetchMovieDetails() async throws {
-        guard let url = URL(string: MoviesUrls.singleMovie(movieId: self.movieId, key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
+
         let movie = try await withThrowingTaskGroup(of: MovieDetail.self) { group in
             
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.singleMovie(movieId: self.movieId, key: Constants.apiKey))
             
             group.addTask { [request, weak self] in
                 guard let result = try await self?.networkManager.fetchGET(type: MovieDetail.self, session: session, request: request) else {
