@@ -35,15 +35,9 @@ extension AddToListInteractor: AddToListInteractorProtocol {
         
         let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
             
-            guard let url = URL(string: MoviesUrls.searchMovie(apiKey: Constants.apiKey, title: title.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? "").url) else {
-                throw AppError.badURL
-            }
-            
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.timeoutInterval = 10
-            request.allHTTPHeaderFields = Constants.searchHeaders
+
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.searchMovie(apiKey: Constants.apiKey, title: title.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? ""))
             
             group.addTask { [request, weak self] in
                 guard let result = try await self?.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {
@@ -89,19 +83,11 @@ extension AddToListInteractor: AddToListInteractorProtocol {
     }
     func addMovieToList(with id: Int) async throws {
         
-        guard let url = URL(string: ListURL.addMovie(listId: listId, apiKey: Constants.apiKey, sessionId: sessionId).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.timeoutInterval = 10
-        request.allHTTPHeaderFields = Constants.addMovieToListHeader
+
+        let body = ["media_id" : id]
         
-        let body: [String : Any] = ["media_id" : id]
-        
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        let request = try networkManager.requestFactory(type: body, urlData: ListURL.addMovie(listId: listId, apiKey: Constants.apiKey, sessionId: sessionId))
         
         guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
