@@ -66,7 +66,7 @@ enum ListURL: URLData {
         case .clear:
             return "POST"
         case .delete:
-            return "POST"
+            return "DELETE"
         case .deleteMovie:
             return "POST"
         case .addMovie:
@@ -202,6 +202,15 @@ enum AccountUrl: URLData {
     
     var headers: [String : String]? {
         switch self {
+        case .lists:
+            return [
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyMDk1MjU3MS4yMjY2OTMsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EG1uBVtmGkg075gO3v_SymHi36lfdYDDhAwMK_Gv1vI"
+              ]
+        case .watchList:
+            return [
+                "accept": "application/json",
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyMTA0NjkyNC4wMjgyNDksInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KgpKgDGA6OQQ2-8QP2QcjH0eqi7Xz_40gxlbU5OhnBo"
+              ]
         default: return [:]
         }
     }

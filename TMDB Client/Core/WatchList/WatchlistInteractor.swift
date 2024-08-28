@@ -70,8 +70,7 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
             let session = URLSession.shared
-            var request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.watchList(accountId: acoountID, key: Constants.apiKey))
-            request.allHTTPHeaderFields = Constants.watchListheader
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.watchList(accountId: acoountID, key: Constants.apiKey))
             
             group.addTask { [request, weak self] in
                 guard let result = try await self?.networkManager.fetchGET(type: WatchlistResponse.self, session: session, request: request) else {
