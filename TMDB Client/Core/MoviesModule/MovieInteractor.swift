@@ -30,15 +30,8 @@ class MovieInteractor {
 extension MovieInteractor: MovieInteractorProtocol {
     func fetchGenres() async throws {
         
-        guard let url = URL(string: MoviesUrls.allGenres(key: Constants.apiKey).url) else {
-            throw AppError.badURL
-        }
-        
         let session = URLSession.shared
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.timeoutInterval = 10
-        
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.allGenres(key: Constants.apiKey))
         guard let response = try await networkManager.fetchGET(type: GenreResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
@@ -49,13 +42,8 @@ extension MovieInteractor: MovieInteractorProtocol {
         
         let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
             
-            guard let url = URL(string: MoviesUrls.byGenre(key: Constants.apiKey, genre: genre).url) else {
-                throw AppError.badURL
-            }
-            
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.byGenre(key: Constants.apiKey, genre: genre))
             
             group.addTask { [request] in
                 guard let result = try await self.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {

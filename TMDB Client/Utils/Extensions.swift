@@ -7,6 +7,8 @@
 
 import UIKit
 
+//Empty struct to past in to request factory function to avoid http body 
+struct NoBody: Codable { }
 
 extension Double {
     var twoCharacktersStrings: String {

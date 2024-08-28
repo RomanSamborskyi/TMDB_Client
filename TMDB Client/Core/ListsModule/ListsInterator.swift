@@ -44,7 +44,7 @@ extension ListsInterator: ListsInteratorProtocol {
         request.httpMethod = "DELETE"
         request.timeoutInterval = 10
         request.allHTTPHeaderFields = Constants.deleteListHeader
-    
+        
         guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }

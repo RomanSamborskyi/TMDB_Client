@@ -9,6 +9,32 @@ import Foundation
 
 
 final class NetworkManager {
+    
+    func requestFactory<BodyData: Codable>(type: BodyData, urlData: URLData) throws -> URLRequest {
+        
+        guard let  url = URL(string: urlData.url) else {
+            throw AppError.badURL
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = urlData.method
+        request.timeoutInterval = 10
+        
+        if let headers = urlData.headers {
+            request.allHTTPHeaderFields = headers
+        }
+        
+        if urlData.method == "POST" {
+            do {
+                let bodyData = try JSONEncoder().encode(type)
+                request.httpBody = bodyData
+            } catch let error {
+                print("Error of encoding nody data: \(error)")
+            }
+        }
+        
+        return request
+    }
    
     func fetchGET<T: Codable>(type: T.Type, session: URLSession, request: URLRequest) async throws -> T? {
         
