@@ -22,15 +22,18 @@ class MovieDetailsInteractor {
     weak var presenter: MovieDetailsPresenterProtocol?
     let movieId: Int
     let poster: UIImage
+    let sessionId: String
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     let keychain = KeyChainManager.instance
+    
     //MARK: - lifecycle
-    init(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+    init(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
         self.movieId = movieId
         self.poster = poster
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.sessionId = sessionId
     }
 }
 //MARK: - MovieDetailsInteractorProtocol
@@ -61,7 +64,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
 
         let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
 
-        let request = try networkManager.requestFactory(type: body, urlData:  MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey))
+        let request = try networkManager.requestFactory(type: body, urlData:  MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey, sessionId: self.sessionId))
         
         let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
         
@@ -92,7 +95,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
 
         let body = AddToWatchlist(media_type: "movie", media_id: movieId, watchlist: true)
     
-        let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToWatchList(accoutId: accoutID, apiKey: Constants.apiKey))
+        let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToWatchList(accoutId: accoutID, apiKey: Constants.apiKey, sessionId: self.sessionId))
         
         let _ = try await networkManager.fetchGET(type: AddToWatchlist.self, session: session, request: request)
         

@@ -8,6 +8,12 @@
 import Foundation
 
 
+class AccessToken {
+    static var instanse = AccessToken()
+    
+    let token = KeyChainManager.instance.get(for: Constants.access_token)
+}
+
 protocol URLData {
     var url: String { get }
     var method: String { get }
@@ -165,23 +171,23 @@ enum Authantication: URLData {
             return [
                 "accept": "application/json",
                 "content-type": "application/json",
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyMDU0MzIwNi42NzcyNTIsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IdCbZoe-128Wrybd6WFkZC-3VFSuzkGXXTrxGALDleM"
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyNDk0NzEyNS4xODQ0NzIsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zwHnzqklRJIky95os0iH78OvhLeK-UzBVdsCP5AP82U"
               ]
         }
     }
 }
 //MARK: - AccountUrl
 enum AccountUrl: URLData {
-    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int), watchList(accountId: Int, key: String), accountState(key: String, movieId: Int, sessionId: String)
+    case accDetail(key: String, sessionId: String), lists(key: String, accountId: Int, sessionId: String), watchList(accountId: Int, key: String, sessionId: String), accountState(key: String, movieId: Int, sessionId: String)
     
     var url: String {
         switch self {
         case .accDetail(let key, let sessionId):
             return "\(APIBaseURL.base.url)account?api_key=\(key)&session_id=\(sessionId)"
-        case .lists(let key, let accountId):
-            return "\(APIBaseURL.base.url)account/\(accountId)/lists?api_key=\(key)"
-        case .watchList(accountId: let accountId, key: let key):
-            return "\(APIBaseURL.base.url)account/\(accountId)/watchlist/movies?api_key=\(key)"
+        case .lists(let key, let accountId, let sessionId):
+            return "\(APIBaseURL.base.url)account/\(accountId)/lists?api_key=\(key)&session_id=\(sessionId)"
+        case .watchList(accountId: let accountId, key: let key, let sessionId):
+            return "\(APIBaseURL.base.url)account/\(accountId)/watchlist/movies?api_key=\(key)&session_id=\(sessionId)"
         case .accountState(key: let key, movieId: let movieId, sessionId: let sessionId):
             return "\(APIBaseURL.base.url)movie/\(movieId)/account_states?api_key=\(key)&session_id=\(sessionId)"
         }
@@ -217,7 +223,7 @@ enum AccountUrl: URLData {
 }
 //MARK: - MoviesUrl
 enum MoviesUrls: URLData {
-    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String)
+    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String, sessionId: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String, sessionId: String)
     
     var url: String {
         switch self {
@@ -233,14 +239,14 @@ enum MoviesUrls: URLData {
             return "\(APIBaseURL.base.url)genre/movie/list?api_key=\(key)"
         case .singleMovie(movieId: let movieId, key: let key):
             return "\(APIBaseURL.base.url)movie/\(movieId)?api_key=\(key)"
-        case .addToFavorite(accoutId: let accoutId, key: let key):
-            return "\(APIBaseURL.base.url)account/\(accoutId)/favorite?api_key=\(key)"
+        case .addToFavorite(accoutId: let accoutId, key: let key, let sessionId):
+            return "\(APIBaseURL.base.url)account/\(accoutId)/favorite?api_key=\(key)&session_id=\(sessionId)"
         case .addRating(movieId: let movieId, sessionId: let sessionId, key: let key):
             return "\(APIBaseURL.base.url)movie/\(movieId)/rating?api_key=\(key)&session_id=\(sessionId)"
         case .searchMovie(apiKey: let apiKey, title: let title):
             return "\(APIBaseURL.base.url)search/movie?api_key=\(apiKey)&query=\(title)"
-        case .addToWatchList(accoutId: let accoutId, apiKey: let apiKey):
-            return "\(APIBaseURL.base.url)account/\(accoutId)/watchlist?api_key=\(apiKey)"
+        case .addToWatchList(accoutId: let accoutId, apiKey: let apiKey, let sessionId):
+            return "\(APIBaseURL.base.url)account/\(accoutId)/watchlist?api_key=\(apiKey)&session_id=\(sessionId)"
         }
     }
     

@@ -18,9 +18,9 @@ class TabBarController: UITabBarController {
     let haptic: HapticFeedback
     //MARK: - property
     private lazy var profileTab = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: self.sessionId, networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic))
-    private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic))
+    private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId))
     private lazy var listsTab = UINavigationController(rootViewController: ListsModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, sessionId: self.sessionId, haptic: self.haptic))
-    private lazy var watchListTab = UINavigationController(rootViewController: WatchlistModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic))
+    private lazy var watchListTab = UINavigationController(rootViewController: WatchlistModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId))
     //MARK: - lifecycle
     init(sessionId: String, haptic: HapticFeedback) {
         self.sessionId = sessionId

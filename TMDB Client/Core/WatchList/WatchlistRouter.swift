@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol WatchlistRouterProtocol: AnyObject {
-    func navigateToDetail(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback)
+    func navigateToDetail(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String)
 }
 
 class WatchlistRouter {
@@ -18,8 +18,8 @@ class WatchlistRouter {
 }
 //MARK: - WatchListRouterProtocol
 extension WatchlistRouter: WatchlistRouterProtocol {
-    func navigateToDetail(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback) {
-        let detailVC = MovieDetailsModuleBuilder.build(movieId: id, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic)
+    func navigateToDetail(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String) {
+        let detailVC = MovieDetailsModuleBuilder.build(movieId: id, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId)
         view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

@@ -51,7 +51,7 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     func didMovieSelected(movie id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic)
+            self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
         }
     }
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {

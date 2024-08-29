@@ -14,6 +14,7 @@ protocol WatchlistInteractorProtocol: AnyObject {
     func addToFavorite(movieId: Int) async throws
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
+    var sessionId: String { get }
 }
 
 class WatchlistInteractor {
@@ -22,10 +23,12 @@ class WatchlistInteractor {
     private var keychain = KeyChainManager.instance
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
+    let sessionId: String
     
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.sessionId = sessionId
     }
 }
 //MARK: - WatchListInteractorProtocol
@@ -40,7 +43,7 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
  
         let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
         
-        let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey))
+        let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey, sessionId: self.sessionId))
         
         let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
         
@@ -70,7 +73,7 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
             let session = URLSession.shared
-            let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.watchList(accountId: acoountID, key: Constants.apiKey))
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.watchList(accountId: acoountID, key: Constants.apiKey, sessionId: self.sessionId))
             
             group.addTask { [request, weak self] in
                 guard let result = try await self?.networkManager.fetchGET(type: WatchlistResponse.self, session: session, request: request) else {

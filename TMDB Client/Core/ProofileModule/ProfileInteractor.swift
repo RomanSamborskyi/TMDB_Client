@@ -33,12 +33,21 @@ extension ProfileInteractor: ProfileInteractorProtocol {
     func logout() async throws {
 
         let session = URLSession.shared
-
+        var request = URLRequest(url: URL(string: Authantication.deleteSession(key: Constants.apiKey).url)!)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = [
+            "accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDUxMmM5MTg5ZDNiYTZmZTNhMWRlNjMyNGFkNTc2YSIsIm5iZiI6MTcyNDk0NzEyNS4xODQ0NzIsInN1YiI6IjY0NTNkZWM2ZDQ4Y2VlMDBlMTMzYTA2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zwHnzqklRJIky95os0iH78OvhLeK-UzBVdsCP5AP82U"
+          ]
         let rawData = [
             "session_id" : sessionId
         ]
-
-        let request = try networkManager.requestFactory(type: rawData, urlData: Authantication.deleteSession(key: Constants.apiKey))
+        let data = try JSONSerialization.data(withJSONObject: rawData)
+        
+//        var request = try networkManager.requestFactory(type: rawData, urlData: Authantication.deleteSession(key: Constants.apiKey))
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = data
         
         guard let response = try await networkManager.fetchGET(type: DeleteSession.self, session: session, request: request) else {
             throw AppError.invalidData

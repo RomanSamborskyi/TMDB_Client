@@ -9,9 +9,9 @@ import UIKit
 
 
 class MovieModuleBuilder {
-    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String) -> UIViewController {
         let view = MoviesViewController()
-        let interactor = MovieInteractor(networkManager: networkManager, imageDownloader: imageDownloader)
+        let interactor = MovieInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId)
         let router = MovieRouter()
         let presenter = MoviePresenter(interactor: interactor, router: router, haptic: haptic)
         

@@ -13,6 +13,7 @@ protocol MovieInteractorProtocol: AnyObject {
     func fetchMovies(by genre: Int) async throws
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
+    var sessionId: String { get }
 }
 
 class MovieInteractor {
@@ -20,10 +21,12 @@ class MovieInteractor {
     weak var presenter: MoviePresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
+    let sessionId: String
     
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.sessionId = sessionId
     }
 }
 //MARK: - MovieInteractorProtocol

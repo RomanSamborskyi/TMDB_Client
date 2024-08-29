@@ -65,7 +65,7 @@ extension ListsInterator: ListsInteratorProtocol {
 
         let session = URLSession.shared
         
-        let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.lists(key: Constants.apiKey, accountId: acoountID))
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.lists(key: Constants.apiKey, accountId: acoountID, sessionId: self.sessionId))
         
         guard let result = try await networkManager.fetchGET(type: ListsResponse.self, session: session, request: request) else {
             throw AppError.invalidData
