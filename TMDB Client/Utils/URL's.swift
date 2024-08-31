@@ -8,12 +8,6 @@
 import Foundation
 
 
-class AccessToken {
-    static var instanse = AccessToken()
-    
-    let token = KeyChainManager.instance.get(for: Constants.access_token)
-}
-
 protocol URLData {
     var url: String { get }
     var method: String { get }
