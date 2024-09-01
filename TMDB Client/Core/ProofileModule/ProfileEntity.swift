@@ -5,9 +5,7 @@
 //  Created by Roman Samborskyi on 10.07.2024.
 //
 
-import Foundation
-
-import Foundation
+import UIKit
 
 // MARK: - User
 struct UserProfile: Codable {
@@ -16,6 +14,7 @@ struct UserProfile: Codable {
     let iso639_1, iso3166_1, name: String?
     let includeAdult: Bool?
     let username: String?
+    let uiImageAvatar: Data?
 
     enum CodingKeys: String, CodingKey {
         case avatar, id
@@ -24,6 +23,7 @@ struct UserProfile: Codable {
         case name
         case includeAdult = "include_adult"
         case username
+        case uiImageAvatar
     }
 }
 

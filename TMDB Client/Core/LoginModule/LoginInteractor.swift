@@ -10,7 +10,7 @@ import UIKit
 
 protocol LoginInteractorProtocol: AnyObject {
     func sendLoginRequestwith(login: String, password: String) async throws
-    func fetchUserData() async throws
+    func fetchUserData(sessionId: String) async throws
     var newSession: Session? { get }
 }
 
@@ -98,16 +98,18 @@ extension LoginInteractor: LoginInteractorProtocol {
         }
         presenter?.didNewSessionStart(with: data)
         print("Session created successfully✅: \(data.success)")
+        
+        try await fetchUserData(sessionId: data.session_id)
+        
         return data
     }
     //Fetching user details
-    func fetchUserData() async throws {
+    func fetchUserData(sessionId: String) async throws {
         
         let userData = try await withThrowingTaskGroup(of: UserProfile.self) { group in
 
             let session = URLSession.shared
-            let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accDetail(key: Constants.apiKey, sessionId: newSession?.session_id ?? ""))
-            
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accDetail(key: Constants.apiKey, sessionId: sessionId))
             group.addTask { [request] in
                 guard let data = try await self.networkManager.fetchGET(type: UserProfile.self, session: session, request: request) else {
                     throw AppError.invalidData
@@ -156,8 +158,14 @@ extension LoginInteractor: LoginInteractorProtocol {
             return avatarImage
         }
         guard let user = userData,
-              let avatar = userAvatar else {
+              let avatar = userAvatar?.pngData() else {
             throw AppError.invalidData
+        }
+        
+        do {
+            try CoreDataManager.instance.writeToCoreData(user: user, avatar)
+        } catch let error {
+            print("Error of saving userdetails: \(error)")
         }
         
         do {
