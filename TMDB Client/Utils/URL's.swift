@@ -217,8 +217,8 @@ enum AccountUrl: URLData {
 }
 //MARK: - MoviesUrl
 enum MoviesUrls: URLData {
-    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String, sessionId: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String, sessionId: String), ratedMovies(accaountId: Int, sessionId: String, apiKey: String)
-    
+    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String, sessionId: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String, sessionId: String), ratedMovies(accaountId: Int, sessionId: String, apiKey: String), favoriteMovies(accaountId: Int, sessionId: String, apiKey: String)
+
     var url: String {
         switch self {
         case .trending(let key):
@@ -242,7 +242,9 @@ enum MoviesUrls: URLData {
         case .addToWatchList(accoutId: let accoutId, apiKey: let apiKey, let sessionId):
             return "\(APIBaseURL.base.url)account/\(accoutId)/watchlist?api_key=\(apiKey)&session_id=\(sessionId)"
         case .ratedMovies(accaountId: let accaountId, sessionId: let sessionId, apiKey: let apiKey):
-            return "https://api.themoviedb.org/3/account/\(accaountId)/rated/movies?api_key=\(apiKey)&session_id=\(sessionId)"
+            return "\(APIBaseURL.base.url)account/\(accaountId)/rated/movies?api_key=\(apiKey)&session_id=\(sessionId)"
+        case .favoriteMovies(accaountId: let accaountId, sessionId: let sessionId, apiKey: let apiKey):
+            return "\(APIBaseURL.base.url)account/\(accaountId)/favorite/movies?api_key=\(apiKey)&session_id=\(sessionId)"
         }
     }
     
@@ -269,6 +271,8 @@ enum MoviesUrls: URLData {
         case .addToWatchList:
             return "POST"
         case .ratedMovies:
+            return "GET"
+        case .favoriteMovies:
             return "GET"
         }
     }
