@@ -11,6 +11,7 @@ import UIKit
 protocol LoginPresenterProtocol: AnyObject {
     func loginButtonDidTapped(login: String, password: String)
     func didNewSessionStart(with session: Session)
+    func getUserDetails(user: UserProfile)
 }
 
 class LoginPresenter {
@@ -30,6 +31,9 @@ class LoginPresenter {
 }
 //MARK: - LoginPresenterProtocol
 extension LoginPresenter: LoginPresenterProtocol {
+    func getUserDetails(user: UserProfile) {
+        
+    }
     func didNewSessionStart(with session: Session) {
         if session.success {
             DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) {

@@ -10,14 +10,16 @@ import UIKit
 
 protocol LoginInteractorProtocol: AnyObject {
     func sendLoginRequestwith(login: String, password: String) async throws
+    func fetchUserData() async throws
     var newSession: Session? { get }
 }
 
 class LoginInteractor {
     //MARK: - property
     var newSession: Session? = nil
-    let networkManager = NetworkManager()
-    let keychain = KeyChainManager.instance
+    private let networkManager = NetworkManager()
+    private var imageDownloader = ImageDownloader()
+    private let keychain = KeyChainManager.instance
     weak var presenter: LoginPresenterProtocol?
     
 }
@@ -97,5 +99,71 @@ extension LoginInteractor: LoginInteractorProtocol {
         presenter?.didNewSessionStart(with: data)
         print("Session created successfully✅: \(data.success)")
         return data
+    }
+    //Fetching user details
+    func fetchUserData() async throws {
+        
+        let userData = try await withThrowingTaskGroup(of: UserProfile.self) { group in
+
+            let session = URLSession.shared
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accDetail(key: Constants.apiKey, sessionId: newSession?.session_id ?? ""))
+            
+            group.addTask { [request] in
+                guard let data = try await self.networkManager.fetchGET(type: UserProfile.self, session: session, request: request) else {
+                    throw AppError.invalidData
+                }
+                return data
+            }
+            var returnedUser: UserProfile?
+            
+            for try await userInfo in group {
+                returnedUser = userInfo
+            }
+           return returnedUser
+        }
+        
+        
+        let userAvatar = try await withThrowingTaskGroup(of: UIImage.self) { group in
+            
+            var baseURL: URL? = nil
+            
+            if let userPath = userData?.avatar?.tmdb?.avatarPath {
+                baseURL = URL(string: ImageURL.imagePath(path: userPath).url)
+            } else if let gravatarPath = userData?.avatar?.gravatar?.hash {
+                baseURL = URL(string: ImageURL.gravatarPath(path: gravatarPath).url)
+            }
+           
+            
+            guard let url = baseURL else {
+                throw AppError.badURL
+            }
+            
+            let session = URLSession.shared
+            let request = URLRequest(url: url)
+            
+            group.addTask {
+                guard let avatar = try await self.imageDownloader.fetchImage(with: session, request: request) else {
+                    throw AppError.invalidData
+                }
+                return avatar
+            }
+            
+            var avatarImage: UIImage?
+            
+            for try await userAvatar in group {
+                avatarImage = userAvatar
+            }
+            return avatarImage
+        }
+        guard let user = userData,
+              let avatar = userAvatar else {
+            throw AppError.invalidData
+        }
+        
+        do {
+            try keychain.save(value: String(user.id ?? 0), for: Constants.account_id)
+        } catch let error {
+            print("error of saving account ID: \(error.localizedDescription)")
+        }
     }
 }
