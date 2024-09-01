@@ -26,7 +26,6 @@ class ListsPresenter {
     let interactor: ListsInteratorProtocol
     let router: ListsRouterProtocol
     let haptic: HapticFeedback
-    private lazy var count: Int = 0
     //MARK: - lifecycle
     init(interactor: ListsInteratorProtocol, router: ListsRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor

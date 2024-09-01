@@ -11,6 +11,7 @@ import UIKit
 protocol ProfilePresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didLogoutButtonTapped()
+    func didRatedMoviesButtonTapped()
     func didUserFetched(user: UserProfile, with avatar: UIImage)
 }
 
@@ -30,6 +31,9 @@ class ProfilePresenter {
 }
 //MARK: - ProfilePresenterProtocol
 extension ProfilePresenter: ProfilePresenterProtocol {
+    func didRatedMoviesButtonTapped() {
+        router.navigateToRatedMoviesView(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId, haptic: self.haptic, accountId: self.interactor.accountId ?? 0)
+    }
     func didLogoutButtonTapped() {
         Task {
             do {

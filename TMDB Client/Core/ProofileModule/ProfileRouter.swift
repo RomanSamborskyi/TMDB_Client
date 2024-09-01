@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileRouterProtocol: AnyObject {
     func navigateToLoginView(haptic: HapticFeedback)
+    func navigateToRatedMoviesView(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, accountId: Int)
 }
 
 
@@ -19,6 +20,10 @@ class ProfileRouter {
 }
 //MARK: - ProfileRouterProtocol
 extension ProfileRouter: ProfileRouterProtocol {
+    func navigateToRatedMoviesView(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, accountId: Int) {
+        let ratedMoviesVC = RatedMoviesModuleBuilder.build(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, haptic: haptic, accountId: accountId)
+        view?.navigationController?.pushViewController(ratedMoviesVC, animated: true)
+    }
     func navigateToLoginView(haptic: HapticFeedback) {
         let loginVC = LoginModulBuilder.build(haptic: haptic)
         loginVC.hidesBottomBarWhenPushed = true

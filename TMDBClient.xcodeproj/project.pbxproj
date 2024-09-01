@@ -41,6 +41,11 @@
 		6B6A7D422C7CBE9D007CC4F0 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D412C7CBE9D007CC4F0 /* HapticFeedback.swift */; };
 		6B732F122C846533001CCA04 /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F102C846533001CCA04 /* User.xcdatamodeld */; };
 		6B732F142C8465D2001CCA04 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F132C8465D2001CCA04 /* CoreDataManager.swift */; };
+		6B732F172C849302001CCA04 /* RatedMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F162C849302001CCA04 /* RatedMoviesViewController.swift */; };
+		6B732F192C84937B001CCA04 /* RatedMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F182C84937B001CCA04 /* RatedMoviesInteractor.swift */; };
+		6B732F1B2C8493C8001CCA04 /* RatedMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F1A2C8493C8001CCA04 /* RatedMoviesPresenter.swift */; };
+		6B732F1D2C849435001CCA04 /* RatedMoviesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F1C2C849435001CCA04 /* RatedMoviesRouter.swift */; };
+		6B732F1F2C849652001CCA04 /* RatedMoviesModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F1E2C849652001CCA04 /* RatedMoviesModuleBuilder.swift */; };
 		6B96D9402C46F79E00D40E03 /* MovieDetailsEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B96D93F2C46F79E00D40E03 /* MovieDetailsEntities.swift */; };
 		6BA605F92C4565AD007E205C /* MovieToWatchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA605F82C4565AD007E205C /* MovieToWatchCollectionViewCell.swift */; };
 		6BA605FD2C46D213007E205C /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA605FC2C46D213007E205C /* MovieDetailsViewController.swift */; };
@@ -132,6 +137,11 @@
 		6B6A7D412C7CBE9D007CC4F0 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		6B732F112C846533001CCA04 /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		6B732F132C8465D2001CCA04 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		6B732F162C849302001CCA04 /* RatedMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatedMoviesViewController.swift; sourceTree = "<group>"; };
+		6B732F182C84937B001CCA04 /* RatedMoviesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatedMoviesInteractor.swift; sourceTree = "<group>"; };
+		6B732F1A2C8493C8001CCA04 /* RatedMoviesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatedMoviesPresenter.swift; sourceTree = "<group>"; };
+		6B732F1C2C849435001CCA04 /* RatedMoviesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatedMoviesRouter.swift; sourceTree = "<group>"; };
+		6B732F1E2C849652001CCA04 /* RatedMoviesModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatedMoviesModuleBuilder.swift; sourceTree = "<group>"; };
 		6B96D93F2C46F79E00D40E03 /* MovieDetailsEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsEntities.swift; sourceTree = "<group>"; };
 		6BA605F82C4565AD007E205C /* MovieToWatchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieToWatchCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BA605FC2C46D213007E205C /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
@@ -322,6 +332,11 @@
 		6B732F152C8492B5001CCA04 /* RatedMoviesModule */ = {
 			isa = PBXGroup;
 			children = (
+				6B732F162C849302001CCA04 /* RatedMoviesViewController.swift */,
+				6B732F182C84937B001CCA04 /* RatedMoviesInteractor.swift */,
+				6B732F1A2C8493C8001CCA04 /* RatedMoviesPresenter.swift */,
+				6B732F1C2C849435001CCA04 /* RatedMoviesRouter.swift */,
+				6B732F1E2C849652001CCA04 /* RatedMoviesModuleBuilder.swift */,
 			);
 			path = RatedMoviesModule;
 			sourceTree = "<group>";
@@ -514,6 +529,7 @@
 				6BCD381E2C6E70C500A0C2BB /* AddToListInteractor.swift in Sources */,
 				6BC683562C426A120008864A /* ListsViewController.swift in Sources */,
 				6BFAA0EC2C577969002D8F1A /* ListsDetailRouter.swift in Sources */,
+				6B732F1F2C849652001CCA04 /* RatedMoviesModuleBuilder.swift in Sources */,
 				6B44B1F52C43CB26006F0084 /* ListsPresenter.swift in Sources */,
 				6BF51F582C70F17C00F4CA50 /* TextFieldView.swift in Sources */,
 				6B56A7F72C3B2E34001032C8 /* LoginModulBuilder.swift in Sources */,
@@ -538,11 +554,14 @@
 				6BFAA0E82C556954002D8F1A /* ListsDetailPresenter.swift in Sources */,
 				6BC683472C407D220008864A /* MoviesViewController.swift in Sources */,
 				6B56A7D82C3B27A3001032C8 /* AppDelegate.swift in Sources */,
+				6B732F1B2C8493C8001CCA04 /* RatedMoviesPresenter.swift in Sources */,
 				6B56A7EF2C3B2BC2001032C8 /* LoginInteractor.swift in Sources */,
 				6BCD38172C6B41C700A0C2BB /* ListsEmptyView.swift in Sources */,
 				6BCD38222C6E76BD00A0C2BB /* AddTolistEntities.swift in Sources */,
 				6BFAA0E42C556899002D8F1A /* ListsDetailViewController.swift in Sources */,
+				6B732F1D2C849435001CCA04 /* RatedMoviesRouter.swift in Sources */,
 				6BA605FF2C46D28D007E205C /* MovieDetailsInteractor.swift in Sources */,
+				6B732F192C84937B001CCA04 /* RatedMoviesInteractor.swift in Sources */,
 				6B56A7F52C3B2BEA001032C8 /* LoginRouter.swift in Sources */,
 				6BC683492C4080140008864A /* ActivityView.swift in Sources */,
 				6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */,
@@ -575,6 +594,7 @@
 				6B6A7D3E2C78686F007CC4F0 /* AddListEntity.swift in Sources */,
 				6B44B1F12C43C99E006F0084 /* Extensions.swift in Sources */,
 				6B6A7D382C746567007CC4F0 /* AddListPresenter.swift in Sources */,
+				6B732F172C849302001CCA04 /* RatedMoviesViewController.swift in Sources */,
 				6BC683582C426DFB0008864A /* MokData.swift in Sources */,
 				6B6A7D402C786D9A007CC4F0 /* AddListView.swift in Sources */,
 				6BFAA0EA2C5569AA002D8F1A /* ListsEntity.swift in Sources */,

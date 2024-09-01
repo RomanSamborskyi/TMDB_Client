@@ -9,6 +9,7 @@ import UIKit
 
 protocol ProfileViewDelegate: AnyObject {
     func logoutButtunDidTapped()
+    func ratedMovieButtonDidTapped()
 }
 
 class ProfileView: UIView {
@@ -129,7 +130,7 @@ private extension ProfileView {
         ratedMoviesButton.layer.cornerRadius = 15
         ratedMoviesButton.layer.masksToBounds = true
         ratedMoviesButton.backgroundColor = UIColor.white
-        //ratedMoviesButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        ratedMoviesButton.addTarget(self, action: #selector(ratedMovies), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             ratedMoviesButton.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 50),
@@ -162,5 +163,8 @@ private extension ProfileView {
 extension ProfileView {
     @objc func logout(selector: Selector) {
         delegate?.logoutButtunDidTapped()
+    }
+    @objc func ratedMovies(selector: Selector) {
+        delegate?.ratedMovieButtonDidTapped()
     }
 }

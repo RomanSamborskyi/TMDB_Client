@@ -11,6 +11,10 @@ import UIKit
 protocol ProfileInteractorProtocol: AnyObject {
     func fetchUserData() async throws
     func logout() async throws
+    var sessionId: String { get }
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
+    var accountId: Int? { get }
 }
 
 class ProfileInteractor {
@@ -20,6 +24,7 @@ class ProfileInteractor {
     let sessionId: String
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
+    var accountId: Int?
     
     init(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
         self.sessionId = sessionId
@@ -58,6 +63,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
     func fetchUserData() async throws {
         guard let user = try CoreDataManager.instance.fetchUserDetails() else { return }
         guard let avatar = UIImage(data: user.uiImageAvatar ?? Data()) else { return }
+        self.accountId = user.id ?? 0
         presenter?.didUserFetched(user: user, with: avatar)
     }
 }
