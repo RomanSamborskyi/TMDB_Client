@@ -10,7 +10,7 @@ import UIKit
 
 protocol FavoriteMoviesPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
-    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
 }
 
 
@@ -38,7 +38,7 @@ extension FavoriteMoviesPresenter: FavoriteMoviesPresenterProtocol {
             }
         }
     }
-    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
-        view?.show(movies: movies, posters: posters)
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool) {
+        view?.show(movies: movies, posters: posters, isFetched: isFetched)
     }
 }

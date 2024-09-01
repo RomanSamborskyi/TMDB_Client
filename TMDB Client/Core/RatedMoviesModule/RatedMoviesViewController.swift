@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RatedMoviesViewProtocol: AnyObject {
-    func show(movies: [Movie], posters: [Int : UIImage])
+    func show(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
 }
 
 class RatedMoviesViewController: UIViewController {
@@ -29,6 +29,8 @@ class RatedMoviesViewController: UIViewController {
         return cell
     }()
     private lazy var emptyListView = ListsEmptyView()
+    private lazy var activityView = ActivityView()
+    private lazy var isFetched: Bool = false
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +40,17 @@ class RatedMoviesViewController: UIViewController {
 }
 //MARK: - RatedMoviesViewProtocol
 extension RatedMoviesViewController: RatedMoviesViewProtocol {
-    func show(movies: [Movie], posters: [Int : UIImage]) {
+    func show(movies: [Movie], posters: [Int : UIImage], isFetched: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.movies = movies
             self.posters.merge(posters) { image, _ in image }
+            if isFetched && movies.count > 0 {
+                self.isFetched = true
+                activityView.removeFromSuperview()
+                movieCollection.isHidden = false
+                setupCollectionView()
+            }
             self.movieCollection.reloadData()
         }
     }
@@ -58,15 +66,17 @@ private extension RatedMoviesViewController {
         movieCollection.dataSource = self
         movieCollection.delegate = self
         
+        if movies.count > 0 || isFetched == false {
+            setupActivityView()
+            self.view.layoutIfNeeded()
+        }
     }
     func setupViews() {
         if movies.count > 0 {
             self.emptyListView.removeFromSuperview()
-            movieCollection.isHidden = false
-            setupCollectionView()
-            movieCollection.reloadData()
         } else if movies.count == 0 {
             movieCollection.isHidden = true
+            activityView.isHidden = true
             self.setupEmptyListView()
             self.view.layoutIfNeeded()
         }
@@ -94,6 +104,18 @@ private extension RatedMoviesViewController {
             emptyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             emptyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             emptyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
+    }
+    func setupActivityView() {
+        self.view.addSubview(activityView)
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.layer.cornerRadius = 15
+        
+        NSLayoutConstraint.activate([
+            activityView.widthAnchor.constraint(equalToConstant: 150),
+            activityView.heightAnchor.constraint(equalToConstant: 150),
+            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
         ])
     }
 }

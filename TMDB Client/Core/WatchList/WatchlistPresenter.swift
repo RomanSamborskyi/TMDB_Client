@@ -10,7 +10,7 @@ import UIKit
 
 protocol WatchlistPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
-    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
     func didMovieSelected(movie id: Int, poster: UIImage)
     func viewControllerWillAppear()
     func didAddToFavoriteButtonPressed(for movie: Int)
@@ -54,8 +54,8 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
             self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
         }
     }
-    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
-        view?.show(movies: movies, posters: posters)
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool) {
+        view?.show(movies: movies, posters: posters, isFetched: isFetched)
     }
     func viewControllerDidLoad() {
         Task {

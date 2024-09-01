@@ -22,6 +22,7 @@ class RatedMoviesInteractor {
     let imageDownloader: ImageDownloader
     let sessionId: String
     let accountId: Int
+    var isFetched: Bool?
     //MARK: - lifecycle
     init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, accountId: Int) {
         self.networkManager = networkManager
@@ -56,6 +57,8 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
         return result
     }
     func fetchRatedList() async throws {
+        
+        self.isFetched = false
         
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
@@ -115,7 +118,8 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
             mapedWatchlist.append(mov)
         }
         
-        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters)
+        self.isFetched = true
         
+        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters, isFetched: self.isFetched ?? false)
     }
 }
