@@ -161,7 +161,6 @@ extension LoginInteractor: LoginInteractorProtocol {
               let avatar = userAvatar?.pngData() else {
             throw AppError.invalidData
         }
-        
         do {
             try CoreDataManager.instance.writeToCoreData(user: user, avatar)
         } catch let error {

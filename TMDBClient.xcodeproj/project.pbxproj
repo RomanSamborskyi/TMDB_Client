@@ -259,6 +259,7 @@
 				6B56A7D92C3B27A3001032C8 /* SceneDelegate.swift */,
 				6B56A7D72C3B27A3001032C8 /* AppDelegate.swift */,
 				6BC683432C4079DF0008864A /* TabBarController.swift */,
+				6B732F152C8492B5001CCA04 /* RatedMoviesModule */,
 				6B6A7D322C7463BF007CC4F0 /* AddListModule */,
 				6BCD381A2C6E6FD400A0C2BB /* AddMovieToListModule */,
 				6BFAA0E22C55687D002D8F1A /* ListsDetailModule */,
@@ -316,6 +317,13 @@
 				6B732F132C8465D2001CCA04 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		6B732F152C8492B5001CCA04 /* RatedMoviesModule */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RatedMoviesModule;
 			sourceTree = "<group>";
 		};
 		6BC45F6F2C427FBD00F688D1 /* Cells */ = {

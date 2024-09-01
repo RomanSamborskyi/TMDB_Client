@@ -30,6 +30,14 @@ class ProfileView: UIView {
         let lbl = UIButton()
         return lbl
     }()
+    private lazy var ratedMoviesButton: UIButton = {
+        let lbl = UIButton()
+        return lbl
+    }()
+    private lazy var favoriteMoviesButton: UIButton = {
+        let lbl = UIButton()
+        return lbl
+    }()
     //MARK: - lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,6 +58,8 @@ private extension ProfileView {
         setupAvatarImage()
         setupNameLabel()
         setupUsernameLabel()
+        setupRatedMoviesButton()
+        setupFavoriteMoviesButton()
         setupLogOutButton()
     }
     func setupAvatarImage() {
@@ -104,11 +114,47 @@ private extension ProfileView {
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            logoutButton.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 50),
+            logoutButton.topAnchor.constraint(equalTo: favoriteMoviesButton.bottomAnchor, constant: 10),
             logoutButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             logoutButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             logoutButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
             logoutButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    func setupRatedMoviesButton() {
+        self.addSubview(ratedMoviesButton)
+        ratedMoviesButton.translatesAutoresizingMaskIntoConstraints = false
+        ratedMoviesButton.setTitle("Rated movies", for: .normal)
+        ratedMoviesButton.setTitleColor(UIColor.customBackground, for: .normal)
+        ratedMoviesButton.layer.cornerRadius = 15
+        ratedMoviesButton.layer.masksToBounds = true
+        ratedMoviesButton.backgroundColor = UIColor.white
+        //ratedMoviesButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            ratedMoviesButton.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 50),
+            ratedMoviesButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            ratedMoviesButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
+            ratedMoviesButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
+            ratedMoviesButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    func setupFavoriteMoviesButton() {
+        self.addSubview(favoriteMoviesButton)
+        favoriteMoviesButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteMoviesButton.setTitle("Favorite movies", for: .normal)
+        favoriteMoviesButton.setTitleColor(UIColor.customBackground, for: .normal)
+        favoriteMoviesButton.layer.cornerRadius = 15
+        favoriteMoviesButton.layer.masksToBounds = true
+        favoriteMoviesButton.backgroundColor = UIColor.white
+       // favoriteMoviesButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            favoriteMoviesButton.topAnchor.constraint(equalTo: ratedMoviesButton.bottomAnchor, constant: 10),
+            favoriteMoviesButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            favoriteMoviesButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
+            favoriteMoviesButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
+            favoriteMoviesButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }
