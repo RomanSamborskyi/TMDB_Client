@@ -50,6 +50,9 @@ extension ProfileViewController: ProfileViewProtocol {
 }
 //MARK: - ProfileViewDelegate
 extension ProfileViewController: ProfileViewDelegate {
+    func favoriteButtonDidTapped() {
+        presenter?.didFavoriteMoviesButtonTapped()
+    }
     func ratedMovieButtonDidTapped() {
         presenter?.didRatedMoviesButtonTapped()
     }

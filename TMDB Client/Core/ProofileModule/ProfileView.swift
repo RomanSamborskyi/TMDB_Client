@@ -10,6 +10,7 @@ import UIKit
 protocol ProfileViewDelegate: AnyObject {
     func logoutButtunDidTapped()
     func ratedMovieButtonDidTapped()
+    func favoriteButtonDidTapped()
 }
 
 class ProfileView: UIView {
@@ -148,7 +149,7 @@ private extension ProfileView {
         favoriteMoviesButton.layer.cornerRadius = 15
         favoriteMoviesButton.layer.masksToBounds = true
         favoriteMoviesButton.backgroundColor = UIColor.white
-       // favoriteMoviesButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        favoriteMoviesButton.addTarget(self, action: #selector(favoriteMovies), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             favoriteMoviesButton.topAnchor.constraint(equalTo: ratedMoviesButton.bottomAnchor, constant: 10),
@@ -166,5 +167,8 @@ extension ProfileView {
     }
     @objc func ratedMovies(selector: Selector) {
         delegate?.ratedMovieButtonDidTapped()
+    }
+    @objc func favoriteMovies(selector: Selector) {
+        delegate?.favoriteButtonDidTapped()
     }
 }
