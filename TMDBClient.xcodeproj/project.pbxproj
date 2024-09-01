@@ -39,6 +39,8 @@
 		6B6A7D3E2C78686F007CC4F0 /* AddListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D3D2C78686F007CC4F0 /* AddListEntity.swift */; };
 		6B6A7D402C786D9A007CC4F0 /* AddListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D3F2C786D9A007CC4F0 /* AddListView.swift */; };
 		6B6A7D422C7CBE9D007CC4F0 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D412C7CBE9D007CC4F0 /* HapticFeedback.swift */; };
+		6B732F122C846533001CCA04 /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F102C846533001CCA04 /* User.xcdatamodeld */; };
+		6B732F142C8465D2001CCA04 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F132C8465D2001CCA04 /* CoreDataManager.swift */; };
 		6B96D9402C46F79E00D40E03 /* MovieDetailsEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B96D93F2C46F79E00D40E03 /* MovieDetailsEntities.swift */; };
 		6BA605F92C4565AD007E205C /* MovieToWatchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA605F82C4565AD007E205C /* MovieToWatchCollectionViewCell.swift */; };
 		6BA605FD2C46D213007E205C /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA605FC2C46D213007E205C /* MovieDetailsViewController.swift */; };
@@ -128,6 +130,8 @@
 		6B6A7D3D2C78686F007CC4F0 /* AddListEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListEntity.swift; sourceTree = "<group>"; };
 		6B6A7D3F2C786D9A007CC4F0 /* AddListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListView.swift; sourceTree = "<group>"; };
 		6B6A7D412C7CBE9D007CC4F0 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
+		6B732F112C846533001CCA04 /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
+		6B732F132C8465D2001CCA04 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		6B96D93F2C46F79E00D40E03 /* MovieDetailsEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsEntities.swift; sourceTree = "<group>"; };
 		6BA605F82C4565AD007E205C /* MovieToWatchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieToWatchCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BA605FC2C46D213007E205C /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 		6B56A7FA2C3B3221001032C8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				6B732F0F2C846517001CCA04 /* CoreData */,
 				6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */,
 				6BC683402C3EE0F70008864A /* CacheManager.swift */,
 				6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */,
@@ -302,6 +307,15 @@
 				6B6A7D3B2C746668007CC4F0 /* AddListModuleBuilder.swift */,
 			);
 			path = AddListModule;
+			sourceTree = "<group>";
+		};
+		6B732F0F2C846517001CCA04 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				6B732F102C846533001CCA04 /* User.xcdatamodeld */,
+				6B732F132C8465D2001CCA04 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		6BC45F6F2C427FBD00F688D1 /* Cells */ = {
@@ -512,6 +526,7 @@
 				6BCD38262C6E772400A0C2BB /* AddToListModuleBuilder.swift in Sources */,
 				6BA605F92C4565AD007E205C /* MovieToWatchCollectionViewCell.swift in Sources */,
 				6B44B2092C4551B5006F0084 /* WatchlistModuleBuilder.swift in Sources */,
+				6B732F122C846533001CCA04 /* User.xcdatamodeld in Sources */,
 				6BFAA0E82C556954002D8F1A /* ListsDetailPresenter.swift in Sources */,
 				6BC683472C407D220008864A /* MoviesViewController.swift in Sources */,
 				6B56A7D82C3B27A3001032C8 /* AppDelegate.swift in Sources */,
@@ -536,6 +551,7 @@
 				6BC683222C3C35EF0008864A /* LoginView.swift in Sources */,
 				6B44B1F32C43CABD006F0084 /* ListsInterator.swift in Sources */,
 				6BFAA0E62C556908002D8F1A /* ListsDetailInteractor.swift in Sources */,
+				6B732F142C8465D2001CCA04 /* CoreDataManager.swift in Sources */,
 				6B96D9402C46F79E00D40E03 /* MovieDetailsEntities.swift in Sources */,
 				6BC6833B2C3ECC9E0008864A /* ProfileView.swift in Sources */,
 				6BC683532C41CB220008864A /* MovieModuleBuilder.swift in Sources */,
@@ -787,6 +803,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6B732F102C846533001CCA04 /* User.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6B732F112C846533001CCA04 /* User.xcdatamodel */,
+			);
+			currentVersion = 6B732F112C846533001CCA04 /* User.xcdatamodel */;
+			name = User.xcdatamodeld;
+			path = "/Users/romansamborskyi/Developer/TMDB_Client/TMDB Client/Services/CoreData/User.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6B56A7CC2C3B27A3001032C8 /* Project object */;
 }
