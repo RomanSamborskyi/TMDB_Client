@@ -22,6 +22,7 @@ class FavoriteMoviesRouter {
 //MARK: - RatedMoviesRouterProtocol
 extension FavoriteMoviesRouter: FavoriteMoviesRouterProtocol {
     func navigate(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String) {
-        
+        let detailVC = MovieDetailsModuleBuilder.build(movieId: movieId, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId)
+        view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

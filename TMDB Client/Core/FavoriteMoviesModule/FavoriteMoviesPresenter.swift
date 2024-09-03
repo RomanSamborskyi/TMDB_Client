@@ -11,6 +11,7 @@ import UIKit
 protocol FavoriteMoviesPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
+    func didMovieSelected(with id: Int, poster: UIImage)
 }
 
 
@@ -29,6 +30,9 @@ class FavoriteMoviesPresenter {
 }
 //MARK: - RatedMoviePresenterProtocol
 extension FavoriteMoviesPresenter: FavoriteMoviesPresenterProtocol {
+    func didMovieSelected(with id: Int, poster: UIImage) {
+        router.navigate(movieId: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
+    }
     func viewControllerDidLoad() {
         Task {
             do {

@@ -140,7 +140,7 @@ extension FavoriteMoviesViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = self.movies[indexPath.row]
         guard let poster = self.posters[item.id ?? 0] else { return }
-       
+        presenter?.didMovieSelected(with: item.id ?? 0, poster: poster)
     }
 }
 extension FavoriteMoviesViewController: MovieToWatchCellDelegate {

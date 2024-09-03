@@ -12,6 +12,9 @@ protocol RatedMoviesInteractorProtocol: AnyObject {
     func addToFavorite(movieId: Int) async throws
     func fetchMovieStat(movieId: Int) async throws -> MovieStat
     func fetchRatedList() async throws
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
+    var sessionId: String { get }
 }
 
 
