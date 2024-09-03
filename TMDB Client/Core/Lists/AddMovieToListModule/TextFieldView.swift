@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 //MARK: - TextFieldView delegate
 protocol TextFieldViewDelegate: AnyObject {
     func performSearch(text: String)
@@ -23,6 +24,7 @@ class TextFieldView: UIView {
         let txt = UITextField()
         return txt
     }()
+    private lazy var debouncer = Debouncer()
     //MARK: - lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,8 +81,37 @@ private extension TextFieldView {
 extension TextFieldView {
     @objc func textChanged(text: UITextField) {
         if let result = text.text {
-            self.delegate?.performSearch(text: result)
+            if result.count > 3 {
+                let debouncer = Debouncer()
+                
+                Task { [result] in
+                    await debouncer.debounce {
+                        print(result)
+                        self.delegate?.performSearch(text: result)
+                    }
+                }
+            }
         }
     }
 }
 
+actor Debouncer {
+    
+    private var task: Task<Void, Never>?
+    
+    deinit {
+        print("deinited")
+    }
+    
+    func debounce(action: @escaping ()->Void) {
+        task?.cancel()
+        
+        task = Task {
+           try? await Task.sleep(nanoseconds: 2_000_000_000)
+            
+            if !Task.isCancelled {
+                action()
+            }
+        }
+    }
+}

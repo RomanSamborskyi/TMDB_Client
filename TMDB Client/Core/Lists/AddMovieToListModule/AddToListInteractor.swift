@@ -78,7 +78,6 @@ extension AddToListInteractor: AddToListInteractorProtocol {
             
             return posters
         }
-        
         presenter?.didSearchResultFetched(movies: movies?.results ?? [], posters: posters)
     }
     func addMovieToList(with id: Int) async throws {
