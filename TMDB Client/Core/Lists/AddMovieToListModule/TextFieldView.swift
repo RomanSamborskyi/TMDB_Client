@@ -95,23 +95,3 @@ extension TextFieldView {
     }
 }
 
-actor Debouncer {
-    
-    private var task: Task<Void, Never>?
-    
-    deinit {
-        print("deinited")
-    }
-    
-    func debounce(action: @escaping ()->Void) {
-        task?.cancel()
-        
-        task = Task {
-           try? await Task.sleep(nanoseconds: 2_000_000_000)
-            
-            if !Task.isCancelled {
-                action()
-            }
-        }
-    }
-}
