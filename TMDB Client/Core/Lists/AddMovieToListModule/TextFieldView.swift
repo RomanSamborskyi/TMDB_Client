@@ -83,11 +83,9 @@ extension TextFieldView {
         if let result = text.text {
             if result.count > 3 {
                 let debouncer = Debouncer()
-                
-                Task { [result] in
+                Task { [weak self, result] in
                     await debouncer.debounce {
-                        print(result)
-                        self.delegate?.performSearch(text: result)
+                        self?.delegate?.performSearch(text: result)
                     }
                 }
             }
