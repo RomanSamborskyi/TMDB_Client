@@ -17,7 +17,7 @@ enum RateStatus: Codable {
     case notRated(Bool)
     case rated(RateValue)
     
-
+    
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -30,16 +30,16 @@ enum RateStatus: Codable {
             throw DecodingError.typeMismatch(RateStatus.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Invalid to decode"))
         }
     }
-
-        func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            switch self {
-            case .notRated(let boolValue):
-                try container.encode(boolValue)
-            case .rated(let rateValue):
-                try container.encode(rateValue)
-            }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .notRated(let boolValue):
+            try container.encode(boolValue)
+        case .rated(let rateValue):
+            try container.encode(rateValue)
         }
+    }
 }
 //MARK: - Movie Stat
 struct MovieStat: Codable {
@@ -95,6 +95,7 @@ struct MovieDetail: Codable {
     var watchList: Bool?
     var favorite: Bool?
     var myRate: Double?
+    var inList: Bool?
    
     
     enum CodingKeys: String, CodingKey {

@@ -8,8 +8,7 @@
 import UIKit
 
 
-protocol RatedMoviesInteractorProtocol: AnyObject {
-    func addToFavorite(movieId: Int) async throws
+protocol FavoriteMoviesInteractorProtocol: AnyObject {
     func fetchMovieStat(movieId: Int) async throws -> MovieStat
     func fetchRatedList() async throws
     var networkManager: NetworkManager { get }
@@ -18,9 +17,9 @@ protocol RatedMoviesInteractorProtocol: AnyObject {
 }
 
 
-class RatedMoviesInteractor {
+class FavoriteMoviesInteractor {
     //MARK: - property
-    weak var presenter: RatedMoviesPresenterProtocol?
+    weak var presenter: FavoriteMoviesPresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     let sessionId: String
@@ -35,18 +34,7 @@ class RatedMoviesInteractor {
     }
 }
 //MARK: - RatedMoviesInteractorProtocol
-extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
-    func addToFavorite(movieId: Int) async throws {
-  
-        let session = URLSession.shared
- 
-        let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
-        
-        let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToFavorite(accoutId: self.accountId, key: Constants.apiKey, sessionId: self.sessionId))
-        
-        let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
-        
-    }
+extension FavoriteMoviesInteractor: FavoriteMoviesInteractorProtocol {
     func fetchMovieStat(movieId: Int) async throws -> MovieStat {
     
         let session = URLSession.shared
@@ -66,7 +54,7 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
             let session = URLSession.shared
-            let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.ratedMovies(accaountId: self.accountId, sessionId: self.sessionId, apiKey: Constants.apiKey))
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.favoriteMovies(accaountId: self.accountId, sessionId: self.sessionId, apiKey: Constants.apiKey))
             
             group.addTask { [request, weak self] in
                 guard let result = try await self?.networkManager.fetchGET(type: WatchlistResponse.self, session: session, request: request) else {
@@ -124,5 +112,6 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
         self.isFetched = true
         
         presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters, isFetched: self.isFetched ?? false)
+        
     }
 }

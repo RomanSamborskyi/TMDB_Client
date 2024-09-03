@@ -101,6 +101,8 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         
     }
     func fetchMovieDetails() async throws {
+        
+        let movieStat = try await fetchMovieStat()
 
         let movie = try await withThrowingTaskGroup(of: MovieDetail.self) { group in
             
@@ -156,9 +158,6 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         guard let backdrop = backdropPoster else {
             throw AppError.invalidData
         }
-        
-        let movieStat = try await fetchMovieStat()
         presenter?.didMovieFetched(movie: requesteedMovie, poster: poster, backdropPOster: backdrop, stat: movieStat)
     }
-    
 }

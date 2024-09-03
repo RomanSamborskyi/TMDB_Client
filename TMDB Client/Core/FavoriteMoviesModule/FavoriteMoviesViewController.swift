@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol RatedMoviesViewProtocol: AnyObject {
+protocol FavoriteMoviesViewProtocol: AnyObject {
     func show(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
 }
 
-class RatedMoviesViewController: UIViewController {
+class FavoriteMoviesViewController: UIViewController {
     //MARK: - property
-    var presenter: RatedMoviesPresenterProtocol?
+    var presenter: FavoriteMoviesPresenterProtocol?
     private lazy var movies: [Movie] = [] {
         didSet {
             setupViews()
@@ -39,7 +39,7 @@ class RatedMoviesViewController: UIViewController {
     }
 }
 //MARK: - RatedMoviesViewProtocol
-extension RatedMoviesViewController: RatedMoviesViewProtocol {
+extension FavoriteMoviesViewController: FavoriteMoviesViewProtocol {
     func show(movies: [Movie], posters: [Int : UIImage], isFetched: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -56,9 +56,9 @@ extension RatedMoviesViewController: RatedMoviesViewProtocol {
     }
 }
 //MARK: - setup layout
-private extension RatedMoviesViewController {
+private extension FavoriteMoviesViewController {
     func setupLayout() {
-        self.navigationItem.title = "Rated movies"
+        self.navigationItem.title = "Favorite movies"
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor.customBackground
@@ -120,7 +120,7 @@ private extension RatedMoviesViewController {
     }
 }
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension RatedMoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension FavoriteMoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.movies.count
     }
@@ -140,10 +140,10 @@ extension RatedMoviesViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = self.movies[indexPath.row]
         guard let poster = self.posters[item.id ?? 0] else { return }
-        presenter?.didMovieSelected(id: item.id ?? 0, poster: poster)
+        presenter?.didMovieSelected(with: item.id ?? 0, poster: poster)
     }
 }
-extension RatedMoviesViewController: MovieToWatchCellDelegate {
+extension FavoriteMoviesViewController: MovieToWatchCellDelegate {
     func didFavoriteButtonPressed(movieId: Int) {
        
     }

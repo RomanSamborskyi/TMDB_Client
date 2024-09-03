@@ -24,6 +24,7 @@ class WatchlistInteractor {
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     let sessionId: String
+    var isFetched: Bool?
     
     init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
         self.networkManager = networkManager
@@ -69,6 +70,8 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
         guard let acoountID = Int(keychain.get(for: Constants.account_id) ?? "") else {
             throw AppError.incorrectAccoutId
         }
+        
+        self.isFetched = false
         
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
@@ -128,7 +131,9 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
             mapedWatchlist.append(mov)
         }
         
-        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters)
+        self.isFetched = true
+        
+        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters, isFetched: self.isFetched ?? false)
         
     }
 }

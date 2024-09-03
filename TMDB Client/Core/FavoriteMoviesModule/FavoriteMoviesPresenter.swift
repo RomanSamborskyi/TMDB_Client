@@ -8,29 +8,29 @@
 import UIKit
 
 
-protocol RatedMoviesPresenterProtocol: AnyObject {
+protocol FavoriteMoviesPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
-    func didMovieSelected(id: Int, poster: UIImage)
+    func didMovieSelected(with id: Int, poster: UIImage)
 }
 
 
-class RatedMoviesPresenter {
+class FavoriteMoviesPresenter {
     //MARK: - property
-    weak var view: RatedMoviesViewProtocol?
-    let interactor: RatedMoviesInteractorProtocol
-    let router: RatedMoviesRouterProtocol
+    weak var view: FavoriteMoviesViewProtocol?
+    let interactor: FavoriteMoviesInteractor
+    let router: FavoriteMoviesRouterProtocol
     let haptic: HapticFeedback
     //MARK: - lifecycle
-    init(interactor: RatedMoviesInteractorProtocol, router: RatedMoviesRouterProtocol, haptic: HapticFeedback) {
+    init(interactor: FavoriteMoviesInteractor, router: FavoriteMoviesRouterProtocol, haptic: HapticFeedback) {
         self.interactor = interactor
         self.router = router
         self.haptic = haptic
     }
 }
 //MARK: - RatedMoviePresenterProtocol
-extension RatedMoviesPresenter: RatedMoviesPresenterProtocol {
-    func didMovieSelected(id: Int, poster: UIImage) {
+extension FavoriteMoviesPresenter: FavoriteMoviesPresenterProtocol {
+    func didMovieSelected(with id: Int, poster: UIImage) {
         router.navigate(movieId: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
     }
     func viewControllerDidLoad() {

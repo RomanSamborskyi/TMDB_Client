@@ -8,21 +8,21 @@
 import UIKit
 
 
-protocol RatedMoviesRouterProtocol: AnyObject {
+protocol FavoriteMoviesRouterProtocol: AnyObject {
     func navigate(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String)
 }
 
 
 
-class RatedMoviesRouter {
+class FavoriteMoviesRouter {
     //MARK: - property
-    weak var view: RatedMoviesViewController?
+    weak var view: FavoriteMoviesViewController?
     //MARK: - lifecycle
 }
 //MARK: - RatedMoviesRouterProtocol
-extension RatedMoviesRouter: RatedMoviesRouterProtocol {
+extension FavoriteMoviesRouter: FavoriteMoviesRouterProtocol {
     func navigate(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String) {
-        let movieDetailVC = MovieDetailsModuleBuilder.build(movieId: movieId, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId)
-        view?.navigationController?.pushViewController(movieDetailVC, animated: true)
+        let detailVC = MovieDetailsModuleBuilder.build(movieId: movieId, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId)
+        view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     //MARK: - property
     var presenter: LoginPresenterProtocol?
     private lazy var loginView = LoginView()
-    private lazy var acticityView = ActivityView()
+    private lazy var activityView = ActivityView()
     private lazy var isKeyboardShown: Bool = false
     
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ extension LoginViewController: LoginViewDelegate {
     func didLoginButtonPressed(log: String, pass: String) {
         presenter?.loginButtonDidTapped(login: log, password: pass)
         if !log.isEmpty && !pass.isEmpty {
-            acticityView.isHidden = false
+            activityView.isHidden = false
         }
     }
 }
@@ -45,7 +45,7 @@ extension LoginViewController: LoginViewDelegate {
 extension LoginViewController: LoginViewControllerProtocol {
     func showAlert(title: String, messege: String) {
         let action = UIAlertAction(title: "Retry", style: .default) { _ in
-            self.acticityView.isHidden = true
+            self.activityView.isHidden = true
         }
         self.showAlert(title: title, messege: messege, action: action)
     }
@@ -55,7 +55,7 @@ private extension LoginViewController {
     func setupLayout() {
         setupLoginView()
         setupActivityView()
-        acticityView.isHidden = true
+        activityView.isHidden = true
     }
     func setupLoginView() {
         self.view.addSubview(loginView)
@@ -69,14 +69,15 @@ private extension LoginViewController {
         ])
     }
     func setupActivityView() {
-        self.view.addSubview(acticityView)
-        acticityView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityView)
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.layer.cornerRadius = 15
         
         NSLayoutConstraint.activate([
-            acticityView.topAnchor.constraint(equalTo: view.topAnchor),
-            acticityView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            acticityView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            acticityView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            activityView.widthAnchor.constraint(equalToConstant: 150),
+            activityView.heightAnchor.constraint(equalToConstant: 150),
+            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
         ])
     }
 }
