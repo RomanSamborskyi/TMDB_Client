@@ -9,6 +9,7 @@ import UIKit
 
 // MARK: - User
 struct UserProfile: Codable {
+    
     let avatar: Avatar?
     let id: Int?
     let iso639_1, iso3166_1, name: String?
@@ -24,6 +25,17 @@ struct UserProfile: Codable {
         case includeAdult = "include_adult"
         case username
         case uiImageAvatar
+    }
+}
+
+extension UserProfile: Comparable {
+    static func < (lhs: UserProfile, rhs: UserProfile) -> Bool {
+        true
+    }
+    
+    static func == (lhs: UserProfile, rhs: UserProfile) -> Bool {
+        lhs.id == rhs.id || lhs.name == rhs.name || lhs.username == rhs.username || lhs
+            .iso3166_1 == rhs.iso3166_1 || lhs.iso639_1 == rhs.iso3166_1 
     }
 }
 

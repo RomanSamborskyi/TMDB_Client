@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = UIColor.customBackground
         self.navigationItem.hidesBackButton = true
         profileView.delegate = self
-        presenter?.viewControllerDidLoad()
+        presenter?.viewControllerDidLoad(viewController: self)
         setupLayout()
     }
 }

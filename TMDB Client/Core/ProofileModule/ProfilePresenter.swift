@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol ProfilePresenterProtocol: AnyObject {
-    func viewControllerDidLoad()
+    func viewControllerDidLoad(viewController: UIViewController)
     func didLogoutButtonTapped()
     func didRatedMoviesButtonTapped()
     func didFavoriteMoviesButtonTapped()
@@ -56,7 +56,15 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         view?.showUserData(user: user, with: avatar)
     }
     
-    func viewControllerDidLoad() {
+    func viewControllerDidLoad(viewController: UIViewController) {
+        Task(priority: .background) {
+            do {
+                try await interactor.compareUserData()
+                await viewController.view.layoutIfNeeded()
+            } catch let error as AppError {
+                print(error)
+            }
+        }
         Task {
             do {
                 try await interactor.fetchUserData()
