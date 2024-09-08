@@ -89,7 +89,14 @@ extension AddToListViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
         let item = self.searchResult[indexPath.row]
         cell.movie = item
-        cell.buttonStyle = .add
+        switch item.inList {
+        case true:
+            cell.buttonStyle = .inList
+        case false:
+            cell.buttonStyle = .add
+        default:
+            cell.buttonStyle = .add
+        }
         cell.delegate = self
         cell.poster = self.searchResultPosters[item.id ?? 0]
         

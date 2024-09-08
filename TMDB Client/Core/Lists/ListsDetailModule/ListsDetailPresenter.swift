@@ -12,7 +12,7 @@ protocol ListsDetailPresenterProtocol: AnyObject {
     func didViewControllerLoad()
     func didListFetched(list: ListDetail, posters: [Int : UIImage])
     func didMovieSelected(movie: Movie, poster: UIImage)
-    func didAddMovieToList()
+    func didAddMovieToList(movies: [Movie])
     func deleteMovieFromList(with id: Int)
     func viewControllerWillAppear()
     var haptic: HapticFeedback { get }
@@ -45,10 +45,10 @@ extension ListsDetailPresenter: ListsDetailPresenterProtocol {
             }
         }
     }
-    func didAddMovieToList() {
+    func didAddMovieToList(movies: [Movie]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.addMovieToList(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, listId: self.interactor.listId, sessionId: self.interactor.sessionId, haptic: self.haptic)
+            self.router.addMovieToList(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, listId: self.interactor.listId, sessionId: self.interactor.sessionId, haptic: self.haptic, movies: movies)
         }
     }
     func didMovieSelected(movie: Movie, poster: UIImage) {

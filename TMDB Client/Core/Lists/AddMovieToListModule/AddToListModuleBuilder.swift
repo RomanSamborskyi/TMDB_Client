@@ -9,9 +9,9 @@ import UIKit
 
 
 class AddToListModuleBuilder {
-    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int, sessionId: String, haptic: HapticFeedback) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int, sessionId: String, haptic: HapticFeedback, movies: [Movie]) -> UIViewController {
         let view = AddToListViewController()
-        let interactor = AddToListInteractor(networkManager: networkManager, imageDownloader: imageDownloader, listId: listId, sessionId: sessionId)
+        let interactor = AddToListInteractor(networkManager: networkManager, imageDownloader: imageDownloader, listId: listId, sessionId: sessionId, existMovies: movies)
         let router = AddToListRouter()
         let presenter = AddToListPresenter(interactor: interactor, router: router, haptic: haptic)
         

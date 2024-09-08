@@ -21,12 +21,14 @@ class AddToListInteractor {
     let imageDownloader: ImageDownloader
     let listId: Int
     let sessionId: String
+    let existMovies: [Movie]
     //MARK: - lifecycle
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int, sessionId: String) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int, sessionId: String, existMovies: [Movie]) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
         self.listId = listId
         self.sessionId = sessionId
+        self.existMovies = existMovies
     }
 }
 //MARK: - AddToListInteractorProtocol
@@ -56,11 +58,19 @@ extension AddToListInteractor: AddToListInteractorProtocol {
         
         guard let moviesArray = movies?.results else { return }
         
+        let mapedMovies = moviesArray.map { movie -> Movie in
+            var returnedMovie = movie
+            if existMovies.contains(where: { $0.id == returnedMovie.id }) {
+                returnedMovie.inList = true
+            }
+            return returnedMovie
+        }
+        
         let posters = try await withThrowingTaskGroup(of: [Int : UIImage].self) { group in
             
             var posters: [Int : UIImage] = [:]
             
-            for movie in moviesArray {
+            for movie in mapedMovies {
                 
                 guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
                     throw AppError.badURL
@@ -78,7 +88,7 @@ extension AddToListInteractor: AddToListInteractorProtocol {
             
             return posters
         }
-        presenter?.didSearchResultFetched(movies: moviesArray, posters: posters)
+        presenter?.didSearchResultFetched(movies: mapedMovies, posters: posters)
     }
     func addMovieToList(with id: Int) async throws {
         

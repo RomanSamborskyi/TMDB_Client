@@ -13,7 +13,7 @@ protocol ListsResultCellDelegate: AnyObject {
 }
 
 enum ButtonStyle {
-    case add, delete
+    case add, delete, inList
 }
 
 class ListsResultCell: UICollectionViewCell {
@@ -27,7 +27,9 @@ class ListsResultCell: UICollectionViewCell {
                 updateButtonStyle(with: "plus", color: .white)
             case .delete:
                 updateButtonStyle(with: "trash", color: .red)
-            case nil:
+            case .inList:
+                updateButtonStyle(with: "checkmark", color: .green)
+            default:
                 break
             }
         }

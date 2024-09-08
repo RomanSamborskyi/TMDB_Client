@@ -73,7 +73,7 @@ private extension ListsDetailViewController {
         ])
     }
     @objc func addMovie(selector: Selector) {
-        presenter?.didAddMovieToList()
+        presenter?.didAddMovieToList(movies: self.movies)
     }
 }
 //MARK: - UICollectionDataSource & Delegate
