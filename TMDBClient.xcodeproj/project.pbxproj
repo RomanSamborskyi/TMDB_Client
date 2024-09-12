@@ -97,7 +97,6 @@
 		6BCD381C2C6E704100A0C2BB /* AddToListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD381B2C6E704100A0C2BB /* AddToListViewController.swift */; };
 		6BCD381E2C6E70C500A0C2BB /* AddToListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD381D2C6E70C500A0C2BB /* AddToListInteractor.swift */; };
 		6BCD38202C6E764A00A0C2BB /* AddToListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD381F2C6E764A00A0C2BB /* AddToListPresenter.swift */; };
-		6BCD38222C6E76BD00A0C2BB /* AddTolistEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD38212C6E76BD00A0C2BB /* AddTolistEntities.swift */; };
 		6BCD38242C6E76D000A0C2BB /* AddToListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD38232C6E76D000A0C2BB /* AddToListRouter.swift */; };
 		6BCD38262C6E772400A0C2BB /* AddToListModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD38252C6E772400A0C2BB /* AddToListModuleBuilder.swift */; };
 		6BF51F582C70F17C00F4CA50 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */; };
@@ -204,7 +203,6 @@
 		6BCD381B2C6E704100A0C2BB /* AddToListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListViewController.swift; sourceTree = "<group>"; };
 		6BCD381D2C6E70C500A0C2BB /* AddToListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListInteractor.swift; sourceTree = "<group>"; };
 		6BCD381F2C6E764A00A0C2BB /* AddToListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListPresenter.swift; sourceTree = "<group>"; };
-		6BCD38212C6E76BD00A0C2BB /* AddTolistEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTolistEntities.swift; sourceTree = "<group>"; };
 		6BCD38232C6E76D000A0C2BB /* AddToListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListRouter.swift; sourceTree = "<group>"; };
 		6BCD38252C6E772400A0C2BB /* AddToListModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToListModuleBuilder.swift; sourceTree = "<group>"; };
 		6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -488,7 +486,6 @@
 				6BCD381D2C6E70C500A0C2BB /* AddToListInteractor.swift */,
 				6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */,
 				6BF51F592C71059E00F4CA50 /* ListsResultCell.swift */,
-				6BCD38212C6E76BD00A0C2BB /* AddTolistEntities.swift */,
 				6BCD38232C6E76D000A0C2BB /* AddToListRouter.swift */,
 			);
 			path = AddMovieToListModule;
@@ -616,7 +613,6 @@
 				6B732F1B2C8493C8001CCA04 /* RatedMoviesPresenter.swift in Sources */,
 				6B56A7EF2C3B2BC2001032C8 /* LoginInteractor.swift in Sources */,
 				6BCD38172C6B41C700A0C2BB /* ListsEmptyView.swift in Sources */,
-				6BCD38222C6E76BD00A0C2BB /* AddTolistEntities.swift in Sources */,
 				6BFAA0E42C556899002D8F1A /* ListsDetailViewController.swift in Sources */,
 				6B732F1D2C849435001CCA04 /* RatedMoviesRouter.swift in Sources */,
 				6BA605FF2C46D28D007E205C /* MovieDetailsInteractor.swift in Sources */,

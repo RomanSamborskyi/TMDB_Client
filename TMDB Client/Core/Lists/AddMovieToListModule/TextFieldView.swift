@@ -82,12 +82,8 @@ extension TextFieldView {
     @objc func textChanged(text: UITextField) {
         if let result = text.text {
             if result.count > 3 {
-                let debouncer = Debouncer()
-                Task { [weak self, result] in
-                    await debouncer.debounce {
-                        self?.delegate?.performSearch(text: result)
-                    }
-                }
+                        delegate?.performSearch(text: result)
+                 
             }
         }
     }

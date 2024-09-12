@@ -14,5 +14,6 @@ struct Constants {
     static let access_token: String = "access_token"
     static let sessionKey: String = "session_id"
     static let apiKey: String = ProcessInfo.processInfo.environment["API_KEY"] ?? "NO KEY"
+    
 }
 
