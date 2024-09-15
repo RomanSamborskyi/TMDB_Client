@@ -31,6 +31,7 @@
 		6B56A7F52C3B2BEA001032C8 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B56A7F42C3B2BEA001032C8 /* LoginRouter.swift */; };
 		6B56A7F72C3B2E34001032C8 /* LoginModulBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B56A7F62C3B2E34001032C8 /* LoginModulBuilder.swift */; };
 		6B56A7FC2C3B3236001032C8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */; };
+		6B58C88C2C972CA50096D952 /* AddToExistingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B58C88B2C972CA50096D952 /* AddToExistingListView.swift */; };
 		6B6A7D342C74646E007CC4F0 /* AddListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D332C74646E007CC4F0 /* AddListViewController.swift */; };
 		6B6A7D362C74651C007CC4F0 /* AddListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D352C74651C007CC4F0 /* AddListInteractor.swift */; };
 		6B6A7D382C746567007CC4F0 /* AddListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D372C746567007CC4F0 /* AddListPresenter.swift */; };
@@ -137,6 +138,7 @@
 		6B56A7F42C3B2BEA001032C8 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		6B56A7F62C3B2E34001032C8 /* LoginModulBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModulBuilder.swift; sourceTree = "<group>"; };
 		6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6B58C88B2C972CA50096D952 /* AddToExistingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToExistingListView.swift; sourceTree = "<group>"; };
 		6B6A7D332C74646E007CC4F0 /* AddListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListViewController.swift; sourceTree = "<group>"; };
 		6B6A7D352C74651C007CC4F0 /* AddListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListInteractor.swift; sourceTree = "<group>"; };
 		6B6A7D372C746567007CC4F0 /* AddListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListPresenter.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				6B732F352C88E8AA001CCA04 /* AddToExistListInteractor.swift */,
 				6B732F372C88E926001CCA04 /* AddToExiistListPresenter.swift */,
 				6B732F392C88E997001CCA04 /* AddToExistListRouter.swift */,
+				6B58C88B2C972CA50096D952 /* AddToExistingListView.swift */,
 				6B732F3B2C88EAA7001CCA04 /* AddToExistListModuleBuilder.swift */,
 			);
 			path = AddMovieToExistList;
@@ -594,6 +597,7 @@
 				6BC6834D2C41CAA50008864A /* MoviePresenter.swift in Sources */,
 				6BC6833D2C3ECECF0008864A /* KeyChainManager.swift in Sources */,
 				6B56A7F32C3B2BD9001032C8 /* LoginEntity.swift in Sources */,
+				6B58C88C2C972CA50096D952 /* AddToExistingListView.swift in Sources */,
 				6BC6832A2C3DAA250008864A /* AppError.swift in Sources */,
 				6B6A7D3C2C746668007CC4F0 /* AddListModuleBuilder.swift in Sources */,
 				6B732F282C84B179001CCA04 /* FavoriteMoviesModuleBuilder.swift in Sources */,

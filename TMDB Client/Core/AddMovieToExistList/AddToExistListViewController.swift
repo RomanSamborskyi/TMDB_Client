@@ -15,6 +15,7 @@ protocol AddToExistListViewProtocol: AnyObject {
 class AddToExistListViewController: UIViewController {
     //MARK: - property
     var presenter: AddToExiistListPresenterProtocol?
+    private lazy var mainView = AddToExistingListView()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,5 +30,17 @@ extension AddToExistListViewController: AddToExistListViewProtocol {
 private extension AddToExistListViewController {
     func setupLayout() {
         self.view.backgroundColor = .customBackground
+        setupView()
+    }
+    func setupView() {
+        self.view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            mainView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            mainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            mainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            mainView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
     }
 }
