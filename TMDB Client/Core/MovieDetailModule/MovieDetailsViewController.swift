@@ -75,6 +75,10 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
 }
 //MARK: - MovieDetailsView delegate
 extension MovieDetailsViewController: MovieDetailsViewDelegate {
+    func didMovieAddedToList() {
+        presenter?.didMovieAddedToList()
+        presenter?.haptic.tacticNotification(style: .success)
+    }
     func firstStarPressed() {
         presenter?.rateMovie(rate: 2)
         presenter?.haptic.tacticNotification(style: .success)

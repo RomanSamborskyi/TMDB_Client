@@ -13,7 +13,7 @@ class AddToExistingListView: UIView {
         let lbl = UILabel()
         return lbl
     }()
-    private lazy var aditionalLabel: UILabel = {
+    private lazy var additionalLabel: UILabel = {
         let lbl = UILabel()
         return lbl
     }()
@@ -47,18 +47,18 @@ private extension AddToExistingListView {
         ])
     }
     func setupAditionalLabel() {
-        self.addSubview(aditionalLabel)
-        aditionalLabel.translatesAutoresizingMaskIntoConstraints = false
-        aditionalLabel.text = "To add movie to existing list, choose the one and tap on it"
-        aditionalLabel.font = .systemFont(ofSize: 15, weight: .bold)
-        aditionalLabel.textColor = .gray
-        aditionalLabel.textAlignment = .center
-        aditionalLabel.numberOfLines = 0
+        self.addSubview(additionalLabel)
+        additionalLabel.translatesAutoresizingMaskIntoConstraints = false
+        additionalLabel.text = "To add movie to existing list, choose the one and tap on it"
+        additionalLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        additionalLabel.textColor = .gray
+        additionalLabel.textAlignment = .center
+        additionalLabel.numberOfLines = 0
         
         NSLayoutConstraint.activate([
-            aditionalLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            aditionalLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            aditionalLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            additionalLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            additionalLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            additionalLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
         ])
     }
 }

@@ -32,6 +32,7 @@
 		6B56A7F72C3B2E34001032C8 /* LoginModulBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B56A7F62C3B2E34001032C8 /* LoginModulBuilder.swift */; };
 		6B56A7FC2C3B3236001032C8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */; };
 		6B58C88C2C972CA50096D952 /* AddToExistingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B58C88B2C972CA50096D952 /* AddToExistingListView.swift */; };
+		6B58C8912C9754510096D952 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B58C8902C9754510096D952 /* AlertView.swift */; };
 		6B6A7D342C74646E007CC4F0 /* AddListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D332C74646E007CC4F0 /* AddListViewController.swift */; };
 		6B6A7D362C74651C007CC4F0 /* AddListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D352C74651C007CC4F0 /* AddListInteractor.swift */; };
 		6B6A7D382C746567007CC4F0 /* AddListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D372C746567007CC4F0 /* AddListPresenter.swift */; };
@@ -139,6 +140,7 @@
 		6B56A7F62C3B2E34001032C8 /* LoginModulBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModulBuilder.swift; sourceTree = "<group>"; };
 		6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6B58C88B2C972CA50096D952 /* AddToExistingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToExistingListView.swift; sourceTree = "<group>"; };
+		6B58C8902C9754510096D952 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		6B6A7D332C74646E007CC4F0 /* AddListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListViewController.swift; sourceTree = "<group>"; };
 		6B6A7D352C74651C007CC4F0 /* AddListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListInteractor.swift; sourceTree = "<group>"; };
 		6B6A7D372C746567007CC4F0 /* AddListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListPresenter.swift; sourceTree = "<group>"; };
@@ -275,7 +277,6 @@
 			children = (
 				6B56A7EC2C3B2BB2001032C8 /* LoginViewController.swift */,
 				6B56A7F62C3B2E34001032C8 /* LoginModulBuilder.swift */,
-				6BC683482C4080140008864A /* ActivityView.swift */,
 				6B56A7F42C3B2BEA001032C8 /* LoginRouter.swift */,
 				6B56A7EE2C3B2BC2001032C8 /* LoginInteractor.swift */,
 				6B56A7F02C3B2BCD001032C8 /* LoginPresenter.swift */,
@@ -291,6 +292,7 @@
 				6B56A7D92C3B27A3001032C8 /* SceneDelegate.swift */,
 				6B56A7D72C3B27A3001032C8 /* AppDelegate.swift */,
 				6BC683432C4079DF0008864A /* TabBarController.swift */,
+				6B58C88F2C97534E0096D952 /* AdditionalViews */,
 				6B732F322C88E7F3001CCA04 /* AddMovieToExistList */,
 				6B732F2B2C84C6B0001CCA04 /* Lists */,
 				6B732F202C84B12E001CCA04 /* FavoriteMoviesModule */,
@@ -326,6 +328,15 @@
 				6B732F2C2C879BD2001CCA04 /* Debouncer.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		6B58C88F2C97534E0096D952 /* AdditionalViews */ = {
+			isa = PBXGroup;
+			children = (
+				6BC683482C4080140008864A /* ActivityView.swift */,
+				6B58C8902C9754510096D952 /* AlertView.swift */,
+			);
+			path = AdditionalViews;
 			sourceTree = "<group>";
 		};
 		6B6A7D322C7463BF007CC4F0 /* AddListModule */ = {
@@ -643,6 +654,7 @@
 				6B96D9402C46F79E00D40E03 /* MovieDetailsEntities.swift in Sources */,
 				6BC6833B2C3ECC9E0008864A /* ProfileView.swift in Sources */,
 				6BC683532C41CB220008864A /* MovieModuleBuilder.swift in Sources */,
+				6B58C8912C9754510096D952 /* AlertView.swift in Sources */,
 				6BA606052C46D3D1007E205C /* MovieDetailsModuleBuilder.swift in Sources */,
 				6B42EEBD2C6367F50018FE66 /* MovieRateView.swift in Sources */,
 				6BC6835C2C426EED0008864A /* MovieCardView.swift in Sources */,

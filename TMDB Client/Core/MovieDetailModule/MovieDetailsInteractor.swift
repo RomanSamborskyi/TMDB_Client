@@ -14,6 +14,10 @@ protocol MovieDetailsInteractorProtocol: AnyObject {
     func fetchMovieStat() async throws -> MovieStat
     func addToFavorite() async throws
     func addRate(rate: Double) async throws
+    var sessionId: String { get }
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
+    var movieId: Int { get }
 }
 
 

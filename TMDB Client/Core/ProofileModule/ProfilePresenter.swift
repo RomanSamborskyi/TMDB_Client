@@ -57,17 +57,17 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     }
     
     func viewControllerDidLoad(viewController: UIViewController) {
-        Task(priority: .background) {
+        Task {
             do {
-                try await interactor.compareUserData()
-                await viewController.view.layoutIfNeeded()
+                try await interactor.fetchUserData()
             } catch let error as AppError {
                 print(error)
             }
         }
-        Task {
+        Task(priority: .background) {
             do {
-                try await interactor.fetchUserData()
+                try await interactor.compareUserData()
+                await viewController.view.layoutIfNeeded()
             } catch let error as AppError {
                 print(error)
             }
