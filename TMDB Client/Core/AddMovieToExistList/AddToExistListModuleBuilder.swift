@@ -9,9 +9,9 @@ import UIKit
 
 
 class AddToExistListModuleBuilder {
-    func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int, sessionId: String, haptic: HapticFeedback) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, movieId: Int) -> UIViewController {
         let view = AddToExistListViewController()
-        let interactor = AddToExistListInteractor(networkManager: networkManager, imageDownloader: imageDownloader, listId: listId, sessionId: sessionId)
+        let interactor = AddToExistListInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, movieId: movieId)
         let router = AddToExistListRouter()
         let presenter = AddToExiistListPresenter(haptic: haptic, interactor: interactor, router: router)
         

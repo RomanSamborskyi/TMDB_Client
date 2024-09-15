@@ -12,6 +12,8 @@ protocol RatedMoviesPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
     func didMovieSelected(id: Int, poster: UIImage)
+    func didMovieAddedToFavorite(with id: Int)
+    func addMovieToExistList(with id: Int)
 }
 
 
@@ -30,6 +32,18 @@ class RatedMoviesPresenter {
 }
 //MARK: - RatedMoviePresenterProtocol
 extension RatedMoviesPresenter: RatedMoviesPresenterProtocol {
+    func addMovieToExistList(with id: Int) {
+        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: id)
+    }
+    func didMovieAddedToFavorite(with id: Int) {
+        Task {
+            do {
+                try await interactor.addToFavorite(movieId: id)
+            } catch let error as AppError {
+                print(error.localized)
+            }
+        }
+    }
     func didMovieSelected(id: Int, poster: UIImage) {
         router.navigate(movieId: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
     }

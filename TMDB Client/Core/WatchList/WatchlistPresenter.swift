@@ -15,6 +15,7 @@ protocol WatchlistPresenterProtocol: AnyObject {
     func viewControllerWillAppear()
     func didAddToFavoriteButtonPressed(for movie: Int)
     var haptic: HapticFeedback { get }
+    func addMovieTolist(with id: Int)
 }
 
 class WatchlistPresenter {
@@ -36,6 +37,9 @@ class WatchlistPresenter {
 }
 //MARK: - WatchListPresenterProtocol
 extension WatchlistPresenter: WatchlistPresenterProtocol {
+    func addMovieTolist(with id: Int) {
+        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: id)
+    }
     func didAddToFavoriteButtonPressed(for movie: Int) {
         Task {
             do {

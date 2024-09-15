@@ -28,6 +28,6 @@ extension AddToExistListViewController: AddToExistListViewProtocol {
 //MARK: - setup layout
 private extension AddToExistListViewController {
     func setupLayout() {
-        
+        self.view.backgroundColor = .customBackground
     }
 }

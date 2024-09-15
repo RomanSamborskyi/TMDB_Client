@@ -45,9 +45,17 @@ struct Avatar: Codable {
     let tmdb: Tmdb?
 }
 
+extension Avatar: Equatable {
+    static func == (lhs: Avatar, rhs: Avatar) -> Bool {
+        lhs.gravatar == rhs.gravatar || lhs.tmdb == rhs.tmdb
+    }
+}
 // MARK: - Gravatar
 struct Gravatar: Codable {
     let hash: String?
+}
+extension Gravatar: Equatable {
+    
 }
 
 // MARK: - Tmdb
@@ -57,6 +65,10 @@ struct Tmdb: Codable {
     enum CodingKeys: String, CodingKey {
         case avatarPath = "avatar_path"
     }
+}
+
+extension Tmdb: Equatable {
+    
 }
 
 struct DeleteSession: Codable {

@@ -10,7 +10,7 @@ import UIKit
 //MARK: - MovieToWatchCollectionViewCell delegate
 protocol MovieToWatchCellDelegate: AnyObject {
     func didFavoriteButtonPressed(movieId: Int)
-    func didAddToListButtonPressed()
+    func didAddToListButtonPressed(movieId: Int)
 }
 
 class MovieToWatchCollectionViewCell: UICollectionViewCell {
@@ -172,10 +172,10 @@ private extension MovieToWatchCollectionViewCell {
 }
 extension MovieToWatchCollectionViewCell {
     @objc func favoritePressed(selector: Selector) {
-        actionButtons?.didFavoriteButtonPressed(movieId: movie!.id!)
+        actionButtons?.didFavoriteButtonPressed(movieId: movie?.id ?? 0)
         setColorForFavoriteButton(color: .systemPink)
     }
     @objc func adddToListPressed(selector: Selector) {
-        actionButtons?.didAddToListButtonPressed()
+        actionButtons?.didAddToListButtonPressed(movieId: movie?.id ?? 0)
     }
 }

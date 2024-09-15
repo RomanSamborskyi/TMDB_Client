@@ -145,9 +145,9 @@ extension RatedMoviesViewController: UICollectionViewDelegate, UICollectionViewD
 }
 extension RatedMoviesViewController: MovieToWatchCellDelegate {
     func didFavoriteButtonPressed(movieId: Int) {
-     //TODO: - connect method from interactor here
+        presenter?.didMovieAddedToFavorite(with: movieId)
     }
-    func didAddToListButtonPressed() {
-       
+    func didAddToListButtonPressed(movieId: Int) {
+        presenter?.addMovieToExistList(with: movieId)
     }
 }

@@ -18,15 +18,14 @@ class AddToExistListInteractor {
     weak var presenter: AddToExiistListPresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
-    let listId: Int
     let sessionId: String
-    
+    let movieId: Int
     //MARK: - lifecycle
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, listId: Int, sessionId: String) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, movieId: Int) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
-        self.listId = listId
         self.sessionId = sessionId
+        self.movieId = movieId
     }
 }
 //MARK: - AddToExistListInteractorProtocol
