@@ -27,10 +27,6 @@ class MovieDetailsView: UIView {
         let view = UIImageView()
         return view
     }()
-    private lazy var backdropView: UIImageView = {
-        let view = UIImageView()
-        return view
-    }()
     private lazy var movieTitleLabel: UILabel = {
         let label = UILabel()
         return label
@@ -72,17 +68,16 @@ class MovieDetailsView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    func updateView(with: MovieDetail, poster: UIImage, backdeopPoster: UIImage) {
-        self.backdropView.image = backdeopPoster
+    func updateView(with: MovieDetail, poster: UIImage) {
         self.posterView.image = poster
         self.movieTitleLabel.text = with.title ?? ""
         self.moviesGenreLabel.text = with.genres?.map { genre in
             genre.name
         }
-        .joined(separator: " | ")
+        .joined(separator: " • ")
         
         self.moviesAdditionalInfoLabel.text = Array(arrayLiteral: "\(with.runtime ?? 0) min", with.releaseDate ?? "")
-            .joined(separator: " | ")
+            .joined(separator: " • ")
         self.overviewLabel.text = with.overview ?? ""
         if with.watchList ?? false {
             setColorForAddToWatchlist(color: .red)
@@ -100,7 +95,6 @@ class MovieDetailsView: UIView {
 //MARK: - UI layout
 private extension MovieDetailsView {
     func setupLayout() {
-        setupBackdropView()
         setupPosterView()
         setupTitleLabel()
         setupGenreLabel()
@@ -208,17 +202,6 @@ private extension MovieDetailsView {
             addToListButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
         ])
     }
-    func setupBackdropView() {
-        self.addSubview(backdropView)
-        backdropView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            backdropView.topAnchor.constraint(equalTo: self.topAnchor),
-            backdropView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            backdropView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            backdropView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.7),
-        ])
-    }
     func setupPosterView() {
         self.addSubview(posterView)
         posterView.translatesAutoresizingMaskIntoConstraints = false
@@ -226,10 +209,11 @@ private extension MovieDetailsView {
         posterView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
-            posterView.topAnchor.constraint(equalTo: self.topAnchor, constant: 150),
+            posterView.topAnchor.constraint(equalTo: self.topAnchor),
             posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            posterView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
-            posterView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.7),
+            posterView.widthAnchor.constraint(equalTo: self.widthAnchor),
+            posterView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 1.4),
+            
         ])
     }
     func setupTitleLabel() {

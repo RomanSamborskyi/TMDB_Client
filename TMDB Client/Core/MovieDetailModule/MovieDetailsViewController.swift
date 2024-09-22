@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MovieDetailsViewProtocol: AnyObject {
-    func show(movie: MovieDetail, poster: UIImage, backdropPoster: UIImage)
+    func show(movie: MovieDetail, poster: UIImage)
 }
 
 class MovieDetailsViewController: UIViewController {
@@ -67,9 +67,9 @@ private extension MovieDetailsViewController {
 }
 //MARK: - MovieDetailsViewProtocol
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
-    func show(movie: MovieDetail, poster: UIImage, backdropPoster: UIImage) {
+    func show(movie: MovieDetail, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
-            self?.detailView.updateView(with: movie, poster: poster, backdeopPoster: backdropPoster)
+            self?.detailView.updateView(with: movie, poster: poster)
         }
     }
 }
