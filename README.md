@@ -4,7 +4,7 @@
 
 The appliaction for those who have an account on tnemoviedb.org 
 
-With this application you can login in to your account, to take a look on your watchlist, add movies to your watchlist, to take a look on your movies lists.
+With this application you can login in to your account, to take a look on your watchlist, add a movies to your watchlist, to take a look on your movies lists, and rate the movie
 
 This application is not finished, the features what will be added: 
   - ~Rate movie~
