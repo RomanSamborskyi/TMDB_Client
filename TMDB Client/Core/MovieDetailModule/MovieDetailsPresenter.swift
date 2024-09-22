@@ -10,7 +10,7 @@ import NotificationCenter
 
 protocol MovieDetailsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
-    func didMovieFetched(movie: MovieDetail, poster: UIImage, backdropPOster: UIImage, stat: MovieStat)
+    func didMovieFetched(movie: MovieDetail, poster: UIImage, stat: MovieStat)
     func didMovieAddedToWatchlist()
     func didMovieAddedToFavorite()
     func didMovieAddedToList()
@@ -68,7 +68,7 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         }
         NotificationCenter.default.post(name: .movieAddedToWatchList, object: nil)
     }
-    func didMovieFetched(movie: MovieDetail, poster: UIImage, backdropPOster: UIImage, stat: MovieStat) {
+    func didMovieFetched(movie: MovieDetail, poster: UIImage, stat: MovieStat) {
         var fetchedMovie = movie
         
         fetchedMovie.watchList = stat.watchlist
@@ -82,7 +82,7 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         case .none:
             break
         }
-        view?.show(movie: fetchedMovie, poster: poster, backdropPoster: backdropPOster)
+        view?.show(movie: fetchedMovie, poster: poster)
     }
     func viewControllerDidLoad() {
         let _ = Task {

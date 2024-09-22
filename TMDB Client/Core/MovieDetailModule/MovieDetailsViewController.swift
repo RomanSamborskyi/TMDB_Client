@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MovieDetailsViewProtocol: AnyObject {
-    func show(movie: MovieDetail, poster: UIImage, backdropPoster: UIImage)
+    func show(movie: MovieDetail, poster: UIImage)
 }
 
 class MovieDetailsViewController: UIViewController {
@@ -28,6 +28,7 @@ class MovieDetailsViewController: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = false
     }
 }
 //MARK: - UI layout
@@ -35,6 +36,7 @@ private extension MovieDetailsViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor.customBackground
         self.detailView.delegate = self
+        self.navigationController?.navigationBar.isHidden = true
         scroll.contentInsetAdjustmentBehavior = .never
         setupScrollView()
         setupDetailsView()
@@ -67,14 +69,17 @@ private extension MovieDetailsViewController {
 }
 //MARK: - MovieDetailsViewProtocol
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
-    func show(movie: MovieDetail, poster: UIImage, backdropPoster: UIImage) {
+    func show(movie: MovieDetail, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
-            self?.detailView.updateView(with: movie, poster: poster, backdeopPoster: backdropPoster)
+            self?.detailView.updateView(with: movie, poster: poster)
         }
     }
 }
 //MARK: - MovieDetailsView delegate
 extension MovieDetailsViewController: MovieDetailsViewDelegate {
+    func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
     func didMovieAddedToList() {
         presenter?.didMovieAddedToList()
         presenter?.haptic.tacticNotification(style: .success)
