@@ -28,6 +28,7 @@ class MovieDetailsViewController: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = false
     }
 }
 //MARK: - UI layout
@@ -35,6 +36,7 @@ private extension MovieDetailsViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor.customBackground
         self.detailView.delegate = self
+        self.navigationController?.navigationBar.isHidden = true
         scroll.contentInsetAdjustmentBehavior = .never
         setupScrollView()
         setupDetailsView()
@@ -75,6 +77,9 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
 }
 //MARK: - MovieDetailsView delegate
 extension MovieDetailsViewController: MovieDetailsViewDelegate {
+    func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
     func didMovieAddedToList() {
         presenter?.didMovieAddedToList()
         presenter?.haptic.tacticNotification(style: .success)

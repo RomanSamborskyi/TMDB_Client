@@ -17,6 +17,7 @@ protocol MovieDetailsViewDelegate: AnyObject {
     func thirdStarPressed()
     func fourthStarPressed()
     func fifthStarPressed()
+    func backButtonPressed()
 }
 
 class MovieDetailsView: UIView {
@@ -52,6 +53,10 @@ class MovieDetailsView: UIView {
         return button
     }()
     private lazy var addToFavoriteButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    private lazy var backButton: UIButton = {
         let button = UIButton()
         return button
     }()
@@ -101,6 +106,7 @@ private extension MovieDetailsView {
     func setupLayout() {
         setupPosterView()
         setupGradientView()
+        setupBackButton()
         setupTitleLabel()
         setupGenreLabel()
         setupAdditionalInfoLabel()
@@ -110,6 +116,24 @@ private extension MovieDetailsView {
         setupOverviewLabel()
         setupAddToFavoriteButton()
         setupAddToListButton()
+    }
+    func setupBackButton() {
+        self.addSubview(backButton)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "chevron.backward")?.resized(to: CGSize(width: 15, height: 15))?.withTintColor(.white)
+        backButton.setImage(image, for: .normal)
+        backButton.tintColor = .white
+        backButton.layer.masksToBounds = true
+        backButton.layer.cornerRadius = 15
+        backButton.backgroundColor = .black.withAlphaComponent(0.5)
+        backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height * 0.08),
+            backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIScreen.main.bounds.width * 0.05),
+            backButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.08),
+            backButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.035)
+        ])
     }
     func setupGradientView() {
         self.addSubview(gradientView)
@@ -179,56 +203,56 @@ private extension MovieDetailsView {
         self.addSubview(addToWatchlistButton)
         addToWatchlistButton.translatesAutoresizingMaskIntoConstraints = false
         addToWatchlistButton.addTarget(self, action: #selector(saveToWatchlist), for: .touchUpInside)
-        addToWatchlistButton.clipsToBounds = true
-        addToWatchlistButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        addToWatchlistButton.layer.masksToBounds = true
+        addToWatchlistButton.titleLabel?.font = .systemFont(ofSize: 10, weight: .regular)
         addToWatchlistButton.titleLabel?.textColor = .white
-        addToWatchlistButton.layer.cornerRadius = 10
-        addToWatchlistButton.layer.borderWidth = 2
-        addToWatchlistButton.layer.borderColor = UIColor.white.cgColor
+        addToWatchlistButton.layer.cornerRadius = 25
+        addToWatchlistButton.layer.backgroundColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         
         NSLayoutConstraint.activate([
             addToWatchlistButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
             addToWatchlistButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            addToWatchlistButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.2),
-            addToWatchlistButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
+            addToWatchlistButton.widthAnchor.constraint(equalToConstant: 50),
+            addToWatchlistButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     func setupAddToFavoriteButton() {
         self.addSubview(addToFavoriteButton)
         addToFavoriteButton.translatesAutoresizingMaskIntoConstraints = false
         addToFavoriteButton.addTarget(self, action: #selector(addMovieToFavorite), for: .touchUpInside)
-        addToFavoriteButton.clipsToBounds = true
-        addToFavoriteButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        addToFavoriteButton.layer.masksToBounds = true
+        addToFavoriteButton.titleLabel?.font = .systemFont(ofSize: 10, weight: .regular)
         addToFavoriteButton.titleLabel?.textColor = .white
-        addToFavoriteButton.layer.cornerRadius = 10
-        addToFavoriteButton.layer.borderWidth = 2
-        addToFavoriteButton.layer.borderColor = UIColor.white.cgColor
-        
+        addToFavoriteButton.layer.cornerRadius = 25
+        addToFavoriteButton.layer.backgroundColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+       
+       
         NSLayoutConstraint.activate([
             addToFavoriteButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
             addToFavoriteButton.leadingAnchor.constraint(equalTo: addToWatchlistButton.trailingAnchor, constant: 10),
-            addToFavoriteButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.2),
-            addToFavoriteButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
+            addToFavoriteButton.widthAnchor.constraint(equalToConstant: 50),
+            addToFavoriteButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
     func setupAddToListButton() {
         self.addSubview(addToListButton)
         addToListButton.translatesAutoresizingMaskIntoConstraints = false
         addToListButton.addTarget(self, action: #selector(addMovieToList), for: .touchUpInside)
-        addToListButton.clipsToBounds = true
-        addToListButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        addToListButton.layer.masksToBounds = true
+        addToListButton.titleLabel?.font = .systemFont(ofSize: 10, weight: .regular)
         addToListButton.titleLabel?.textColor = .white
-        addToListButton.layer.cornerRadius = 10
-        addToListButton.layer.borderWidth = 2
-        addToListButton.layer.borderColor = UIColor.white.cgColor
+        addToListButton.layer.cornerRadius = 25
+        addToListButton.layer.backgroundColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        
         addToListButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
         addToListButton.tintColor = .white
         
         NSLayoutConstraint.activate([
             addToListButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
             addToListButton.leadingAnchor.constraint(equalTo: self.addToFavoriteButton.trailingAnchor, constant: 10),
-            addToListButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
-            addToListButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
+            addToListButton.heightAnchor.constraint(equalToConstant: 50),
+            addToListButton.widthAnchor.constraint(equalToConstant: 50),
+           
         ])
     }
     func setupPosterView() {
@@ -264,8 +288,8 @@ private extension MovieDetailsView {
     func setupGenreLabel() {
         self.addSubview(moviesGenreLabel)
         moviesGenreLabel.translatesAutoresizingMaskIntoConstraints = false
-        moviesGenreLabel.font = .systemFont(ofSize: 18, weight: .medium)
-        moviesGenreLabel.textColor = .white
+        moviesGenreLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        moviesGenreLabel.textColor = .white.withAlphaComponent(0.8)
         moviesGenreLabel.textAlignment = .center
         moviesGenreLabel.numberOfLines = 3
         moviesGenreLabel.minimumScaleFactor = 0.6
@@ -280,8 +304,8 @@ private extension MovieDetailsView {
     func setupAdditionalInfoLabel() {
         self.addSubview(moviesAdditionalInfoLabel)
         moviesAdditionalInfoLabel.translatesAutoresizingMaskIntoConstraints = false
-        moviesAdditionalInfoLabel.font = .systemFont(ofSize: 18, weight: .medium)
-        moviesAdditionalInfoLabel.textColor = .white
+        moviesAdditionalInfoLabel.font = .systemFont(ofSize: 15, weight: .medium)
+        moviesAdditionalInfoLabel.textColor = .white.withAlphaComponent(0.8)
         moviesAdditionalInfoLabel.textAlignment = .center
         moviesAdditionalInfoLabel.numberOfLines = 3
         moviesAdditionalInfoLabel.minimumScaleFactor = 0.6
@@ -295,12 +319,12 @@ private extension MovieDetailsView {
     }
     func setColorForAddToWatchlist(color: UIColor) {
         guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
-        let image = resizedImage.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
+        let image = resizedImage.resized(to: CGSize(width: 20, height: 20))?.withTintColor(color)
         addToWatchlistButton.setImage(image, for: .normal)
         self.layoutIfNeeded()
     }
     func setColorForFavoriteButton(color: UIColor) {
-        let image = UIImage(systemName: "heart.fill")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
+        let image = UIImage(systemName: "heart.fill")?.resized(to: CGSize(width: 20, height: 20))?.withTintColor(color)
         self.addToFavoriteButton.setImage(image, for: .normal)
         self.layoutIfNeeded()
     }
@@ -316,6 +340,9 @@ extension MovieDetailsView {
     }
     @objc func addMovieToList(selector: Selector) {
         self.delegate?.didMovieAddedToList()
+    }
+    @objc func backButtonAction(selector: Selector) {
+        self.delegate?.backButtonPressed()
     }
 }
 //MARK: - RateViewDelegate
