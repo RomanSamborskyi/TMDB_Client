@@ -59,6 +59,10 @@ class MovieDetailsView: UIView {
         let button = UIButton()
         return button
     }()
+    private lazy var gradientView: UIView = {
+        let view = UIView()
+        return view
+    }()
     private lazy var rateButtonsView = MovieRateView()
     //MARK: - lifecycle
     override init(frame: CGRect) {
@@ -96,6 +100,7 @@ class MovieDetailsView: UIView {
 private extension MovieDetailsView {
     func setupLayout() {
         setupPosterView()
+        setupGradientView()
         setupTitleLabel()
         setupGenreLabel()
         setupAdditionalInfoLabel()
@@ -105,6 +110,32 @@ private extension MovieDetailsView {
         setupOverviewLabel()
         setupAddToFavoriteButton()
         setupAddToListButton()
+    }
+    func setupGradientView() {
+        self.addSubview(gradientView)
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let colors = [UIColor.clear.cgColor, UIColor.customBackground.cgColor, UIColor.customBackground.cgColor]
+        
+        let gradient = CAGradientLayer()
+        
+        gradient.colors = colors
+        gradient.locations = [0.0, 0.5, 1.0]
+        
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+        
+        gradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+        
+        gradientView.layer.insertSublayer(gradient, at: 0)
+        
+        NSLayoutConstraint.activate([
+            gradientView.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height / 3.7),
+            gradientView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            gradientView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
+        ])
     }
     func setupRateView() {
         self.addSubview(rateButtonsView)
@@ -176,7 +207,6 @@ private extension MovieDetailsView {
         NSLayoutConstraint.activate([
             addToFavoriteButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
             addToFavoriteButton.leadingAnchor.constraint(equalTo: addToWatchlistButton.trailingAnchor, constant: 10),
-           // addToFavoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             addToFavoriteButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.2),
             addToFavoriteButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
         ])
@@ -197,7 +227,6 @@ private extension MovieDetailsView {
         NSLayoutConstraint.activate([
             addToListButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
             addToListButton.leadingAnchor.constraint(equalTo: self.addToFavoriteButton.trailingAnchor, constant: 10),
-            addToListButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3.2),
             addToListButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.055),
             addToListButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
         ])
@@ -227,7 +256,7 @@ private extension MovieDetailsView {
         movieTitleLabel.clipsToBounds = true
         
         NSLayoutConstraint.activate([
-            movieTitleLabel.topAnchor.constraint(equalTo: posterView.bottomAnchor, constant: 20),
+            movieTitleLabel.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: UIScreen.main.bounds.height / 3.8),
             movieTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             movieTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
         ])
