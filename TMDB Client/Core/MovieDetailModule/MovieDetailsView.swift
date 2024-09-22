@@ -249,7 +249,7 @@ private extension MovieDetailsView {
         
         NSLayoutConstraint.activate([
             addToListButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
-            addToListButton.leadingAnchor.constraint(equalTo: self.addToFavoriteButton.trailingAnchor, constant: 10),
+            addToListButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
             addToListButton.heightAnchor.constraint(equalToConstant: 50),
             addToListButton.widthAnchor.constraint(equalToConstant: 50),
            

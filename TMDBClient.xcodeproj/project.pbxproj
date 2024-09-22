@@ -306,14 +306,13 @@
 				6BC683432C4079DF0008864A /* TabBarController.swift */,
 				6BCD87012CA0881700495B93 /* MoviesCastModule */,
 				6B58C88F2C97534E0096D952 /* AdditionalViews */,
-				6B732F322C88E7F3001CCA04 /* AddMovieToExistList */,
 				6B732F2B2C84C6B0001CCA04 /* Lists */,
 				6B732F202C84B12E001CCA04 /* FavoriteMoviesModule */,
 				6B732F152C8492B5001CCA04 /* RatedMoviesModule */,
 				6B44B1FD2C454FD8006F0084 /* WatchList */,
 				6BC6835F2C42709D0008864A /* MovieDetailModule */,
 				6BC683452C407D020008864A /* MoviesModule */,
-				6BC6832B2C3DCDA50008864A /* ProofileModule */,
+				6BC6832B2C3DCDA50008864A /* ProfileModule */,
 				6B56A7EB2C3B2B80001032C8 /* LoginModule */,
 			);
 			path = Core;
@@ -402,6 +401,7 @@
 		6B732F2B2C84C6B0001CCA04 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				6B732F322C88E7F3001CCA04 /* AddMovieToExistList */,
 				6BC683542C4269F60008864A /* ListsModule */,
 				6BFAA0E22C55687D002D8F1A /* ListsDetailModule */,
 				6BCD381A2C6E6FD400A0C2BB /* AddMovieToListModule */,
@@ -433,7 +433,7 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		6BC6832B2C3DCDA50008864A /* ProofileModule */ = {
+		6BC6832B2C3DCDA50008864A /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
 				6BC6832C2C3DCDCF0008864A /* ProfileViewController.swift */,
@@ -444,7 +444,7 @@
 				6BC683322C3EC6D30008864A /* ProfileEntity.swift */,
 				6BC683362C3EC6F30008864A /* ProfileModuleBuilder.swift */,
 			);
-			path = ProofileModule;
+			path = ProfileModule;
 			sourceTree = "<group>";
 		};
 		6BC683422C3EE1050008864A /* Utils */ = {
