@@ -48,6 +48,10 @@ class MovieDetailsView: UIView {
         let label = UILabel()
         return label
     }()
+    private lazy var castLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
     private lazy var addToWatchlistButton: UIButton = {
         let button = UIButton()
         return button
@@ -116,6 +120,7 @@ private extension MovieDetailsView {
         setupOverviewLabel()
         setupAddToFavoriteButton()
         setupAddToListButton()
+        setupCastLabel()
     }
     func setupBackButton() {
         self.addSubview(backButton)
@@ -315,6 +320,18 @@ private extension MovieDetailsView {
             moviesAdditionalInfoLabel.topAnchor.constraint(equalTo: moviesGenreLabel.bottomAnchor, constant: 10),
             moviesAdditionalInfoLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             moviesAdditionalInfoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+        ])
+    }
+    func setupCastLabel() {
+        self.addSubview(castLabel)
+        castLabel.translatesAutoresizingMaskIntoConstraints = false
+        castLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        castLabel.textColor = .white
+        castLabel.text = "Cast & Crew"
+        
+        NSLayoutConstraint.activate([
+            castLabel.topAnchor.constraint(equalTo: self.overviewLabel.bottomAnchor, constant: 50),
+            castLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
         ])
     }
     func setColorForAddToWatchlist(color: UIColor) {

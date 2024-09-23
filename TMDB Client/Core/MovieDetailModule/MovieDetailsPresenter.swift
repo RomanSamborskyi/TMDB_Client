@@ -11,6 +11,7 @@ import NotificationCenter
 protocol MovieDetailsPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func didMovieFetched(movie: MovieDetail, poster: UIImage, stat: MovieStat)
+    func didCrewFetched(with cast: [Cast], photos: [Int : UIImage])
     func didMovieAddedToWatchlist()
     func didMovieAddedToFavorite()
     func didMovieAddedToList()
@@ -37,6 +38,9 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
+    func didCrewFetched(with cast: [Cast], photos: [Int : UIImage]) {
+        view?.showCrew(crew: cast, photo: photos)
+    }
     func didMovieAddedToList() {
         router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: interactor.movieId)
     }
@@ -85,9 +89,16 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         view?.show(movie: fetchedMovie, poster: poster)
     }
     func viewControllerDidLoad() {
-        let _ = Task {
+        Task {
             do {
                 try await interactor.fetchMovieDetails()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+        Task(priority: .medium) {
+            do {
+                try await interactor.fetchCrew()
             } catch let error as AppError {
                 print(error.localizedDescription)
             }

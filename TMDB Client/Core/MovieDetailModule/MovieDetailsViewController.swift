@@ -9,10 +9,13 @@ import UIKit
 
 protocol MovieDetailsViewProtocol: AnyObject {
     func show(movie: MovieDetail, poster: UIImage)
+    func showCrew(crew: [Cast], photo: [Int : UIImage])
 }
 
 class MovieDetailsViewController: UIViewController {
     //MARK: - property
+    private lazy var cast: [Cast] = []
+    private lazy var photos: [Int: UIImage] = [:]
     var presenter: MovieDetailsPresenterProtocol?
     private lazy var scroll: UIScrollView = {
         let view = UIScrollView()
@@ -26,6 +29,14 @@ class MovieDetailsViewController: UIViewController {
         presenter?.viewControllerDidLoad()
         setupLayout()
     }
+    private lazy var castCollection: UICollectionView = {
+        let flow = UICollectionViewFlowLayout()
+        flow.scrollDirection = .horizontal
+        flow.itemSize = CGSize(width: 100, height: 130)
+        let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(MoviesCastCollectionView.self, forCellWithReuseIdentifier: MoviesCastCollectionView.identifier)
+        return cell
+    }()
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
@@ -40,6 +51,24 @@ private extension MovieDetailsViewController {
         scroll.contentInsetAdjustmentBehavior = .never
         setupScrollView()
         setupDetailsView()
+        setupCastCollectionView()
+    }
+    func setupCastCollectionView() {
+        self.scroll.addSubview(castCollection)
+        castCollection.translatesAutoresizingMaskIntoConstraints = false
+        
+        castCollection.delegate = self
+        castCollection.dataSource = self
+        
+        castCollection.backgroundColor = .customBackground
+        
+        NSLayoutConstraint.activate([
+            castCollection.topAnchor.constraint(equalTo: self.detailView.bottomAnchor, constant: 30),
+            castCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            castCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            castCollection.widthAnchor.constraint(equalTo: scroll.widthAnchor),
+            castCollection.heightAnchor.constraint(equalToConstant: 130),
+        ])
     }
     func setupScrollView() {
         self.view.addSubview(scroll)
@@ -63,12 +92,19 @@ private extension MovieDetailsViewController {
             detailView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             detailView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
             detailView.heightAnchor.constraint(equalTo: scroll.heightAnchor),
-            detailView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height / 6),
+            detailView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height / 4),
         ])
     }
 }
 //MARK: - MovieDetailsViewProtocol
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
+    func showCrew(crew: [Cast], photo: [Int : UIImage]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.cast.append(contentsOf: crew)
+            self?.photos.merge(photo, uniquingKeysWith: { _, image in image })
+            self?.castCollection.reloadData()
+        }
+    }
     func show(movie: MovieDetail, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             self?.detailView.updateView(with: movie, poster: poster)
@@ -111,5 +147,20 @@ extension MovieDetailsViewController: MovieDetailsViewDelegate {
     func didMovieAddedToWatchList() {
         presenter?.didMovieAddedToWatchlist()
         presenter?.haptic.tacticNotification(style: .success)
+    }
+}
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.cast.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCastCollectionView.identifier, for: indexPath) as! MoviesCastCollectionView
+        let item = self.cast[indexPath.row]
+        let poster = self.photos[item.id ?? 0]
+        cell.persone = item
+        cell.photo = poster
+        return cell
     }
 }

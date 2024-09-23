@@ -14,6 +14,7 @@ protocol MovieDetailsInteractorProtocol: AnyObject {
     func fetchMovieStat() async throws -> MovieStat
     func addToFavorite() async throws
     func addRate(rate: Double) async throws
+    func fetchCrew() async throws
     var sessionId: String { get }
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
@@ -42,6 +43,58 @@ class MovieDetailsInteractor {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
+    func fetchCrew() async throws {
+        
+        let crew = try await withThrowingTaskGroup(of: [Cast].self) { group in
+            let session = URLSession.shared
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.cast(movieId: self.movieId, key: Constants.apiKey))
+            
+            group.addTask { [request, weak self] in
+                guard let result = try await self?.networkManager.fetchGET(type: CastResponse.self, session: session, request: request) else {
+                    throw AppError.invalidData
+                }
+                return result.cast
+            }
+            
+            var crew: [Cast] = []
+            
+            for try await result in group {
+                crew.append(contentsOf: result)
+            }
+            return crew
+        }
+        
+        let photos = try await withThrowingTaskGroup(of: [Int: UIImage].self) { group in
+            
+            var photos: [Int: UIImage] = [:]
+            
+            for personePhoto in crew {
+                
+                guard let url = URL(string: ImageURL.imagePath(path: personePhoto.profilePath ?? "").url) else {
+                    throw AppError.badURL
+                }
+                
+                let session = URLSession.shared
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+                request.timeoutInterval = 10
+                
+                group.addTask { [request, weak self] in
+                    guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
+                        throw AppError.invalidData
+                    }
+                    return [personePhoto.id ?? 0 : result]
+                }
+                
+                for try await photo in group {
+                    photos.merge(photo) { _, image in image }
+                }
+            }
+            return photos
+        }
+        
+        presenter?.didCrewFetched(with: crew, photos: photos)
+    }
     func addRate(rate: Double) async throws {
         
         guard let sessioId = keychain.get(for: Constants.sessionKey) else {
