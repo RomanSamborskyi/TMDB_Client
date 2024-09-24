@@ -32,7 +32,7 @@ class MovieDetailsViewController: UIViewController {
     private lazy var castCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .horizontal
-        flow.itemSize = CGSize(width: 100, height: 130)
+        flow.itemSize = CGSize(width: 75, height: 135)
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(MoviesCastCollectionView.self, forCellWithReuseIdentifier: MoviesCastCollectionView.identifier)
         return cell
@@ -49,6 +49,7 @@ private extension MovieDetailsViewController {
         self.detailView.delegate = self
         self.navigationController?.navigationBar.isHidden = true
         scroll.contentInsetAdjustmentBehavior = .never
+        
         setupScrollView()
         setupDetailsView()
         setupCastCollectionView()
@@ -59,15 +60,16 @@ private extension MovieDetailsViewController {
         
         castCollection.delegate = self
         castCollection.dataSource = self
-        
+        castCollection.showsHorizontalScrollIndicator = false
         castCollection.backgroundColor = .customBackground
         
         NSLayoutConstraint.activate([
-            castCollection.topAnchor.constraint(equalTo: self.detailView.bottomAnchor, constant: 30),
+            castCollection.topAnchor.constraint(equalTo: self.detailView.bottomAnchor),
             castCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             castCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             castCollection.widthAnchor.constraint(equalTo: scroll.widthAnchor),
             castCollection.heightAnchor.constraint(equalToConstant: 130),
+            castCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor)
         ])
     }
     func setupScrollView() {
@@ -108,6 +110,7 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
     func show(movie: MovieDetail, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             self?.detailView.updateView(with: movie, poster: poster)
+            self?.view.layoutIfNeeded()
         }
     }
 }

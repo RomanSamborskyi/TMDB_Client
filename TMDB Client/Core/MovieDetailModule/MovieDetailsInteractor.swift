@@ -80,16 +80,21 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
                 request.timeoutInterval = 10
                 
                 group.addTask { [request, weak self] in
-                    guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
-                        throw AppError.invalidData
+                    if personePhoto.profilePath == nil  {
+                        let image = UIImage(named: "image")!
+                        return [personePhoto.id ?? 0 : image]
+                    } else {
+                        guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
+                            throw AppError.invalidData
+                        }
+                        return [personePhoto.id ?? 0 : result]
                     }
-                    return [personePhoto.id ?? 0 : result]
-                }
-                
-                for try await photo in group {
-                    photos.merge(photo) { _, image in image }
                 }
             }
+            for try await photo in group {
+                photos.merge(photo) { _, image in image }
+            }
+            
             return photos
         }
         

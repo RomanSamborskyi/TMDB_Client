@@ -116,10 +116,10 @@ private extension MovieDetailsView {
         setupAdditionalInfoLabel()
         setupRateView()
         setupAddToWatchlistButton()
-        setupOverviewTextLabel()
-        setupOverviewLabel()
         setupAddToFavoriteButton()
         setupAddToListButton()
+        setupOverviewTextLabel()
+        setupOverviewLabel()
         setupCastLabel()
     }
     func setupBackButton() {
@@ -330,7 +330,7 @@ private extension MovieDetailsView {
         castLabel.text = "Cast & Crew"
         
         NSLayoutConstraint.activate([
-            castLabel.topAnchor.constraint(equalTo: self.overviewLabel.bottomAnchor, constant: 50),
+            castLabel.topAnchor.constraint(equalTo: self.overviewLabel.bottomAnchor, constant: 30),
             castLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
         ])
     }

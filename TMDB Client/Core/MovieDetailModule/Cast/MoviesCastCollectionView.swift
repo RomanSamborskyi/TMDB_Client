@@ -39,7 +39,7 @@ private extension MoviesCastCollectionView {
         castView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            castView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            castView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 30),
             castView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             castView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             castView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
