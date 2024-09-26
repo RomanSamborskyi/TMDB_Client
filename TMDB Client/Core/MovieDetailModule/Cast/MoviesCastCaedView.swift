@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MoviesCastView: UIView {
+class MoviesCastCaedView: UIView {
     //MARK: - property
     private lazy var photoView: UIImageView = {
         let view = UIImageView()
@@ -33,7 +33,7 @@ class MoviesCastView: UIView {
     }
 }
 //MARK: - setup layout
-private extension MoviesCastView {
+private extension MoviesCastCaedView {
     func setupLayout() {
         setupPhotoView()
         setupNameLabel()

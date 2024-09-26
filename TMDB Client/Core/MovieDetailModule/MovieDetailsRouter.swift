@@ -10,6 +10,7 @@ import UIKit
 
 protocol MovieDetailsRouterProtocol: AnyObject {
     func navigateToLists(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, movieId: Int)
+    func navigateToActorDetail(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, actor: Cast, poster: UIImage)
 }
 
 class MovieDetailsRouter {
@@ -18,6 +19,10 @@ class MovieDetailsRouter {
 }
 //MARK: - MovieDetailsRouterProtocol
 extension MovieDetailsRouter: MovieDetailsRouterProtocol {
+    func navigateToActorDetail(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, actor: Cast, poster: UIImage) {
+        let listsVC = MoviesCastModuleBuilder.build(networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId, person: actor, poster: poster)
+        view?.navigationController?.pushViewController(listsVC, animated: true)
+    }
     func navigateToLists(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, movieId: Int) {
         let listsVC = AddToExistListModuleBuilder.build(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, haptic: haptic, movieId: movieId)
         view?.navigationController?.present(listsVC, animated: true)

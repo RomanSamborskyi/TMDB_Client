@@ -8,7 +8,8 @@
 import UIKit
 
 protocol MoviesCastPresenterProtocol: AnyObject {
-    
+    func viewControllerDidLoad()
+    func showInfo(actor: Cast, poster: UIImage)
 }
 
 class MoviesCastPresenter {
@@ -26,5 +27,10 @@ class MoviesCastPresenter {
 }
 //MARK: - MoviesCastPresenterProtocol
 extension MoviesCastPresenter: MoviesCastPresenterProtocol {
-    
+    func showInfo(actor: Cast, poster: UIImage) {
+        view?.showActorInfo(actor: actor, poster: poster)
+    }
+    func viewControllerDidLoad() {
+        interactor.showActorInfo()
+    }
 }

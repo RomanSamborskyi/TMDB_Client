@@ -24,7 +24,6 @@ class MovieDetailsViewController: UIViewController {
     private lazy var detailView = MovieDetailsView()
     //MARK: - lifecycle
     override func viewDidLoad() {
-        self.tabBarController?.tabBar.isHidden = true
         super.viewDidLoad()
         presenter?.viewControllerDidLoad()
         setupLayout()
@@ -48,6 +47,7 @@ private extension MovieDetailsViewController {
         self.view.backgroundColor = UIColor.customBackground
         self.detailView.delegate = self
         self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
         scroll.contentInsetAdjustmentBehavior = .never
         
         setupScrollView()
@@ -67,7 +67,6 @@ private extension MovieDetailsViewController {
             castCollection.topAnchor.constraint(equalTo: self.detailView.bottomAnchor),
             castCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
             castCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
-            castCollection.widthAnchor.constraint(equalTo: scroll.widthAnchor),
             castCollection.heightAnchor.constraint(equalToConstant: 130),
             castCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06)
         ])
@@ -163,5 +162,10 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
         cell.persone = item
         cell.photo = poster
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = self.cast[indexPath.row]
+        let poster = self.photos[item.id ?? 0]
+        presenter?.didPersonSelected(person: item, poster: poster!)
     }
 }

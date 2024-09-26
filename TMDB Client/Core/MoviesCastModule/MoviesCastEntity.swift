@@ -19,24 +19,25 @@ struct CastResponse: Codable {
 // MARK: - Cast
 struct Cast: Codable {
     let adult: Bool?
-    let gender, id: Int?
-    let knownForDepartment, name, originalName: String?
+    let alsoKnownAs: [String]?
+    let biography, birthday: String?
+    let deathday: String?
+    let gender: Int
+    let homepage: String?
+    let id: Int?
+    let imdbID, knownForDepartment, name, placeOfBirth: String?
     let popularity: Double?
     let profilePath: String?
-    let castID: Int?
-    let character, creditID: String?
-    let order: Int?
 
     enum CodingKeys: String, CodingKey {
-        case adult, gender, id
+        case adult
+        case alsoKnownAs = "also_known_as"
+        case biography, birthday, deathday, gender, homepage, id
+        case imdbID = "imdb_id"
         case knownForDepartment = "known_for_department"
         case name
-        case originalName = "original_name"
+        case placeOfBirth = "place_of_birth"
         case popularity
         case profilePath = "profile_path"
-        case castID = "cast_id"
-        case character
-        case creditID = "credit_id"
-        case order
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 class MoviesCastCollectionView: UICollectionViewCell {
     //MARK: - property
     static let identifier: String = "MoviesCastCollectionView"
-    private lazy var castView = MoviesCastView()
+    private lazy var castView = MoviesCastCaedView()
     var photo: UIImage? {
         didSet {
             guard let photo = photo else { return }

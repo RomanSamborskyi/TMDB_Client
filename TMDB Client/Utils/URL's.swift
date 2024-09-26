@@ -217,8 +217,8 @@ enum AccountUrl: URLData {
 }
 //MARK: - MoviesUrl
 enum MoviesUrls: URLData {
-    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String, sessionId: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String, sessionId: String), ratedMovies(accaountId: Int, sessionId: String, apiKey: String), favoriteMovies(accaountId: Int, sessionId: String, apiKey: String), similar(movieId: Int, key: String), reviews(movieId: Int, key: String), cast(movieId: Int, key: String)
-    
+    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String, sessionId: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String, sessionId: String), ratedMovies(accaountId: Int, sessionId: String, apiKey: String), favoriteMovies(accaountId: Int, sessionId: String, apiKey: String), similar(movieId: Int, key: String), reviews(movieId: Int, key: String), cast(movieId: Int, key: String), moviesWithPersone(apiKey: String, personeId: Int)
+        
     var url: String {
         switch self {
         case .trending(let key):
@@ -252,6 +252,8 @@ enum MoviesUrls: URLData {
             return "https://api.themoviedb.org/3/movie/\(movieId)/reviews?api_key=\(key)"
         case .cast(movieId: let movieId, key: let key):
             return "https://api.themoviedb.org/3/movie/\(movieId)/credits?api_key=\(key)"
+        case .moviesWithPersone(apiKey: let key, personeId: let personeId):
+            return "https://api.themoviedb.org/3/person/\(personeId)/movie_credits?api_key=\(key)"
         }
     }
     
@@ -286,6 +288,8 @@ enum MoviesUrls: URLData {
         case .reviews:
             return "GET"
         case .cast:
+            return "GET"
+        case .moviesWithPersone(apiKey: let apiKey, personeId: let personeId):
             return "GET"
         }
     }
