@@ -65,11 +65,11 @@ private extension MovieDetailsViewController {
         
         NSLayoutConstraint.activate([
             castCollection.topAnchor.constraint(equalTo: self.detailView.bottomAnchor),
-            castCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            castCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
             castCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             castCollection.widthAnchor.constraint(equalTo: scroll.widthAnchor),
             castCollection.heightAnchor.constraint(equalToConstant: 130),
-            castCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor)
+            castCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06)
         ])
     }
     func setupScrollView() {
@@ -93,8 +93,6 @@ private extension MovieDetailsViewController {
             detailView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             detailView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             detailView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
-            detailView.heightAnchor.constraint(equalTo: scroll.heightAnchor),
-            detailView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height / 4),
         ])
     }
 }

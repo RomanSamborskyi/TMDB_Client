@@ -331,7 +331,8 @@ private extension MovieDetailsView {
         
         NSLayoutConstraint.activate([
             castLabel.topAnchor.constraint(equalTo: self.overviewLabel.bottomAnchor, constant: 30),
-            castLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
+            castLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            castLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
     }
     func setColorForAddToWatchlist(color: UIColor) {
