@@ -15,11 +15,21 @@ class MoviesCastViewController: UIViewController {
     //MARK: - property
     var presenter: MoviesCastPresenterProtocol?
     private lazy var actorDetailView = MoviesCastView()
+    private lazy var filmography: [Movie] = []
+    private lazy var posters: [Int : UIImage] = [:]
+    private lazy var scroll: UIScrollView = {
+        let scrlv = UIScrollView()
+        return scrlv
+    }()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         presenter?.viewControllerDidLoad()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
@@ -38,21 +48,34 @@ extension MoviesCastViewController: MoviesCastViewProtocol {
 //MARK: - setup layout
 private extension MoviesCastViewController {
     func setupLayout() {
-        self.navigationController?.navigationBar.isHidden = true
-        self.tabBarController?.tabBar.isHidden = true
         self.view.backgroundColor = .customBackground
+        scroll.contentInsetAdjustmentBehavior = .never
         
+        setupScrollView()
         setupActorDetailView()
     }
+    func setupScrollView() {
+        self.view.addSubview(scroll)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.showsVerticalScrollIndicator = false
+        
+        NSLayoutConstraint.activate([
+            scroll.topAnchor.constraint(equalTo: self.view.topAnchor),
+            scroll.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scroll.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            scroll.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
+    }
     func setupActorDetailView() {
-        self.view.addSubview(actorDetailView)
+        self.scroll.addSubview(actorDetailView)
         actorDetailView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            actorDetailView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            actorDetailView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            actorDetailView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            actorDetailView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            actorDetailView.topAnchor.constraint(equalTo: scroll.topAnchor),
+            actorDetailView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            actorDetailView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            actorDetailView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
+            actorDetailView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -50),
         ])
     }
 }

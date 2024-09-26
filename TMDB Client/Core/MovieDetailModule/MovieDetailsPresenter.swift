@@ -15,7 +15,7 @@ protocol MovieDetailsPresenterProtocol: AnyObject {
     func didMovieAddedToWatchlist()
     func didMovieAddedToFavorite()
     func didMovieAddedToList()
-    func didPersonSelected(person: Cast, poster: UIImage)
+    func didPersonSelected(person: Int, poster: UIImage)
     func rateMovie(rate: Double)
     var haptic: HapticFeedback { get }
 }
@@ -39,7 +39,7 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
-    func didPersonSelected(person: Cast, poster: UIImage) {
+    func didPersonSelected(person: Int, poster: UIImage) {
         router.navigateToActorDetail(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, actor: person, poster: poster)
     }
     func didCrewFetched(with cast: [Cast], photos: [Int : UIImage]) {

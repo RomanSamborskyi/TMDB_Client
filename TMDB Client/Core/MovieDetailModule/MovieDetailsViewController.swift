@@ -36,6 +36,10 @@ class MovieDetailsViewController: UIViewController {
         cell.register(MoviesCastCollectionView.self, forCellWithReuseIdentifier: MoviesCastCollectionView.identifier)
         return cell
     }()
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
@@ -46,8 +50,6 @@ private extension MovieDetailsViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor.customBackground
         self.detailView.delegate = self
-        self.navigationController?.navigationBar.isHidden = true
-        self.tabBarController?.tabBar.isHidden = true
         scroll.contentInsetAdjustmentBehavior = .never
         
         setupScrollView()
@@ -166,6 +168,6 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = self.cast[indexPath.row]
         let poster = self.photos[item.id ?? 0]
-        presenter?.didPersonSelected(person: item, poster: poster!)
+        presenter?.didPersonSelected(person: item.id ?? 0, poster: poster!)
     }
 }

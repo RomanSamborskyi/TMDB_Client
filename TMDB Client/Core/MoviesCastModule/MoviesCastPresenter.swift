@@ -31,6 +31,12 @@ extension MoviesCastPresenter: MoviesCastPresenterProtocol {
         view?.showActorInfo(actor: actor, poster: poster)
     }
     func viewControllerDidLoad() {
-        interactor.showActorInfo()
+        Task {
+            do {
+                try await interactor.showActorInfo()
+            } catch let error as AppError {
+                print(error.localized)
+            }
+        }
     }
 }

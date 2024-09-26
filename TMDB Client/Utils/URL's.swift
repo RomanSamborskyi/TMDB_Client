@@ -217,7 +217,7 @@ enum AccountUrl: URLData {
 }
 //MARK: - MoviesUrl
 enum MoviesUrls: URLData {
-    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String, sessionId: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String, sessionId: String), ratedMovies(accaountId: Int, sessionId: String, apiKey: String), favoriteMovies(accaountId: Int, sessionId: String, apiKey: String), similar(movieId: Int, key: String), reviews(movieId: Int, key: String), cast(movieId: Int, key: String), moviesWithPersone(apiKey: String, personeId: Int)
+    case trending(key: String), upcoming(key: String), topRated(key: String), byGenre(key: String, genre: Int), allGenres(key: String), singleMovie(movieId: Int, key: String), addToFavorite(accoutId: Int, key: String, sessionId: String), addRating(movieId: Int, sessionId: String, key: String), searchMovie(apiKey: String, title: String), addToWatchList(accoutId: Int, apiKey: String, sessionId: String), ratedMovies(accaountId: Int, sessionId: String, apiKey: String), favoriteMovies(accaountId: Int, sessionId: String, apiKey: String), similar(movieId: Int, key: String), reviews(movieId: Int, key: String), cast(movieId: Int, key: String), moviesWithPersone(apiKey: String, personeId: Int), actorDetails(apiKey: String, actorId: Int)
         
     var url: String {
         switch self {
@@ -247,13 +247,15 @@ enum MoviesUrls: URLData {
             return "\(APIBaseURL.base.url)account/\(accaountId)/favorite/movies?api_key=\(apiKey)&session_id=\(sessionId)"
             
         case .similar(movieId: let movieId, key: let key):
-            return "https://api.themoviedb.org/3/movie/\(movieId)/similar?api_key=\(key)"
+            return "\(APIBaseURL.base.url)movie/\(movieId)/similar?api_key=\(key)"
         case .reviews(movieId: let movieId, key: let key):
-            return "https://api.themoviedb.org/3/movie/\(movieId)/reviews?api_key=\(key)"
+            return "\(APIBaseURL.base.url)movie/\(movieId)/reviews?api_key=\(key)"
         case .cast(movieId: let movieId, key: let key):
-            return "https://api.themoviedb.org/3/movie/\(movieId)/credits?api_key=\(key)"
+            return "\(APIBaseURL.base.url)movie/\(movieId)/credits?api_key=\(key)"
         case .moviesWithPersone(apiKey: let key, personeId: let personeId):
-            return "https://api.themoviedb.org/3/person/\(personeId)/movie_credits?api_key=\(key)"
+            return "\(APIBaseURL.base.url)person/\(personeId)/movie_credits?api_key=\(key)"
+        case .actorDetails(apiKey: let key, actorId: let actorId):
+            return "\(APIBaseURL.base.url)person/\(actorId)?api_key=\(key)"
         }
     }
     
@@ -289,7 +291,9 @@ enum MoviesUrls: URLData {
             return "GET"
         case .cast:
             return "GET"
-        case .moviesWithPersone(apiKey: let apiKey, personeId: let personeId):
+        case .moviesWithPersone:
+            return "GET"
+        case .actorDetails:
             return "GET"
         }
     }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MoviesCastInteractorProtocol: AnyObject {
-    func showActorInfo()
+    func showActorInfo() async throws
 }
 
 class MoviesCastInteractor {
@@ -17,10 +17,10 @@ class MoviesCastInteractor {
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     let sessionId: String
-    let person: Cast
+    let person: Int
     let poster: UIImage
     //MARK: - lifecycle
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, person: Cast, poster: UIImage) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, person: Int, poster: UIImage) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
         self.sessionId = sessionId
@@ -30,7 +30,14 @@ class MoviesCastInteractor {
 }
 //MARK: - MoviesCastInteractorProtocol
 extension MoviesCastInteractor: MoviesCastInteractorProtocol {
-    func showActorInfo() {
-        presenter?.showInfo(actor: self.person, poster: self.poster)
+    func showActorInfo() async throws {
+        
+        let session = URLSession.shared
+        
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.actorDetails(apiKey: Constants.apiKey, actorId: person))
+        
+        guard let result = try await networkManager.fetchGET(type: Cast.self, session: session, request: request) else { return }
+        
+        presenter?.showInfo(actor: result, poster: self.poster)
     }
 }

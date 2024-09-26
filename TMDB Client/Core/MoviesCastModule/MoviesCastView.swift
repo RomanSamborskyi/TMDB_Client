@@ -33,6 +33,10 @@ class MoviesCastView: UIView {
         let view = UIView()
         return view
     }()
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
     private lazy var rateButtonsView = MovieRateView()
     //MARK: - lifecycle
     override init(frame: CGRect) {
@@ -55,9 +59,29 @@ private extension MoviesCastView {
     func setupLayout() {
         setupPosterView()
         setupGradientView()
-        setupTitleLabel()
-        setupOverviewLabel()
+        setupNameLabel()
+        setupDateOfBirthLabel()
+        setupPlaceOfBirthLabel()
+        setupBiographyLabel()
+        setupBackButton()
+    }
+    func setupBackButton() {
+        self.addSubview(backButton)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "chevron.backward")?.resized(to: CGSize(width: 15, height: 15))?.withTintColor(.white)
+        backButton.setImage(image, for: .normal)
+        backButton.tintColor = .white
+        backButton.layer.masksToBounds = true
+        backButton.layer.cornerRadius = 15
+        backButton.backgroundColor = .black.withAlphaComponent(0.5)
+       // backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
         
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height * 0.08),
+            backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIScreen.main.bounds.width * 0.05),
+            backButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.08),
+            backButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.035)
+        ])
     }
     func setupGradientView() {
         self.addSubview(gradientView)
@@ -85,7 +109,7 @@ private extension MoviesCastView {
             gradientView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
         ])
     }
-    func setupOverviewLabel() {
+    func setupBiographyLabel() {
         self.addSubview(biographyLabel)
         biographyLabel.translatesAutoresizingMaskIntoConstraints = false
         biographyLabel.font = .systemFont(ofSize: 15, weight: .regular)
@@ -94,9 +118,10 @@ private extension MoviesCastView {
         biographyLabel.numberOfLines = 0
         
         NSLayoutConstraint.activate([
-            biographyLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
+            biographyLabel.topAnchor.constraint(equalTo: placeOfBirth.bottomAnchor, constant: UIScreen.main.bounds.height * 0.06),
             biographyLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            biographyLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+            biographyLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            biographyLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
    
@@ -114,7 +139,7 @@ private extension MoviesCastView {
             
         ])
     }
-    func setupTitleLabel() {
+    func setupNameLabel() {
         self.addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = .systemFont(ofSize: 25, weight: .bold)
@@ -128,6 +153,36 @@ private extension MoviesCastView {
             nameLabel.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: UIScreen.main.bounds.height / 3.8),
             nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+        ])
+    }
+    func setupDateOfBirthLabel() {
+        self.addSubview(dateOfBirthLabel)
+        dateOfBirthLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateOfBirthLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        dateOfBirthLabel.textColor = .white.withAlphaComponent(0.7)
+        dateOfBirthLabel.textAlignment = .center
+        dateOfBirthLabel.numberOfLines = 3
+        dateOfBirthLabel.minimumScaleFactor = 0.6
+        dateOfBirthLabel.clipsToBounds = true
+        
+        NSLayoutConstraint.activate([
+            dateOfBirthLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: UIScreen.main.bounds.height * 0.06),
+            dateOfBirthLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+        ])
+    }
+    func setupPlaceOfBirthLabel() {
+        self.addSubview(placeOfBirth)
+        placeOfBirth.translatesAutoresizingMaskIntoConstraints = false
+        placeOfBirth.font = .systemFont(ofSize: 15, weight: .regular)
+        placeOfBirth.textColor = .white.withAlphaComponent(0.7)
+        placeOfBirth.textAlignment = .center
+        placeOfBirth.numberOfLines = 3
+        placeOfBirth.minimumScaleFactor = 0.6
+        placeOfBirth.clipsToBounds = true
+        
+        NSLayoutConstraint.activate([
+            placeOfBirth.topAnchor.constraint(equalTo: dateOfBirthLabel.topAnchor, constant: UIScreen.main.bounds.height * 0.04 ),
+            placeOfBirth.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
 }
