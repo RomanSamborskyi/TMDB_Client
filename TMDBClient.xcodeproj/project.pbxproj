@@ -110,6 +110,8 @@
 		6BCD870F2CA1EE0E00495B93 /* MoviesCastCaedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD870E2CA1EE0E00495B93 /* MoviesCastCaedView.swift */; };
 		6BCD87112CA1F34100495B93 /* MoviesCastCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87102CA1F34100495B93 /* MoviesCastCollectionView.swift */; };
 		6BCD87142CA5CE3E00495B93 /* MoviesCastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87132CA5CE3E00495B93 /* MoviesCastView.swift */; };
+		6BCD874D2CA9772400495B93 /* MoviesReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD874C2CA9772400495B93 /* MoviesReviewView.swift */; };
+		6BCD874F2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD874E2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift */; };
 		6BF51F582C70F17C00F4CA50 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */; };
 		6BF51F5A2C71059E00F4CA50 /* ListsResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF51F592C71059E00F4CA50 /* ListsResultCell.swift */; };
 		6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */; };
@@ -227,6 +229,8 @@
 		6BCD870E2CA1EE0E00495B93 /* MoviesCastCaedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCastCaedView.swift; sourceTree = "<group>"; };
 		6BCD87102CA1F34100495B93 /* MoviesCastCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCastCollectionView.swift; sourceTree = "<group>"; };
 		6BCD87132CA5CE3E00495B93 /* MoviesCastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCastView.swift; sourceTree = "<group>"; };
+		6BCD874C2CA9772400495B93 /* MoviesReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesReviewView.swift; sourceTree = "<group>"; };
+		6BCD874E2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		6BF51F592C71059E00F4CA50 /* ListsResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsResultCell.swift; sourceTree = "<group>"; };
 		6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
@@ -498,6 +502,7 @@
 		6BC6835F2C42709D0008864A /* MovieDetailModule */ = {
 			isa = PBXGroup;
 			children = (
+				6BCD874B2CA9770800495B93 /* Reviews */,
 				6BCD87122CA1F34700495B93 /* Cast */,
 				6BA605FC2C46D213007E205C /* MovieDetailsViewController.swift */,
 				6BA605FE2C46D28D007E205C /* MovieDetailsInteractor.swift */,
@@ -546,6 +551,15 @@
 				6BCD87102CA1F34100495B93 /* MoviesCastCollectionView.swift */,
 			);
 			path = Cast;
+			sourceTree = "<group>";
+		};
+		6BCD874B2CA9770800495B93 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				6BCD874C2CA9772400495B93 /* MoviesReviewView.swift */,
+				6BCD874E2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift */,
+			);
+			path = Reviews;
 			sourceTree = "<group>";
 		};
 		6BFAA0E22C55687D002D8F1A /* ListsDetailModule */ = {
@@ -642,6 +656,7 @@
 				6BCD381E2C6E70C500A0C2BB /* AddToListInteractor.swift in Sources */,
 				6BCD87092CA0899F00495B93 /* MoviesCastEntity.swift in Sources */,
 				6BC683562C426A120008864A /* ListsViewController.swift in Sources */,
+				6BCD874F2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift in Sources */,
 				6BFAA0EC2C577969002D8F1A /* ListsDetailRouter.swift in Sources */,
 				6B732F1F2C849652001CCA04 /* RatedMoviesModuleBuilder.swift in Sources */,
 				6B44B1F52C43CB26006F0084 /* ListsPresenter.swift in Sources */,
@@ -687,6 +702,7 @@
 				6BC683312C3EC5260008864A /* ProfilePresenter.swift in Sources */,
 				6B6A7D422C7CBE9D007CC4F0 /* HapticFeedback.swift in Sources */,
 				6B44B1FB2C43CBF5006F0084 /* ListsModuleBuilder.swift in Sources */,
+				6BCD874D2CA9772400495B93 /* MoviesReviewView.swift in Sources */,
 				6B6A7D362C74651C007CC4F0 /* AddListInteractor.swift in Sources */,
 				6BC683262C3D9E800008864A /* URL's.swift in Sources */,
 				6B732F342C88E81A001CCA04 /* AddToExistListViewController.swift in Sources */,
