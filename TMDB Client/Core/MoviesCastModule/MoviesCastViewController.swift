@@ -78,6 +78,7 @@ private extension MoviesCastViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .customBackground
+        collectionView.showsHorizontalScrollIndicator = false
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: actorDetailView.bottomAnchor),
@@ -136,6 +137,7 @@ extension MoviesCastViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = self.filmography[indexPath.row]
-        let poster = self.posters[movie.id ?? 0]
+        guard let poster = self.posters[movie.id ?? 0] else { return }
+        presenter?.didMovieSelected(movieId: movie.id ?? 0, poster: poster)
     }
 }

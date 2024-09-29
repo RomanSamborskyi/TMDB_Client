@@ -10,6 +10,9 @@ import UIKit
 protocol MoviesCastInteractorProtocol: AnyObject {
     func fetchActorInfo() async throws
     func fetchActorsFilmography() async throws
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
+    var sessionId: String { get }
 }
 
 class MoviesCastInteractor {
@@ -43,7 +46,6 @@ extension MoviesCastInteractor: MoviesCastInteractorProtocol {
                 guard let result = try await self?.networkManager.fetchGET(type: ActrorsMovies.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
-                print(result.cast.count)
                 return result
             }
             
@@ -54,9 +56,11 @@ extension MoviesCastInteractor: MoviesCastInteractorProtocol {
             }
             
             if movieResult.count > 15 {
+                //Show less movies in main collection view, to avoid downloading a lot of posters
                 let shortArray: [Movie] = movieResult.dropLast(movieResult.count / 3)
                 return shortArray
             } else {
+                //If number of movies not so big, show all available movies
                 return movieResult
             }
         }

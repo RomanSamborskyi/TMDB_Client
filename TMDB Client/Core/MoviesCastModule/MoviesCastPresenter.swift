@@ -11,6 +11,7 @@ protocol MoviesCastPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func showInfo(actor: Cast, poster: UIImage)
     func showActorfilmography(movies: [Movie], posters: [Int: UIImage])
+    func didMovieSelected(movieId: Int, poster: UIImage)
 }
 
 class MoviesCastPresenter {
@@ -28,6 +29,9 @@ class MoviesCastPresenter {
 }
 //MARK: - MoviesCastPresenterProtocol
 extension MoviesCastPresenter: MoviesCastPresenterProtocol {
+    func didMovieSelected(movieId: Int, poster: UIImage) {
+        router.navigateTo(movie: movieId, poster: poster, networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, haptic: self.haptic, sessionId: interactor.sessionId)
+    }
     func showActorfilmography(movies: [Movie], posters: [Int : UIImage]) {
         view?.showActorsFilmography(movies: movies, posters: posters)
     }
@@ -46,7 +50,6 @@ extension MoviesCastPresenter: MoviesCastPresenterProtocol {
             do {
                 try await interactor.fetchActorsFilmography()
             } catch let error as AppError {
-                print("error ❌")
                 print(error.localized)
             }
         }
