@@ -11,6 +11,7 @@ protocol MovieDetailsViewProtocol: AnyObject {
     func show(movie: MovieDetail, poster: UIImage)
     func showCrew(crew: [Cast], photo: [Int : UIImage])
     func showReviews(reviews: [Review], avatar: [String : UIImage])
+    func showSimilarMovies(movies: [Movie], posters: [Int : UIImage])
 }
 
 class MovieDetailsViewController: UIViewController {
@@ -19,12 +20,16 @@ class MovieDetailsViewController: UIViewController {
     private lazy var photos: [Int: UIImage] = [:]
     private lazy var reviews: [Review] = []
     private lazy var avatars: [String: UIImage] = [:]
+    private lazy var similarMovies: [Movie] = []
+    private lazy var posters: [Int : UIImage] = [:]
     var presenter: MovieDetailsPresenterProtocol?
     private lazy var scroll: UIScrollView = {
         let view = UIScrollView()
         return view
     }()
     private lazy var detailView = MovieDetailsView()
+    private lazy var reviewLabelView = ReviewTextLabel(textLabel: "Reviews")
+    private lazy var similarMoviesLabelView = ReviewTextLabel(textLabel: "Similar movies")
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +52,14 @@ class MovieDetailsViewController: UIViewController {
         cell.register(MoviesReviewCollectionViewCell.self, forCellWithReuseIdentifier: MoviesReviewCollectionViewCell.identifier)
         return cell
     }()
+    private lazy var similarMoviesCollectionView: UICollectionView = {
+        let flow = UICollectionViewFlowLayout()
+        flow.itemSize = .init(width: UIScreen.main.bounds.width / 3.17, height: 190)
+        flow.scrollDirection = .horizontal
+        let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(TopCollectionViewCell.self, forCellWithReuseIdentifier: TopCollectionViewCell.identifire)
+        return cell
+    }()
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = true
@@ -66,7 +79,46 @@ private extension MovieDetailsViewController {
         setupScrollView()
         setupDetailsView()
         setupCastCollectionView()
+        setupReviewTextLabel()
         setupReviewCollectionView()
+        setupSimilarMoviesTextLabel()
+        setupCollectionView()
+    }
+    func setupCollectionView() {
+        self.scroll.addSubview(similarMoviesCollectionView)
+        similarMoviesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        similarMoviesCollectionView.delegate = self
+        similarMoviesCollectionView.dataSource = self
+        similarMoviesCollectionView.backgroundColor = .customBackground
+        similarMoviesCollectionView.showsHorizontalScrollIndicator = false
+        similarMoviesCollectionView.tag = 2
+        NSLayoutConstraint.activate([
+            similarMoviesCollectionView.topAnchor.constraint(equalTo: similarMoviesLabelView.bottomAnchor),
+            similarMoviesCollectionView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
+            similarMoviesCollectionView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            similarMoviesCollectionView.heightAnchor.constraint(equalToConstant: 200),
+            similarMoviesCollectionView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06),
+        ])
+    }
+    func setupReviewTextLabel() {
+        self.scroll.addSubview(reviewLabelView)
+        reviewLabelView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            reviewLabelView.topAnchor.constraint(equalTo: castCollection.bottomAnchor, constant: 30),
+            reviewLabelView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            reviewLabelView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+        ])
+    }
+    func setupSimilarMoviesTextLabel() {
+        self.scroll.addSubview(similarMoviesLabelView)
+        similarMoviesLabelView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            similarMoviesLabelView.topAnchor.constraint(equalTo: reviewCollection.bottomAnchor, constant: 30),
+            similarMoviesLabelView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            similarMoviesLabelView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+        ])
     }
     func setupCastCollectionView() {
         self.scroll.addSubview(castCollection)
@@ -97,11 +149,10 @@ private extension MovieDetailsViewController {
         reviewCollection.tag = 1
         
         NSLayoutConstraint.activate([
-            reviewCollection.topAnchor.constraint(equalTo: self.castCollection.bottomAnchor),
+            reviewCollection.topAnchor.constraint(equalTo: self.reviewLabelView.bottomAnchor, constant: 10),
             reviewCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
             reviewCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             reviewCollection.heightAnchor.constraint(equalToConstant: 210),
-            reviewCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06)
         ])
     }
     func setupScrollView() {
@@ -130,6 +181,13 @@ private extension MovieDetailsViewController {
 }
 //MARK: - MovieDetailsViewProtocol
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
+    func showSimilarMovies(movies: [Movie], posters: [Int : UIImage]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.similarMovies.append(contentsOf: movies)
+            self?.posters.merge(posters, uniquingKeysWith: { image, _ in image })
+            self?.similarMoviesCollectionView.reloadData()
+        }
+    }
     func showReviews(reviews: [Review], avatar: [String : UIImage]) {
         DispatchQueue.main.async { [weak self] in
             self?.reviews.append(contentsOf: reviews)
@@ -197,6 +255,8 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
             return  self.cast.count
         case 1:
             return self.reviews.count
+        case 2:
+            return self.similarMovies.count
         default:
             return 1
         }
@@ -219,6 +279,13 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
             cell.review = item
             cell.avatar = poster
             return cell
+        case 2 :
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopCollectionViewCell.identifire, for: indexPath) as! TopCollectionViewCell
+            let item = self.similarMovies[indexPath.row]
+            let poster = self.posters[item.id ?? 0]
+            cell.movie = item
+            cell.poster = poster
+            return cell
         default:
             let cell = UICollectionViewCell()
             return cell
@@ -228,8 +295,14 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
         switch collectionView.tag {
         case 0:
             let item = self.cast[indexPath.row]
-            let poster = self.photos[item.id ?? 0]
-            presenter?.didPersonSelected(person: item.id ?? 0, poster: poster!)
+            guard let poster = self.photos[item.id ?? 0] else { return }
+            presenter?.didPersonSelected(person: item.id ?? 0, poster: poster)
+        case 1:
+            break
+        case 2:
+            let item = self.similarMovies[indexPath.row]
+            guard let poster = self.posters[item.id ?? 0] else { return }
+            presenter?.didSimilarMoviesSelected(with: item.id ?? 0, poster: poster)
         default:
             break
         }

@@ -200,7 +200,7 @@ private extension MovieDetailsView {
         
         NSLayoutConstraint.activate([
             overviewLabel.topAnchor.constraint(equalTo: overviewTextLabel.bottomAnchor, constant: 15),
-            overviewLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            overviewLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             overviewLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }

@@ -18,6 +18,8 @@ protocol MovieDetailsPresenterProtocol: AnyObject {
     func didPersonSelected(person: Int, poster: UIImage)
     func rateMovie(rate: Double)
     func showReviews(reviews: [Review], avatar: [String : UIImage])
+    func didSimilarMoviesFetched(movis: [Movie], posters: [Int : UIImage])
+    func didSimilarMoviesSelected(with id: Int, poster: UIImage)
     var haptic: HapticFeedback { get }
 }
 
@@ -40,6 +42,12 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
+    func didSimilarMoviesSelected(with id: Int, poster: UIImage) {
+        router.navigateTo(movie: id, poster: poster, networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, haptic: self.haptic, sessionId: interactor.sessionId)
+    }
+    func didSimilarMoviesFetched(movis: [Movie], posters: [Int : UIImage]) {
+        view?.showSimilarMovies(movies: movis, posters: posters)
+    }
     func showReviews(reviews: [Review], avatar: [String : UIImage]) {
         view?.showReviews(reviews: reviews, avatar: avatar)
     }
@@ -114,6 +122,13 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         Task(priority: .medium) {
             do {
                 try await interactor.fetchReviews()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+        Task(priority: .medium) {
+            do {
+                try await interactor.fetchSimialrMovies()
             } catch let error as AppError {
                 print(error.localizedDescription)
             }

@@ -16,6 +16,7 @@ protocol MovieDetailsInteractorProtocol: AnyObject {
     func addRate(rate: Double) async throws
     func fetchCrew() async throws
     func fetchReviews() async throws
+    func fetchSimialrMovies() async throws
     var sessionId: String { get }
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
@@ -44,6 +45,62 @@ class MovieDetailsInteractor {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
+    func fetchSimialrMovies() async throws {
+        let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
+            
+            let session = URLSession.shared
+            let requset = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.similar(movieId: self.movieId, key: Constants.apiKey))
+            
+            group.addTask { [requset, weak self] in
+                guard let result = try await self?.networkManager.fetchGET(type: MovieResult.self, session: session, request: requset) else {
+                    throw AppError.invalidData
+                }
+                return result
+            }
+            
+            var result: MovieResult?
+            
+            for try await reviews in group {
+                result = reviews
+            }
+            return result
+        }
+        
+        guard let movies = movies?.results else { return }
+        
+        let posters = try await withThrowingTaskGroup(of: [Int : UIImage].self) { group in
+            var photos: [Int: UIImage] = [:]
+            
+            for movie in movies {
+                
+                guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
+                    throw AppError.badURL
+                }
+                
+                let session = URLSession.shared
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+                request.timeoutInterval = 10
+                
+                group.addTask { [request, weak self] in
+                    if movie.posterPath == nil  {
+                        let image = UIImage(named: "image")!
+                        return [movie.id ?? 0 : image]
+                    } else {
+                        guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
+                            throw AppError.invalidData
+                        }
+                        return [movie.id ?? 0 : result]
+                    }
+                }
+            }
+            for try await photo in group {
+                photos.merge(photo) { _, image in image }
+            }
+            return photos
+        }
+        presenter?.didSimilarMoviesFetched(movis: movies, posters: posters)
+    }
     func fetchReviews() async throws {
         let reviews = try await withThrowingTaskGroup(of: ReviewResponse.self) { group in
             
