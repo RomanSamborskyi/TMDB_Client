@@ -18,6 +18,7 @@ protocol MovieDetailsViewDelegate: AnyObject {
     func fourthStarPressed()
     func fifthStarPressed()
     func backButtonPressed()
+    func thrillerbuttonPressed()
 }
 
 class MovieDetailsView: UIView {
@@ -65,6 +66,10 @@ class MovieDetailsView: UIView {
         return button
     }()
     private lazy var addToListButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    private lazy var thrillerButton: UIButton = {
         let button = UIButton()
         return button
     }()
@@ -117,6 +122,7 @@ private extension MovieDetailsView {
         setupRateView()
         setupAddToWatchlistButton()
         setupAddToFavoriteButton()
+        setupThrillerButton()
         setupAddToListButton()
         setupOverviewTextLabel()
         setupOverviewLabel()
@@ -260,6 +266,27 @@ private extension MovieDetailsView {
            
         ])
     }
+    func setupThrillerButton() {
+        self.addSubview(thrillerButton)
+        thrillerButton.translatesAutoresizingMaskIntoConstraints = false
+        thrillerButton.addTarget(self, action: #selector(thrillerButtonPressed), for: .touchUpInside)
+        thrillerButton.layer.masksToBounds = true
+        thrillerButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
+        thrillerButton.titleLabel?.textColor = .white
+        thrillerButton.layer.cornerRadius = 25
+        thrillerButton.setTitle("Watch thriller", for: .normal)
+        thrillerButton.layer.backgroundColor = UIColor.purple.withAlphaComponent(0.5).cgColor
+        
+        thrillerButton.setImage(UIImage(systemName: "movieclapper"), for: .normal)
+        thrillerButton.tintColor = .white
+        
+        NSLayoutConstraint.activate([
+            thrillerButton.topAnchor.constraint(equalTo: rateButtonsView.bottomAnchor, constant: 20),
+            thrillerButton.leadingAnchor.constraint(equalTo: addToFavoriteButton.trailingAnchor, constant: UIScreen.main.bounds.width * 0.06),
+            thrillerButton.heightAnchor.constraint(equalToConstant: 50),
+            thrillerButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.5)
+        ])
+    }
     func setupPosterView() {
         self.addSubview(posterView)
         posterView.translatesAutoresizingMaskIntoConstraints = false
@@ -361,6 +388,9 @@ extension MovieDetailsView {
     }
     @objc func backButtonAction(selector: Selector) {
         self.delegate?.backButtonPressed()
+    }
+    @objc func thrillerButtonPressed(selector: Selector) {
+        self.delegate?.thrillerbuttonPressed()
     }
 }
 //MARK: - RateViewDelegate

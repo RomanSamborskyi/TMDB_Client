@@ -211,6 +211,9 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol {
 }
 //MARK: - MovieDetailsView delegate
 extension MovieDetailsViewController: MovieDetailsViewDelegate {
+    func thrillerbuttonPressed() {
+        presenter?.didWatchThrillerButtonPressed()
+    }
     func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
     }
