@@ -9,8 +9,8 @@ import Foundation
 
 
 
-enum AppError: Error, LocalizedError {
-    case badURL, badResponse, invalidData, incorrectUserNameOrPass, incorrectAccoutId
+enum AppError: Error, LocalizedError, Equatable {
+    case badURL, badResponse, invalidData, incorrectUserNameOrPass, incorrectAccoutId, invalidStatusCode(code: Int)
     
     var localized: String {
         switch self {
@@ -24,6 +24,8 @@ enum AppError: Error, LocalizedError {
             return "Please check username or password"
         case .incorrectAccoutId:
             return "Incorrect accout ID"
+        case .invalidStatusCode(code: let code):
+            return "Invalid status code: \(code)"
         }
     }
 }

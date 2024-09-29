@@ -41,3 +41,7 @@ struct Cast: Codable {
         case profilePath = "profile_path"
     }
 }
+//MARK: movies with Persone
+struct ActrorsMovies: Codable {
+    let cast: [Movie]
+}

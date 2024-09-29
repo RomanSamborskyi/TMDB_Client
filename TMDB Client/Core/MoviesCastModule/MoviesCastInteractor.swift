@@ -8,7 +8,8 @@
 import UIKit
 
 protocol MoviesCastInteractorProtocol: AnyObject {
-    func showActorInfo() async throws
+    func fetchActorInfo() async throws
+    func fetchActorsFilmography() async throws
 }
 
 class MoviesCastInteractor {
@@ -30,7 +31,73 @@ class MoviesCastInteractor {
 }
 //MARK: - MoviesCastInteractorProtocol
 extension MoviesCastInteractor: MoviesCastInteractorProtocol {
-    func showActorInfo() async throws {
+    func fetchActorsFilmography() async throws {
+        
+        let movies = try await withThrowingTaskGroup(of: ActrorsMovies.self) { group in
+            
+            let session = URLSession.shared
+            
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.moviesWithPersone(apiKey: Constants.apiKey, personeId: self.person))
+            
+            group.addTask { [request, weak self] in
+                guard let result = try await self?.networkManager.fetchGET(type: ActrorsMovies.self, session: session, request: request) else {
+                    throw AppError.invalidData
+                }
+                print(result.cast.count)
+                return result
+            }
+            
+            var movieResult: [Movie] = []
+            
+            for try await result in group {
+                movieResult.append(contentsOf: result.cast)
+            }
+            
+            if movieResult.count > 15 {
+                let shortArray: [Movie] = movieResult.dropLast(movieResult.count / 3)
+                return shortArray
+            } else {
+                return movieResult
+            }
+        }
+        
+        let posters = try await withThrowingTaskGroup(of: [Int : UIImage].self) { group in
+            
+            let session = URLSession.shared
+            
+            for movie in movies {
+                
+                guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
+                    throw AppError.badURL
+                }
+                
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+                request.timeoutInterval = 10
+                
+                group.addTask { [request, weak self] in
+                    if movie.posterPath == nil  {
+                        let image = UIImage(named: "image")!
+                        return [movie.id ?? 0 : image]
+                    } else {
+                        guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
+                            throw AppError.invalidData
+                        }
+                        return [movie.id ?? 0 : result]
+                    }
+                }
+            }
+            var result: [Int : UIImage] = [:]
+            
+            for try await posters in group {
+                result.merge(posters) { image, _ in image }
+            }
+            return result
+        }
+        
+        presenter?.showActorfilmography(movies: movies, posters: posters)
+    }
+    func fetchActorInfo() async throws {
         
         let session = URLSession.shared
         

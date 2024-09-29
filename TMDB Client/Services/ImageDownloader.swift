@@ -29,10 +29,14 @@ class ImageDownloader {
     }
     
     private func sessionHandler(data: Data?, response: URLResponse) throws -> Data {
-        guard let data = data,
-              let response = response as? HTTPURLResponse,
-              response.statusCode >= 200 && response.statusCode < 300 else {
+        guard  let response = response as? HTTPURLResponse else {
             throw AppError.badResponse
+        }
+        guard response.statusCode >= 200 && response.statusCode < 300 else {
+            throw AppError.invalidStatusCode(code: response.statusCode)
+        }
+        guard let data = data else {
+            throw AppError.invalidData
         }
         return data
     }

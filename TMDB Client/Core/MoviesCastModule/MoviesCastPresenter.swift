@@ -10,6 +10,7 @@ import UIKit
 protocol MoviesCastPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
     func showInfo(actor: Cast, poster: UIImage)
+    func showActorfilmography(movies: [Movie], posters: [Int: UIImage])
 }
 
 class MoviesCastPresenter {
@@ -27,14 +28,25 @@ class MoviesCastPresenter {
 }
 //MARK: - MoviesCastPresenterProtocol
 extension MoviesCastPresenter: MoviesCastPresenterProtocol {
+    func showActorfilmography(movies: [Movie], posters: [Int : UIImage]) {
+        view?.showActorsFilmography(movies: movies, posters: posters)
+    }
     func showInfo(actor: Cast, poster: UIImage) {
         view?.showActorInfo(actor: actor, poster: poster)
     }
     func viewControllerDidLoad() {
         Task {
             do {
-                try await interactor.showActorInfo()
+                try await interactor.fetchActorInfo()
             } catch let error as AppError {
+                print(error.localized)
+            }
+        }
+        Task(priority: .medium) {
+            do {
+                try await interactor.fetchActorsFilmography()
+            } catch let error as AppError {
+                print("error ❌")
                 print(error.localized)
             }
         }
