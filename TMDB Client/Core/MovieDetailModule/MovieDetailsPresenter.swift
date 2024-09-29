@@ -106,31 +106,41 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
     }
     func viewControllerDidLoad() {
         Task {
-            do {
-                try await interactor.fetchMovieDetails()
-            } catch let error as AppError {
-                print(error.localizedDescription)
-            }
+            try await fetchAllMoviesData()
         }
-        Task(priority: .medium) {
-            do {
-                try await interactor.fetchCrew()
-            } catch let error as AppError {
-                print(error.localizedDescription)
+    }
+}
+//MARK: - extra functions
+private extension MovieDetailsPresenter {
+    func fetchAllMoviesData() async throws {
+        await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask(priority: .high) {
+                do {
+                    try await self.interactor.fetchMovieDetails()
+                } catch let error as AppError {
+                    print(error.localizedDescription)
+                }
             }
-        }
-        Task(priority: .medium) {
-            do {
-                try await interactor.fetchReviews()
-            } catch let error as AppError {
-                print(error.localizedDescription)
+            group.addTask(priority: .medium) {
+                do {
+                    try await self.interactor.fetchCrew()
+                } catch let error as AppError {
+                    print(error.localizedDescription)
+                }
             }
-        }
-        Task(priority: .medium) {
-            do {
-                try await interactor.fetchSimialrMovies()
-            } catch let error as AppError {
-                print(error.localizedDescription)
+            group.addTask(priority: .medium) {
+                do {
+                    try await self.interactor.fetchReviews()
+                } catch let error as AppError {
+                    print(error.localizedDescription)
+                }
+            }
+            group.addTask(priority: .medium) {
+                do {
+                    try await self.interactor.fetchSimialrMovies()
+                } catch let error as AppError {
+                    print(error.localizedDescription)
+                }
             }
         }
     }

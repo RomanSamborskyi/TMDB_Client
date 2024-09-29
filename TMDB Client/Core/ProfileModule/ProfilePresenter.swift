@@ -58,18 +58,28 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func viewControllerDidLoad(viewController: UIViewController) {
         Task {
-            do {
-                try await interactor.fetchUserData()
-            } catch let error as AppError {
-                print(error)
-            }
+            try await fetchAllData(viewController: viewController)
         }
-        Task(priority: .background) {
-            do {
-                try await interactor.compareUserData()
-                await viewController.view.layoutIfNeeded()
-            } catch let error as AppError {
-                print(error)
+    }
+}
+//MARK: extra functions
+private extension ProfilePresenter {
+    func fetchAllData(viewController: UIViewController) async throws {
+        await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask {
+                do {
+                    try await self.interactor.fetchUserData()
+                } catch let error as AppError {
+                    print(error)
+                }
+            }
+            group.addTask(priority: .background) {
+                do {
+                    try await self.interactor.compareUserData()
+                    await viewController.view.layoutIfNeeded()
+                } catch let error as AppError {
+                    print(error)
+                }
             }
         }
     }

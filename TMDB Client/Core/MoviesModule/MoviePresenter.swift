@@ -62,24 +62,34 @@ extension MoviePresenter: MoviePresenterProtocol {
     }
     func viewControllerDidLoad(with tab: TopTabs) {
         Task {
-            do {
-                switch tab {
-                case .trending:
-                    try await interactor.fetchMovies(with: MoviesUrls.trending(key: Constants.apiKey).url)
-                case .topRated:
-                    try await interactor.fetchMovies(with: MoviesUrls.topRated(key: Constants.apiKey).url)
-                case .upcoming:
-                    try await interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey).url)
-                }
-            } catch let error as AppError {
-                print(error)
-            }
+            try await fetchAllData(with: tab)
         }
-        Task(priority: .userInitiated) {
-            do {
-                try await interactor.fetchGenres()
-            } catch let error as AppError {
-                print("Error of fetching genre: \(error)")
+    }
+}
+//MARK: - extra functions
+private extension MoviePresenter {
+    func fetchAllData(with tab: TopTabs) async throws {
+        await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask {
+                do {
+                    switch tab {
+                    case .trending:
+                        try await self.interactor.fetchMovies(with: MoviesUrls.trending(key: Constants.apiKey).url)
+                    case .topRated:
+                        try await self.interactor.fetchMovies(with: MoviesUrls.topRated(key: Constants.apiKey).url)
+                    case .upcoming:
+                        try await self.interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey).url)
+                    }
+                } catch let error as AppError {
+                    print(error)
+                }
+            }
+            group.addTask(priority: .userInitiated) {
+                do {
+                    try await self.interactor.fetchGenres()
+                } catch let error as AppError {
+                    print("Error of fetching genre: \(error)")
+                }
             }
         }
     }
