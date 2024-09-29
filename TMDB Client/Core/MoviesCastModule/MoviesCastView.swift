@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol MoviesCastViewDelegate: AnyObject {
+    func didBackButtonPresed()
+}
+
 class MoviesCastView: UIView {
     //MARK: - property
+    weak var delegate: MoviesCastViewDelegate?
     private lazy var posterView: UIImageView = {
         let view = UIImageView()
         return view
@@ -37,6 +42,10 @@ class MoviesCastView: UIView {
         let button = UIButton()
         return button
     }()
+    private lazy var filmographyLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
     private lazy var rateButtonsView = MovieRateView()
     //MARK: - lifecycle
     override init(frame: CGRect) {
@@ -64,6 +73,7 @@ private extension MoviesCastView {
         setupPlaceOfBirthLabel()
         setupBiographyLabel()
         setupBackButton()
+        setupFilmographyLabel()
     }
     func setupBackButton() {
         self.addSubview(backButton)
@@ -74,7 +84,7 @@ private extension MoviesCastView {
         backButton.layer.masksToBounds = true
         backButton.layer.cornerRadius = 15
         backButton.backgroundColor = .black.withAlphaComponent(0.5)
-       // backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height * 0.08),
@@ -121,7 +131,6 @@ private extension MoviesCastView {
             biographyLabel.topAnchor.constraint(equalTo: placeOfBirth.bottomAnchor, constant: UIScreen.main.bounds.height * 0.06),
             biographyLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             biographyLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            biographyLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
    
@@ -184,5 +193,24 @@ private extension MoviesCastView {
             placeOfBirth.topAnchor.constraint(equalTo: dateOfBirthLabel.topAnchor, constant: UIScreen.main.bounds.height * 0.04 ),
             placeOfBirth.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+    }
+    func setupFilmographyLabel() {
+        self.addSubview(filmographyLabel)
+        filmographyLabel.translatesAutoresizingMaskIntoConstraints = false
+        filmographyLabel.text = "Filmography"
+        filmographyLabel.textColor = .white
+        filmographyLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        
+        NSLayoutConstraint.activate([
+            filmographyLabel.topAnchor.constraint(equalTo: self.biographyLabel.bottomAnchor, constant: 30),
+            filmographyLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            filmographyLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+        ])
+    }
+}
+//MARK: - button ation
+private extension MoviesCastView {
+    @objc func backButtonAction(selector: Selector) {
+        self.delegate?.didBackButtonPresed()
     }
 }

@@ -58,6 +58,8 @@ extension LoginPresenter: LoginPresenterProtocol {
                         self?.view?.showAlert(title: "Error", messege: error.localized)
                     case .incorrectAccoutId:
                         self?.view?.showAlert(title: "Error", messege: error.localized)
+                    case .invalidStatusCode(code: let code):
+                        self?.view?.showAlert(title: "Error", messege: error.localized)
                     }
                 }
             }
