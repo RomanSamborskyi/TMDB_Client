@@ -10,12 +10,15 @@ import UIKit
 protocol MovieDetailsViewProtocol: AnyObject {
     func show(movie: MovieDetail, poster: UIImage)
     func showCrew(crew: [Cast], photo: [Int : UIImage])
+    func showReviews(reviews: [Review], avatar: [String : UIImage])
 }
 
 class MovieDetailsViewController: UIViewController {
     //MARK: - property
     private lazy var cast: [Cast] = []
     private lazy var photos: [Int: UIImage] = [:]
+    private lazy var reviews: [Review] = []
+    private lazy var avatars: [String: UIImage] = [:]
     var presenter: MovieDetailsPresenterProtocol?
     private lazy var scroll: UIScrollView = {
         let view = UIScrollView()
@@ -34,6 +37,14 @@ class MovieDetailsViewController: UIViewController {
         flow.itemSize = CGSize(width: 75, height: 135)
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(MoviesCastCollectionView.self, forCellWithReuseIdentifier: MoviesCastCollectionView.identifier)
+        return cell
+    }()
+    private lazy var reviewCollection: UICollectionView = {
+        let flow = UICollectionViewFlowLayout()
+        flow.scrollDirection = .horizontal
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
+        let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(MoviesReviewCollectionViewCell.self, forCellWithReuseIdentifier: MoviesReviewCollectionViewCell.identifier)
         return cell
     }()
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +66,7 @@ private extension MovieDetailsViewController {
         setupScrollView()
         setupDetailsView()
         setupCastCollectionView()
+        setupReviewCollectionView()
     }
     func setupCastCollectionView() {
         self.scroll.addSubview(castCollection)
@@ -64,13 +76,32 @@ private extension MovieDetailsViewController {
         castCollection.dataSource = self
         castCollection.showsHorizontalScrollIndicator = false
         castCollection.backgroundColor = .customBackground
+        castCollection.tag = 0
         
         NSLayoutConstraint.activate([
             castCollection.topAnchor.constraint(equalTo: self.detailView.bottomAnchor),
             castCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
             castCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             castCollection.heightAnchor.constraint(equalToConstant: 130),
-            castCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06)
+          //  castCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06)
+        ])
+    }
+    func setupReviewCollectionView() {
+        self.scroll.addSubview(reviewCollection)
+        reviewCollection.translatesAutoresizingMaskIntoConstraints = false
+        
+        reviewCollection.delegate = self
+        reviewCollection.dataSource = self
+        reviewCollection.showsHorizontalScrollIndicator = false
+        reviewCollection.backgroundColor = .customBackground
+        reviewCollection.tag = 1
+        
+        NSLayoutConstraint.activate([
+            reviewCollection.topAnchor.constraint(equalTo: self.castCollection.bottomAnchor),
+            reviewCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
+            reviewCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            reviewCollection.heightAnchor.constraint(equalToConstant: 210),
+            reviewCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06)
         ])
     }
     func setupScrollView() {
@@ -99,6 +130,13 @@ private extension MovieDetailsViewController {
 }
 //MARK: - MovieDetailsViewProtocol
 extension MovieDetailsViewController: MovieDetailsViewProtocol {
+    func showReviews(reviews: [Review], avatar: [String : UIImage]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.reviews.append(contentsOf: reviews)
+            self?.avatars.merge(avatar, uniquingKeysWith: { image, _ in image })
+            self?.reviewCollection.reloadData()
+        }
+    }
     func showCrew(crew: [Cast], photo: [Int : UIImage]) {
         DispatchQueue.main.async { [weak self] in
             self?.cast.append(contentsOf: crew)
@@ -154,20 +192,46 @@ extension MovieDetailsViewController: MovieDetailsViewDelegate {
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.cast.count
+        switch collectionView.tag {
+        case 0:
+            return  self.cast.count
+        case 1:
+            return self.reviews.count
+        default:
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCastCollectionView.identifier, for: indexPath) as! MoviesCastCollectionView
-        let item = self.cast[indexPath.row]
-        let poster = self.photos[item.id ?? 0]
-        cell.persone = item
-        cell.photo = poster
-        return cell
+        switch collectionView.tag {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCastCollectionView.identifier, for: indexPath) as! MoviesCastCollectionView
+            let item = self.cast[indexPath.row]
+            let poster = self.photos[item.id ?? 0]
+            cell.persone = item
+            cell.photo = poster
+            return cell
+            
+        case 1 :
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesReviewCollectionViewCell.identifier, for: indexPath) as! MoviesReviewCollectionViewCell
+            let item = self.reviews[indexPath.row]
+            let poster = self.avatars[item.id]
+            cell.review = item
+            cell.avatar = poster
+            return cell
+        default:
+            let cell = UICollectionViewCell()
+            return cell
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = self.cast[indexPath.row]
-        let poster = self.photos[item.id ?? 0]
-        presenter?.didPersonSelected(person: item.id ?? 0, poster: poster!)
+        switch collectionView.tag {
+        case 0:
+            let item = self.cast[indexPath.row]
+            let poster = self.photos[item.id ?? 0]
+            presenter?.didPersonSelected(person: item.id ?? 0, poster: poster!)
+        default:
+            break
+        }
     }
 }

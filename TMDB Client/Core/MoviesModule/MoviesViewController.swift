@@ -44,10 +44,6 @@ class MoviesViewController: UIViewController {
         let view = UIScrollView()
         return view
     }()
-    private lazy var searchController: UISearchController = {
-        let sc = UISearchController()
-        return sc
-    }()
     private lazy var topCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.itemSize = .init(width: UIScreen.main.bounds.width / 3.17, height: 190)
@@ -99,7 +95,6 @@ private extension MoviesViewController {
         self.navigationItem.title = "Movies"
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.searchController = searchController
         setupScrollView()
         setupPickerView()
         setupTopCollectionCell()

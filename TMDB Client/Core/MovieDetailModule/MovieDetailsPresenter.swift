@@ -17,6 +17,7 @@ protocol MovieDetailsPresenterProtocol: AnyObject {
     func didMovieAddedToList()
     func didPersonSelected(person: Int, poster: UIImage)
     func rateMovie(rate: Double)
+    func showReviews(reviews: [Review], avatar: [String : UIImage])
     var haptic: HapticFeedback { get }
 }
 
@@ -39,6 +40,9 @@ class MovieDetailsPresenter {
 }
 //MARK: - MovieDetailsInteractorProtocol
 extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
+    func showReviews(reviews: [Review], avatar: [String : UIImage]) {
+        view?.showReviews(reviews: reviews, avatar: avatar)
+    }
     func didPersonSelected(person: Int, poster: UIImage) {
         router.navigateToActorDetail(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, actor: person, poster: poster)
     }
@@ -103,6 +107,13 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         Task(priority: .medium) {
             do {
                 try await interactor.fetchCrew()
+            } catch let error as AppError {
+                print(error.localizedDescription)
+            }
+        }
+        Task(priority: .medium) {
+            do {
+                try await interactor.fetchReviews()
             } catch let error as AppError {
                 print(error.localizedDescription)
             }
