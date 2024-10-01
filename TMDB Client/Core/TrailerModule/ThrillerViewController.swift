@@ -8,23 +8,23 @@
 import UIKit
 import WebKit
 
-protocol ThrillerViewProtocol: AnyObject {
+protocol TrailerViewProtocol: AnyObject {
    
 }
 
-class ThrillerViewController: UIViewController, WKUIDelegate {
+class TrailerViewController: UIViewController, WKUIDelegate {
     //MARK: - property
-    var presenter: ThrillerPresenterProtocol?
+    var presenter: TrailerPresenterProtocol?
     var webView: WKWebView!
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        presenter?.showThriller(in: webView)
+        presenter?.showTrailer(in: webView)
     }
 }
 //MARK: - setup ui layout
-private extension ThrillerViewController {
+private extension TrailerViewController {
     func setupLayout() {
         self.view.backgroundColor = .customBackground
         setupWebView()
@@ -38,6 +38,6 @@ private extension ThrillerViewController {
     }
 }
 //MARK: - ThrillerViewProtocol
-extension ThrillerViewController: ThrillerViewProtocol {
+extension TrailerViewController: TrailerViewProtocol {
    
 }

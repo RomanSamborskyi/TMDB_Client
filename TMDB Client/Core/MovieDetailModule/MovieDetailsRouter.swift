@@ -22,7 +22,7 @@ class MovieDetailsRouter {
 //MARK: - MovieDetailsRouterProtocol
 extension MovieDetailsRouter: MovieDetailsRouterProtocol {
     func navigateToThriller(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, movieId: Int) {
-        let thrillerVC = ThrillerModuleBuilder.build(movieId: movieId, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId)
+        let thrillerVC = TrailerModuleBuilder.build(movieId: movieId, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId)
         view?.navigationController?.present(thrillerVC, animated: true)
     }
     func navigateTo(movie id: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String) {

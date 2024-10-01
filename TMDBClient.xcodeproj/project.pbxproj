@@ -330,7 +330,7 @@
 				6B56A7D92C3B27A3001032C8 /* SceneDelegate.swift */,
 				6B56A7D72C3B27A3001032C8 /* AppDelegate.swift */,
 				6BC683432C4079DF0008864A /* TabBarController.swift */,
-				6BCD87562CA9E5AE00495B93 /* ThrillerModule */,
+				6BCD87562CA9E5AE00495B93 /* TrailerModule */,
 				6BCD87012CA0881700495B93 /* MoviesCastModule */,
 				6B58C88F2C97534E0096D952 /* AdditionalViews */,
 				6B732F2B2C84C6B0001CCA04 /* Lists */,
@@ -581,7 +581,7 @@
 			path = Reviews;
 			sourceTree = "<group>";
 		};
-		6BCD87562CA9E5AE00495B93 /* ThrillerModule */ = {
+		6BCD87562CA9E5AE00495B93 /* TrailerModule */ = {
 			isa = PBXGroup;
 			children = (
 				6BCD87572CA9E5C800495B93 /* ThrillerViewController.swift */,
@@ -591,7 +591,7 @@
 				6BCD87592CA9E64600495B93 /* ThrillerInteractor.swift */,
 				6BCD87612CA9E72000495B93 /* ThrillerModuleBuilder.swift */,
 			);
-			path = ThrillerModule;
+			path = TrailerModule;
 			sourceTree = "<group>";
 		};
 		6BFAA0E22C55687D002D8F1A /* ListsDetailModule */ = {

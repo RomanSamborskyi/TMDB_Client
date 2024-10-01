@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol ThrillerRouterProtocol: AnyObject {
+protocol TrailerRouterProtocol: AnyObject {
     
 }
 
-class ThrillerRouter {
+class TrailerRouter {
     //MARK: - property
-    weak var view: ThrillerViewController?
+    weak var view: TrailerViewController?
     //MARK: - lifecycle
 }
 //MARK: - ThrillerRouterProtocol
-extension ThrillerRouter: ThrillerRouterProtocol {
+extension TrailerRouter: TrailerRouterProtocol {
     
 }

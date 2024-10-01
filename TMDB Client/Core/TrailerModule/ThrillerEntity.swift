@@ -9,7 +9,7 @@ import UIKit
 
 
 // MARK: - ThrillerResponse
-struct ThrillerResponse: Codable {
+struct TrailerResponse: Codable {
     let id: Int
     let results: [Result]
 }

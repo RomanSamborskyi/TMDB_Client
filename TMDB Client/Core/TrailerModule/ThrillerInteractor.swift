@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol ThrillerInteractorProtocol: AnyObject {
-    func fetchThriller() async throws
+protocol TrailerInteractorProtocol: AnyObject {
+    func fetchTrailers() async throws
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var sessionId: String { get }
     var movieId: Int { get }
 }
 
-class ThrillerInteractor {
+class TrailerInteractor {
     //MARK: - property
-    weak var presenter: ThrillerPresenterProtocol?
+    weak var presenter: TrailerPresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     let sessionId: String
@@ -31,8 +31,8 @@ class ThrillerInteractor {
     }
 }
 //MARK: - ThrillerInteractorProtocol
-extension ThrillerInteractor: ThrillerInteractorProtocol {
-    func fetchThriller() async throws {
+extension TrailerInteractor: TrailerInteractorProtocol {
+    func fetchTrailers() async throws {
         
     }
 }
