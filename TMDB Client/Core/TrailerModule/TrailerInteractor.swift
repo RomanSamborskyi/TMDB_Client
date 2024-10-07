@@ -33,6 +33,6 @@ class TrailerInteractor {
 //MARK: - ThrillerInteractorProtocol
 extension TrailerInteractor: TrailerInteractorProtocol {
     func fetchTrailers() async throws {
-        
+        presenter?.showTrailer(with: "https://youtube.com")
     }
 }

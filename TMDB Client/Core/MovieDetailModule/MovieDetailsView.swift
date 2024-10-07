@@ -274,7 +274,7 @@ private extension MovieDetailsView {
         thrillerButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
         thrillerButton.titleLabel?.textColor = .white
         thrillerButton.layer.cornerRadius = 25
-        thrillerButton.setTitle("Watch thriller", for: .normal)
+        thrillerButton.setTitle("Watch trailer", for: .normal)
         thrillerButton.layer.backgroundColor = UIColor.purple.withAlphaComponent(0.5).cgColor
         
         thrillerButton.setImage(UIImage(systemName: "movieclapper"), for: .normal)

@@ -114,12 +114,14 @@
 		6BCD874F2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD874E2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift */; };
 		6BCD87512CA9791C00495B93 /* ReviewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87502CA9791C00495B93 /* ReviewEntity.swift */; };
 		6BCD87552CA9911500495B93 /* ReviewTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87542CA9911500495B93 /* ReviewTextLabel.swift */; };
-		6BCD87582CA9E5C800495B93 /* ThrillerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87572CA9E5C800495B93 /* ThrillerViewController.swift */; };
-		6BCD875A2CA9E64600495B93 /* ThrillerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87592CA9E64600495B93 /* ThrillerInteractor.swift */; };
-		6BCD875C2CA9E68500495B93 /* ThrillerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD875B2CA9E68500495B93 /* ThrillerPresenter.swift */; };
-		6BCD875E2CA9E6C600495B93 /* ThrillerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD875D2CA9E6C600495B93 /* ThrillerEntity.swift */; };
-		6BCD87602CA9E6D500495B93 /* ThrillerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD875F2CA9E6D500495B93 /* ThrillerRouter.swift */; };
-		6BCD87622CA9E72000495B93 /* ThrillerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87612CA9E72000495B93 /* ThrillerModuleBuilder.swift */; };
+		6BCD87582CA9E5C800495B93 /* TrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87572CA9E5C800495B93 /* TrailerViewController.swift */; };
+		6BCD875A2CA9E64600495B93 /* TrailerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87592CA9E64600495B93 /* TrailerInteractor.swift */; };
+		6BCD875C2CA9E68500495B93 /* TrailerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD875B2CA9E68500495B93 /* TrailerPresenter.swift */; };
+		6BCD875E2CA9E6C600495B93 /* TrailerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD875D2CA9E6C600495B93 /* TrailerEntity.swift */; };
+		6BCD87602CA9E6D500495B93 /* TrailerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD875F2CA9E6D500495B93 /* TrailerRouter.swift */; };
+		6BCD87622CA9E72000495B93 /* TrailerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87612CA9E72000495B93 /* TrailerModuleBuilder.swift */; };
+		6BCD87662CB2E7CA00495B93 /* TrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87652CB2E7CA00495B93 /* TrailerView.swift */; };
+		6BCD87682CB2E93800495B93 /* TrailerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87672CB2E93800495B93 /* TrailerCollectionViewCell.swift */; };
 		6BF51F582C70F17C00F4CA50 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */; };
 		6BF51F5A2C71059E00F4CA50 /* ListsResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF51F592C71059E00F4CA50 /* ListsResultCell.swift */; };
 		6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */; };
@@ -241,12 +243,14 @@
 		6BCD874E2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BCD87502CA9791C00495B93 /* ReviewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEntity.swift; sourceTree = "<group>"; };
 		6BCD87542CA9911500495B93 /* ReviewTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTextLabel.swift; sourceTree = "<group>"; };
-		6BCD87572CA9E5C800495B93 /* ThrillerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrillerViewController.swift; sourceTree = "<group>"; };
-		6BCD87592CA9E64600495B93 /* ThrillerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrillerInteractor.swift; sourceTree = "<group>"; };
-		6BCD875B2CA9E68500495B93 /* ThrillerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrillerPresenter.swift; sourceTree = "<group>"; };
-		6BCD875D2CA9E6C600495B93 /* ThrillerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrillerEntity.swift; sourceTree = "<group>"; };
-		6BCD875F2CA9E6D500495B93 /* ThrillerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrillerRouter.swift; sourceTree = "<group>"; };
-		6BCD87612CA9E72000495B93 /* ThrillerModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrillerModuleBuilder.swift; sourceTree = "<group>"; };
+		6BCD87572CA9E5C800495B93 /* TrailerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerViewController.swift; sourceTree = "<group>"; };
+		6BCD87592CA9E64600495B93 /* TrailerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerInteractor.swift; sourceTree = "<group>"; };
+		6BCD875B2CA9E68500495B93 /* TrailerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPresenter.swift; sourceTree = "<group>"; };
+		6BCD875D2CA9E6C600495B93 /* TrailerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerEntity.swift; sourceTree = "<group>"; };
+		6BCD875F2CA9E6D500495B93 /* TrailerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerRouter.swift; sourceTree = "<group>"; };
+		6BCD87612CA9E72000495B93 /* TrailerModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerModuleBuilder.swift; sourceTree = "<group>"; };
+		6BCD87652CB2E7CA00495B93 /* TrailerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerView.swift; sourceTree = "<group>"; };
+		6BCD87672CB2E93800495B93 /* TrailerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		6BF51F592C71059E00F4CA50 /* ListsResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsResultCell.swift; sourceTree = "<group>"; };
 		6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
@@ -584,12 +588,14 @@
 		6BCD87562CA9E5AE00495B93 /* TrailerModule */ = {
 			isa = PBXGroup;
 			children = (
-				6BCD87572CA9E5C800495B93 /* ThrillerViewController.swift */,
-				6BCD875F2CA9E6D500495B93 /* ThrillerRouter.swift */,
-				6BCD875D2CA9E6C600495B93 /* ThrillerEntity.swift */,
-				6BCD875B2CA9E68500495B93 /* ThrillerPresenter.swift */,
-				6BCD87592CA9E64600495B93 /* ThrillerInteractor.swift */,
-				6BCD87612CA9E72000495B93 /* ThrillerModuleBuilder.swift */,
+				6BCD87572CA9E5C800495B93 /* TrailerViewController.swift */,
+				6BCD875F2CA9E6D500495B93 /* TrailerRouter.swift */,
+				6BCD875D2CA9E6C600495B93 /* TrailerEntity.swift */,
+				6BCD87652CB2E7CA00495B93 /* TrailerView.swift */,
+				6BCD875B2CA9E68500495B93 /* TrailerPresenter.swift */,
+				6BCD87672CB2E93800495B93 /* TrailerCollectionViewCell.swift */,
+				6BCD87592CA9E64600495B93 /* TrailerInteractor.swift */,
+				6BCD87612CA9E72000495B93 /* TrailerModuleBuilder.swift */,
 			);
 			path = TrailerModule;
 			sourceTree = "<group>";
@@ -685,7 +691,7 @@
 				6B56A7F12C3B2BCD001032C8 /* LoginPresenter.swift in Sources */,
 				6BC45F752C42B45100F688D1 /* GenrePickerCell.swift in Sources */,
 				6B732F362C88E8AA001CCA04 /* AddToExistListInteractor.swift in Sources */,
-				6BCD875C2CA9E68500495B93 /* ThrillerPresenter.swift in Sources */,
+				6BCD875C2CA9E68500495B93 /* TrailerPresenter.swift in Sources */,
 				6BCD381E2C6E70C500A0C2BB /* AddToListInteractor.swift in Sources */,
 				6BCD87092CA0899F00495B93 /* MoviesCastEntity.swift in Sources */,
 				6BC683562C426A120008864A /* ListsViewController.swift in Sources */,
@@ -702,7 +708,7 @@
 				6BC6833D2C3ECECF0008864A /* KeyChainManager.swift in Sources */,
 				6B56A7F32C3B2BD9001032C8 /* LoginEntity.swift in Sources */,
 				6B58C88C2C972CA50096D952 /* AddToExistingListView.swift in Sources */,
-				6BCD875A2CA9E64600495B93 /* ThrillerInteractor.swift in Sources */,
+				6BCD875A2CA9E64600495B93 /* TrailerInteractor.swift in Sources */,
 				6BC6832A2C3DAA250008864A /* AppError.swift in Sources */,
 				6B6A7D3C2C746668007CC4F0 /* AddListModuleBuilder.swift in Sources */,
 				6B732F282C84B179001CCA04 /* FavoriteMoviesModuleBuilder.swift in Sources */,
@@ -718,7 +724,7 @@
 				6B732F122C846533001CCA04 /* User.xcdatamodeld in Sources */,
 				6BCD87072CA0892500495B93 /* MoviesCastPresenter.swift in Sources */,
 				6BFAA0E82C556954002D8F1A /* ListsDetailPresenter.swift in Sources */,
-				6BCD87602CA9E6D500495B93 /* ThrillerRouter.swift in Sources */,
+				6BCD87602CA9E6D500495B93 /* TrailerRouter.swift in Sources */,
 				6BC683472C407D220008864A /* MoviesViewController.swift in Sources */,
 				6B56A7D82C3B27A3001032C8 /* AppDelegate.swift in Sources */,
 				6B732F1B2C8493C8001CCA04 /* RatedMoviesPresenter.swift in Sources */,
@@ -731,10 +737,11 @@
 				6B732F192C84937B001CCA04 /* RatedMoviesInteractor.swift in Sources */,
 				6B56A7F52C3B2BEA001032C8 /* LoginRouter.swift in Sources */,
 				6BC683492C4080140008864A /* ActivityView.swift in Sources */,
+				6BCD87662CB2E7CA00495B93 /* TrailerView.swift in Sources */,
 				6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */,
 				6BA606032C46D37A007E205C /* MovieDetailsRouter.swift in Sources */,
 				6B6A7D3A2C7465E4007CC4F0 /* AddListRouter.swift in Sources */,
-				6BCD87622CA9E72000495B93 /* ThrillerModuleBuilder.swift in Sources */,
+				6BCD87622CA9E72000495B93 /* TrailerModuleBuilder.swift in Sources */,
 				6BC683312C3EC5260008864A /* ProfilePresenter.swift in Sources */,
 				6B6A7D422C7CBE9D007CC4F0 /* HapticFeedback.swift in Sources */,
 				6B44B1FB2C43CBF5006F0084 /* ListsModuleBuilder.swift in Sources */,
@@ -768,12 +775,13 @@
 				6B44B1F72C43CB61006F0084 /* ListEntity.swift in Sources */,
 				6B6A7D3E2C78686F007CC4F0 /* AddListEntity.swift in Sources */,
 				6B44B1F12C43C99E006F0084 /* Extensions.swift in Sources */,
+				6BCD87682CB2E93800495B93 /* TrailerCollectionViewCell.swift in Sources */,
 				6B732F292C84B179001CCA04 /* FavoriteMoviesRouter.swift in Sources */,
 				6B732F382C88E926001CCA04 /* AddToExiistListPresenter.swift in Sources */,
 				6B6A7D382C746567007CC4F0 /* AddListPresenter.swift in Sources */,
 				6B732F262C84B179001CCA04 /* FavoriteMoviesInteractor.swift in Sources */,
 				6BCD87052CA088D000495B93 /* MoviesCastInteractor.swift in Sources */,
-				6BCD87582CA9E5C800495B93 /* ThrillerViewController.swift in Sources */,
+				6BCD87582CA9E5C800495B93 /* TrailerViewController.swift in Sources */,
 				6B732F172C849302001CCA04 /* RatedMoviesViewController.swift in Sources */,
 				6B732F2D2C879BD2001CCA04 /* Debouncer.swift in Sources */,
 				6BC683582C426DFB0008864A /* MokData.swift in Sources */,
@@ -795,7 +803,7 @@
 				6BF51F5A2C71059E00F4CA50 /* ListsResultCell.swift in Sources */,
 				6B732F2A2C84B179001CCA04 /* FavoriteMoviesViewController.swift in Sources */,
 				6BCD870D2CA08B6600495B93 /* MoviesCastModuleBuilder.swift in Sources */,
-				6BCD875E2CA9E6C600495B93 /* ThrillerEntity.swift in Sources */,
+				6BCD875E2CA9E6C600495B93 /* TrailerEntity.swift in Sources */,
 				6BA605FD2C46D213007E205C /* MovieDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
