@@ -10,12 +10,7 @@ import UIKit
 class TrailerCollectionViewCell: UICollectionViewCell {
     //MARK: - property
     static let identifier: String = "TrailerCollectionViewCell"
-    var trailerURL: String? {
-        didSet {
-            trailerView.showTrailer(with: trailerURL ?? "")
-        }
-    }
-    private lazy var trailerView = TrailerView()
+    var trailerView = TrailerView()
     //MARK: lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)

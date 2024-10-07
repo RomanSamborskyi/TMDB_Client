@@ -10,7 +10,7 @@ import WebKit
 
 protocol TrailerPresenterProtocol: AnyObject {
     func viewControllerDidLoaded()
-    func showTrailer(with url: String)
+    func showTrailer(with url: [String])
 }
 
 class TrailerPresenter {
@@ -28,8 +28,8 @@ class TrailerPresenter {
 }
 //MARK: - ThrillerPresenterProtocol
 extension TrailerPresenter: TrailerPresenterProtocol {
-    func showTrailer(with url: String) {
-        
+    func showTrailer(with url: [String]) {
+        view?.showTrailer(with: url)
     }
     func viewControllerDidLoaded() {
         Task {

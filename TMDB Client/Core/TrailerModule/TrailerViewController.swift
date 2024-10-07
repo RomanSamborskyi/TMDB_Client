@@ -9,12 +9,13 @@ import UIKit
 import WebKit
 
 protocol TrailerViewProtocol: AnyObject {
-    func showTrailer(with url: String)
+    func showTrailer(with url: [String])
 }
 
 class TrailerViewController: UIViewController {
     //MARK: - property
     var presenter: TrailerPresenterProtocol?
+    private lazy var urls: [String] = []
     private lazy var trailerCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
@@ -53,22 +54,23 @@ private extension TrailerViewController {
 }
 //MARK: - ThrillerViewProtocol
 extension TrailerViewController: TrailerViewProtocol {
-    func showTrailer(with url: String) {
+    func showTrailer(with url: [String]) {
         DispatchQueue.main.async {
-            
+            self.urls.append(contentsOf: url)
+            self.trailerCollection.reloadData()
         }
     }
 }
 //MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension TrailerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        self.urls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrailerCollectionViewCell.identifier, for: indexPath) as! TrailerCollectionViewCell
-        cell.backgroundColor = .red
-        
+        let urlString = self.urls[indexPath.row]
+        cell.trailerView.showTrailer(with: urlString)
         return cell
     }
 }

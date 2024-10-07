@@ -33,6 +33,19 @@ class TrailerInteractor {
 //MARK: - ThrillerInteractorProtocol
 extension TrailerInteractor: TrailerInteractorProtocol {
     func fetchTrailers() async throws {
-        presenter?.showTrailer(with: "https://youtube.com")
+        let session = URLSession.shared
+        
+        let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.videos(apiKey: Constants.apiKey, movieId: self.movieId))
+        
+        guard let result = try await networkManager.fetchGET(type: TrailerResponse.self, session: session, request: request) else {
+            throw AppError.invalidData
+        }
+        
+        var urls: [Trailer] = []
+        
+        urls.append(result.results.first(where: { $0.name == "Official Trailer" })!)
+        
+        let mapped = urls.map { "https://www.youtube.com/watch?v=\($0.key)"}
+        presenter?.showTrailer(with: mapped)
     }
 }

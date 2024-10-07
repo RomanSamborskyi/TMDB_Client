@@ -19,7 +19,7 @@ class TrailerView: UIView, WKUIDelegate {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    func showTrailer(with url: String) {
+    public func showTrailer(with url: String) {
         let url = URL(string: url)!
         let request = URLRequest(url: url)
         webView.load(request)
@@ -34,5 +34,15 @@ private extension TrailerView {
         let configuration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.uiDelegate = self
+        self.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.scrollView.isScrollEnabled = false
+        
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: self.topAnchor),
+            webView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            webView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
     }
 }
