@@ -130,10 +130,6 @@ extension WatchlistInteractor: WatchlistInteractorProtocol {
             mov.isFavorite = movieStatus.favorite ?? false
             mapedWatchlist.append(mov)
         }
-        
-        self.isFetched = true
-        
-        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters, isFetched: self.isFetched ?? false)
-        
+        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters)
     }
 }

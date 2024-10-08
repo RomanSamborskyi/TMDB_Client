@@ -61,8 +61,6 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
     }
     func fetchRatedList() async throws {
         
-        self.isFetched = false
-        
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
             let session = URLSession.shared
@@ -120,9 +118,6 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
             mov.isFavorite = movieStatus.favorite ?? false
             mapedWatchlist.append(mov)
         }
-        
-        self.isFetched = true
-        
-        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters, isFetched: self.isFetched ?? false)
+        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters)
     }
 }

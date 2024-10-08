@@ -7,8 +7,10 @@
 
 import UIKit
 
-class ListsEmptyView: UIView {
+class EmptyView: UIView {
     //MARK: - property
+    let imageName: String
+    let title: String
     private lazy var textLabel: UILabel = {
         let lbl = UILabel()
         return lbl
@@ -18,16 +20,20 @@ class ListsEmptyView: UIView {
         return image
     }()
     //MARK: - lifecycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(imageName: String, title: String) {
+        self.imageName = imageName
+        self.title = title
+        super.init(frame: .zero)
         setupLayout()
     }
     required init?(coder: NSCoder) {
+        self.imageName = ""
+        self.title = ""
         super.init(coder: coder)
     }
 }
 //MARK: - UI setup
-private extension ListsEmptyView {
+private extension EmptyView {
     func setupLayout() {
        setupImage()
        setupLabel()
@@ -35,7 +41,7 @@ private extension ListsEmptyView {
     func setupImage() {
         self.addSubview(image)
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(systemName: "list.bullet.clipboard.fill")
+        image.image = UIImage(systemName: self.imageName)
         image.tintColor = .white
         
         NSLayoutConstraint.activate([
@@ -49,7 +55,7 @@ private extension ListsEmptyView {
     func setupLabel() {
         self.addSubview(textLabel)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "The list is empty"
+        textLabel.text = self.title
         textLabel.font = .systemFont(ofSize: 20, weight: .bold)
         textLabel.textColor = .white
         textLabel.textAlignment = .center

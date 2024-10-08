@@ -10,14 +10,15 @@ import UIKit
 class ActivityView: UIView {
 
     //MARK: - property
+    let _backgroundColor: UIColor
     private lazy var activityView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         return view
     }()
     //MARK: - lifecycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .black.withAlphaComponent(0.5)
+    init(_backgroundColor: UIColor = .black.withAlphaComponent(0.5)) {
+        self._backgroundColor = _backgroundColor
+        super.init(frame: .zero)
         setupActivityView()
     }
     
@@ -29,6 +30,7 @@ class ActivityView: UIView {
 private extension ActivityView {
     func setupActivityView() {
         self.addSubview(activityView)
+        self.backgroundColor = _backgroundColor.withAlphaComponent(0.5)
         activityView.translatesAutoresizingMaskIntoConstraints = false
         activityView.style = .large
         activityView.startAnimating()

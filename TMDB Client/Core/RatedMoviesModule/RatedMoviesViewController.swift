@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RatedMoviesViewProtocol: AnyObject {
-    func show(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
+    func show(movies: [Movie], posters: [Int : UIImage])
 }
 
 class RatedMoviesViewController: UIViewController {
@@ -28,9 +28,8 @@ class RatedMoviesViewController: UIViewController {
         cell.register(MovieToWatchCollectionViewCell.self, forCellWithReuseIdentifier: MovieToWatchCollectionViewCell.identifier)
         return cell
     }()
-    private lazy var emptyListView = ListsEmptyView()
+    private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
     private lazy var activityView = ActivityView()
-    private lazy var isFetched: Bool = false
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,17 +39,11 @@ class RatedMoviesViewController: UIViewController {
 }
 //MARK: - RatedMoviesViewProtocol
 extension RatedMoviesViewController: RatedMoviesViewProtocol {
-    func show(movies: [Movie], posters: [Int : UIImage], isFetched: Bool) {
+    func show(movies: [Movie], posters: [Int : UIImage]) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.movies = movies
             self.posters.merge(posters) { image, _ in image }
-            if isFetched && movies.count > 0 {
-                self.isFetched = true
-                activityView.removeFromSuperview()
-                movieCollection.isHidden = false
-                setupCollectionView()
-            }
             self.movieCollection.reloadData()
         }
     }
@@ -65,15 +58,14 @@ private extension RatedMoviesViewController {
         
         movieCollection.dataSource = self
         movieCollection.delegate = self
-        
-        if movies.count > 0 || isFetched == false {
-            setupActivityView()
-            self.view.layoutIfNeeded()
-        }
+        setupActivityView()
     }
     func setupViews() {
         if movies.count > 0 {
             self.emptyListView.removeFromSuperview()
+            self.activityView.removeFromSuperview()
+            self.movieCollection.isHidden = false
+            setupCollectionView()
         } else if movies.count == 0 {
             movieCollection.isHidden = true
             activityView.isHidden = true

@@ -27,7 +27,8 @@ class ListsViewController: UIViewController {
         tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: ListsTableViewCell.identifier)
         return tableView
     }()
-    private lazy var emptyListView = ListsEmptyView()
+    private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
+    private lazy var activityView = ActivityView()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,8 @@ private extension ListsViewController {
         
         tableViewCell.delegate = self
         tableViewCell.dataSource = self
+        
+        setupActivityView()
     }
     func setupNavigationBarItems() {
         let barButton = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addListButton))
@@ -64,13 +67,27 @@ private extension ListsViewController {
     func setupViews() {
         if lists.count > 0 {
             self.emptyListView.removeFromSuperview()
+            self.activityView.removeFromSuperview()
             tableViewCell.isHidden = false
             setupCollectionView()
         } else {
             tableViewCell.isHidden = true
-            self.setupEmptyListView()
+            activityView.isHidden = true
+            setupEmptyListView()
             self.view.layoutIfNeeded()
         }
+    }
+    func setupActivityView() {
+        self.view.addSubview(activityView)
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.layer.cornerRadius = 15
+        
+        NSLayoutConstraint.activate([
+            activityView.widthAnchor.constraint(equalToConstant: 150),
+            activityView.heightAnchor.constraint(equalToConstant: 150),
+            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        ])
     }
     func setupEmptyListView() {
         self.view.addSubview(emptyListView)

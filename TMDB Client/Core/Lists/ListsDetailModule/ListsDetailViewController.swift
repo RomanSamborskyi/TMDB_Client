@@ -16,7 +16,11 @@ class ListsDetailViewController: UIViewController {
     //MARK: - property
     var presenter: ListsDetailPresenterProtocol?
     private lazy var posters: [Int : UIImage] = [:]
-    private lazy var movies: [Movie] = []
+    private lazy var movies: [Movie] = [] {
+        didSet {
+            setupViews()
+        }
+    }
     private lazy var collection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
@@ -25,6 +29,8 @@ class ListsDetailViewController: UIViewController {
         cell.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
         return cell
     }()
+    private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
+    private lazy var activityView = ActivityView()
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +58,44 @@ private extension ListsDetailViewController {
         self.view.backgroundColor = UIColor.customBackground
         self.collection.delegate = self
         self.collection.dataSource = self
-        setupCollectionView()
+        setupActivityView()
         setupNavigationBar()
+    }
+    func setupViews() {
+        if self.movies.count > 0 {
+            self.emptyListView.removeFromSuperview()
+            self.activityView.removeFromSuperview()
+            self.collection.isHidden = false
+            setupCollectionView()
+        } else {
+            self.collection.isHidden = true
+            self.activityView.isHidden = true
+            setupEmptyListView()
+            self.view.layoutIfNeeded()
+        }
+    }
+    func setupActivityView() {
+        self.view.addSubview(activityView)
+        activityView.translatesAutoresizingMaskIntoConstraints = false
+        activityView.layer.cornerRadius = 15
+        
+        NSLayoutConstraint.activate([
+            activityView.widthAnchor.constraint(equalToConstant: 150),
+            activityView.heightAnchor.constraint(equalToConstant: 150),
+            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        ])
+    }
+    func setupEmptyListView() {
+        self.view.addSubview(emptyListView)
+        emptyListView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyListView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            emptyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
     }
     func setupNavigationBar() {
         let barButton = UIBarButtonItem(title: "Add Movie +", style: .plain, target: self, action: #selector(addMovie))

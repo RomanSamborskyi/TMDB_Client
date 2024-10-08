@@ -10,7 +10,7 @@ import UIKit
 
 protocol RatedMoviesPresenterProtocol: AnyObject {
     func viewControllerDidLoad()
-    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool)
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage])
     func didMovieSelected(id: Int, poster: UIImage)
     func didMovieAddedToFavorite(with id: Int)
     func addMovieToExistList(with id: Int)
@@ -56,7 +56,7 @@ extension RatedMoviesPresenter: RatedMoviesPresenterProtocol {
             }
         }
     }
-    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage], isFetched: Bool) {
-        view?.show(movies: movies, posters: posters, isFetched: isFetched)
+    func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {
+        view?.show(movies: movies, posters: posters)
     }
 }

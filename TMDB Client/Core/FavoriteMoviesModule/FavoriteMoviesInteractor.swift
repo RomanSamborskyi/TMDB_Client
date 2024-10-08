@@ -24,7 +24,6 @@ class FavoriteMoviesInteractor {
     let imageDownloader: ImageDownloader
     let sessionId: String
     let accountId: Int
-    var isFetched: Bool?
     //MARK: - lifecycle
     init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, accountId: Int) {
         self.networkManager = networkManager
@@ -48,8 +47,6 @@ extension FavoriteMoviesInteractor: FavoriteMoviesInteractorProtocol {
         return result
     }
     func fetchRatedList() async throws {
-        
-        self.isFetched = false
         
         let watchList = try await withThrowingTaskGroup(of: [Movie].self) { group in
             
@@ -108,10 +105,6 @@ extension FavoriteMoviesInteractor: FavoriteMoviesInteractorProtocol {
             mov.isFavorite = movieStatus.favorite ?? false
             mapedWatchlist.append(mov)
         }
-        
-        self.isFetched = true
-        
-        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters, isFetched: self.isFetched ?? false)
-        
+        presenter?.didMoviesFetched(movies: mapedWatchlist, posters: posters)
     }
 }
