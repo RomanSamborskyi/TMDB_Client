@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import WebKit
+import AVKit
 
 protocol TrailerViewProtocol: AnyObject {
     func showTrailer(with url: [String])
@@ -74,3 +74,4 @@ extension TrailerViewController: UICollectionViewDataSource, UICollectionViewDel
         return cell
     }
 }
+

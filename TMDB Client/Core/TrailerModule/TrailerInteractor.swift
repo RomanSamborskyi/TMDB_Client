@@ -40,12 +40,11 @@ extension TrailerInteractor: TrailerInteractorProtocol {
         guard let result = try await networkManager.fetchGET(type: TrailerResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
+       
+        var urls: [Trailer?] = []
         
-        var urls: [Trailer] = []
-        
-        urls.append(result.results.first(where: { $0.name == "Official Trailer" })!)
-        
-        let mapped = urls.map { "https://www.youtube.com/watch?v=\($0.key)"}
+        urls.append(result.results.first(where: { $0.name == Constants.officialTrailer }) ?? nil)
+        let mapped = urls.map { "https://www.youtube.com/watch?v=\($0?.key ?? "no key")"}
         presenter?.showTrailer(with: mapped)
     }
 }
