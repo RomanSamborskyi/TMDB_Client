@@ -17,14 +17,14 @@ final class NetworkManager {
         }
         
         var request = URLRequest(url: url)
-        request.httpMethod = urlData.method
+        request.httpMethod = urlData.method.rawValue.uppercased()
         request.timeoutInterval = 10
         
         if let headers = urlData.headers {
             request.allHTTPHeaderFields = headers
         }
         
-        if urlData.method == "POST" || urlData.method == "DELETE" {
+        if urlData.method.rawValue.uppercased() == "POST" || urlData.method.rawValue.uppercased() == "DELETE" {
             do {
                 let bodyData = try JSONEncoder().encode(type)
                 request.httpBody = bodyData

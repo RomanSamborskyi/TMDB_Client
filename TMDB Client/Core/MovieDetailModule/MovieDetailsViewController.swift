@@ -24,7 +24,11 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     private lazy var avatars: [String: UIImage] = [:]
-    private lazy var similarMovies: [Movie] = []
+    private lazy var similarMovies: [Movie] = [] {
+        didSet {
+            setupSimilarMoviesView()
+        }
+    }
     private lazy var posters: [Int : UIImage] = [:]
     var presenter: MovieDetailsPresenterProtocol?
     private lazy var scroll: UIScrollView = {
@@ -34,7 +38,8 @@ class MovieDetailsViewController: UIViewController {
     private lazy var detailView = MovieDetailsView()
     private lazy var reviewLabelView = ReviewTextLabel(textLabel: "Reviews")
     private lazy var similarMoviesLabelView = ReviewTextLabel(textLabel: "Similar movies")
-    private lazy var emptyView = EmptyView(imageName: "rectangle.and.text.magnifyingglass", title: "No reviews")
+    private lazy var emptyReviewsView = EmptyView(imageName: "rectangle.and.text.magnifyingglass", title: "No reviews")
+    private lazy var emptySimilarMoviesView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +92,7 @@ private extension MovieDetailsViewController {
         setupReviewTextLabel()
         setupReviews()
         setupSimilarMoviesTextLabel()
-        setupCollectionView()
+        setupSimilarMoviesView()
     }
     func setupReviews() {
         if self.reviews.isEmpty {
@@ -98,15 +103,36 @@ private extension MovieDetailsViewController {
             reviewCollection.reloadData()
         }
     }
-    func setupEmptyReviewView() {
-        self.scroll.addSubview(emptyView)
-        emptyView.translatesAutoresizingMaskIntoConstraints = false
+    func setupSimilarMoviesView() {
+        if self.similarMovies.isEmpty {
+            setupEmptySimilarMoviesView()
+            self.view.layoutIfNeeded()
+        } else {
+            setupCollectionView()
+            similarMoviesCollectionView.reloadData()
+        }
+    }
+    func setupEmptySimilarMoviesView() {
+        self.scroll.addSubview(emptySimilarMoviesView)
+        emptySimilarMoviesView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            emptyView.topAnchor.constraint(equalTo: self.reviewLabelView.bottomAnchor, constant: 10),
-            emptyView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
-            emptyView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
-            emptyView.heightAnchor.constraint(equalToConstant: 210),
+            emptySimilarMoviesView.topAnchor.constraint(equalTo: similarMoviesLabelView.bottomAnchor),
+            emptySimilarMoviesView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
+            emptySimilarMoviesView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            emptySimilarMoviesView.heightAnchor.constraint(equalToConstant: 210),
+            emptySimilarMoviesView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06),
+        ])
+    }
+    func setupEmptyReviewView() {
+        self.scroll.addSubview(emptyReviewsView)
+        emptyReviewsView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            emptyReviewsView.topAnchor.constraint(equalTo: self.reviewLabelView.bottomAnchor, constant: 10),
+            emptyReviewsView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
+            emptyReviewsView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            emptyReviewsView.heightAnchor.constraint(equalToConstant: 210),
         ])
     }
     func setupCollectionView() {
@@ -140,7 +166,7 @@ private extension MovieDetailsViewController {
         similarMoviesLabelView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            similarMoviesLabelView.topAnchor.constraint(equalTo: self.reviews.isEmpty ? emptyView.bottomAnchor : reviewCollection.bottomAnchor, constant: 30),
+            similarMoviesLabelView.topAnchor.constraint(equalTo: self.reviews.isEmpty ? emptyReviewsView.bottomAnchor : reviewCollection.bottomAnchor, constant: 30),
             similarMoviesLabelView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             similarMoviesLabelView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
         ])
@@ -160,7 +186,6 @@ private extension MovieDetailsViewController {
             castCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
             castCollection.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             castCollection.heightAnchor.constraint(equalToConstant: 130),
-          //  castCollection.bottomAnchor.constraint(equalTo: scroll.bottomAnchor, constant: -UIScreen.main.bounds.height * 0.06)
         ])
     }
     func setupReviewCollectionView() {

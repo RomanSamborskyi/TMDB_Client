@@ -9,8 +9,8 @@ import UIKit
 
 class EmptyView: UIView {
     //MARK: - property
-    let imageName: String
-    let title: String
+    var imageName: String
+    var title: String
     private lazy var textLabel: UILabel = {
         let lbl = UILabel()
         return lbl

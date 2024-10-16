@@ -10,8 +10,12 @@ import Foundation
 
 protocol URLData {
     var url: String { get }
-    var method: String { get }
+    var method: RequestMethod { get }
     var headers: [String: String]? { get }
+}
+
+enum RequestMethod: String {
+    case get, post, delete
 }
 
 enum APIBaseURL {
@@ -59,20 +63,20 @@ enum ListURL: URLData {
         }
     }
     
-    var method: String {
+    var method: RequestMethod {
         switch self {
         case .detail:
-            return "GET"
+            return .get
         case .clear:
-            return "POST"
+            return .post
         case .delete:
-            return "DELETE"
+            return .delete
         case .deleteMovie:
-            return "POST"
+            return .post
         case .addMovie:
-            return "POST"
+            return .post
         case .create:
-            return "POST"
+            return .post
         }
     }
     
@@ -129,16 +133,16 @@ enum Authantication: URLData {
         }
     }
     
-    var method: String {
+    var method: RequestMethod {
         switch self {
         case .token_request:
-            return "GET"
+            return .get
         case .session_with_login:
-            return "POST"
+            return .post
         case .newSession:
-            return "POST"
+            return .post
         case .deleteSession:
-            return "DELETE"
+            return .delete
         }
     }
     
@@ -187,16 +191,16 @@ enum AccountUrl: URLData {
         }
     }
     
-    var method: String {
+    var method: RequestMethod {
         switch self {
         case .accDetail:
-            return "GET"
+            return .get
         case .lists:
-            return "GET"
+            return .get
         case .watchList:
-            return "GET"
+            return .get
         case .accountState:
-            return "GET"
+            return .get
         }
     }
     
@@ -261,44 +265,44 @@ enum MoviesUrls: URLData {
         }
     }
     
-    var method: String {
+    var method: RequestMethod {
         switch self {
         case .trending:
-            return "GET"
+            return .get
         case .upcoming:
-            return "GET"
+            return .get
         case .topRated:
-            return "GET"
+            return .get
         case .byGenre:
-            return "GET"
+            return .get
         case .allGenres:
-            return "GET"
+            return .get
         case .singleMovie:
-            return "GET"
+            return .get
         case .addToFavorite:
-            return "POST"
+            return .post
         case .addRating:
-            return "POST"
+            return .post
         case .searchMovie:
-            return "GET"
+            return .get
         case .addToWatchList:
-            return "POST"
+            return .post
         case .ratedMovies:
-            return "GET"
+            return .get
         case .favoriteMovies:
-            return "GET"
+            return .get
         case .similar:
-            return "GET"
+            return .get
         case .reviews:
-            return "GET"
+            return .get
         case .cast:
-            return "GET"
+            return .get
         case .moviesWithPersone:
-            return "GET"
+            return .get
         case .actorDetails:
-            return "GET"
+            return .get
         case .videos:
-            return "GET"
+            return .get
         }
     }
     

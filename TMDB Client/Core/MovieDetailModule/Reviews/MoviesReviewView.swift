@@ -40,7 +40,7 @@ class MoviesReviewView: UIView {
     func updateView(with review: Review) {
         self.reviewBy.text = "A review by \(review.author)"
         self.ratingByAuthor.text = "\(review.authorDetails.rating ?? 0)"
-        self.writenByAuthor.text = "Written by \(review.authorDetails.username) on \(review.createdAt)"
+        self.writenByAuthor.text = "Written by \(review.authorDetails.username) on \(review.createdAt.formatDateFromISO)"
         self.reviewLabel.text = review.content
     }
     func updateAvatar(with image: UIImage) {

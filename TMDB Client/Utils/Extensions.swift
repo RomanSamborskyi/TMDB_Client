@@ -10,6 +10,20 @@ import UIKit
 //Empty struct to past in to request factory function to avoid http body 
 struct NoBody: Codable { }
 
+extension String {
+    var formatDateFromISO: String {
+        get {
+            let formater = ISO8601DateFormatter()
+            formater.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            let dateOfCreationg = formater.date(from: self)
+            let dateFormater = DateFormatter()
+            dateFormater.dateFormat = "YYYY-MM-dd"
+            
+            return dateFormater.string(from: dateOfCreationg ?? Date())
+        }
+    }
+}
+
 extension Double {
     var twoCharacktersStrings: String {
         get  {

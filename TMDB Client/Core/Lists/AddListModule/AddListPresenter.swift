@@ -25,6 +25,10 @@ class AddListPresenter {
         self.router = router
         self.haptic = haptic
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 //MARK: - AddListPresenterProtocol
 extension AddListPresenter: AddListPresenterProtocol {
