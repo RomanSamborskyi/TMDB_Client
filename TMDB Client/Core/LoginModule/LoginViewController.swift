@@ -90,7 +90,6 @@ private extension LoginViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShown), name: UIResponder.keyboardWillShowNotification, object: nil)
          
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
         let gestrue = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
         view.addGestureRecognizer(gestrue)
     }

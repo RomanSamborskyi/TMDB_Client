@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B2384C72CBA85D00054D84B /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2384C62CBA85D00054D84B /* Sizes.swift */; };
+		6B2384CE2CC19CCE0054D84B /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2384CD2CC19CCE0054D84B /* NotificationCenterManager.swift */; };
 		6B42EEBD2C6367F50018FE66 /* MovieRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */; };
 		6B44B1F12C43C99E006F0084 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B44B1F02C43C99E006F0084 /* Extensions.swift */; };
 		6B44B1F32C43CABD006F0084 /* ListsInterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B44B1F22C43CABD006F0084 /* ListsInterator.swift */; };
@@ -136,6 +137,7 @@
 
 /* Begin PBXFileReference section */
 		6B2384C62CBA85D00054D84B /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
+		6B2384CD2CC19CCE0054D84B /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
 		6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRateView.swift; sourceTree = "<group>"; };
 		6B44B1F02C43C99E006F0084 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6B44B1F22C43CABD006F0084 /* ListsInterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsInterator.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				6B732F0F2C846517001CCA04 /* CoreData */,
 				6B56A7FB2C3B3236001032C8 /* NetworkManager.swift */,
 				6BC683402C3EE0F70008864A /* CacheManager.swift */,
+				6B2384CD2CC19CCE0054D84B /* NotificationCenterManager.swift */,
 				6BC6833E2C3EE0ED0008864A /* ImageDownloader.swift */,
 				6BC6833C2C3ECECF0008864A /* KeyChainManager.swift */,
 				6B6A7D412C7CBE9D007CC4F0 /* HapticFeedback.swift */,
@@ -749,6 +752,7 @@
 				6BCD87622CA9E72000495B93 /* TrailerModuleBuilder.swift in Sources */,
 				6BC683312C3EC5260008864A /* ProfilePresenter.swift in Sources */,
 				6B6A7D422C7CBE9D007CC4F0 /* HapticFeedback.swift in Sources */,
+				6B2384CE2CC19CCE0054D84B /* NotificationCenterManager.swift in Sources */,
 				6B44B1FB2C43CBF5006F0084 /* ListsModuleBuilder.swift in Sources */,
 				6BCD874D2CA9772400495B93 /* MoviesReviewView.swift in Sources */,
 				6B6A7D362C74651C007CC4F0 /* AddListInteractor.swift in Sources */,

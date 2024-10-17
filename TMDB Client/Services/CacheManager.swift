@@ -8,7 +8,7 @@
 import UIKit
 
 
-class CacheManager {
+final class CacheManager {
     
    static let instance = CacheManager()
    private init() { }
@@ -25,5 +25,8 @@ class CacheManager {
     }
     func getImage(for key: String) -> UIImage? {
         return cache.object(forKey: key as NSString)
+    }
+    func cleanUp() {
+        cache.removeAllObjects()
     }
 }
