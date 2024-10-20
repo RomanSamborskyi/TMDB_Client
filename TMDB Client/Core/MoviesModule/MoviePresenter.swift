@@ -41,7 +41,7 @@ extension MoviePresenter: MoviePresenterProtocol {
         }
     }
     func viewControllerDidLoad(genre: Genre) {
-        _ = Task {
+      Task {
             do {
                 try await interactor.fetchMovies(by: genre.id)
             } catch let error as AppError {
@@ -74,11 +74,11 @@ private extension MoviePresenter {
                 do {
                     switch tab {
                     case .trending:
-                        try await self.interactor.fetchMovies(with: MoviesUrls.trending(key: Constants.apiKey).url)
+                        try await self.interactor.fetchMovies(with: MoviesUrls.trending(key: Constants.apiKey))
                     case .topRated:
-                        try await self.interactor.fetchMovies(with: MoviesUrls.topRated(key: Constants.apiKey).url)
+                        try await self.interactor.fetchMovies(with: MoviesUrls.topRated(key: Constants.apiKey))
                     case .upcoming:
-                        try await self.interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey).url)
+                        try await self.interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey))
                     }
                 } catch let error as AppError {
                     print(error)

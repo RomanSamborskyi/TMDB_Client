@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MovieInteractorProtocol: AnyObject {
-    func fetchMovies(with ulr: String) async throws
+    func fetchMovies(with ulr: URLData) async throws
     func fetchGenres() async throws
     func fetchMovies(by genre: Int) async throws
     var networkManager: NetworkManager { get }
@@ -93,16 +93,11 @@ extension MovieInteractor: MovieInteractorProtocol {
         }
         presenter?.didMoviesByGenreFetched(movie: movies, with: posters)
     }
-    func fetchMovies(with url: String) async throws {
-        guard let url = URL(string: url) else {
-            throw AppError.badURL
-        }
+    func fetchMovies(with url: URLData) async throws {
         
-      let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
+        let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
             let session = URLSession.shared
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-           
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: url)
             var movies: [Movie] = []
             
             group.addTask { [request] in
@@ -115,7 +110,7 @@ extension MovieInteractor: MovieInteractorProtocol {
             for try await response in group {
                 movies.append(contentsOf: response.results)
             }
-          return movies
+            return movies
         }
         
         let images = try await withThrowingTaskGroup(of: [Int : UIImage].self) { group in
@@ -135,10 +130,15 @@ extension MovieInteractor: MovieInteractorProtocol {
                
                 
                 group.addTask { [request] in
-                    guard let image = try await self.imageDownloader.fetchImage(with: session, request: request) else {
-                        throw AppError.invalidData
+                    if movie.posterPath != nil {
+                        guard let image = try await self.imageDownloader.fetchImage(with: session, request: request) else {
+                            throw AppError.invalidData
+                        }
+                        return [movie.id ?? 0 : image]
+                    } else {
+                        let image = UIImage(named: "image")!
+                        return [movie.id ?? 0 : image]
                     }
-                    return [movie.id ?? 0 : image]
                 }
             }
             
