@@ -26,7 +26,7 @@ class ProfileInteractor {
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     var accountId: Int?
-    
+   
     init(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
         self.sessionId = sessionId
         self.networkManager = networkManager
