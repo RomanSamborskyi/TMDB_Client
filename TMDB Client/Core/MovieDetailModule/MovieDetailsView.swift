@@ -78,6 +78,7 @@ class MovieDetailsView: UIView {
         return view
     }()
     private lazy var rateButtonsView = MovieRateView()
+    private lazy var posterHeightAnchor = posterView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 1.4)
     //MARK: - lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,6 +109,9 @@ class MovieDetailsView: UIView {
             setColorForFavoriteButton(color: .white)
         }
         self.rateButtonsView.setColorForRateButtons(rate: with.myRate ?? 0)
+    }
+    func setNewHeight(height: CGFloat) {
+        posterHeightAnchor.constant = height
     }
 }
 //MARK: - UI layout
@@ -297,8 +301,7 @@ private extension MovieDetailsView {
             posterView.topAnchor.constraint(equalTo: self.topAnchor),
             posterView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             posterView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            posterView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 1.4),
-            
+            posterHeightAnchor
         ])
     }
     func setupTitleLabel() {

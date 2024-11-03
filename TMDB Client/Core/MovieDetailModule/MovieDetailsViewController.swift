@@ -199,7 +199,7 @@ private extension MovieDetailsViewController {
         reviewCollection.showsHorizontalScrollIndicator = false
         reviewCollection.backgroundColor = .customBackground
         reviewCollection.tag = 1
-        
+       
         NSLayoutConstraint.activate([
             reviewCollection.topAnchor.constraint(equalTo: self.reviewLabelView.bottomAnchor, constant: 10),
             reviewCollection.leadingAnchor.constraint(equalTo: scroll.leadingAnchor, constant: 15),
@@ -211,6 +211,7 @@ private extension MovieDetailsViewController {
         self.view.addSubview(scroll)
         scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.showsVerticalScrollIndicator = false
+        scroll.delegate = self
         
         NSLayoutConstraint.activate([
             scroll.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -340,6 +341,7 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
             let poster = self.posters[item.id ?? 0]
             cell.movie = item
             cell.poster = poster
+            
             return cell
         default:
             let cell = UICollectionViewCell()
@@ -361,5 +363,11 @@ extension MovieDetailsViewController: UICollectionViewDelegate, UICollectionView
         default:
             break
         }
+    }
+}
+//MARK: UIScrollView Delegate
+extension MovieDetailsViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
 }
