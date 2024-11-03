@@ -99,6 +99,7 @@ private extension MovieDetailsViewController {
             setupEmptyReviewView()
             self.view.layoutIfNeeded()
         } else {
+            self.emptyReviewsView.isHidden = true
             setupReviewCollectionView()
             reviewCollection.reloadData()
         }
@@ -108,6 +109,7 @@ private extension MovieDetailsViewController {
             setupEmptySimilarMoviesView()
             self.view.layoutIfNeeded()
         } else {
+            self.emptySimilarMoviesView.isHidden = true
             setupCollectionView()
             similarMoviesCollectionView.reloadData()
         }
