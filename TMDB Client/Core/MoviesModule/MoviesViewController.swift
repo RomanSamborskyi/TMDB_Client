@@ -292,7 +292,9 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             self.movies.removeAll()
             self.posters.removeAll()
             self.topPicker.reloadData()
-            self.topCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.topCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
+            }
         case 2:
             let item = self.moviesByGenre[indexPath.row]
             guard let poster = postersByGenre[item.id ?? 0] else {
@@ -306,7 +308,7 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             self.moviesByGenre.removeAll()
             self.postersByGenre.removeAll()
             self.genrePicker.reloadData()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.bottomCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: true)
             }
         default:

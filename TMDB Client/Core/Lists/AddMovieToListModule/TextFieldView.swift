@@ -83,10 +83,7 @@ private extension TextFieldView {
 extension TextFieldView {
     @objc func textChanged(text: UITextField) {
         if let result = text.text {
-            if result.count > 3 {
-                delegate?.performSearch(text: result)
-                 
-            }
+            delegate?.performSearch(text: result)
         }
     }
 }

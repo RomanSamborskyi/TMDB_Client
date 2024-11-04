@@ -15,7 +15,7 @@ protocol AddListViewDelegate: AnyObject {
 class AddListView: UIView {
     //MARK: - property
     weak var delegate: AddListViewDelegate?
-    private let atributes: [ NSAttributedString.Key : Any ] = [.foregroundColor : UIColor.lightGray, .font : UIFont.systemFont(ofSize: 15, weight: .light)]
+    private let atributes: [NSAttributedString.Key : Any] = [.foregroundColor : UIColor.lightGray, .font : UIFont.systemFont(ofSize: 15, weight: .light)]
     private lazy var titleLabel: UILabel = {
         let lbl = UILabel()
         return lbl
@@ -127,7 +127,6 @@ private extension AddListView {
             createButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.06),
         ])
     }
-    
 }
 //MARK: - buuton action
 extension AddListView {
