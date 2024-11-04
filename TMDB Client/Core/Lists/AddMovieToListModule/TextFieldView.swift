@@ -67,6 +67,8 @@ private extension TextFieldView {
         searchFiled.rightViewMode = .always
         searchFiled.backgroundColor = .white
         searchFiled.textColor = .black
+        let atributes: [NSAttributedString.Key : Any] = [ .foregroundColor : UIColor.lightGray, .font : UIFont.systemFont(ofSize: 15) ]
+        searchFiled.attributedPlaceholder = NSAttributedString(string: "Search movie", attributes: atributes)
         searchFiled.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         
         NSLayoutConstraint.activate([

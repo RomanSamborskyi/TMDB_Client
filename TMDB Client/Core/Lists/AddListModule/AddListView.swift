@@ -15,6 +15,7 @@ protocol AddListViewDelegate: AnyObject {
 class AddListView: UIView {
     //MARK: - property
     weak var delegate: AddListViewDelegate?
+    private let atributes: [ NSAttributedString.Key : Any ] = [.foregroundColor : UIColor.lightGray, .font : UIFont.systemFont(ofSize: 15, weight: .light)]
     private lazy var titleLabel: UILabel = {
         let lbl = UILabel()
         return lbl
@@ -76,6 +77,8 @@ private extension AddListView {
         titleFiled.rightViewMode = .always
         titleFiled.backgroundColor = .white
         titleFiled.textColor = .black
+        titleFiled.attributedPlaceholder = NSAttributedString(string: "List title", attributes: atributes)
+        
         
         NSLayoutConstraint.activate([
             titleFiled.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
@@ -98,6 +101,7 @@ private extension AddListView {
         descriptionFiled.rightViewMode = .always
         descriptionFiled.backgroundColor = .white
         descriptionFiled.textColor = .black
+        descriptionFiled.attributedPlaceholder = NSAttributedString(string: "List description", attributes: atributes)
         
         NSLayoutConstraint.activate([
             descriptionFiled.topAnchor.constraint(equalTo: titleFiled.bottomAnchor, constant: UIScreen.main.bounds.height * 0.05),
