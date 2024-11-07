@@ -43,7 +43,7 @@ extension LoginPresenter: LoginPresenterProtocol {
         Task {
             do {
                 self.haptic.tacticFeddback(style: .soft)
-                try await interactor.sendLoginRequestwith(login: login, password: password)
+                try await interactor.sendLoginRequestWith(login: login, password: password)
             } catch let error as AppError {
                 DispatchQueue.main.async { [weak self] in
                     self?.haptic.tacticNotification(style: .error)

@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol LoginInteractorProtocol: AnyObject {
-    func sendLoginRequestwith(login: String, password: String) async throws
+    func sendLoginRequestWith(login: String, password: String) async throws
     func fetchUserData(sessionId: String) async throws
     var newSession: Session? { get }
 }
@@ -26,7 +26,7 @@ class LoginInteractor {
 //MARK: - LoginInteractorProtocol
 extension LoginInteractor: LoginInteractorProtocol {
     //Receive access token
-    func sendLoginRequestwith(login: String, password: String) async throws {
+    func sendLoginRequestWith(login: String, password: String) async throws {
         
         let requestToken = try await withThrowingTaskGroup(of: TokenResponse.self) { group in
 
@@ -97,6 +97,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             print(error)
         }
         presenter?.didNewSessionStart(with: data)
+        
         print("Session created successfully✅: \(data.success)")
         
         try await fetchUserData(sessionId: data.session_id)
