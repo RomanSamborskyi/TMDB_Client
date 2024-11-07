@@ -17,11 +17,20 @@ final class LoginInteractor_Tests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func test_LoginInteractor_createNewSession_shouldNotToeNil() async throws {
+    func test_LoginInteractor_createNewSession_shouldBeNil() async throws {
         
         let login = LoginInteractor()
         
+        XCTAssertNil(login.newSession)
+       
+    }
+    func test_LoginInteractor_createNewSession_shouldNotToBeNil() async throws {
+        
+        let login = LoginInteractor()
+        
+        try await login.sendLoginRequestWith(login: "romansamb", password: "Roman12345.")
+        
+        XCTAssertNotNil(login.newSession)
        
     }
 }
