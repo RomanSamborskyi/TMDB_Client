@@ -60,7 +60,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             print("Error of deleting session")
         }
     }
-    
+    //TODO: - make a method to fetch user data if core data is empty
     func fetchUserData() async throws {
         guard let user = try CoreDataManager.instance.fetchUserDetails() else { return }
         guard let avatar = UIImage(data: user.uiImageAvatar ?? Data()) else { return }
