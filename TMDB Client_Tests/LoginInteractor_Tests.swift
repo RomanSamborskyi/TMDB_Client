@@ -33,4 +33,14 @@ final class LoginInteractor_Tests: XCTestCase {
         XCTAssertNotNil(login.newSession)
        
     }
+    func test_LoginInteractor_createNewSession_shouldThrowAnError() async throws {
+        
+        let login = LoginInteractor()
+        
+        do {
+            try await login.sendLoginRequestWith(login: "romansb", password: "Roman12345.")
+        } catch let error as AppError {
+            XCTAssertEqual(error, AppError.incorrectUserNameOrPass)
+        }
+    }
 }
