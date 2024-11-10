@@ -146,7 +146,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
               let avatar = fetchedData.1?.pngData() else { return }
         
         let localData = try CoreDataManager.instance.fetchUserDetails()
-        
+        //TODO: - add else state
         if user.id != localData?.id || user.name != localData?.name || user.avatar != localData?.avatar {
             try CoreDataManager.instance.deleteUserData()
             
