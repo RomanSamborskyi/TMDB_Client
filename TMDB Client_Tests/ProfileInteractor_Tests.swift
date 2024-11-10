@@ -10,13 +10,30 @@ import XCTest
 
 final class ProfileInteractor_Tests: XCTestCase {
 
+    var profileInteractor: ProfileInteractorProtocol?
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        guard let sessionId = KeyChainManager.instance.get(for: Constants.sessionKey) else {
+            XCTFail("session id is not found")
+            return
+        }
+        profileInteractor = ProfileInteractor(sessionId: sessionId, networkManager: NetworkManager(), imageDownloader: ImageDownloader())
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        profileInteractor = nil
     }
     
-
+    func test_ProfileInteractor_downloadUserData_shouldNotBeNill() async throws {
+        
+       let userTuple = try await profileInteractor?.downloadUserData()
+        
+        let user = userTuple?.0
+        let avatar = userTuple?.1
+        
+        XCTAssertNotNil(user)
+        XCTAssertNotNil(avatar)
+    }
 }
