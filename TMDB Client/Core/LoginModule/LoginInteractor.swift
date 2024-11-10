@@ -12,6 +12,7 @@ protocol LoginInteractorProtocol: AnyObject {
     func sendLoginRequestWith(login: String, password: String) async throws
     func fetchUserData(sessionId: String) async throws
     var newSession: Session? { get }
+    var keychain: KeyChainManager { get }
 }
 
 class LoginInteractor {
@@ -19,7 +20,7 @@ class LoginInteractor {
     var newSession: Session? = nil
     private let networkManager = NetworkManager()
     private var imageDownloader = ImageDownloader()
-    private let keychain = KeyChainManager.instance
+    let keychain = KeyChainManager.instance
     weak var presenter: LoginPresenterProtocol?
     
 }

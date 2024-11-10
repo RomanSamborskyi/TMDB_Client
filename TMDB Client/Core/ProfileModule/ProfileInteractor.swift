@@ -11,6 +11,7 @@ import UIKit
 protocol ProfileInteractorProtocol: AnyObject {
     func fetchUserData() async throws
     func compareUserData() async throws
+    func downloadUserData() async throws -> (UserProfile?,UIImage?)
     func logout() async throws
     var sessionId: String { get }
     var networkManager: NetworkManager { get }
@@ -60,15 +61,24 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             print("Error of deleting session")
         }
     }
-    //TODO: - make a method to fetch user data if core data is empty
+   
     func fetchUserData() async throws {
-        guard let user = try CoreDataManager.instance.fetchUserDetails() else { return }
-        guard let avatar = UIImage(data: user.uiImageAvatar ?? Data()) else { return }
+        
+        guard let user = try CoreDataManager.instance.fetchUserDetails(),
+              let avatar = UIImage(data: user.uiImageAvatar ?? Data()) else {
+            
+            let userTuple = try await downloadUserData()
+            
+            if let unwrapedUser = userTuple.0, let unwrappedAvatar = userTuple.1 {
+                presenter?.didUserFetched(user: unwrapedUser, with: unwrappedAvatar)
+            }
+            return
+        }
         self.accountId = user.id ?? 0
         presenter?.didUserFetched(user: user, with: avatar)
     }
     
-    func checkUserData() async throws -> (UserProfile,UIImage) {
+    func downloadUserData() async throws -> (UserProfile?,UIImage?) {
         
         let userData = try await withThrowingTaskGroup(of: UserProfile.self) { group in
             
@@ -130,16 +140,17 @@ extension ProfileInteractor: ProfileInteractorProtocol {
     
     func compareUserData() async throws {
      
-        let fetchedData = try await checkUserData()
+        let fetchedData = try await downloadUserData()
         
-        guard let avatar = fetchedData.1.pngData() else { return }
+        guard let user = fetchedData.0,
+              let avatar = fetchedData.1?.pngData() else { return }
         
         let localData = try CoreDataManager.instance.fetchUserDetails()
-        
-        if fetchedData.0.id != localData?.id || fetchedData.0.name != localData?.name || fetchedData.0.avatar != localData?.avatar {
+        //TODO: - add else state
+        if user.id != localData?.id || user.name != localData?.name || user.avatar != localData?.avatar {
             try CoreDataManager.instance.deleteUserData()
             
-            try CoreDataManager.instance.writeToCoreData(user: fetchedData.0, avatar)
+            try CoreDataManager.instance.writeToCoreData(user: user, avatar)
             
             try await fetchUserData()
         }
