@@ -36,4 +36,33 @@ final class ProfileInteractor_Tests: XCTestCase {
         XCTAssertNotNil(user)
         XCTAssertNotNil(avatar)
     }
+    
+    func test_ProfileInteractor_fetchUserData_shouldNotBeNill() async throws {
+        
+        try await profileInteractor?.fetchUserData()
+        
+        let user = try CoreDataManager.instance.fetchUserDetails()
+        let avatar = UIImage(data: user?.uiImageAvatar ?? Data())
+        
+        XCTAssertNotNil(user)
+        XCTAssertNotNil(avatar)
+    }
+    
+    func test_ProfileInteractor_logout_shouldBeNill() async throws {
+        
+        try await profileInteractor?.logout()
+        
+        let user = try CoreDataManager.instance.fetchUserDetails()
+        let avatar = UIImage(data: user?.uiImageAvatar ?? Data())
+        
+        let sessioID = KeyChainManager.instance.get(for: Constants.sessionKey)
+        
+        let accoutID = KeyChainManager.instance.get(for: Constants.account_id)
+        
+        XCTAssertNil(sessioID)
+        XCTAssertNil(accoutID)
+        
+        XCTAssertNil(user)
+        XCTAssertNil(avatar)
+    }
 }
