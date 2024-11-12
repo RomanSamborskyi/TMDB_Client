@@ -153,6 +153,8 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             try CoreDataManager.instance.writeToCoreData(user: user, avatar)
             
             try await fetchUserData()
+            
+            print("User data updated ✅")
         }
         print("User data checked ✅")
     }

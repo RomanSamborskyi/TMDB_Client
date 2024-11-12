@@ -26,7 +26,7 @@ final class ProfileInteractor_Tests: XCTestCase {
         profileInteractor = nil
     }
     
-    func test_ProfileInteractor_downloadUserData_shouldNotBeNill() async throws {
+    func test_ProfileInteractor_downloadUserData_shouldNotBeNil() async throws {
         
        let userTuple = try await profileInteractor?.downloadUserData()
         
