@@ -62,7 +62,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         }
     }
 }
-//MARK: extra functions
+//MARK: - extra functions
 private extension ProfilePresenter {
     func fetchAllData(viewController: UIViewController) async throws {
         await withThrowingTaskGroup(of: Void.self) { group in
