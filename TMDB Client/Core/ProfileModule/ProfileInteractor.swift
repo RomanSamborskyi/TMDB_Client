@@ -145,9 +145,9 @@ extension ProfileInteractor: ProfileInteractorProtocol {
         guard let user = fetchedData.0,
               let avatar = fetchedData.1?.pngData() else { return }
         
-        let localData = try CoreDataManager.instance.fetchUserDetails()
+        guard let localData = try CoreDataManager.instance.fetchUserDetails() else { return }
         //TODO: - add else state
-        if user.id != localData?.id || user.name != localData?.name || user.avatar != localData?.avatar {
+        if user.id != localData.id || user.name != localData.name || avatar.self != localData.uiImageAvatar {
             try CoreDataManager.instance.deleteUserData()
             
             try CoreDataManager.instance.writeToCoreData(user: user, avatar)
@@ -156,6 +156,5 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             
             print("User data updated ✅")
         }
-        print("User data checked ✅")
     }
 }
