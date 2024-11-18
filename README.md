@@ -19,6 +19,9 @@ Skils used in this project:
  - VIPER architecture
  - REST Full API
  - async/await
+ - KeyChaine
+ - Core Data
+ - Unit tests
 
 ![Simulator Screenshot - iPhone 16 Pro - 2024-09-22 at 18 58 47](https://github.com/user-attachments/assets/a80995a6-9dff-40eb-a022-7897ac71604b)
 
