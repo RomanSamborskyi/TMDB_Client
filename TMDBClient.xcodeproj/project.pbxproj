@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -43,6 +43,9 @@
 		6B6A7D3E2C78686F007CC4F0 /* AddListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D3D2C78686F007CC4F0 /* AddListEntity.swift */; };
 		6B6A7D402C786D9A007CC4F0 /* AddListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D3F2C786D9A007CC4F0 /* AddListView.swift */; };
 		6B6A7D422C7CBE9D007CC4F0 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A7D412C7CBE9D007CC4F0 /* HapticFeedback.swift */; };
+		6B6B6E692CE9EF0F00957AE4 /* LoginInteractor_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6B6E652CE9EF0F00957AE4 /* LoginInteractor_Tests.swift */; };
+		6B6B6E6A2CE9EF0F00957AE4 /* MoviesInteractor_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6B6E662CE9EF0F00957AE4 /* MoviesInteractor_Tests.swift */; };
+		6B6B6E6B2CE9EF0F00957AE4 /* ProfileInteractor_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6B6E672CE9EF0F00957AE4 /* ProfileInteractor_Tests.swift */; };
 		6B732F122C846533001CCA04 /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F102C846533001CCA04 /* User.xcdatamodeld */; };
 		6B732F142C8465D2001CCA04 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F132C8465D2001CCA04 /* CoreDataManager.swift */; };
 		6B732F172C849302001CCA04 /* RatedMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B732F162C849302001CCA04 /* RatedMoviesViewController.swift */; };
@@ -185,6 +188,9 @@
 		6B6A7D3F2C786D9A007CC4F0 /* AddListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListView.swift; sourceTree = "<group>"; };
 		6B6A7D412C7CBE9D007CC4F0 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		6B6B6E4A2CDD4B3F00957AE4 /* TMDB Client_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TMDB Client_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B6B6E652CE9EF0F00957AE4 /* LoginInteractor_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor_Tests.swift; sourceTree = "<group>"; };
+		6B6B6E662CE9EF0F00957AE4 /* MoviesInteractor_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesInteractor_Tests.swift; sourceTree = "<group>"; };
+		6B6B6E672CE9EF0F00957AE4 /* ProfileInteractor_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor_Tests.swift; sourceTree = "<group>"; };
 		6B732F112C846533001CCA04 /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		6B732F132C8465D2001CCA04 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		6B732F162C849302001CCA04 /* RatedMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatedMoviesViewController.swift; sourceTree = "<group>"; };
@@ -277,10 +283,6 @@
 		6BFAA0ED2C5779D0002D8F1A /* ListsDetailModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsDetailModuleBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		6B6B6E4B2CDD4B3F00957AE4 /* TMDB Client_Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "TMDB Client_Tests"; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		6B56A7D12C3B27A3001032C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -317,7 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				6B56A7D62C3B27A3001032C8 /* TMDB Client */,
-				6B6B6E4B2CDD4B3F00957AE4 /* TMDB Client_Tests */,
+				6B6B6E682CE9EF0F00957AE4 /* TMDB Client_Tests */,
 				6B56A7D52C3B27A3001032C8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -425,6 +427,16 @@
 				6B6A7D3B2C746668007CC4F0 /* AddListModuleBuilder.swift */,
 			);
 			path = AddListModule;
+			sourceTree = "<group>";
+		};
+		6B6B6E682CE9EF0F00957AE4 /* TMDB Client_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6B6B6E652CE9EF0F00957AE4 /* LoginInteractor_Tests.swift */,
+				6B6B6E662CE9EF0F00957AE4 /* MoviesInteractor_Tests.swift */,
+				6B6B6E672CE9EF0F00957AE4 /* ProfileInteractor_Tests.swift */,
+			);
+			path = "TMDB Client_Tests";
 			sourceTree = "<group>";
 		};
 		6B732F0F2C846517001CCA04 /* CoreData */ = {
@@ -676,9 +688,6 @@
 			dependencies = (
 				6B6B6E4F2CDD4B3F00957AE4 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				6B6B6E4B2CDD4B3F00957AE4 /* TMDB Client_Tests */,
-			);
 			name = "TMDB Client_Tests";
 			packageProductDependencies = (
 			);
@@ -881,6 +890,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B6B6E692CE9EF0F00957AE4 /* LoginInteractor_Tests.swift in Sources */,
+				6B6B6E6A2CE9EF0F00957AE4 /* MoviesInteractor_Tests.swift in Sources */,
+				6B6B6E6B2CE9EF0F00957AE4 /* ProfileInteractor_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
