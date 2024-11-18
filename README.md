@@ -2,7 +2,7 @@
 
 # This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB
 
-The appliaction for those who have an account on tnemoviedb.org 
+The appliaction for those who have an account on [themoviedb.org](themoviedb.org)
 
 With this application you can login in to your account, to take a look on your watchlist, add a movies to your watchlist, to take a look on your movies lists, and rate the movie
 
