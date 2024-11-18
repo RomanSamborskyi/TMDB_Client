@@ -26,5 +26,17 @@ final class MoviesInteractor_Tests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         self.moviesInteractor = nil
     }
-
+    
+    func test_MoviesInteractor_sessionId_shouldNotToBeNill() {
+        XCTAssertNotNil(moviesInteractor?.sessionId)
+    }
+    
+    func test_MoviesInteractor_fetchMovies_shouldNotThrowAnError() async throws {
+        
+        do {
+            try await moviesInteractor?.fetchMovies(with: MoviesUrls.topRated(key: Constants.apiKey))
+        } catch let error as AppError {
+            XCTAssertNil(error)
+        }
+    }
 }
