@@ -70,39 +70,39 @@ private extension ProfileView {
         avatarView.image = UIImage(named: "image")
         avatarView.contentMode = .scaleAspectFill
         avatarView.layer.masksToBounds = true
-        avatarView.layer.cornerRadius = 100
+        avatarView.layer.cornerRadius = 60
         
         NSLayoutConstraint.activate([
             avatarView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
             avatarView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            avatarView.heightAnchor.constraint(equalToConstant: 200),
-            avatarView.widthAnchor.constraint(equalToConstant: 200),
+            avatarView.heightAnchor.constraint(equalToConstant: 120),
+            avatarView.widthAnchor.constraint(equalToConstant: 120),
         ])
     }
     func setupNameLabel() {
         self.addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "[NAME]"
-        nameLabel.font = .systemFont(ofSize: 40, weight: .bold)
+        nameLabel.font = .systemFont(ofSize: 30, weight: .bold)
         nameLabel.textColor = .white
         
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 50),
+            nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 25),
             nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 50),
+            nameLabel.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
     func setupUsernameLabel() {
         self.addSubview(usernameLabel)
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         usernameLabel.text = "[USERNAME]"
-        usernameLabel.font = .systemFont(ofSize: 25)
+        usernameLabel.font = .systemFont(ofSize: 15)
         usernameLabel.textColor = .lightGray
         
         NSLayoutConstraint.activate([
             usernameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
             usernameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            usernameLabel.heightAnchor.constraint(equalToConstant: 50),
+            usernameLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     func setupLogOutButton() {

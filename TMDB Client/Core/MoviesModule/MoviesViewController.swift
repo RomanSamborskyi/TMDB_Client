@@ -235,15 +235,14 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.label.textColor = .gray
             cell.label.textAlignment = .center
             cell.label.clipsToBounds = true
-            cell.label.layer.cornerRadius = 15
-            cell.label.layer.borderWidth = 3
-            cell.label.layer.borderColor = UIColor.gray.cgColor
-            cell.label.backgroundColor = .white.withAlphaComponent(0.5)
+            cell.label.layer.cornerRadius = 20
+            cell.label.backgroundColor = .black.withAlphaComponent(0.2)
             
             presenter?.haptic.tacticFeddback(style: .light)
             if item == selectedTab {
                 cell.label.textColor = .white
                 cell.label.layer.borderColor = UIColor.white.cgColor
+                cell.label.backgroundColor = .red
             }
             return cell
         case 2:
@@ -260,16 +259,15 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.label.font = .systemFont(ofSize: 17, weight: .regular)
             cell.label.textAlignment = .center
             cell.label.clipsToBounds = true
-            cell.label.layer.cornerRadius = 15
-            cell.label.layer.borderWidth = 3
-            cell.label.layer.borderColor = UIColor.gray.cgColor
+            cell.label.layer.cornerRadius = 20
             cell.label.textColor = .gray
-            cell.label.backgroundColor = .white.withAlphaComponent(0.5)
+            cell.label.backgroundColor = .black.withAlphaComponent(0.2)
             presenter?.haptic.tacticFeddback(style: .light)
             
             if item == selectedGenre {
                 cell.label.textColor = .white
                 cell.label.layer.borderColor = UIColor.white.cgColor
+                cell.label.backgroundColor = .red
             }
             return cell
         default:
