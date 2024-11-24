@@ -32,9 +32,24 @@ final class MoviesInteractor_Tests: XCTestCase {
     }
     
     func test_MoviesInteractor_fetchMovies_shouldNotThrowAnError() async throws {
-        
         do {
             try await moviesInteractor?.fetchMovies(with: MoviesUrls.topRated(key: Constants.apiKey))
+        } catch let error as AppError {
+            XCTAssertNil(error)
+        }
+    }
+    
+    func test_MoviesInteractor_fetchGenries_shouldNotThrowAnError() async throws {
+        do {
+            try await moviesInteractor?.fetchGenres()
+        } catch let error as AppError {
+            XCTAssertNil(error)
+        }
+    }
+    
+    func test_MoviesInteractor_fetchMoviesByGenries_shouldNotThrowAnError() async throws {
+        do {
+            try await moviesInteractor?.fetchMovies(by: DeveloperPreview.instance.action.id)
         } catch let error as AppError {
             XCTAssertNil(error)
         }
