@@ -40,6 +40,7 @@ class MoviesViewController: UIViewController {
     private var postersByGenre: [Int : UIImage] = [:]
     private var selectedTab: TopTabs = .trending
     private var selectedGenre: Genre = DeveloperPreview.instance.action
+    private lazy var loadingView: UIView = MoviesLoadingView()
     private lazy var scroll: UIScrollView = {
         let view = UIScrollView()
         return view
@@ -95,11 +96,13 @@ private extension MoviesViewController {
         self.navigationItem.title = "Movies"
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         setupScrollView()
-        setupPickerView()
-        setupTopCollectionCell()
-        setupGenrePickerView()
-        setupBottomCollectionCell()
+        setupLoadingView()
+//        setupPickerView()
+//        setupTopCollectionCell()
+//        setupGenrePickerView()
+//        setupBottomCollectionCell()
     }
     func setupScrollView() {
         let margins = self.view.layoutMarginsGuide
@@ -172,6 +175,18 @@ private extension MoviesViewController {
             genrePicker.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             genrePicker.heightAnchor.constraint(equalToConstant: 60),
             genrePicker.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+        ])
+    }
+    func setupLoadingView() {
+        self.scroll.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: scroll.topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
+            loadingView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
         ])
     }
 }
