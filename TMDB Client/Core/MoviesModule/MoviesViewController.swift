@@ -14,9 +14,9 @@ enum TopTabs: String, CaseIterable {
     var description: String {
         switch self {
         case .trending:
-           return "Trending"
+            return "Trending"
         case .topRated:
-           return "Top Rated"
+            return "Top Rated"
         case .upcoming:
             return "Upcoming"
         }
@@ -33,7 +33,11 @@ protocol MovieViewProtocol: AnyObject {
 class MoviesViewController: UIViewController {
     //MARK: - property
     var presenter: MoviePresenterProtocol?
-    private var movies: [Movie] = []
+    private var movies: [Movie] = [] {
+        didSet {
+            setupCollections()
+        }
+    }
     private var genres: [Genre] = []
     private var posters: [Int : UIImage] = [:]
     private var moviesByGenre: [Movie] = []
@@ -97,12 +101,22 @@ private extension MoviesViewController {
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        setupScrollView()
-        setupLoadingView()
-//        setupPickerView()
-//        setupTopCollectionCell()
-//        setupGenrePickerView()
-//        setupBottomCollectionCell()
+        if self.movies.isEmpty {
+            setupScrollView()
+            setupLoadingView()
+        }
+        
+    }
+    func setupCollections() {
+        
+        self.loadingView.isHidden = true
+        
+        loadingView.removeFromSuperview()
+        
+        setupPickerView()
+        setupTopCollectionCell()
+        setupGenrePickerView()
+        setupBottomCollectionCell()
     }
     func setupScrollView() {
         let margins = self.view.layoutMarginsGuide
@@ -207,7 +221,7 @@ extension MoviesViewController: MovieViewProtocol {
     }
     
     func show(movies: [Movie], with posters: [Int : UIImage]) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.movies.append(contentsOf: movies)
             self.posters.merge(posters) { img, _ in img }
             self.topCollection.reloadData()
