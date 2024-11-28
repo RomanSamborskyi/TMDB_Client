@@ -32,6 +32,7 @@ private extension MoviesLoadingView {
         setupTopMoviesCollectionPalceholder()
         setupGenreCollectionPlaceholder()
         setupBotttomMoviesCollectionPlaceholder()
+        
     }
     func setupTopCollectionPlaceholder() {
         self.addSubview(topCollectionPlaceholder)
