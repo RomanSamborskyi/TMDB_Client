@@ -60,3 +60,18 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
 }
+
+extension CAGradientLayer {
+    func animatedGradient() {
+        let gradientAnimation = CABasicAnimation(keyPath: "colors")
+        gradientAnimation.fromValue = [UIColor.black.withAlphaComponent(0.3).cgColor,
+                                       UIColor.black.withAlphaComponent(0.3).cgColor,
+                                       UIColor.black.withAlphaComponent(0.3).cgColor]
+        gradientAnimation.toValue = [UIColor.gray.withAlphaComponent(0.3).cgColor,
+                                     UIColor.gray.withAlphaComponent(0.3).cgColor,
+                                     UIColor.gray.withAlphaComponent(0.3).cgColor]
+        gradientAnimation.duration = 1.3
+        gradientAnimation.repeatCount = .infinity
+        self.add(gradientAnimation, forKey: "colorsAnimation")
+    }
+}
