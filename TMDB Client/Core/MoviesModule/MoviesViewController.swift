@@ -200,7 +200,7 @@ private extension MoviesViewController {
             loadingView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             loadingView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             loadingView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
-            loadingView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
+          //  loadingView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
         ])
     }
 }
