@@ -8,22 +8,6 @@
 import UIKit
 
 
-enum TopTabs: String, CaseIterable {
-    case trending, topRated, upcoming
-    
-    var description: String {
-        switch self {
-        case .trending:
-            return "Trending"
-        case .topRated:
-            return "Top Rated"
-        case .upcoming:
-            return "Upcoming"
-        }
-    }
-}
-
-
 protocol MovieViewProtocol: AnyObject {
     func show(movies: [Movie], with posters: [Int : UIImage])
     func showGenre(genre: [Genre])
@@ -35,7 +19,8 @@ class MoviesViewController: UIViewController {
     var presenter: MoviePresenterProtocol?
     private var movies: [Movie] = [] {
         didSet {
-            setupCollections()
+            loadingState = .loaded
+            viewSwitcher()
         }
     }
     private var genres: [Genre] = []
@@ -43,6 +28,7 @@ class MoviesViewController: UIViewController {
     private var moviesByGenre: [Movie] = []
     private var postersByGenre: [Int : UIImage] = [:]
     private var selectedTab: TopTabs = .trending
+    private var loadingState: LoadingState = .loading
     private var selectedGenre: Genre = DeveloperPreview.instance.action
     private lazy var loadingView: UIView = MoviesLoadingView()
     private lazy var scroll: UIScrollView = {
@@ -101,11 +87,18 @@ private extension MoviesViewController {
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        if self.movies.isEmpty {
+        viewSwitcher()
+    }
+    func viewSwitcher() {
+        switch loadingState {
+        case .loading:
             setupScrollView()
             setupLoadingView()
+        case .loaded:
+            setupCollections()
+        case .empty:
+            break
         }
-        
     }
     func setupCollections() {
         

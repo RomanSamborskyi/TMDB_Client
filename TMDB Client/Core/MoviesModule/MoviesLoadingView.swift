@@ -9,10 +9,22 @@ import UIKit
 
 class MoviesLoadingView: UIView {
     //MARK: - property
-    private lazy var topCollectionPlaceholder: UIView = UIView()
-    private lazy var topMoviesCollectionPlaceholder: UIView = UIView()
-    private lazy var genreCollectionPlaceholder: UIView = UIView()
-    private lazy var bottomMoviesCollectionPlaceholder: UIView = UIView()
+    private lazy var topCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
+    private lazy var topMoviesCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
+    private lazy var genreCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
+    private lazy var bottomMoviesCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
     
     //MARK: - lifecycle
     override init(frame: CGRect) {

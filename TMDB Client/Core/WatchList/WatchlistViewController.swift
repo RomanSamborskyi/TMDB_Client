@@ -17,7 +17,7 @@ class WatchlistViewController: UIViewController {
     var presenter: WatchlistPresenterProtocol?
     private lazy var movies: [Movie] = [] {
         didSet {
-            setupViews()
+            stateSwither()
         }
     }
     private lazy var posters: [Int : UIImage] = [:]
@@ -26,11 +26,13 @@ class WatchlistViewController: UIViewController {
         flow.scrollDirection = .vertical
         flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
         var cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(ListsLoadingCollectionViewCell.self, forCellWithReuseIdentifier: ListsLoadingCollectionViewCell.identifier)
         cell.register(MovieToWatchCollectionViewCell.self, forCellWithReuseIdentifier: MovieToWatchCollectionViewCell.identifier)
         return cell
+        
     }()
     private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
-    private lazy var activityView = ActivityView()
+    private var loadingState: LoadingState = .loading
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,26 +54,37 @@ private extension WatchlistViewController {
         
         movieCollection.dataSource = self
         movieCollection.delegate = self
-        setupActivityView()
+        setupViews()
     }
     func setupViews() {
-        if movies.count > 0 {
+        switch loadingState {
+        case .loading:
             self.emptyListView.removeFromSuperview()
-            self.activityView.removeFromSuperview()
-            self.movieCollection.isHidden = false
+            movieCollection.isHidden = false
             setupCollectionView()
-        } else if movies.count == 0 {
+        case .loaded:
+            self.emptyListView.removeFromSuperview()
+            movieCollection.isHidden = false
+            setupCollectionView()
+        case .empty:
             movieCollection.isHidden = true
-            activityView.isHidden = true
-            self.setupEmptyListView()
-            self.view.layoutIfNeeded()
+            setupEmptyListView()
+        }
+    }
+    func stateSwither() {
+        if !movies.isEmpty {
+            loadingState = .loaded
+            setupViews()
+        } else if movies.count == 0 {
+            loadingState = .empty
+            setupViews()
         }
     }
     func setupCollectionView() {
         self.view.addSubview(movieCollection)
         movieCollection.translatesAutoresizingMaskIntoConstraints = false
         movieCollection.backgroundColor = UIColor.customBackground
-        
+    
         NSLayoutConstraint.activate([
             movieCollection.topAnchor.constraint(equalTo: self.view.topAnchor),
             movieCollection.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -92,18 +105,6 @@ private extension WatchlistViewController {
             emptyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
-    func setupActivityView() {
-        self.view.addSubview(activityView)
-        activityView.translatesAutoresizingMaskIntoConstraints = false
-        activityView.layer.cornerRadius = 15
-        
-        NSLayoutConstraint.activate([
-            activityView.widthAnchor.constraint(equalToConstant: 150),
-            activityView.heightAnchor.constraint(equalToConstant: 150),
-            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-        ])
-    }
 }
 //MARK: - WatchlistViewProtocol
 extension WatchlistViewController: WatchlistViewProtocol {
@@ -119,20 +120,36 @@ extension WatchlistViewController: WatchlistViewProtocol {
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.movies.count
+        switch loadingState {
+        case .loading:
+            return 4
+        case .loaded:
+            return self.movies.count
+        case .empty:
+            return 0
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieToWatchCollectionViewCell.identifier, for: indexPath) as! MovieToWatchCollectionViewCell
-        cell.layer.cornerRadius = 15
-        cell.clipsToBounds = true
-        cell.backgroundColor = .black.withAlphaComponent(0.4)
-        cell.actionButtons = self
-        let item = self.movies[indexPath.row]
-        cell.movie = item
-        if let posterImage = self.posters[item.id ?? 0] {
-            cell.poster = posterImage
+        switch loadingState {
+        case .loading:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsLoadingCollectionViewCell.identifier, for: indexPath) as! ListsLoadingCollectionViewCell
+            cell.layer.cornerRadius = 15
+            return cell
+        case .loaded:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieToWatchCollectionViewCell.identifier, for: indexPath) as! MovieToWatchCollectionViewCell
+            cell.layer.cornerRadius = 15
+            cell.clipsToBounds = true
+            cell.backgroundColor = .black.withAlphaComponent(0.4)
+            cell.actionButtons = self
+            let item = self.movies[indexPath.row]
+            cell.movie = item
+            if let posterImage = self.posters[item.id ?? 0] {
+                cell.poster = posterImage
+            }
+            return cell
+        case .empty:
+            return UICollectionViewCell()
         }
-        return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = self.movies[indexPath.row]

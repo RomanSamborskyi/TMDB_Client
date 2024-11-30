@@ -100,7 +100,7 @@ private extension ListsResultCell {
             posterView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             posterView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             posterView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            posterView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 4)
+            posterView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3)
         ])
     }
     func setupTitleLabel() {
@@ -115,7 +115,7 @@ private extension ListsResultCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: self.posterView.trailingAnchor, constant: 10),
-            titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+            titleLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.3)
             
         ])
     }
@@ -142,7 +142,7 @@ private extension ListsResultCell {
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            button.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 10),
+            button.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor, constant: 5),
             button.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             button.widthAnchor.constraint(equalToConstant: 35),
             button.heightAnchor.constraint(equalToConstant: 35),

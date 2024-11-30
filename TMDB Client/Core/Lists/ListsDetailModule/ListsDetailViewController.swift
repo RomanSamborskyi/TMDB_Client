@@ -18,19 +18,20 @@ class ListsDetailViewController: UIViewController {
     private lazy var posters: [Int : UIImage] = [:]
     private lazy var movies: [Movie] = [] {
         didSet {
-            setupViews()
+            stateSwitcher()
         }
     }
     private lazy var collection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
-        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15 , height: UIScreen.main.bounds.height * 0.2)
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15 , height: UIScreen.main.bounds.height / 3.7)
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(ListsLoadingCollectionViewCell.self, forCellWithReuseIdentifier: ListsLoadingCollectionViewCell.identifier)
         cell.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
         return cell
     }()
     private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
-    private lazy var activityView = ActivityView()
+    private lazy var loadingState: LoadingState = .loading
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,33 +59,33 @@ private extension ListsDetailViewController {
         self.view.backgroundColor = UIColor.customBackground
         self.collection.delegate = self
         self.collection.dataSource = self
-        setupActivityView()
+        
+        setupViews()
         setupNavigationBar()
     }
     func setupViews() {
-        if self.movies.count > 0 {
+        switch loadingState {
+        case .loading:
             self.emptyListView.removeFromSuperview()
-            self.activityView.removeFromSuperview()
-            self.collection.isHidden = false
+            collection.isHidden = false
             setupCollectionView()
-        } else {
-            self.collection.isHidden = true
-            self.activityView.isHidden = true
+        case .loaded:
+            self.emptyListView.removeFromSuperview()
+            collection.isHidden = false
+            setupCollectionView()
+        case .empty:
+            collection.isHidden = true
             setupEmptyListView()
-            self.view.layoutIfNeeded()
         }
     }
-    func setupActivityView() {
-        self.view.addSubview(activityView)
-        activityView.translatesAutoresizingMaskIntoConstraints = false
-        activityView.layer.cornerRadius = 15
-        
-        NSLayoutConstraint.activate([
-            activityView.widthAnchor.constraint(equalToConstant: 150),
-            activityView.heightAnchor.constraint(equalToConstant: 150),
-            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-        ])
+    func stateSwitcher() {
+        if !movies.isEmpty {
+            self.loadingState = .loaded
+            setupViews()
+        } else if movies.count == 0 {
+            self.loadingState = .empty
+            setupViews()
+        }
     }
     func setupEmptyListView() {
         self.view.addSubview(emptyListView)
@@ -121,19 +122,36 @@ private extension ListsDetailViewController {
 //MARK: - UICollectionDataSource & Delegate
 extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.movies.count
+        switch loadingState {
+        case .loading:
+            return 4
+        case .loaded:
+            return self.movies.count
+        case .empty:
+            return 0
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
-        let item = self.movies[indexPath.row]
-        cell.movie = item
-        cell.poster = self.posters[item.id ?? 0]
-        cell.buttonStyle = .delete
-        cell.delegate = self
-        cell.clipsToBounds = true
-        cell.backgroundColor = .black.withAlphaComponent(0.4)
-        cell.layer.cornerRadius = 15
-        return cell
+        switch loadingState {
+        case .loading:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsLoadingCollectionViewCell.identifier, for: indexPath) as! ListsLoadingCollectionViewCell
+            cell.layer.cornerRadius = 15
+            
+            return cell
+        case .loaded:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
+            let item = self.movies[indexPath.row]
+            cell.movie = item
+            cell.poster = self.posters[item.id ?? 0]
+            cell.buttonStyle = .delete
+            cell.delegate = self
+            cell.clipsToBounds = true
+            cell.backgroundColor = .black.withAlphaComponent(0.4)
+            cell.layer.cornerRadius = 15
+            return cell
+        case .empty:
+            return UICollectionViewCell()
+        }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = self.movies[indexPath.row]
