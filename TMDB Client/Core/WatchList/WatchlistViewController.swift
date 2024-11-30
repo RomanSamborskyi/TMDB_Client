@@ -31,7 +31,6 @@ class WatchlistViewController: UIViewController {
         
     }()
     private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
-    private lazy var activityView = ActivityView()
     private var loadingState: LoadingState = .loading
     //MARK: - lifecycle
     override func viewDidLoad() {
@@ -103,18 +102,6 @@ private extension WatchlistViewController {
             emptyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             emptyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             emptyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-        ])
-    }
-    func setupActivityView() {
-        self.view.addSubview(activityView)
-        activityView.translatesAutoresizingMaskIntoConstraints = false
-        activityView.layer.cornerRadius = 15
-        
-        NSLayoutConstraint.activate([
-            activityView.widthAnchor.constraint(equalToConstant: 150),
-            activityView.heightAnchor.constraint(equalToConstant: 150),
-            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
         ])
     }
 }
