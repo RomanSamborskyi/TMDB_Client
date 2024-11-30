@@ -15,20 +15,22 @@ protocol ListsInteratorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var sessionId: String { get }
+    var keychain: KeyChainManager { get }
 }
 
 class ListsInterator {
     //MARK: - property
-    private var keychain = KeyChainManager.instance
     weak var presenter: ListsPresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
+    let keychain: KeyChainManager
     let sessionId: String
     
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, keychain: KeyChainManager) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
         self.sessionId = sessionId
+        self.keychain = keychain
     }
 }
 //MARK: - ListsIteratorProtocol

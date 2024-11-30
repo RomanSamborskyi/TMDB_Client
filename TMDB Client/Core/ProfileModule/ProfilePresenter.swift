@@ -33,11 +33,11 @@ class ProfilePresenter {
 //MARK: - ProfilePresenterProtocol
 extension ProfilePresenter: ProfilePresenterProtocol {
     func didFavoriteMoviesButtonTapped() {
-        router.navigateToFavoriteMoviesView(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId, haptic: self.haptic, accountId: self.interactor.accountId ?? 0)
+        router.navigateToFavoriteMoviesView(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId, haptic: self.haptic, accountId: self.interactor.accountId ?? 0, keychain: self.interactor.keychain)
     }
     
     func didRatedMoviesButtonTapped() {
-        router.navigateToRatedMoviesView(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId, haptic: self.haptic, accountId: self.interactor.accountId ?? 0)
+        router.navigateToRatedMoviesView(networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, sessionId: self.interactor.sessionId, haptic: self.haptic, accountId: self.interactor.accountId ?? 0, keychain: self.interactor.keychain)
     }
     func didLogoutButtonTapped() {
         Task {
@@ -48,7 +48,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
             }
         }
         DispatchQueue.main.async {
-            self.router.navigateToLoginView(haptic: self.haptic)
+            self.router.navigateToLoginView(haptic: self.haptic, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, keychain: self.interactor.keychain)
         }
     }
     

@@ -9,9 +9,9 @@ import UIKit
 
 
 class LoginModulBuilder {
-   static func build(haptic: HapticFeedback) -> UIViewController {
+   static func build(haptic: HapticFeedback, networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager) -> UIViewController {
         let view = LoginViewController()
-        let interactor = LoginInteractor()
+       let interactor = LoginInteractor(networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain)
         let router = LoginRouter()
         let presenter = LoginPresenter(interactor: interactor, router: router, haptic: haptic)
         

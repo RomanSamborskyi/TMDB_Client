@@ -8,9 +8,9 @@
 import UIKit
 
 class MoviesCastModuleBuilder {
-    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String, person: Int, poster: UIImage) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager, haptic: HapticFeedback, sessionId: String, person: Int, poster: UIImage) -> UIViewController {
         let view = MoviesCastViewController()
-        let interactor = MoviesCastInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, person: person, poster: poster)
+        let interactor = MoviesCastInteractor(networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain, sessionId: sessionId, person: person, poster: poster)
         let router = MoviesCastRouter()
         let presenter = MoviesCastPresenter(interactor: interactor, router: router, haptic: haptic)
         

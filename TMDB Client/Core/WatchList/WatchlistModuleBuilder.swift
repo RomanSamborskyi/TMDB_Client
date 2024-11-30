@@ -9,9 +9,9 @@ import UIKit
 
 
 class WatchlistModuleBuilder {
-    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String, keychain: KeyChainManager) -> UIViewController {
         let view = WatchlistViewController()
-        let interactor = WatchlistInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId)
+        let interactor = WatchlistInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, keychain: keychain)
         let router = WatchlistRouter()
         let presenter = WatchlistPresenter(interactor: interactor, router: router, haptic: haptic)
         

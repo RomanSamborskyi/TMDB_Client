@@ -11,6 +11,7 @@ import UIKit
 protocol AddToExistListInteractorProtocol: AnyObject {
     func fetchLists() async throws
     func addMovieToList(listId: Int) async throws
+    var keychain: KeyChainManager { get }
 }
 
 
@@ -21,19 +22,21 @@ class AddToExistListInteractor {
     let imageDownloader: ImageDownloader
     let sessionId: String
     let movieId: Int
+    let keychain: KeyChainManager
     //MARK: - lifecycle
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, movieId: Int) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager, sessionId: String, movieId: Int) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
         self.sessionId = sessionId
         self.movieId = movieId
+        self.keychain = keychain
     }
 }
 //MARK: - AddToExistListInteractorProtocol
 extension AddToExistListInteractor: AddToExistListInteractorProtocol {
     func fetchLists() async throws {
         
-        guard let accountId = KeyChainManager.instance.get(for: Constants.account_id) else {
+        guard let accountId = keychain.get(for: Constants.account_id) else {
             throw AppError.incorrectAccoutId
         }
         

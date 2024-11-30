@@ -13,6 +13,7 @@ protocol MoviesCastInteractorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var sessionId: String { get }
+    var keychain: KeyChainManager { get }
 }
 
 class MoviesCastInteractor {
@@ -20,13 +21,15 @@ class MoviesCastInteractor {
     weak var presenter: MoviesCastPresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
+    let keychain: KeyChainManager
     let sessionId: String
     let person: Int
     let poster: UIImage
     //MARK: - lifecycle
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, person: Int, poster: UIImage) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager, sessionId: String, person: Int, poster: UIImage) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.keychain = keychain
         self.sessionId = sessionId
         self.person = person
         self.poster = poster

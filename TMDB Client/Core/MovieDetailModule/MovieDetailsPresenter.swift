@@ -47,7 +47,7 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         router.navigateToThriller(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: interactor.movieId)
     }
     func didSimilarMoviesSelected(with id: Int, poster: UIImage) {
-        router.navigateTo(movie: id, poster: poster, networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, haptic: self.haptic, sessionId: interactor.sessionId)
+        router.navigateTo(movie: id, poster: poster, networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, haptic: self.haptic, sessionId: interactor.sessionId, keychain: self.interactor.keychain)
     }
     func didSimilarMoviesFetched(movis: [Movie], posters: [Int : UIImage]) {
         view?.showSimilarMovies(movies: movis, posters: posters)
@@ -56,13 +56,13 @@ extension MovieDetailsPresenter: MovieDetailsPresenterProtocol {
         view?.showReviews(reviews: reviews, avatar: avatar)
     }
     func didPersonSelected(person: Int, poster: UIImage) {
-        router.navigateToActorDetail(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, actor: person, poster: poster)
+        router.navigateToActorDetail(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, keychain: interactor.keychain, sessionId: interactor.sessionId, haptic: self.haptic, actor: person, poster: poster)
     }
     func didCrewFetched(with cast: [Cast], photos: [Int : UIImage]) {
         view?.showCrew(crew: cast, photo: photos)
     }
     func didMovieAddedToList() {
-        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: interactor.movieId)
+        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: interactor.movieId, keychain: self.interactor.keychain)
     }
     func rateMovie(rate: Double) {
         Task {

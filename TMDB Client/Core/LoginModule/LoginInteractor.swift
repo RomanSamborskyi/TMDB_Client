@@ -13,16 +13,23 @@ protocol LoginInteractorProtocol: AnyObject {
     func fetchUserData(sessionId: String) async throws
     var newSession: Session? { get }
     var keychain: KeyChainManager { get }
+    var networkManager: NetworkManager { get }
+    var imageDownloader: ImageDownloader { get }
 }
 
 class LoginInteractor {
     //MARK: - property
     var newSession: Session? = nil
-    private let networkManager = NetworkManager()
-    private var imageDownloader = ImageDownloader()
-    let keychain = KeyChainManager.instance
+    let networkManager: NetworkManager
+    let imageDownloader: ImageDownloader
+    let keychain: KeyChainManager
     weak var presenter: LoginPresenterProtocol?
     
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager) {
+        self.networkManager = networkManager
+        self.imageDownloader = imageDownloader
+        self.keychain = keychain
+    }
 }
 //MARK: - LoginInteractorProtocol
 extension LoginInteractor: LoginInteractorProtocol {

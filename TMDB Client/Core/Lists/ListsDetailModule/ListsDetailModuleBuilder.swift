@@ -9,9 +9,9 @@ import UIKit
 
 
 class ListsDetailModuleBuilder {
-    static func build(list id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback) -> UIViewController {
+    static func build(list id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, keychain: KeyChainManager) -> UIViewController {
         let view = ListsDetailViewController()
-        let interactor = ListsDetailInteractor(listId: id, networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId)
+        let interactor = ListsDetailInteractor(listId: id, networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, keychain: keychain)
         let router = ListsDetailRouter()
         let presenter = ListsDetailPresenter(interactor: interactor, router: router, haptic: haptic)
         

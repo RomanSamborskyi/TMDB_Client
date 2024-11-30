@@ -21,6 +21,7 @@ protocol MovieDetailsInteractorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var movieId: Int { get }
+    var keychain: KeyChainManager { get }
 }
 
 
@@ -32,15 +33,16 @@ class MovieDetailsInteractor {
     let sessionId: String
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
-    let keychain = KeyChainManager.instance
+    let keychain: KeyChainManager
     
     //MARK: - lifecycle
-    init(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
+    init(movieId: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, keychain: KeyChainManager) {
         self.movieId = movieId
         self.poster = poster
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
         self.sessionId = sessionId
+        self.keychain = keychain
     }
 }
 //MARK: - MovieDetailsInteractorProtocol

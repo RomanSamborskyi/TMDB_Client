@@ -146,9 +146,16 @@ extension RatedMoviesViewController: UICollectionViewDelegate, UICollectionViewD
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = self.movies[indexPath.row]
-        guard let poster = self.posters[item.id ?? 0] else { return }
-        presenter?.didMovieSelected(id: item.id ?? 0, poster: poster)
+        switch loadingState {
+        case .loading:
+            break
+        case .loaded:
+            let item = self.movies[indexPath.row]
+            guard let poster = self.posters[item.id ?? 0] else { return }
+            presenter?.didMovieSelected(id: item.id ?? 0, poster: poster)
+        case .empty:
+            break
+        }
     }
 }
 extension RatedMoviesViewController: MovieToWatchCellDelegate {

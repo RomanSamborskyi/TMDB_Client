@@ -11,18 +11,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    let keyChan = KeyChainManager.instance
-    let haptic = HapticFeedback()
+    private let keychain = KeyChainManager()
+    private let haptic = HapticFeedback()
+    private var networkManager = NetworkManager()
+    private var imageDownloader = ImageDownloader()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
       
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        if let session = keyChan.get(for: Constants.sessionKey) {
-            window?.rootViewController = TabBarController(sessionId: session, haptic: haptic)
+        if let session = keychain.get(for: Constants.sessionKey) {
+            window?.rootViewController = TabBarController(sessionId: session, haptic: haptic, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain)
         } else {
-            window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build(haptic: haptic))
+            window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build(haptic: haptic, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain))
         }
         window?.makeKeyAndVisible()
     }

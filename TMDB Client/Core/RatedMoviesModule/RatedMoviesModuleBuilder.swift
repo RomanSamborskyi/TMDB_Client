@@ -9,9 +9,9 @@ import UIKit
 
 
 class RatedMoviesModuleBuilder {
-    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, accountId: Int) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, accountId: Int, keychain: KeyChainManager) -> UIViewController {
         let view = RatedMoviesViewController()
-        let interactor = RatedMoviesInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, accountId: accountId)
+        let interactor = RatedMoviesInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, accountId: accountId, keychain: keychain)
         let router = RatedMoviesRouter()
         let presenter = RatedMoviesPresenter(interactor: interactor, router: router, haptic: haptic)
         

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LoginRouterProtocol: AnyObject {
-    func navigateToWellcomeViewController(with sessionId: String, haptic: HapticFeedback)
+    func navigateToWellcomeViewController(with sessionId: String, haptic: HapticFeedback, networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager)
 }
 
 class LoginRouter {
@@ -18,8 +18,8 @@ class LoginRouter {
 }
 //MARK: - LoginRouterProtocol
 extension LoginRouter: LoginRouterProtocol {
-    func navigateToWellcomeViewController(with sessionId: String, haptic: HapticFeedback) {
-        let welcomeVC = TabBarController(sessionId: sessionId, haptic: haptic)
+    func navigateToWellcomeViewController(with sessionId: String, haptic: HapticFeedback, networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager) {
+        let welcomeVC = TabBarController(sessionId: sessionId, haptic: haptic, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain)
         view?.navigationController?.pushViewController(welcomeVC, animated: true)
     }
 }

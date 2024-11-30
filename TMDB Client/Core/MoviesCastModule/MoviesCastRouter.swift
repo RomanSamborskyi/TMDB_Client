@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MoviesCastRouterProtocol: AnyObject {
-    func navigateTo(movie: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String)
+    func navigateTo(movie: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String, keychain: KeyChainManager)
 }
 
 class MoviesCastRouter {
@@ -18,8 +18,8 @@ class MoviesCastRouter {
 }
 //MARK: - MoviesCastRouterProtocol
 extension MoviesCastRouter: MoviesCastRouterProtocol {
-    func navigateTo(movie: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String) {
-        let detailVC = MovieDetailsModuleBuilder.build(movieId: movie, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId)
+    func navigateTo(movie: Int, poster: UIImage, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, sessionId: String, keychain: KeyChainManager) {
+        let detailVC = MovieDetailsModuleBuilder.build(movieId: movie, poster: poster, networkManager: networkManager, imageDownloader: imageDownloader, haptic: haptic, sessionId: sessionId, keychain: keychain)
         self.view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

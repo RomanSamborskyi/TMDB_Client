@@ -9,9 +9,9 @@ import UIKit
 
 
 class ProfileModuleBuilder {
-    static func build(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback) -> UIViewController {
+    static func build(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader, haptic: HapticFeedback, keychain: KeyChainManager) -> UIViewController {
         let view = ProfileViewController()
-        let interactor = ProfileInteractor(sessionId: sessionId, networkManager: networkManager, imageDownloader: imageDownloader)
+        let interactor = ProfileInteractor(sessionId: sessionId, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain)
         let router = ProfileRouter()
         let presenter = ProfilePresenter(interactor: interactor, router: router, haptic: haptic)
         
