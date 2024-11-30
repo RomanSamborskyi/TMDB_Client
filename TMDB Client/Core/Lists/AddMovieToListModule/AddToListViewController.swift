@@ -22,7 +22,7 @@ class AddToListViewController: UIViewController {
     private lazy var collectionCell: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
-        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height * 0.2)
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
         return cell

@@ -29,6 +29,7 @@ class ListsViewController: UIViewController {
     }()
     private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
     private lazy var activityView = ActivityView()
+    private lazy var loadingState: LoadingState = .loading
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
