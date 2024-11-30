@@ -26,6 +26,7 @@ class ListsDetailViewController: UIViewController {
         flow.scrollDirection = .vertical
         flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15 , height: UIScreen.main.bounds.height / 3.7)
         let cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        cell.register(ListsLoadingCollectionViewCell.self, forCellWithReuseIdentifier: ListsLoadingCollectionViewCell.identifier)
         cell.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
         return cell
     }()
@@ -133,7 +134,6 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch loadingState {
         case .loading:
-            collectionView.register(ListsLoadingCollectionViewCell.self, forCellWithReuseIdentifier: ListsLoadingCollectionViewCell.identifier)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsLoadingCollectionViewCell.identifier, for: indexPath) as! ListsLoadingCollectionViewCell
             cell.layer.cornerRadius = 15
             

@@ -26,6 +26,7 @@ class FavoriteMoviesViewController: UIViewController {
         flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
         var cell = UICollectionView(frame: .zero, collectionViewLayout: flow)
         cell.register(MovieToWatchCollectionViewCell.self, forCellWithReuseIdentifier: MovieToWatchCollectionViewCell.identifier)
+        cell.register(ListsLoadingCollectionViewCell.self, forCellWithReuseIdentifier: ListsLoadingCollectionViewCell.identifier)
         return cell
     }()
     private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
@@ -125,12 +126,10 @@ extension FavoriteMoviesViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch loadingState {
         case .loading:
-            collectionView.register(ListsLoadingCollectionViewCell.self, forCellWithReuseIdentifier: ListsLoadingCollectionViewCell.identifier)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsLoadingCollectionViewCell.identifier, for: indexPath) as! ListsLoadingCollectionViewCell
             cell.layer.cornerRadius = 15
             return cell
         case .loaded:
-            collectionView.register(MovieToWatchCollectionViewCell.self, forCellWithReuseIdentifier: MovieToWatchCollectionViewCell.identifier)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieToWatchCollectionViewCell.identifier, for: indexPath) as! MovieToWatchCollectionViewCell
             cell.layer.cornerRadius = 15
             cell.clipsToBounds = true

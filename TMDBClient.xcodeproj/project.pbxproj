@@ -68,6 +68,7 @@
 		6B96D9402C46F79E00D40E03 /* MovieDetailsEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B96D93F2C46F79E00D40E03 /* MovieDetailsEntities.swift */; };
 		6B9AB0AA2CFB14F200EB5CD3 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9AB0A92CFB14F200EB5CD3 /* Enums.swift */; };
 		6B9AB0AC2CFB183100EB5CD3 /* ListsLoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9AB0AB2CFB183100EB5CD3 /* ListsLoadingCollectionViewCell.swift */; };
+		6B9AB0AE2CFB53EF00EB5CD3 /* ListsLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9AB0AD2CFB53EF00EB5CD3 /* ListsLoadingTableViewCell.swift */; };
 		6BA605F92C4565AD007E205C /* MovieToWatchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA605F82C4565AD007E205C /* MovieToWatchCollectionViewCell.swift */; };
 		6BA605FD2C46D213007E205C /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA605FC2C46D213007E205C /* MovieDetailsViewController.swift */; };
 		6BA605FF2C46D28D007E205C /* MovieDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA605FE2C46D28D007E205C /* MovieDetailsInteractor.swift */; };
@@ -216,6 +217,7 @@
 		6B96D93F2C46F79E00D40E03 /* MovieDetailsEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsEntities.swift; sourceTree = "<group>"; };
 		6B9AB0A92CFB14F200EB5CD3 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		6B9AB0AB2CFB183100EB5CD3 /* ListsLoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsLoadingCollectionViewCell.swift; sourceTree = "<group>"; };
+		6B9AB0AD2CFB53EF00EB5CD3 /* ListsLoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		6BA605F82C4565AD007E205C /* MovieToWatchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieToWatchCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BA605FC2C46D213007E205C /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		6BA605FE2C46D28D007E205C /* MovieDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsInteractor.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */,
 				6B44B1F22C43CABD006F0084 /* ListsInterator.swift */,
 				6B44B1F42C43CB26006F0084 /* ListsPresenter.swift */,
+				6B9AB0AD2CFB53EF00EB5CD3 /* ListsLoadingTableViewCell.swift */,
 				6B44B1F62C43CB61006F0084 /* ListEntity.swift */,
 				6B44B1F82C43CB89006F0084 /* ListsRouter.swift */,
 				6B44B1FA2C43CBF5006F0084 /* ListsModuleBuilder.swift */,
@@ -842,6 +845,7 @@
 				6BC683222C3C35EF0008864A /* LoginView.swift in Sources */,
 				6B44B1F32C43CABD006F0084 /* ListsInterator.swift in Sources */,
 				6BFAA0E62C556908002D8F1A /* ListsDetailInteractor.swift in Sources */,
+				6B9AB0AE2CFB53EF00EB5CD3 /* ListsLoadingTableViewCell.swift in Sources */,
 				6B732F142C8465D2001CCA04 /* CoreDataManager.swift in Sources */,
 				6B9AB0AC2CFB183100EB5CD3 /* ListsLoadingCollectionViewCell.swift in Sources */,
 				6B732F3C2C88EAA7001CCA04 /* AddToExistListModuleBuilder.swift in Sources */,

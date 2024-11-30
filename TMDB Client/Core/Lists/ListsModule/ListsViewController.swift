@@ -19,16 +19,16 @@ class ListsViewController: UIViewController {
     var presenter: ListsPresenterProtocol?
     private var lists: [List] = [] {
         didSet {
-            setupViews()
+            stateSwitcher()
         }
     }
     private lazy var tableViewCell: UITableView = {
         let tableView = UITableView()
+        tableView.register(ListsLoadingTableViewCell.self, forCellReuseIdentifier: ListsLoadingTableViewCell.identifier)
         tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: ListsTableViewCell.identifier)
         return tableView
     }()
     private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
-    private lazy var activityView = ActivityView()
     private lazy var loadingState: LoadingState = .loading
     //MARK: - lifecycle
     override func viewDidLoad() {
@@ -55,7 +55,7 @@ private extension ListsViewController {
         tableViewCell.delegate = self
         tableViewCell.dataSource = self
         
-        setupActivityView()
+        setupViews()
     }
     func setupNavigationBarItems() {
         let barButton = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addListButton))
@@ -66,29 +66,29 @@ private extension ListsViewController {
         presenter?.didAddListButtonPressed()
     }
     func setupViews() {
-        if lists.count > 0 {
+        switch loadingState {
+        case .loading:
             self.emptyListView.removeFromSuperview()
-            self.activityView.removeFromSuperview()
             tableViewCell.isHidden = false
             setupCollectionView()
-        } else {
+        case .loaded:
+            self.emptyListView.removeFromSuperview()
+            tableViewCell.isHidden = false
+            setupCollectionView()
+        case .empty:
             tableViewCell.isHidden = true
-            activityView.isHidden = true
             setupEmptyListView()
-            self.view.layoutIfNeeded()
         }
+        updateLayoutIfNeeded()
     }
-    func setupActivityView() {
-        self.view.addSubview(activityView)
-        activityView.translatesAutoresizingMaskIntoConstraints = false
-        activityView.layer.cornerRadius = 15
-        
-        NSLayoutConstraint.activate([
-            activityView.widthAnchor.constraint(equalToConstant: 150),
-            activityView.heightAnchor.constraint(equalToConstant: 150),
-            activityView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            activityView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-        ])
+    func stateSwitcher() {
+        if !lists.isEmpty {
+            self.loadingState = .loaded
+            setupViews()
+        } else if lists.count == 0 {
+            self.loadingState = .empty
+            setupViews()
+        }
     }
     func setupEmptyListView() {
         self.view.addSubview(emptyListView)
@@ -124,7 +124,7 @@ extension ListsViewController: ListsViewControllerProtocol {
         }
     }
     func show(lists: [List]) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             guard let self = self else { return }
             self.lists = lists
         }
@@ -133,15 +133,30 @@ extension ListsViewController: ListsViewControllerProtocol {
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.lists.count
+        switch loadingState {
+        case .loading:
+            return 4
+        case .loaded:
+            return self.lists.count
+        case .empty:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ListsTableViewCell.identifier, for: indexPath) as! ListsTableViewCell
-        cell.backgroundColor = UIColor.customBackground
-        let item = self.lists[indexPath.row]
-        cell.updateCell(with: item)
-        return cell
+        switch loadingState {
+        case .loading:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListsLoadingTableViewCell.identifier, for: indexPath) as! ListsLoadingTableViewCell
+            return cell
+        case .loaded:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ListsTableViewCell.identifier, for: indexPath) as! ListsTableViewCell
+            cell.backgroundColor = UIColor.customBackground
+            let item = self.lists[indexPath.row]
+            cell.updateCell(with: item)
+            return cell
+        case .empty:
+            return UITableViewCell()
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UIScreen.main.bounds.height / 5
