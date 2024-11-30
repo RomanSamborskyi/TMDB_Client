@@ -124,7 +124,7 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch loadingState {
         case .loading:
-            return 4
+            return 3
         case .loaded:
             return self.movies.count
         case .empty:
@@ -154,11 +154,18 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = self.movies[indexPath.row]
-        guard let itemPoster = self.posters[item.id ?? 0] else {
-            return
+        switch loadingState {
+        case .loading:
+            break
+        case .loaded:
+            let item = self.movies[indexPath.row]
+            guard let itemPoster = self.posters[item.id ?? 0] else {
+                return
+            }
+            presenter?.didMovieSelected(movie: item, poster: itemPoster)
+        case .empty:
+            break
         }
-        presenter?.didMovieSelected(movie: item, poster: itemPoster)
     }
 }
 //MARK: - ListsResult cell delegate

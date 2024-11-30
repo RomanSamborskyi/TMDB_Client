@@ -17,21 +17,23 @@ protocol ProfileInteractorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var accountId: Int? { get }
+    var keychain: KeyChainManager { get }
 }
 
 class ProfileInteractor {
     //MARK: - property
     weak var presenter: ProfilePresenterProtocol?
-    private var keychain = KeyChainManager.instance
+    var keychain: KeyChainManager
     let sessionId: String
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     var accountId: Int?
    
-    init(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader) {
+    init(sessionId: String, networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager) {
         self.sessionId = sessionId
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.keychain = keychain
     }
     
 }

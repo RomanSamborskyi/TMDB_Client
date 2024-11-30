@@ -9,9 +9,9 @@ import UIKit
 
 
 class FavoriteMoviesModuleBuilder {
-    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, accountId: Int) -> UIViewController {
+    static func build(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, accountId: Int, keychain: KeyChainManager) -> UIViewController {
         let view = FavoriteMoviesViewController()
-        let interactor = FavoriteMoviesInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, accountId: accountId)
+        let interactor = FavoriteMoviesInteractor(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, accountId: accountId, keychain: keychain)
         let router = FavoriteMoviesRouter()
         let presenter = FavoriteMoviesPresenter(interactor: interactor, router: router, haptic: haptic)
         

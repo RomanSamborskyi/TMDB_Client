@@ -15,21 +15,23 @@ protocol WatchlistInteractorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var sessionId: String { get }
+    var keychain: KeyChainManager { get }
 }
 
 class WatchlistInteractor {
     //MARK: - property
     weak var presenter: WatchlistPresenterProtocol?
-    private var keychain = KeyChainManager.instance
+    let keychain: KeyChainManager
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
     let sessionId: String
     var isFetched: Bool?
     
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, keychain: KeyChainManager) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
         self.sessionId = sessionId
+        self.keychain = keychain
     }
 }
 //MARK: - WatchListInteractorProtocol

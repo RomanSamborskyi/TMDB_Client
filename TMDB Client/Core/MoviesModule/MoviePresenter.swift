@@ -37,7 +37,7 @@ extension MoviePresenter: MoviePresenterProtocol {
     func didMovieSelected(with id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateTo(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
+            self.router.navigateTo(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId, keychain: self.interactor.keychain)
         }
     }
     func viewControllerDidLoad(genre: Genre) {

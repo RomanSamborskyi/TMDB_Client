@@ -8,23 +8,26 @@
 import UIKit
 
 
-
 class TabBarController: UITabBarController {
     //MARK: - managers
-    private var networkManager = NetworkManager()
-    private var imageDownloader = ImageDownloader()
+    let networkManager: NetworkManager
+    let imageDownloader: ImageDownloader
+    let keychain: KeyChainManager
     //MARK: - init property
     let sessionId: String
     let haptic: HapticFeedback
     //MARK: - property
-    private lazy var profileTab = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: self.sessionId, networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic))
-    private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId))
-    private lazy var listsTab = UINavigationController(rootViewController: ListsModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, sessionId: self.sessionId, haptic: self.haptic))
-    private lazy var watchListTab = UINavigationController(rootViewController: WatchlistModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId))
+    private lazy var profileTab = UINavigationController(rootViewController: ProfileModuleBuilder.build(sessionId: self.sessionId, networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, keychain: self.keychain))
+    private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId, keychain: keychain))
+    private lazy var listsTab = UINavigationController(rootViewController: ListsModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, sessionId: self.sessionId, haptic: self.haptic, keychain: self.keychain))
+    private lazy var watchListTab = UINavigationController(rootViewController: WatchlistModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId, keychain: self.keychain))
     //MARK: - lifecycle
-    init(sessionId: String, haptic: HapticFeedback) {
+    init(sessionId: String, haptic: HapticFeedback, networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager) {
         self.sessionId = sessionId
         self.haptic = haptic
+        self.networkManager = networkManager
+        self.imageDownloader = imageDownloader
+        self.keychain = keychain
         super.init(nibName: nil, bundle: nil)
     }
     

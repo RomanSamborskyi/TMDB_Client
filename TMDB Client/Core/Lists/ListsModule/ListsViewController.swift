@@ -135,7 +135,7 @@ extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch loadingState {
         case .loading:
-            return 4
+            return 3
         case .loaded:
             return self.lists.count
         case .empty:
@@ -162,8 +162,15 @@ extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
         return UIScreen.main.bounds.height / 5
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = self.lists[indexPath.row]
-        self.presenter?.didListsSelected(list: item.id ?? 0)
+        switch loadingState {
+        case .loading:
+            break
+        case .loaded:
+            let item = self.lists[indexPath.row]
+            self.presenter?.didListsSelected(list: item.id ?? 0)
+        case .empty:
+            break
+        }
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = self.lists[indexPath.row]

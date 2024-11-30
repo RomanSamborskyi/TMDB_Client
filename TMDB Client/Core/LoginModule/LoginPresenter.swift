@@ -34,7 +34,7 @@ extension LoginPresenter: LoginPresenterProtocol {
         if session.success {
             DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) {
                 DispatchQueue.main.async {
-                    self.router.navigateToWellcomeViewController(with: session.session_id, haptic: self.haptic)
+                    self.router.navigateToWellcomeViewController(with: session.session_id, haptic: self.haptic, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, keychain: self.interactor.keychain)
                 }
             }
         }

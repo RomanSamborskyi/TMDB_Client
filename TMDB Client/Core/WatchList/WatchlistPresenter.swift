@@ -38,7 +38,7 @@ class WatchlistPresenter {
 //MARK: - WatchListPresenterProtocol
 extension WatchlistPresenter: WatchlistPresenterProtocol {
     func addMovieTolist(with id: Int) {
-        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: id)
+        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: id, keychain: self.interactor.keychain)
     }
     func didAddToFavoriteButtonPressed(for movie: Int) {
         Task {
@@ -55,7 +55,7 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     func didMovieSelected(movie id: Int, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
+            self.router.navigateToDetail(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId, keychain: self.interactor.keychain)
         }
     }
     func didMoviesFetched(movies: [Movie], posters: [Int : UIImage]) {

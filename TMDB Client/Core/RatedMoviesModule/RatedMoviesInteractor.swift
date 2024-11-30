@@ -15,6 +15,7 @@ protocol RatedMoviesInteractorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var sessionId: String { get }
+    var keychain: KeyChainManager { get }
 }
 
 
@@ -23,15 +24,17 @@ class RatedMoviesInteractor {
     weak var presenter: RatedMoviesPresenterProtocol?
     let networkManager: NetworkManager
     let imageDownloader: ImageDownloader
+    let keychain: KeyChainManager
     let sessionId: String
     let accountId: Int
     var isFetched: Bool?
     //MARK: - lifecycle
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, accountId: Int) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, accountId: Int, keychain: KeyChainManager) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
         self.sessionId = sessionId
         self.accountId = accountId
+        self.keychain = keychain
     }
 }
 //MARK: - RatedMoviesInteractorProtocol

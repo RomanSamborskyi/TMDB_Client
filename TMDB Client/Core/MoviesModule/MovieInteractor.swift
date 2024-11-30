@@ -14,18 +14,21 @@ protocol MovieInteractorProtocol: AnyObject {
     var networkManager: NetworkManager { get }
     var imageDownloader: ImageDownloader { get }
     var sessionId: String { get }
+    var keychain: KeyChainManager { get }
 }
 
 class MovieInteractor {
     //MARK: - property
     weak var presenter: MoviePresenterProtocol?
     let networkManager: NetworkManager
+    let keychain: KeyChainManager
     let imageDownloader: ImageDownloader
     let sessionId: String
     
-    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String) {
+    init(networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager, sessionId: String) {
         self.networkManager = networkManager
         self.imageDownloader = imageDownloader
+        self.keychain = keychain
         self.sessionId = sessionId
     }
 }

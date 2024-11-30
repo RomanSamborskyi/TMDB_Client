@@ -30,7 +30,7 @@ class MoviesCastPresenter {
 //MARK: - MoviesCastPresenterProtocol
 extension MoviesCastPresenter: MoviesCastPresenterProtocol {
     func didMovieSelected(movieId: Int, poster: UIImage) {
-        router.navigateTo(movie: movieId, poster: poster, networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, haptic: self.haptic, sessionId: interactor.sessionId)
+        router.navigateTo(movie: movieId, poster: poster, networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, haptic: self.haptic, sessionId: interactor.sessionId, keychain: self.interactor.keychain)
     }
     func showActorfilmography(movies: [Movie], posters: [Int : UIImage]) {
         view?.showActorsFilmography(movies: movies, posters: posters)

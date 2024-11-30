@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol ListsRouterProtocol: AnyObject {
-    func navigateToList(with id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback)
+    func navigateToList(with id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, keychain: KeyChainManager)
     func addList(networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback)
 }
 
@@ -23,8 +23,8 @@ extension ListsRouter: ListsRouterProtocol {
         let addListVC = AddListModuleBuilder.build(networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, haptic: haptic)
         view?.navigationController?.present(addListVC, animated: true)
     }
-    func navigateToList(with id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback) {
-        let detailVC = ListsDetailModuleBuilder.build(list: id, networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, haptic: haptic)
+    func navigateToList(with id: Int, networkManager: NetworkManager, imageDownloader: ImageDownloader, sessionId: String, haptic: HapticFeedback, keychain: KeyChainManager) {
+        let detailVC = ListsDetailModuleBuilder.build(list: id, networkManager: networkManager, imageDownloader: imageDownloader, sessionId: sessionId, haptic: haptic, keychain: keychain)
         self.view?.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

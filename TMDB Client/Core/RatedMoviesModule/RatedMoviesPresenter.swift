@@ -33,7 +33,7 @@ class RatedMoviesPresenter {
 //MARK: - RatedMoviePresenterProtocol
 extension RatedMoviesPresenter: RatedMoviesPresenterProtocol {
     func addMovieToExistList(with id: Int) {
-        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: id)
+        router.navigateToLists(networkManager: interactor.networkManager, imageDownloader: interactor.imageDownloader, sessionId: interactor.sessionId, haptic: self.haptic, movieId: id, keychain: self.interactor.keychain)
     }
     func didMovieAddedToFavorite(with id: Int) {
         Task {
@@ -45,7 +45,7 @@ extension RatedMoviesPresenter: RatedMoviesPresenterProtocol {
         }
     }
     func didMovieSelected(id: Int, poster: UIImage) {
-        router.navigate(movieId: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId)
+        router.navigate(movieId: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId, keychain: self.interactor.keychain)
     }
     func viewControllerDidLoad() {
         Task {

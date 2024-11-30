@@ -58,7 +58,7 @@ extension ListsDetailPresenter: ListsDetailPresenterProtocol {
     func didMovieSelected(movie: Movie, poster: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.navigateTo(movie: movie, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: haptic, sessionId: self.interactor.sessionId)
+            self.router.navigateTo(movie: movie, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: haptic, sessionId: self.interactor.sessionId, keychain: self.interactor.keychain)
         }
     }
     func didListFetched(list: ListDetail, posters: [Int : UIImage]) {

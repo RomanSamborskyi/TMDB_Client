@@ -10,8 +10,8 @@ import Security
 
 class KeyChainManager {
     
-    static let instance = KeyChainManager()
-    private init() { }
+   // static let instance = KeyChainManager()
+    init() { }
     
     ///Add value to keychain
     func save(value: String, for key: String) throws {
