@@ -9,10 +9,22 @@ import UIKit
 
 class MoviesLoadingView: UIView {
     //MARK: - property
-    private lazy var topCollectionPlaceholder: UIView = UIView()
-    private lazy var topMoviesCollectionPlaceholder: UIView = UIView()
-    private lazy var genreCollectionPlaceholder: UIView = UIView()
-    private lazy var bottomMoviesCollectionPlaceholder: UIView = UIView()
+    private lazy var topCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
+    private lazy var topMoviesCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
+    private lazy var genreCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
+    private lazy var bottomMoviesCollectionPlaceholder: UIView = {
+        let view = UIView()
+        return view
+    }()
     
     //MARK: - lifecycle
     override init(frame: CGRect) {
@@ -48,7 +60,6 @@ private extension MoviesLoadingView {
         NSLayoutConstraint.activate([
             topCollectionPlaceholder.topAnchor.constraint(equalTo: self.topAnchor),
             topCollectionPlaceholder.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
-            topCollectionPlaceholder.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: 15),
             topCollectionPlaceholder.heightAnchor.constraint(equalToConstant: 60),
             topCollectionPlaceholder.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
@@ -66,7 +77,6 @@ private extension MoviesLoadingView {
         NSLayoutConstraint.activate([
             topMoviesCollectionPlaceholder.topAnchor.constraint(equalTo: topCollectionPlaceholder.bottomAnchor, constant: 5),
             topMoviesCollectionPlaceholder.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            topMoviesCollectionPlaceholder.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 15),
             topMoviesCollectionPlaceholder.heightAnchor.constraint(equalToConstant: 190),
             topMoviesCollectionPlaceholder.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
         ])
@@ -84,7 +94,6 @@ private extension MoviesLoadingView {
         NSLayoutConstraint.activate([
             genreCollectionPlaceholder.topAnchor.constraint(equalTo: topMoviesCollectionPlaceholder.bottomAnchor, constant: 45),
             genreCollectionPlaceholder.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25),
-            genreCollectionPlaceholder.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: 15),
             genreCollectionPlaceholder.heightAnchor.constraint(equalToConstant: 60),
             genreCollectionPlaceholder.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         ])
@@ -102,7 +111,6 @@ private extension MoviesLoadingView {
         NSLayoutConstraint.activate([
             bottomMoviesCollectionPlaceholder.topAnchor.constraint(equalTo: genreCollectionPlaceholder.bottomAnchor, constant: 5),
             bottomMoviesCollectionPlaceholder.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            bottomMoviesCollectionPlaceholder.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 15),
             bottomMoviesCollectionPlaceholder.heightAnchor.constraint(equalToConstant: 190),
             bottomMoviesCollectionPlaceholder.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
         ])
