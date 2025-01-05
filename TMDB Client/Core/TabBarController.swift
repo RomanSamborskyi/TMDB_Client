@@ -21,6 +21,7 @@ class TabBarController: UITabBarController {
     private lazy var moviesTab = UINavigationController(rootViewController: MovieModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId, keychain: keychain))
     private lazy var listsTab = UINavigationController(rootViewController: ListsModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, sessionId: self.sessionId, haptic: self.haptic, keychain: self.keychain))
     private lazy var watchListTab = UINavigationController(rootViewController: WatchlistModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId, keychain: self.keychain))
+    private lazy var searchTab = UINavigationController(rootViewController: SearchModuleBuilder.build(networkManager: self.networkManager, imageDownloader: self.imageDownloader, haptic: self.haptic, sessionId: self.sessionId))
     //MARK: - lifecycle
     init(sessionId: String, haptic: HapticFeedback, networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager) {
         self.sessionId = sessionId
@@ -46,7 +47,7 @@ class TabBarController: UITabBarController {
 //MARK: - UILayout
 private extension TabBarController {
     func setupLayout() {
-        self.viewControllers = [moviesTab, watchListTab, listsTab, profileTab]
+        self.viewControllers = [moviesTab, searchTab, watchListTab, listsTab, profileTab]
         setupTabs()
     }
     func setupTabs() {
@@ -54,6 +55,6 @@ private extension TabBarController {
         moviesTab.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(systemName: "popcorn.fill"), tag: 1)
         listsTab.tabBarItem = UITabBarItem(title: "Lists", image: UIImage(systemName: "list.star"), tag: 2)
         watchListTab.tabBarItem = UITabBarItem(title: "Watchlist", image: UIImage(systemName: "stopwatch.fill"), tag: 3)
-        
+        searchTab.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 4)
     }
 }

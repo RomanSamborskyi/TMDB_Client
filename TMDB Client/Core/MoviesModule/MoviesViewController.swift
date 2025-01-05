@@ -115,7 +115,6 @@ private extension MoviesViewController {
         let margins = self.view.layoutMarginsGuide
         self.view.addSubview(scroll)
         scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.bounces = true
         
         NSLayoutConstraint.activate([
             scroll.topAnchor.constraint(equalTo: margins.topAnchor),
