@@ -9,8 +9,6 @@ import UIKit
 import Security
 
 class KeyChainManager {
-    
-   // static let instance = KeyChainManager()
     init() { }
     
     ///Add value to keychain
