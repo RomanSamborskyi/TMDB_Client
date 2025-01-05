@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B0662002D2A67AA0093D1F3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0661FF2D2A67AA0093D1F3 /* SearchViewController.swift */; };
+		6B0662022D2A68680093D1F3 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0662012D2A68680093D1F3 /* SearchInteractor.swift */; };
+		6B0662042D2A7C4A0093D1F3 /* SearcPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0662032D2A7C4A0093D1F3 /* SearcPresenter.swift */; };
+		6B0662062D2A7CA40093D1F3 /* SearchEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0662052D2A7CA40093D1F3 /* SearchEntity.swift */; };
+		6B0662082D2A7CBF0093D1F3 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0662072D2A7CBF0093D1F3 /* SearchRouter.swift */; };
+		6B06620A2D2A7D040093D1F3 /* SearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0662092D2A7D040093D1F3 /* SearchModuleBuilder.swift */; };
 		6B2384C72CBA85D00054D84B /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2384C62CBA85D00054D84B /* Sizes.swift */; };
 		6B2384CE2CC19CCE0054D84B /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2384CD2CC19CCE0054D84B /* NotificationCenterManager.swift */; };
 		6B42EEBD2C6367F50018FE66 /* MovieRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */; };
@@ -153,6 +159,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B0661FF2D2A67AA0093D1F3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		6B0662012D2A68680093D1F3 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		6B0662032D2A7C4A0093D1F3 /* SearcPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearcPresenter.swift; sourceTree = "<group>"; };
+		6B0662052D2A7CA40093D1F3 /* SearchEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEntity.swift; sourceTree = "<group>"; };
+		6B0662072D2A7CBF0093D1F3 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		6B0662092D2A7D040093D1F3 /* SearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleBuilder.swift; sourceTree = "<group>"; };
 		6B2384C62CBA85D00054D84B /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		6B2384CD2CC19CCE0054D84B /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
 		6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRateView.swift; sourceTree = "<group>"; };
@@ -312,6 +324,12 @@
 		6B0661FE2D2A670F0093D1F3 /* SearchModule */ = {
 			isa = PBXGroup;
 			children = (
+				6B0661FF2D2A67AA0093D1F3 /* SearchViewController.swift */,
+				6B0662072D2A7CBF0093D1F3 /* SearchRouter.swift */,
+				6B0662052D2A7CA40093D1F3 /* SearchEntity.swift */,
+				6B0662012D2A68680093D1F3 /* SearchInteractor.swift */,
+				6B0662032D2A7C4A0093D1F3 /* SearcPresenter.swift */,
+				6B0662092D2A7D040093D1F3 /* SearchModuleBuilder.swift */,
 			);
 			path = SearchModule;
 			sourceTree = "<group>";
@@ -794,7 +812,9 @@
 				6BCD874F2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift in Sources */,
 				6BFAA0EC2C577969002D8F1A /* ListsDetailRouter.swift in Sources */,
 				6B732F1F2C849652001CCA04 /* RatedMoviesModuleBuilder.swift in Sources */,
+				6B0662002D2A67AA0093D1F3 /* SearchViewController.swift in Sources */,
 				6B44B1F52C43CB26006F0084 /* ListsPresenter.swift in Sources */,
+				6B0662082D2A7CBF0093D1F3 /* SearchRouter.swift in Sources */,
 				6BF51F582C70F17C00F4CA50 /* TextFieldView.swift in Sources */,
 				6B56A7F72C3B2E34001032C8 /* LoginModulBuilder.swift in Sources */,
 				6B44B1F92C43CB89006F0084 /* ListsRouter.swift in Sources */,
@@ -872,7 +892,9 @@
 				6B9AB0AA2CFB14F200EB5CD3 /* Enums.swift in Sources */,
 				6BCD87512CA9791C00495B93 /* ReviewEntity.swift in Sources */,
 				6B44B2072C455153006F0084 /* WatchlistRouter.swift in Sources */,
+				6B0662022D2A68680093D1F3 /* SearchInteractor.swift in Sources */,
 				6B44B1F72C43CB61006F0084 /* ListEntity.swift in Sources */,
+				6B0662042D2A7C4A0093D1F3 /* SearcPresenter.swift in Sources */,
 				6B6B6E772CF3BF1900957AE4 /* MoviesLoadingView.swift in Sources */,
 				6B6A7D3E2C78686F007CC4F0 /* AddListEntity.swift in Sources */,
 				6B44B1F12C43C99E006F0084 /* Extensions.swift in Sources */,
@@ -888,6 +910,7 @@
 				6BC683582C426DFB0008864A /* MokData.swift in Sources */,
 				6B6A7D402C786D9A007CC4F0 /* AddListView.swift in Sources */,
 				6BCD87032CA0884700495B93 /* MoviesCastViewController.swift in Sources */,
+				6B0662062D2A7CA40093D1F3 /* SearchEntity.swift in Sources */,
 				6BFAA0EA2C5569AA002D8F1A /* ListsEntity.swift in Sources */,
 				6BC683332C3EC6D30008864A /* ProfileEntity.swift in Sources */,
 				6B732F272C84B179001CCA04 /* FavoriteMoviesPresenter.swift in Sources */,
@@ -897,6 +920,7 @@
 				6BC6832D2C3DCDCF0008864A /* ProfileViewController.swift in Sources */,
 				6BCD381C2C6E704100A0C2BB /* AddToListViewController.swift in Sources */,
 				6B44B1FF2C454FF6006F0084 /* WatchlistViewController.swift in Sources */,
+				6B06620A2D2A7D040093D1F3 /* SearchModuleBuilder.swift in Sources */,
 				6BCD87142CA5CE3E00495B93 /* MoviesCastView.swift in Sources */,
 				6B732F3A2C88E997001CCA04 /* AddToExistListRouter.swift in Sources */,
 				6B44B2032C4550C4006F0084 /* WatchlistPresenter.swift in Sources */,
