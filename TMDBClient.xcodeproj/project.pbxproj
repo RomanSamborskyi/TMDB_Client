@@ -309,6 +309,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B0661FE2D2A670F0093D1F3 /* SearchModule */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchModule;
+			sourceTree = "<group>";
+		};
 		6B44B1FD2C454FD8006F0084 /* WatchList */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +380,7 @@
 				6B56A7D92C3B27A3001032C8 /* SceneDelegate.swift */,
 				6B56A7D72C3B27A3001032C8 /* AppDelegate.swift */,
 				6BC683432C4079DF0008864A /* TabBarController.swift */,
+				6B0661FE2D2A670F0093D1F3 /* SearchModule */,
 				6BCD87562CA9E5AE00495B93 /* TrailerModule */,
 				6BCD87012CA0881700495B93 /* MoviesCastModule */,
 				6B58C88F2C97534E0096D952 /* AdditionalViews */,
