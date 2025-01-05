@@ -84,5 +84,7 @@ extension SearchInteractor: SearchInteractorProtocol {
             }
             return posters
         }
+        
+        presenter?.showResults(movies: movies, posters: posters)
     }
 }

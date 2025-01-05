@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchViewControllerProtocol: AnyObject {
-    
+    func showeResults(movies: [Movie], posters: [Int : UIImage])
 }
 
 class SearchViewController: UIViewController {
@@ -23,7 +23,9 @@ class SearchViewController: UIViewController {
 }
 //MARK: - SearchViewControllerProtocol
 extension SearchViewController: SearchViewControllerProtocol {
-    
+    func showeResults(movies: [Movie], posters: [Int : UIImage]) {
+        
+    }
 }
 //MARK: - UI layout
 private extension SearchViewController {

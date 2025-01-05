@@ -5,11 +5,12 @@
 //  Created by Roman Samborskyi on 05.01.2025.
 //
 
-import Foundation
+import UIKit
 
 
 protocol SearchPresenterProtocol: AnyObject {
     func viewDidLoad()
+    func showResults(movies: [Movie], posters: [Int : UIImage])
 }
 
 class SearcPresenter {
@@ -27,6 +28,9 @@ class SearcPresenter {
 }
 //MARK: - SearchPresenterProtocol
 extension SearcPresenter: SearchPresenterProtocol {
+    func showResults(movies: [Movie], posters: [Int : UIImage]) {
+        view?.showeResults(movies: movies, posters: posters)
+    }
     func viewDidLoad() {
         Task {
             do {
