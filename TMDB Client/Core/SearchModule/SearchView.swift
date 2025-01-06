@@ -7,8 +7,14 @@
 
 import UIKit
 
+//MARK: - SearchTextfieldDelete
+protocol SearchTextFieldDelegate: AnyObject {
+    func search(text: String)
+}
+
 class SearchView: UIView {
     //MARK: - property
+    weak var textFieldDelegate: SearchTextFieldDelegate?
     private lazy var inputTextField: UITextField = {
         let textField = UITextField()
         return textField
@@ -48,8 +54,7 @@ private extension SearchView {
                   .font: UIFont.systemFont(ofSize: 16)
               ]
         inputTextField.attributedPlaceholder = NSAttributedString(string: "Type to search", attributes: attributes)
-      
-        
+        inputTextField.addTarget(self, action: #selector(performSearch), for: .editingChanged)
         
         NSLayoutConstraint.activate([
             inputTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
@@ -58,5 +63,13 @@ private extension SearchView {
             inputTextField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             inputTextField.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05)
         ])
+    }
+}
+//MARK: - text field extension
+extension SearchView {
+    @objc func performSearch(textFiled: UITextField) {
+        if let result = textFiled.text {
+            textFieldDelegate?.search(text: result)
+        }
     }
 }

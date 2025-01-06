@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol SearchInteractorProtocol: AnyObject {
-    func fetchSearchResult() async throws
+    func fetchSearchResult(search: String) async throws
 }
 
 class SearchInteractor {
@@ -27,35 +27,37 @@ class SearchInteractor {
 }
 //MARK: - SearchInteractorProtocol
 extension SearchInteractor: SearchInteractorProtocol {
-    func fetchSearchResult() async throws {
+    func fetchSearchResult(search: String) async throws {
         
-        let movies = try await withThrowingTaskGroup(of: Movie.self) { group in
+        let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
             
             let session = URLSession.shared
             
-            let request = try self.networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.searchMovie(apiKey: Constants.apiKey, title: ""))
+            let request = try self.networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.searchMovie(apiKey: Constants.apiKey, title: search))
             
             group.addTask { [weak self, request] in
                 
-                guard let response = try await self?.networkManager.fetchGET(type: Movie.self, session: session, request: request) else {
+                guard let response = try await self?.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return response
             }
            
-            var movies: [Movie] = []
+            var movies: MovieResult?
             
             for try await moviesResponse in group {
-                movies.append(moviesResponse)
+                movies = moviesResponse
             }
             return movies
         }
         
+        guard let moviesArray = movies?.results else { return }
+        
         let posters = try await withThrowingTaskGroup(of: [Int : UIImage].self) { group in
             
             let session = URLSession.shared
-            
-            for movie in movies {
+           
+            for movie in moviesArray {
                 
                 guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
                     throw AppError.badURL
@@ -84,7 +86,6 @@ extension SearchInteractor: SearchInteractorProtocol {
             }
             return posters
         }
-        
-        presenter?.showResults(movies: movies, posters: posters)
+        presenter?.showResults(movies: moviesArray, posters: posters)
     }
 }

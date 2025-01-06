@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol SearchPresenterProtocol: AnyObject {
-    func viewDidLoad()
+    func startSearch(text: String)
     func showResults(movies: [Movie], posters: [Int : UIImage])
 }
 
@@ -31,10 +31,10 @@ extension SearcPresenter: SearchPresenterProtocol {
     func showResults(movies: [Movie], posters: [Int : UIImage]) {
         view?.showeResults(movies: movies, posters: posters)
     }
-    func viewDidLoad() {
+    func startSearch(text: String) {
         Task {
             do {
-                try await interactor.fetchSearchResult()
+                try await interactor.fetchSearchResult(search: text)
             } catch let error as AppError {
                 print(error.localized)
             }
