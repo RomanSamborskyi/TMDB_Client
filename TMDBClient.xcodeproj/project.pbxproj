@@ -14,6 +14,7 @@
 		6B0662082D2A7CBF0093D1F3 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0662072D2A7CBF0093D1F3 /* SearchRouter.swift */; };
 		6B06620A2D2A7D040093D1F3 /* SearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0662092D2A7D040093D1F3 /* SearchModuleBuilder.swift */; };
 		6B06620C2D2AF3020093D1F3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B06620B2D2AF3020093D1F3 /* SearchView.swift */; };
+		6B06620E2D2C23BB0093D1F3 /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B06620D2D2C23BB0093D1F3 /* SearchHistoryView.swift */; };
 		6B2384C72CBA85D00054D84B /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2384C62CBA85D00054D84B /* Sizes.swift */; };
 		6B2384CE2CC19CCE0054D84B /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2384CD2CC19CCE0054D84B /* NotificationCenterManager.swift */; };
 		6B42EEBD2C6367F50018FE66 /* MovieRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */; };
@@ -167,6 +168,7 @@
 		6B0662072D2A7CBF0093D1F3 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		6B0662092D2A7D040093D1F3 /* SearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleBuilder.swift; sourceTree = "<group>"; };
 		6B06620B2D2AF3020093D1F3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		6B06620D2D2C23BB0093D1F3 /* SearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
 		6B2384C62CBA85D00054D84B /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		6B2384CD2CC19CCE0054D84B /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
 		6B42EEBC2C6367F50018FE66 /* MovieRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRateView.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				6B0661FF2D2A67AA0093D1F3 /* SearchViewController.swift */,
 				6B0662072D2A7CBF0093D1F3 /* SearchRouter.swift */,
 				6B06620B2D2AF3020093D1F3 /* SearchView.swift */,
+				6B06620D2D2C23BB0093D1F3 /* SearchHistoryView.swift */,
 				6B0662052D2A7CA40093D1F3 /* SearchEntity.swift */,
 				6B0662012D2A68680093D1F3 /* SearchInteractor.swift */,
 				6B0662032D2A7C4A0093D1F3 /* SearcPresenter.swift */,
@@ -853,6 +856,7 @@
 				6B732F1D2C849435001CCA04 /* RatedMoviesRouter.swift in Sources */,
 				6BCD87112CA1F34100495B93 /* MoviesCastCollectionView.swift in Sources */,
 				6BA605FF2C46D28D007E205C /* MovieDetailsInteractor.swift in Sources */,
+				6B06620E2D2C23BB0093D1F3 /* SearchHistoryView.swift in Sources */,
 				6B732F192C84937B001CCA04 /* RatedMoviesInteractor.swift in Sources */,
 				6B56A7F52C3B2BEA001032C8 /* LoginRouter.swift in Sources */,
 				6BC683492C4080140008864A /* ActivityView.swift in Sources */,
