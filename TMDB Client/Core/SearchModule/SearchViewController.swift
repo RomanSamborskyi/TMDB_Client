@@ -19,10 +19,6 @@ class SearchViewController: UIViewController {
     private lazy var searchResults: [Movie] = []
     private lazy var posters: [Int : UIImage] = [:]
     private lazy var searchHistory: [String] = []
-    private lazy var scroll: UIScrollView = {
-        let scrl = UIScrollView()
-        return scrl
-    }()
     private lazy var collectionView: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
@@ -50,25 +46,9 @@ extension SearchViewController: SearchViewControllerProtocol {
 private extension SearchViewController {
     func setupLayout() {
         self.view.backgroundColor = .customBackground
-        self.navigationItem.title =  "Search"
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        
-        setupScrollView()
         setupSearchView()
         setupCollectionView()
-    }
-    func setupScrollView() {
-        let margins = self.view.layoutMarginsGuide
-        self.view.addSubview(scroll)
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            scroll.topAnchor.constraint(equalTo: self.view.topAnchor),
-            scroll.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            scroll.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            scroll.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-        ])
+        addObservers()
     }
     func setupSearchView() {
         self.view.addSubview(searchView)
@@ -76,10 +56,9 @@ private extension SearchViewController {
         searchView.textFieldDelegate = self
         
         NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 150),
+            searchView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             searchView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             searchView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-         
         ])
     }
     func setupCollectionView() {
@@ -129,5 +108,19 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension SearchViewController: SearchTextFieldDelegate {
     func search(text: String) {
         preseter?.startSearch(text: text)
+    }
+}
+//MARK: - keyboard observers
+extension SearchViewController {
+    func addObservers() {
+        setupObservers()
+    }
+    func setupObservers() {
+        let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(tapHandler))
+        view.addGestureRecognizer(gesture)
+    }
+    @objc func tapHandler(_ notification: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
 }
