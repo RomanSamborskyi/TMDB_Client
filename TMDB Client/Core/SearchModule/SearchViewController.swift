@@ -14,7 +14,6 @@ protocol SearchViewControllerProtocol: AnyObject {
 class SearchViewController: UIViewController {
     //MARK: - property
     var preseter: SearchPresenterProtocol?
-    private lazy var searchView = SearchView()
     private lazy var searchState: SearchState = .started
     private lazy var searchResults: [Movie] = []
     private lazy var posters: [Int : UIImage] = [:]
@@ -46,20 +45,8 @@ extension SearchViewController: SearchViewControllerProtocol {
 private extension SearchViewController {
     func setupLayout() {
         self.view.backgroundColor = .customBackground
-        setupSearchView()
         setupCollectionView()
         addObservers()
-    }
-    func setupSearchView() {
-        self.view.addSubview(searchView)
-        searchView.translatesAutoresizingMaskIntoConstraints = false
-        searchView.textFieldDelegate = self
-        
-        NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            searchView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            searchView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-        ])
     }
     func setupCollectionView() {
         self.view.addSubview(collectionView)
@@ -68,9 +55,10 @@ private extension SearchViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
+        collectionView.register(SearchFieldCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifer)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.searchView.bottomAnchor, constant: 10),
+            collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -78,7 +66,7 @@ private extension SearchViewController {
     }
 }
 //MARK: - UICollectionDelegate, UICollectionViewDataSource
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch searchState {
         case .ended:
@@ -102,6 +90,15 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.layer.cornerRadius = 15
             return cell
         }
+    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifer, for: indexPath) as! SearchFieldCollectionReusableView
+        header.setupView()
+        header.textFieldDelegate = self
+        return header
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.05)
     }
 }
 //MARK: - SearchTextfieldDelete

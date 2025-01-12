@@ -1,8 +1,8 @@
 //
-//  SearchView.swift
+//  CollectionReusableView.swift
 //  TMDB Client
 //
-//  Created by Roman Samborskyi on 05.01.2025.
+//  Created by Roman Samborskyi on 12.01.2025.
 //
 
 import UIKit
@@ -12,30 +12,25 @@ protocol SearchTextFieldDelegate: AnyObject {
     func search(text: String)
 }
 
-class SearchView: UIView {
-    //MARK: - property
+class SearchFieldCollectionReusableView: UICollectionReusableView {
+    //MARK: - properties
     weak var textFieldDelegate: SearchTextFieldDelegate?
+    static let identifer: String = "SearchFieldCollectionReusableView"
     private lazy var inputTextField: UITextField = {
-        let textField = UITextField()
-        return textField
+        let field = UITextField()
+        return field
     }()
     //MARK: - lifecycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    public func setupView() {
         setupLayout()
-    }
-    required init?(coder: NSCoder) {
-        fatalError("Fatal error")
     }
 }
 //MARK: - setup UI layout
-private extension SearchView {
+private extension SearchFieldCollectionReusableView {
     func setupLayout() {
-        self.backgroundColor = .customBackground
-        
-        setupTextFiledView()
+        setupTextField()
     }
-    func setupTextFiledView() {
+    func setupTextField() {
         self.addSubview(inputTextField)
         inputTextField.translatesAutoresizingMaskIntoConstraints = false
         inputTextField.borderStyle = .roundedRect
@@ -57,16 +52,15 @@ private extension SearchView {
         inputTextField.addTarget(self, action: #selector(performSearch), for: .editingChanged)
         
         NSLayoutConstraint.activate([
-            inputTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            inputTextField.topAnchor.constraint(equalTo: self.topAnchor),
             inputTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             inputTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            inputTextField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            inputTextField.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.05)
+            inputTextField.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
 }
 //MARK: - text field extension
-extension SearchView {
+extension SearchFieldCollectionReusableView {
     @objc func performSearch(textFiled: UITextField) {
         if let result = textFiled.text {
             textFieldDelegate?.search(text: result)
