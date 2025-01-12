@@ -49,13 +49,13 @@ private extension SearchFieldCollectionReusableView {
                   .font: UIFont.systemFont(ofSize: 16)
               ]
         inputTextField.attributedPlaceholder = NSAttributedString(string: "Type to search", attributes: attributes)
-        inputTextField.addTarget(self, action: #selector(performSearch), for: .editingChanged)
+        inputTextField.addTarget(self, action: #selector(performSearch), for: .editingDidEnd)
         
         NSLayoutConstraint.activate([
             inputTextField.topAnchor.constraint(equalTo: self.topAnchor),
             inputTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             inputTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            inputTextField.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            inputTextField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
         ])
     }
 }

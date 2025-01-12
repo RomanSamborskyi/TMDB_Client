@@ -30,6 +30,10 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        //TODO: - add clean up method here
+        print("Clean up logic should be here")
+    }
 }
 //MARK: - SearchViewControllerProtocol
 extension SearchViewController: SearchViewControllerProtocol {
@@ -98,7 +102,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.05)
+        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.08)
     }
 }
 //MARK: - SearchTextfieldDelete
