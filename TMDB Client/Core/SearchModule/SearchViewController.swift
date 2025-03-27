@@ -23,14 +23,12 @@ class SearchViewController: UIViewController {
         flow.scrollDirection = .vertical
         flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
         let view = UICollectionView(frame: .zero, collectionViewLayout: flow)
-        view.tag = 1
         return view
     }()
     private lazy var histroyCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
-        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height * 0.05)
         let view = UICollectionView(frame: .zero, collectionViewLayout: flow)
-        view.tag = 0
         return view
     }()
     
@@ -43,7 +41,6 @@ class SearchViewController: UIViewController {
         //TODO: - add clean up method here
        // self.searchState = .ended
         self.searchResults.removeAll()
-        self.movieCollection.reloadData()
         print(self.searchResults.count)
         print(self.searchState)
         print("Clean up logic should be here")
@@ -129,7 +126,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.poster = self.posters[item.id ?? 0]
             cell.clipsToBounds = true
             cell.backgroundColor = .black.withAlphaComponent(0.4)
-            cell.layer.cornerRadius = 15
+            cell.layer.cornerRadius = 10
             return cell
         }
     }
@@ -147,6 +144,16 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension SearchViewController: SearchTextFieldDelegate {
     func search(text: String) {
         preseter?.startSearch(text: text)
+        
+        if text.count > 3 {
+            self.searchState = .started
+            setupMovieCollectionView()
+            self.movieCollection.reloadData()
+        } else {
+            self.searchState = .ended
+            setupHistoryCollectionView()
+            self.histroyCollection.reloadData()
+        }
     }
 }
 //MARK: - keyboard observers

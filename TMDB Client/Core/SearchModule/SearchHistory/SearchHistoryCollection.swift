@@ -34,7 +34,7 @@ private extension SearchHistoryCollection {
         
         NSLayoutConstraint.activate([
             searchHistoryText.topAnchor.constraint(equalTo: self.topAnchor),
-            searchHistoryText.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            searchHistoryText.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             searchHistoryText.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             searchHistoryText.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
