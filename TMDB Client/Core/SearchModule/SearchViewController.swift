@@ -14,17 +14,26 @@ protocol SearchViewControllerProtocol: AnyObject {
 class SearchViewController: UIViewController {
     //MARK: - property
     var preseter: SearchPresenterProtocol?
-    private lazy var searchState: SearchState = .started
+    private lazy var searchState: SearchState = .ended
     private lazy var searchResults: [Movie] = []
     private lazy var posters: [Int : UIImage] = [:]
-    private lazy var searchHistory: [String] = []
-    private lazy var collectionView: UICollectionView = {
+    private lazy var searchHistory: [String] = ["Pirates", "Transformers"]
+    private lazy var movieCollection: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
         flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
         let view = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        view.tag = 1
         return view
     }()
+    private lazy var histroyCollection: UICollectionView = {
+        let flow = UICollectionViewFlowLayout()
+        flow.itemSize = CGSize(width: UIScreen.main.bounds.width - 15, height: UIScreen.main.bounds.height / 3.7)
+        let view = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        view.tag = 0
+        return view
+    }()
+    
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +43,7 @@ class SearchViewController: UIViewController {
         //TODO: - add clean up method here
        // self.searchState = .ended
         self.searchResults.removeAll()
-        self.collectionView.reloadData()
+        self.movieCollection.reloadData()
         print(self.searchResults.count)
         print(self.searchState)
         print("Clean up logic should be here")
@@ -46,7 +55,7 @@ extension SearchViewController: SearchViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.searchResults = movies
             self?.posters.merge(posters) { image, _ in image }
-            self?.collectionView.reloadData()
+            self?.movieCollection.reloadData()
         }
     }
 }
@@ -54,23 +63,44 @@ extension SearchViewController: SearchViewControllerProtocol {
 private extension SearchViewController {
     func setupLayout() {
         self.view.backgroundColor = .customBackground
-        setupCollectionView()
+        switch searchState {
+        case .ended:
+            setupHistoryCollectionView()
+        case .started:
+            setupMovieCollectionView()
+        }
         addObservers()
     }
-    func setupCollectionView() {
-        self.view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .customBackground
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
-        collectionView.register(SearchFieldCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifшer)
+    func setupHistoryCollectionView() {
+        self.view.addSubview(histroyCollection)
+        histroyCollection.translatesAutoresizingMaskIntoConstraints = false
+        histroyCollection.backgroundColor = .customBackground
+        histroyCollection.delegate = self
+        histroyCollection.dataSource = self
+        histroyCollection.register(SearchHistoryCollection.self, forCellWithReuseIdentifier: SearchHistoryCollection.identifier)
+        histroyCollection.register(SearchFieldCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifшer)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
-            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            histroyCollection.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
+            histroyCollection.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            histroyCollection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            histroyCollection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
+    func setupMovieCollectionView() {
+        self.view.addSubview(movieCollection)
+        movieCollection.translatesAutoresizingMaskIntoConstraints = false
+        movieCollection.backgroundColor = .customBackground
+        movieCollection.delegate = self
+        movieCollection.dataSource = self
+        movieCollection.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
+        movieCollection.register(SearchFieldCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifшer)
+        
+        NSLayoutConstraint.activate([
+            movieCollection.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
+            movieCollection.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            movieCollection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            movieCollection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
 }
@@ -88,7 +118,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch searchState {
         case .ended:
-            return UICollectionViewCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchHistoryCollection.identifier, for: indexPath) as! SearchHistoryCollection
+            let item = self.searchHistory[indexPath.row]
+            cell.updateLabel(with: item)
+            return cell
         case .started:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListsResultCell.identifier, for: indexPath) as! ListsResultCell
             let item = self.searchResults[indexPath.row]
