@@ -15,7 +15,7 @@ protocol SearchTextFieldDelegate: AnyObject {
 class SearchFieldCollectionReusableView: UICollectionReusableView {
     //MARK: - properties
     weak var textFieldDelegate: SearchTextFieldDelegate?
-    static let identifer: String = "SearchFieldCollectionReusableView"
+    static let identifшer: String = "SearchFieldCollectionReusableView"
     private lazy var inputTextField: UITextField = {
         let field = UITextField()
         return field

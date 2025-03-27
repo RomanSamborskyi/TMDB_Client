@@ -30,8 +30,13 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
     }
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         //TODO: - add clean up method here
+       // self.searchState = .ended
+        self.searchResults.removeAll()
+        self.collectionView.reloadData()
+        print(self.searchResults.count)
+        print(self.searchState)
         print("Clean up logic should be here")
     }
 }
@@ -59,7 +64,7 @@ private extension SearchViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ListsResultCell.self, forCellWithReuseIdentifier: ListsResultCell.identifier)
-        collectionView.register(SearchFieldCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifer)
+        collectionView.register(SearchFieldCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifшer)
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
@@ -96,7 +101,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifer, for: indexPath) as! SearchFieldCollectionReusableView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchFieldCollectionReusableView.identifшer, for: indexPath) as! SearchFieldCollectionReusableView
         header.setupView()
         header.textFieldDelegate = self
         return header
