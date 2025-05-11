@@ -39,7 +39,7 @@ class SearchViewController: UIViewController {
     }
     override func viewDidDisappear(_ animated: Bool) {
         //TODO: - add clean up method here
-        //TODO: - This all should be replaced and refacored
+        //TODO: - All this should be replaced and refacored
         self.searchState = .ended
         self.searchResults.removeAll()
         setupHistoryCollectionView()
