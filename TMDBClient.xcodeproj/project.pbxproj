@@ -139,6 +139,7 @@
 		6BCD87622CA9E72000495B93 /* TrailerModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87612CA9E72000495B93 /* TrailerModuleBuilder.swift */; };
 		6BCD87662CB2E7CA00495B93 /* TrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87652CB2E7CA00495B93 /* TrailerView.swift */; };
 		6BCD87682CB2E93800495B93 /* TrailerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCD87672CB2E93800495B93 /* TrailerCollectionViewCell.swift */; };
+		6BF118C72DF4544000F28FED /* SectetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF118C62DF4544000F28FED /* SectetDecoder.swift */; };
 		6BF51F582C70F17C00F4CA50 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */; };
 		6BF51F5A2C71059E00F4CA50 /* ListsResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF51F592C71059E00F4CA50 /* ListsResultCell.swift */; };
 		6BFAA0E12C55496F002D8F1A /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */; };
@@ -296,6 +297,8 @@
 		6BCD87612CA9E72000495B93 /* TrailerModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerModuleBuilder.swift; sourceTree = "<group>"; };
 		6BCD87652CB2E7CA00495B93 /* TrailerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerView.swift; sourceTree = "<group>"; };
 		6BCD87672CB2E93800495B93 /* TrailerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerCollectionViewCell.swift; sourceTree = "<group>"; };
+		6BF118C52DF4519100F28FED /* SecretValue.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretValue.xcconfig; sourceTree = "<group>"; };
+		6BF118C62DF4544000F28FED /* SectetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectetDecoder.swift; sourceTree = "<group>"; };
 		6BF51F572C70F17C00F4CA50 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		6BF51F592C71059E00F4CA50 /* ListsResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsResultCell.swift; sourceTree = "<group>"; };
 		6BFAA0E02C55496F002D8F1A /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
@@ -434,6 +437,7 @@
 				6B56A7E02C3B27A4001032C8 /* Assets.xcassets */,
 				6B56A7E22C3B27A4001032C8 /* LaunchScreen.storyboard */,
 				6B56A7E52C3B27A4001032C8 /* Info.plist */,
+				6BF118C52DF4519100F28FED /* SecretValue.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -578,6 +582,7 @@
 				6BC683252C3D9E800008864A /* URL's.swift */,
 				6BC683272C3DA3D10008864A /* Constants.swift */,
 				6B2384C62CBA85D00054D84B /* Sizes.swift */,
+				6BF118C62DF4544000F28FED /* SectetDecoder.swift */,
 				6B9AB0A92CFB14F200EB5CD3 /* Enums.swift */,
 				6B44B1F02C43C99E006F0084 /* Extensions.swift */,
 			);
@@ -825,6 +830,7 @@
 				6BC683562C426A120008864A /* ListsViewController.swift in Sources */,
 				6BCD874F2CA9774000495B93 /* MoviesReviewCollectionViewCell.swift in Sources */,
 				6BFAA0EC2C577969002D8F1A /* ListsDetailRouter.swift in Sources */,
+				6BF118C72DF4544000F28FED /* SectetDecoder.swift in Sources */,
 				6B732F1F2C849652001CCA04 /* RatedMoviesModuleBuilder.swift in Sources */,
 				6B0662002D2A67AA0093D1F3 /* SearchViewController.swift in Sources */,
 				6B44B1F52C43CB26006F0084 /* ListsPresenter.swift in Sources */,
@@ -1103,6 +1109,7 @@
 		};
 		6B56A7E92C3B27A4001032C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BF118C52DF4519100F28FED /* SecretValue.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1135,6 +1142,7 @@
 		};
 		6B56A7EA2C3B27A4001032C8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BF118C52DF4519100F28FED /* SecretValue.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1167,6 +1175,7 @@
 		};
 		6B6B6E502CDD4B3F00957AE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BF118C52DF4519100F28FED /* SecretValue.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1190,6 +1199,7 @@
 		};
 		6B6B6E512CDD4B3F00957AE4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BF118C52DF4519100F28FED /* SecretValue.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
