@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol LoginPresenterProtocol: AnyObject {
-    func loginButtonDidTapped(login: String, password: String)
+    @MainActor func loginButtonDidTapped(login: String, password: String)
     func didNewSessionStart(with session: Session)
 }
 
@@ -39,28 +39,27 @@ extension LoginPresenter: LoginPresenterProtocol {
             }
         }
     }
+    @MainActor
     func loginButtonDidTapped(login: String, password: String) {
         Task {
             do {
                 self.haptic.tacticFeddback(style: .soft)
                 try await interactor.sendLoginRequestWith(login: login, password: password)
             } catch let error as AppError {
-                DispatchQueue.main.async { [weak self] in
-                    self?.haptic.tacticNotification(style: .error)
-                    switch error {
-                    case .badURL:
-                        self?.view?.showAlert(title: "Error", messege: error.localized)
-                    case .badResponse:
-                        self?.view?.showAlert(title: "Error", messege: error.localized)
-                    case .invalidData:
-                        self?.view?.showAlert(title: "Error", messege: error.localized)
-                    case .incorrectUserNameOrPass:
-                        self?.view?.showAlert(title: "Error", messege: error.localized)
-                    case .incorrectAccoutId:
-                        self?.view?.showAlert(title: "Error", messege: error.localized)
-                    case .invalidStatusCode:
-                        self?.view?.showAlert(title: "Error", messege: error.localized)
-                    }
+                self.haptic.tacticNotification(style: .error)
+                switch error {
+                case .badURL:
+                    self.view?.showAlert(title: "Error", messege: error.localized)
+                case .badResponse:
+                    self.view?.showAlert(title: "Error", messege: error.localized)
+                case .invalidData:
+                    self.view?.showAlert(title: "Error", messege: error.localized)
+                case .incorrectUserNameOrPass:
+                    self.view?.showAlert(title: "Error", messege: error.localized)
+                case .incorrectAccoutId:
+                    self.view?.showAlert(title: "Error", messege: error.localized)
+                case .invalidStatusCode:
+                    self.view?.showAlert(title: "Error", messege: error.localized)
                 }
             }
         }
