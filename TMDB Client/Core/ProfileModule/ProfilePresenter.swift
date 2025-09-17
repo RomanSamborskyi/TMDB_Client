@@ -43,12 +43,12 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         Task {
             do {
                 try await interactor.logout()
+                await MainActor.run {
+                    self.router.navigateToLoginView(haptic: self.haptic, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, keychain: self.interactor.keychain)
+                }
             } catch let error as AppError {
                 print(error)
             }
-        }
-        DispatchQueue.main.async {
-            self.router.navigateToLoginView(haptic: self.haptic, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, keychain: self.interactor.keychain)
         }
     }
     

@@ -151,6 +151,6 @@ extension MovieInteractor: MovieInteractorProtocol {
             
             return posters
         }
-        presenter?.didMoviesFertched(movies: movies, with: images)
+        await presenter?.didMoviesFertched(movies: movies, with: images)
     }
 }

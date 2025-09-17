@@ -10,11 +10,11 @@ import UIKit
 
 protocol MoviePresenterProtocol: AnyObject {
     func viewControllerDidLoad(with tab: TopTabs)
-    func didMoviesFertched(movies: [Movie], with posters: [Int : UIImage])
+    @MainActor func didMoviesFertched(movies: [Movie], with posters: [Int : UIImage])
     func didGenreFetched(genre: [Genre])
     func didMoviesByGenreFetched(movie: [Movie], with posters: [Int : UIImage])
     func viewControllerDidLoad(genre: Genre)
-    func didMovieSelected(with id: Int, poster: UIImage)
+    @MainActor func didMovieSelected(with id: Int, poster: UIImage)
     var haptic: HapticFeedback { get }
 }
 
@@ -34,14 +34,12 @@ class MoviePresenter {
 }
 //MARK: - MoviePresenterProtocol
 extension MoviePresenter: MoviePresenterProtocol {
+    @MainActor
     func didMovieSelected(with id: Int, poster: UIImage) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.navigateTo(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId, keychain: self.interactor.keychain)
-        }
+        self.router.navigateTo(movie: id, poster: poster, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, haptic: self.haptic, sessionId: self.interactor.sessionId, keychain: self.interactor.keychain)
     }
     func viewControllerDidLoad(genre: Genre) {
-      Task {
+        Task {
             do {
                 try await interactor.fetchMovies(by: genre.id)
             } catch let error as AppError {
@@ -55,10 +53,9 @@ extension MoviePresenter: MoviePresenterProtocol {
     func didGenreFetched(genre: [Genre]) {
         view?.showGenre(genre: genre)
     }
+    @MainActor
     func didMoviesFertched(movies: [Movie], with posters: [Int : UIImage]) {
-        DispatchQueue.main.async {
-            self.view?.show(movies: movies, with: posters)
-        }
+        self.view?.show(movies: movies, with: posters)
     }
     func viewControllerDidLoad(with tab: TopTabs) {
         Task {
