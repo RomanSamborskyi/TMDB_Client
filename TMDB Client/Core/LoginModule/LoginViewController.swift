@@ -119,7 +119,6 @@ private extension LoginViewController {
                 self.loginView.resetConstraint()
                 self.view.layoutIfNeeded()
                 self.isKeyboardShown = false
-                
             }
         }
     }
