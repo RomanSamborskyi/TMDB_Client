@@ -36,7 +36,7 @@ final class NetworkManager {
         return request
     }
    
-    func fetchGET<T: Codable>(type: T.Type, session: URLSession, request: URLRequest) async throws -> T? {
+    func fetch<T: Codable>(type: T.Type, session: URLSession, request: URLRequest) async throws -> T? {
         
         let (data, response) = try await session.data(for: request)
         let returnedData = try sessionHandler(data: data, response: response)

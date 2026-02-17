@@ -42,7 +42,7 @@ extension AddToExistListInteractor: AddToExistListInteractorProtocol {
         
         let session = URLSession.shared
         let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.lists(key: Constants.apiKey, accountId: Int(accountId) ?? 0, sessionId: self.sessionId))
-        guard let result = try await networkManager.fetchGET(type: ListsResponse.self, session: session, request: request) else {
+        guard let result = try await networkManager.fetch(type: ListsResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
@@ -58,7 +58,7 @@ extension AddToExistListInteractor: AddToExistListInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: body, urlData: ListURL.addMovie(listId: listId, apiKey: Constants.apiKey, sessionId: sessionId))
         
-        guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetch(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
     }

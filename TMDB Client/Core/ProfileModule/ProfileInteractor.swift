@@ -47,7 +47,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
         ]
         let request = try networkManager.requestFactory(type: rawData, urlData: Authantication.deleteSession(key: Constants.apiKey))
         
-        guard let response = try await networkManager.fetchGET(type: DeleteSession.self, session: session, request: request) else {
+        guard let response = try await networkManager.fetch(type: DeleteSession.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         //Delete session ID
@@ -87,7 +87,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
             let session = URLSession.shared
             let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accDetail(key: Constants.apiKey, sessionId: sessionId))
             group.addTask { [request] in
-                guard let data = try await self.networkManager.fetchGET(type: UserProfile.self, session: session, request: request) else {
+                guard let data = try await self.networkManager.fetch(type: UserProfile.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return data

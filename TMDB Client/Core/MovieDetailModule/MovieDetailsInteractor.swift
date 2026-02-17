@@ -54,7 +54,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             let requset = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.similar(movieId: self.movieId, key: Constants.apiKey))
             
             group.addTask { [requset, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: MovieResult.self, session: session, request: requset) else {
+                guard let result = try await self?.networkManager.fetch(type: MovieResult.self, session: session, request: requset) else {
                     throw AppError.invalidData
                 }
                 return result
@@ -110,7 +110,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             let requset = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.reviews(movieId: self.movieId, key: Constants.apiKey))
             
             group.addTask { [requset, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: ReviewResponse.self, session: session, request: requset) else {
+                guard let result = try await self?.networkManager.fetch(type: ReviewResponse.self, session: session, request: requset) else {
                     throw AppError.invalidData
                 }
                 return result
@@ -167,7 +167,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.cast(movieId: self.movieId, key: Constants.apiKey))
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: CastResponse.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetch(type: CastResponse.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result.cast
@@ -229,7 +229,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: data, urlData: MoviesUrls.addRating(movieId: self.movieId, sessionId: sessioId, key: Constants.apiKey))
         
-        guard let _ = try await networkManager.fetchGET(type: RateBody.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetch(type: RateBody.self, session: session, request: request) else {
             throw AppError.invalidData
         }
     }
@@ -245,7 +245,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
 
         let request = try networkManager.requestFactory(type: body, urlData:  MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey, sessionId: self.sessionId))
         
-        let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
+        let _ = try await networkManager.fetch(type: AddToFavorite.self, session: session, request: request)
         
     }
     func fetchMovieStat() async throws -> MovieStat {
@@ -258,7 +258,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
 
         let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: sessionID))
         
-        guard let result = try await self.networkManager.fetchGET(type: MovieStat.self, session: session, request: request) else {
+        guard let result = try await self.networkManager.fetch(type: MovieStat.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
@@ -276,7 +276,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
     
         let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToWatchList(accoutId: accoutID, apiKey: Constants.apiKey, sessionId: self.sessionId))
         
-        let _ = try await networkManager.fetchGET(type: AddToWatchlist.self, session: session, request: request)
+        let _ = try await networkManager.fetch(type: AddToWatchlist.self, session: session, request: request)
         
     }
     func fetchMovieDetails() async throws {
@@ -289,7 +289,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.singleMovie(movieId: self.movieId, key: Constants.apiKey))
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: MovieDetail.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetch(type: MovieDetail.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result

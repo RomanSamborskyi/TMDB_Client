@@ -42,7 +42,7 @@ extension AddToListInteractor: AddToListInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.searchMovie(apiKey: Constants.apiKey, title: title.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? ""))
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetch(type: MovieResult.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result
@@ -98,7 +98,7 @@ extension AddToListInteractor: AddToListInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: body, urlData: ListURL.addMovie(listId: listId, apiKey: Constants.apiKey, sessionId: sessionId))
         
-        guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetch(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
     }

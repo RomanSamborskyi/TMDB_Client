@@ -41,7 +41,7 @@ extension ListsInterator: ListsInteratorProtocol {
 
         let request = try networkManager.requestFactory(type: NoBody(), urlData: ListURL.delete(listId: id, apiKey: Constants.apiKey, sessionId: sessionId))
         
-        guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetch(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
@@ -53,7 +53,7 @@ extension ListsInterator: ListsInteratorProtocol {
 
         let request = try networkManager.requestFactory(type: NoBody(), urlData: ListURL.clear(listId: id, key: Constants.apiKey, sessionId: sessionId))
         
-        guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetch(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
@@ -69,7 +69,7 @@ extension ListsInterator: ListsInteratorProtocol {
         
         let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.lists(key: Constants.apiKey, accountId: acoountID, sessionId: self.sessionId))
         
-        guard let result = try await networkManager.fetchGET(type: ListsResponse.self, session: session, request: request) else {
+        guard let result = try await networkManager.fetch(type: ListsResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         if let list = result.results {

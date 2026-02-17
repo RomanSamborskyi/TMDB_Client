@@ -37,7 +37,7 @@ extension TrailerInteractor: TrailerInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.videos(apiKey: Constants.apiKey, movieId: self.movieId))
         
-        guard let result = try await networkManager.fetchGET(type: TrailerResponse.self, session: session, request: request) else {
+        guard let result = try await networkManager.fetch(type: TrailerResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
        

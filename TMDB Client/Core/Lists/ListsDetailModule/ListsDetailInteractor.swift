@@ -46,7 +46,7 @@ extension ListsDetailInteractor: ListsDetailInteractorProtocol {
 
         let request = try networkManager.requestFactory(type: body, urlData: ListURL.deleteMovie(listId: self.listId, apiKey: Constants.apiKey, sessionId: sessionId))
         
-        guard let _ = try await networkManager.fetchGET(type: ClearList.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetch(type: ClearList.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
@@ -60,7 +60,7 @@ extension ListsDetailInteractor: ListsDetailInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: ListURL.detail(listsId: self.listId, apiKey: Constants.apiKey))
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: ListDetail.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetch(type: ListDetail.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result

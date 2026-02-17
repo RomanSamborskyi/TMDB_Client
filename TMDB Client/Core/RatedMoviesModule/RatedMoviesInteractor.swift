@@ -47,7 +47,7 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToFavorite(accoutId: self.accountId, key: Constants.apiKey, sessionId: self.sessionId))
         
-        let _ = try await networkManager.fetchGET(type: AddToFavorite.self, session: session, request: request)
+        let _ = try await networkManager.fetch(type: AddToFavorite.self, session: session, request: request)
         
     }
     func fetchMovieStat(movieId: Int) async throws -> MovieStat {
@@ -56,7 +56,7 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
 
         let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accountState(key: Constants.apiKey, movieId: movieId, sessionId: self.sessionId))
         
-        guard let result = try await self.networkManager.fetchGET(type: MovieStat.self, session: session, request: request) else {
+        guard let result = try await self.networkManager.fetch(type: MovieStat.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
@@ -70,7 +70,7 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.ratedMovies(accaountId: self.accountId, sessionId: self.sessionId, apiKey: Constants.apiKey))
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: WatchlistResponse.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetch(type: WatchlistResponse.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result.results ?? []

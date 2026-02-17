@@ -38,7 +38,7 @@ extension MovieInteractor: MovieInteractorProtocol {
         
         let session = URLSession.shared
         let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.allGenres(key: Constants.apiKey))
-        guard let response = try await networkManager.fetchGET(type: GenreResponse.self, session: session, request: request) else {
+        guard let response = try await networkManager.fetch(type: GenreResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         
@@ -52,7 +52,7 @@ extension MovieInteractor: MovieInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.byGenre(key: Constants.apiKey, genre: genre))
             
             group.addTask { [request] in
-                guard let result = try await self.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {
+                guard let result = try await self.networkManager.fetch(type: MovieResult.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result
@@ -104,7 +104,7 @@ extension MovieInteractor: MovieInteractorProtocol {
             var movies: [Movie] = []
             
             group.addTask { [request] in
-                guard let result = try await self.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {
+                guard let result = try await self.networkManager.fetch(type: MovieResult.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result

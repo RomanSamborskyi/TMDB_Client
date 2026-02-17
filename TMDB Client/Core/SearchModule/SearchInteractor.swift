@@ -37,7 +37,7 @@ extension SearchInteractor: SearchInteractorProtocol {
             
             group.addTask { [weak self, request] in
                 
-                guard let response = try await self?.networkManager.fetchGET(type: MovieResult.self, session: session, request: request) else {
+                guard let response = try await self?.networkManager.fetch(type: MovieResult.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return response

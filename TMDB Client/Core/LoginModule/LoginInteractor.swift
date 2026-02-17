@@ -42,7 +42,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: Authantication.token_request(key: Constants.apiKey))
             
             group.addTask { [request] in
-                guard let data = try await self.networkManager.fetchGET(type: TokenResponse.self, session: session, request: request) else {
+                guard let data = try await self.networkManager.fetch(type: TokenResponse.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return data
@@ -65,7 +65,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             
             group.addTask { [request, weak self] in
                 do {
-                    guard let data = try await self?.networkManager.fetchGET(type: TokenResponse.self, session: session, request: request) else {
+                    guard let data = try await self?.networkManager.fetch(type: TokenResponse.self, session: session, request: request) else {
                         throw AppError.invalidData
                     }
                     return data
@@ -96,7 +96,7 @@ extension LoginInteractor: LoginInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: rawData, urlData: Authantication.newSession(key: Constants.apiKey))
         
-        guard let data = try await networkManager.fetchGET(type: Session.self, session: session, request: request) else {
+        guard let data = try await networkManager.fetch(type: Session.self, session: session, request: request) else {
             throw AppError.invalidData
         }
         do {
@@ -120,7 +120,7 @@ extension LoginInteractor: LoginInteractorProtocol {
             let session = URLSession.shared
             let request = try networkManager.requestFactory(type: NoBody(), urlData: AccountUrl.accDetail(key: Constants.apiKey, sessionId: sessionId))
             group.addTask { [request] in
-                guard let data = try await self.networkManager.fetchGET(type: UserProfile.self, session: session, request: request) else {
+                guard let data = try await self.networkManager.fetch(type: UserProfile.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return data

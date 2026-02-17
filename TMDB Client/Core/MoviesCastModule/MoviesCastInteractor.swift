@@ -46,7 +46,7 @@ extension MoviesCastInteractor: MoviesCastInteractorProtocol {
             let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.moviesWithPersone(apiKey: Constants.apiKey, personeId: self.person))
             
             group.addTask { [request, weak self] in
-                guard let result = try await self?.networkManager.fetchGET(type: ActrorsMovies.self, session: session, request: request) else {
+                guard let result = try await self?.networkManager.fetch(type: ActrorsMovies.self, session: session, request: request) else {
                     throw AppError.invalidData
                 }
                 return result
@@ -110,7 +110,7 @@ extension MoviesCastInteractor: MoviesCastInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: NoBody(), urlData: MoviesUrls.actorDetails(apiKey: Constants.apiKey, actorId: person))
         
-        guard let result = try await networkManager.fetchGET(type: Cast.self, session: session, request: request) else { return }
+        guard let result = try await networkManager.fetch(type: Cast.self, session: session, request: request) else { return }
         
         presenter?.showInfo(actor: result, poster: self.poster)
     }

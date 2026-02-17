@@ -36,7 +36,7 @@ extension AddListInteractor: AddListInteractorProtocol {
         
         let request = try networkManager.requestFactory(type: body, urlData: ListURL.create(apiKey: Constants.apiKey, sessionId: self.sessionId))
         
-        guard let _ = try await networkManager.fetchGET(type: CreateListResponse.self, session: session, request: request) else {
+        guard let _ = try await networkManager.fetch(type: CreateListResponse.self, session: session, request: request) else {
             throw AppError.invalidData
         }
     }
