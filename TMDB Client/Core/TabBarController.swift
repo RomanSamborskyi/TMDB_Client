@@ -38,7 +38,11 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = true
+        if #available(iOS 26.0, *) {
+            self.navigationItem.hidesBackButton = false
+        } else {
+            self.navigationItem.hidesBackButton = true
+        }
         self.overrideUserInterfaceStyle = .dark
         self.tabBar.tintColor = UIColor.white
         setupLayout()

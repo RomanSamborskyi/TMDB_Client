@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let session = keychain.get(for: Constants.sessionKey) {
             window?.rootViewController = TabBarController(sessionId: session, haptic: haptic, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain)
         } else {
-            window?.rootViewController = UINavigationController(rootViewController: LoginModulBuilder.build(haptic: haptic, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain))
+            window?.rootViewController = LoginModulBuilder.build(haptic: haptic, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain)
         }
         window?.makeKeyAndVisible()
     }

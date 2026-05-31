@@ -71,12 +71,20 @@ class MovieDetailsViewController: UIViewController {
         return cell
     }()
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
+        if #available(iOS 26.0, *) {
+            self.navigationController?.navigationBar.isHidden = false
+        } else {
+            self.navigationController?.navigationBar.isHidden = true
+        }
         self.tabBarController?.tabBar.isHidden = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-        self.navigationController?.navigationBar.isHidden = false
+        if #available(iOS 26.0, *) {
+            self.navigationController?.navigationBar.isHidden = false
+        } else {
+            self.navigationController?.navigationBar.isHidden = false
+        }
     }
 }
 //MARK: - UI layout

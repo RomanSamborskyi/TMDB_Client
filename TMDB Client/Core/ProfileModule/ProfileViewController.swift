@@ -20,7 +20,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.customBackground
-        self.navigationItem.hidesBackButton = true
+        if #available(iOS 26.0, *) {
+            self.navigationItem.hidesBackButton = false
+        } else {
+            self.navigationItem.hidesBackButton = true
+        }
         profileView.delegate = self
         presenter?.viewControllerDidLoad(viewController: self)
         setupLayout()

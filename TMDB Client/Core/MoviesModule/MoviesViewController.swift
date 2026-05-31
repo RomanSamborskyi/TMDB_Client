@@ -15,6 +15,7 @@ protocol MovieViewProtocol: AnyObject {
     func showErrorAlert(message: String)
 }
 
+
 class MoviesViewController: UIViewController {
     //MARK: - property
     var presenter: MoviePresenterProtocol?
@@ -219,7 +220,7 @@ private extension MoviesViewController {
 //MARK: - MovieViewProtocol
 extension MoviesViewController: MovieViewProtocol {
     func showErrorAlert(message: String) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             self.loadingState = .netWorkError
             self.loadingView.isHidden = true
             self.navigationController?.showAlert(title: "Error", messege: message, action: UIAlertAction(title: "Ok", style: .cancel))

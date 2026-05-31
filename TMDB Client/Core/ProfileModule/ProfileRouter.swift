@@ -32,7 +32,16 @@ extension ProfileRouter: ProfileRouterProtocol {
     }
     func navigateToLoginView(haptic: HapticFeedback, networkManager: NetworkManager, imageDownloader: ImageDownloader, keychain: KeyChainManager) {
         let loginVC = LoginModulBuilder.build(haptic: haptic, networkManager: networkManager, imageDownloader: imageDownloader, keychain: keychain)
-        loginVC.hidesBottomBarWhenPushed = true
-        view?.navigationController?.pushViewController(loginVC, animated: true)
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else { return }
+        UIView.transition(
+            with: window,
+            duration: 0.3,
+            options: .transitionCrossDissolve,
+            animations: {
+                window.rootViewController = loginVC
+            }
+        )
+        window.makeKeyAndVisible()
     }
 }

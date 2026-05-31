@@ -119,7 +119,11 @@ private extension MovieDetailsView {
     func setupLayout() {
         setupPosterView()
         setupGradientView()
-        setupBackButton()
+        if #available(iOS 26.0, *) {
+            print("Here we go!!!")
+        } else {
+            setupBackButton()
+        }
         setupTitleLabel()
         setupGenreLabel()
         setupAdditionalInfoLabel()
