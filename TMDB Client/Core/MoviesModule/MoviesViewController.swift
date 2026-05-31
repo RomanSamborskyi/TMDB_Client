@@ -29,9 +29,14 @@ class MoviesViewController: UIViewController {
     private var moviesByGenre: [Movie] = []
     private var postersByGenre: [Int : UIImage] = [:]
     private var selectedTab: TopTabs = .trending
-    private var loadingState: LoadingState = .loading
+    private var loadingState: LoadingState = .loading {
+        didSet {
+            viewSwitcher()
+        }
+    }
     private var selectedGenre: Genre = DeveloperPreview.instance.action
     private lazy var loadingView: UIView = MoviesLoadingView()
+    private lazy var emptyErrorView = EmptyErrorView()
     private lazy var scroll: UIScrollView = {
         let view = UIScrollView()
         return view
@@ -100,11 +105,23 @@ private extension MoviesViewController {
         case .empty:
             break
         case .netWorkError:
-            break
+            setupEmptyErrorView()
         }
     }
-    func setupCollections() {
+    func setupEmptyErrorView() {
+        self.view.addSubview(emptyErrorView)
+        emptyErrorView.translatesAutoresizingMaskIntoConstraints = false
+        emptyErrorView.imageName = "wifi.slash"
+        emptyErrorView.textLable = "No internet connection"
         
+        NSLayoutConstraint.activate([
+            emptyErrorView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            emptyErrorView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyErrorView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyErrorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
+    func setupCollections() {
         self.loadingView.isHidden = true
         
         loadingView.removeFromSuperview()
@@ -203,7 +220,10 @@ private extension MoviesViewController {
 extension MoviesViewController: MovieViewProtocol {
     func showErrorAlert(message: String) {
         DispatchQueue.main.async {
+            self.loadingState = .netWorkError
+            self.loadingView.isHidden = true
             self.navigationController?.showAlert(title: "Error", messege: message, action: UIAlertAction(title: "Ok", style: .cancel))
+            self.view.layoutIfNeeded()
         }
     }
     func showMoviesByGenre(movies: [Movie], with posters: [Int : UIImage]) {
