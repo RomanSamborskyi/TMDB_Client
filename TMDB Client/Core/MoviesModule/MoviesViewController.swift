@@ -12,6 +12,7 @@ protocol MovieViewProtocol: AnyObject {
     func show(movies: [Movie], with posters: [Int : UIImage])
     func showGenre(genre: [Genre])
     func showMoviesByGenre(movies: [Movie], with posters: [Int : UIImage])
+    func showErrorAlert(message: String)
 }
 
 class MoviesViewController: UIViewController {
@@ -200,6 +201,11 @@ private extension MoviesViewController {
 }
 //MARK: - MovieViewProtocol
 extension MoviesViewController: MovieViewProtocol {
+    func showErrorAlert(message: String) {
+        DispatchQueue.main.async {
+            self.navigationController?.showAlert(title: "Error", messege: message, action: UIAlertAction(title: "Ok", style: .cancel))
+        }
+    }
     func showMoviesByGenre(movies: [Movie], with posters: [Int : UIImage]) {
         DispatchQueue.main.async {
             self.moviesByGenre.append(contentsOf: movies)

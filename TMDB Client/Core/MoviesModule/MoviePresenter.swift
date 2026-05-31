@@ -77,8 +77,15 @@ private extension MoviePresenter {
                     case .upcoming:
                         try await self.interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey))
                     }
-                } catch let error as AppError {
-                    print(error)
+                } catch let error {
+                    if let error = error as? URLError {
+                        switch error.code {
+                        case .notConnectedToInternet:
+                            self.view?.showErrorAlert(message: error.localizedDescription)
+                        default:
+                            print(error)
+                        }
+                    }
                 }
             }
             group.addTask(priority: .userInitiated) {
