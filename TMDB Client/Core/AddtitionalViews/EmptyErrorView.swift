@@ -17,8 +17,13 @@ class EmptyErrorView: UIView {
         let lbl = UILabel()
         return lbl
     }()
-    public var imageName: String = ""
-    var textLable: String = ""
+    var imageName: String = ""
+    var textLable: String = "" {
+        didSet {
+            setupLayout()
+            self.layoutIfNeeded()
+        }
+    }
     //MARK: - life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,16 +38,31 @@ private extension EmptyErrorView {
     func setupLayout() {
         self.backgroundColor = .customBackground
         setupImageView()
+        setupLabelView()
     }
     func setupImageView() {
         self.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "wifi.slash")
+        imageView.image = UIImage(systemName: imageName)
+        imageView.tintColor = UIColor.gray
+        
         NSLayoutConstraint.activate([
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -80),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
-            imageView.widthAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: 120),
+            imageView.widthAnchor.constraint(equalToConstant: 120),
+        ])
+    }
+    func setupLabelView() {
+        self.addSubview(labelView)
+        labelView.translatesAutoresizingMaskIntoConstraints = false
+        labelView.text = textLable
+        labelView.font = .systemFont(ofSize: 20, weight: .bold)
+        labelView.textColor = .gray
+        
+        NSLayoutConstraint.activate([
+            labelView.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 10),
+            labelView.centerXAnchor.constraint(equalTo: self.imageView.centerXAnchor)
         ])
     }
 }

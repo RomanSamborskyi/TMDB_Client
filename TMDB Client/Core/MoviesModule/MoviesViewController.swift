@@ -112,6 +112,8 @@ private extension MoviesViewController {
         self.view.addSubview(emptyErrorView)
         emptyErrorView.translatesAutoresizingMaskIntoConstraints = false
         emptyErrorView.imageName = "wifi.slash"
+        emptyErrorView.textLable = "No internet connection"
+        
         NSLayoutConstraint.activate([
             emptyErrorView.topAnchor.constraint(equalTo: self.view.topAnchor),
             emptyErrorView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
