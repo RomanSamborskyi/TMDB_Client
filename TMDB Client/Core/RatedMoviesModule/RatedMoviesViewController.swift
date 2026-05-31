@@ -83,6 +83,8 @@ private extension RatedMoviesViewController {
         case .empty:
             movieCollection.isHidden = true
             setupEmptyListView()
+        case .netWorkError:
+            break
         }
     }
     func setupCollectionView() {
@@ -121,6 +123,8 @@ extension RatedMoviesViewController: UICollectionViewDelegate, UICollectionViewD
             return self.movies.count
         case .empty:
             return 0
+        case .netWorkError:
+            return 0
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -143,6 +147,8 @@ extension RatedMoviesViewController: UICollectionViewDelegate, UICollectionViewD
             return cell
         case .empty:
             return UICollectionViewCell()
+        case .netWorkError:
+            return UICollectionViewCell()
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -154,6 +160,8 @@ extension RatedMoviesViewController: UICollectionViewDelegate, UICollectionViewD
             guard let poster = self.posters[item.id ?? 0] else { return }
             presenter?.didMovieSelected(id: item.id ?? 0, poster: poster)
         case .empty:
+            break
+        case .netWorkError:
             break
         }
     }

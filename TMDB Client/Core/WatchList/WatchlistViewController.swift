@@ -69,6 +69,8 @@ private extension WatchlistViewController {
         case .empty:
             movieCollection.isHidden = true
             setupEmptyListView()
+        case .netWorkError:
+            break
         }
     }
     func stateSwither() {
@@ -127,6 +129,8 @@ extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDat
             return self.movies.count
         case .empty:
             return 0
+        case .netWorkError:
+            return 0
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -149,6 +153,8 @@ extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDat
             return cell
         case .empty:
             return UICollectionViewCell()
+        case .netWorkError:
+            return UICollectionViewCell()
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -160,6 +166,8 @@ extension WatchlistViewController: UICollectionViewDelegate, UICollectionViewDat
             guard let poster = self.posters[item.id ?? 0] else { return }
             presenter?.didMovieSelected(movie: item.id ?? 0, poster: poster)
         case .empty:
+            break
+        case .netWorkError:
             break
         }
     }

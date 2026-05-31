@@ -76,6 +76,8 @@ private extension ListsDetailViewController {
         case .empty:
             collection.isHidden = true
             setupEmptyListView()
+        case .netWorkError:
+            break
         }
     }
     func stateSwitcher() {
@@ -129,6 +131,8 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
             return self.movies.count
         case .empty:
             return 0
+        case .netWorkError:
+            return 0
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -151,6 +155,8 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
             return cell
         case .empty:
             return UICollectionViewCell()
+        case .netWorkError:
+            return UICollectionViewCell()
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -164,6 +170,8 @@ extension ListsDetailViewController: UICollectionViewDelegate, UICollectionViewD
             }
             presenter?.didMovieSelected(movie: item, poster: itemPoster)
         case .empty:
+            break
+        case .netWorkError:
             break
         }
     }

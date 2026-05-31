@@ -78,6 +78,8 @@ private extension ListsViewController {
         case .empty:
             tableViewCell.isHidden = true
             setupEmptyListView()
+        case .netWorkError:
+            break
         }
         updateLayoutIfNeeded()
     }
@@ -140,6 +142,8 @@ extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
             return self.lists.count
         case .empty:
             return 0
+        case .netWorkError:
+            return 0
         }
     }
     
@@ -156,6 +160,8 @@ extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .empty:
             return UITableViewCell()
+        case .netWorkError:
+            return UITableViewCell()
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -169,6 +175,8 @@ extension ListsViewController: UITableViewDelegate, UITableViewDataSource {
             let item = self.lists[indexPath.row]
             self.presenter?.didListsSelected(list: item.id ?? 0)
         case .empty:
+            break
+        case .netWorkError:
             break
         }
     }

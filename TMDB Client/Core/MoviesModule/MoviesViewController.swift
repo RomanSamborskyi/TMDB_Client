@@ -98,6 +98,8 @@ private extension MoviesViewController {
             setupCollections()
         case .empty:
             break
+        case .netWorkError:
+            break
         }
     }
     func setupCollections() {

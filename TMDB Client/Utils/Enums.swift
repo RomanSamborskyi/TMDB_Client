@@ -24,7 +24,7 @@ enum TopTabs: String, CaseIterable {
 }
 
 enum LoadingState: CaseIterable {
-    case loading, loaded, empty
+    case loading, loaded, empty, netWorkError
 }
 
 enum SearchState {
