@@ -268,9 +268,9 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopCollectionViewCell.identifire, for: indexPath) as! TopCollectionViewCell
-            let item = self.moviesByGenre[indexPath.row]
-            cell.movie = item
-            cell.poster = self.postersByGenre[item.id ?? 0]
+                let item = self.moviesByGenre[indexPath.row]
+                cell.movie = item
+                cell.poster = self.postersByGenre[item.id ?? 0]
             return cell
         case 3:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenrePickerCell.identifire, for: indexPath) as! GenrePickerCell
