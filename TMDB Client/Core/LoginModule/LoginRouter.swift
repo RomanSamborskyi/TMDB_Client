@@ -24,11 +24,7 @@ extension LoginRouter: LoginRouterProtocol {
               let window = windowScene.windows.first else {
             return
         }
-        UIView.transition(
-            with: window,
-            duration: 0.3,
-            options: .transitionCrossDissolve,
-            animations: {
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromRight, animations: {
                 window.rootViewController = welcomeVC
             }
         )
