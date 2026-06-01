@@ -96,11 +96,11 @@ extension MovieInteractor: MovieInteractorProtocol {
         }
         presenter?.didMoviesByGenreFetched(movie: movies, with: posters)
     }
-    func fetchMovies(with url: URLData) async throws {
+    func fetchMovies(with urlData: URLData) async throws {
         
         let movies = try await withThrowingTaskGroup(of: MovieResult.self) { group in
             let session = URLSession.shared
-            let request = try networkManager.requestFactory(type: NoBody(), urlData: url)
+            let request = try networkManager.requestFactory(type: NoBody(), urlData: urlData)
             var movies: [Movie] = []
             
             group.addTask { [request] in
@@ -122,7 +122,7 @@ extension MovieInteractor: MovieInteractorProtocol {
             
             for movie in movies {
                 
-                guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")") else {
+                guard let url = URL(string: ImageURL.imagePath(path: movie.posterPath ?? "").url) else {
                     throw AppError.badURL
                 }
                 
@@ -130,7 +130,6 @@ extension MovieInteractor: MovieInteractorProtocol {
                 var request = URLRequest(url: url)
                 request.timeoutInterval = 10
                 request.httpMethod = "GET"
-               
                 
                 group.addTask { [request] in
                     if movie.posterPath != nil {
@@ -139,7 +138,7 @@ extension MovieInteractor: MovieInteractorProtocol {
                         }
                         return [movie.id ?? 0 : image]
                     } else {
-                        let image = UIImage(named: "image")!
+                        guard let image = UIImage(named: Constants.emptyImageIcon) else { return [:] }
                         return [movie.id ?? 0 : image]
                     }
                 }

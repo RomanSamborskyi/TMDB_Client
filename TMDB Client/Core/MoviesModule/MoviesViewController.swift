@@ -12,7 +12,7 @@ protocol MovieViewProtocol: AnyObject {
     func show(movies: [Movie], with posters: [Int : UIImage])
     func showGenre(genre: [Genre])
     func showMoviesByGenre(movies: [Movie], with posters: [Int : UIImage])
-    func showErrorAlert(message: String)
+    func showErrorAlert(message: String, image name: String, title text: String)
 }
 
 
@@ -90,7 +90,7 @@ class MoviesViewController: UIViewController {
 private extension MoviesViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor.customBackground
-        self.navigationItem.title = "Movies"
+        self.navigationItem.title = Constants.movies
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -112,8 +112,6 @@ private extension MoviesViewController {
     func setupEmptyErrorView() {
         self.view.addSubview(emptyErrorView)
         emptyErrorView.translatesAutoresizingMaskIntoConstraints = false
-        emptyErrorView.imageName = "wifi.slash"
-        emptyErrorView.textLable = "No internet connection"
         
         NSLayoutConstraint.activate([
             emptyErrorView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -219,11 +217,14 @@ private extension MoviesViewController {
 }
 //MARK: - MovieViewProtocol
 extension MoviesViewController: MovieViewProtocol {
-    func showErrorAlert(message: String) {
-        Task { @MainActor in
+    func showErrorAlert(message: String, image name: String, title text: String) {
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
             self.loadingState = .netWorkError
             self.loadingView.isHidden = true
-            self.navigationController?.showAlert(title: "Error", messege: message, action: UIAlertAction(title: "Ok", style: .cancel))
+            self.emptyErrorView.imageName = name
+            self.emptyErrorView.textLable = text
+            self.navigationController?.showAlert(title: Constants.errorStringLabel, messege: message, action: UIAlertAction(title: Constants.okLabel, style: .cancel))
             self.view.layoutIfNeeded()
         }
     }
