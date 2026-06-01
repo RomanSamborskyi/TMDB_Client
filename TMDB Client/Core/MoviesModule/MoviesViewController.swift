@@ -112,8 +112,6 @@ private extension MoviesViewController {
     func setupEmptyErrorView() {
         self.view.addSubview(emptyErrorView)
         emptyErrorView.translatesAutoresizingMaskIntoConstraints = false
-        emptyErrorView.imageName = "wifi.slash"
-        emptyErrorView.textLable = "No internet connection"
         
         NSLayoutConstraint.activate([
             emptyErrorView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -220,9 +218,12 @@ private extension MoviesViewController {
 //MARK: - MovieViewProtocol
 extension MoviesViewController: MovieViewProtocol {
     func showErrorAlert(message: String) {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
             self.loadingState = .netWorkError
             self.loadingView.isHidden = true
+            self.emptyErrorView.imageName = "wifi.slash"
+            self.emptyErrorView.textLable = "No internet connection"
             self.navigationController?.showAlert(title: "Error", messege: message, action: UIAlertAction(title: "Ok", style: .cancel))
             self.view.layoutIfNeeded()
         }

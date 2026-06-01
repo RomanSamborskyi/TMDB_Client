@@ -78,23 +78,28 @@ private extension MoviePresenter {
                         try await self.interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey))
                     }
                 } catch let error {
-                    if let error = error as? URLError {
-                        switch error.code {
-                        case .notConnectedToInternet:
-                            self.view?.showErrorAlert(message: error.localizedDescription)
-                        default:
-                            print(error)
-                        }
-                    }
+                    self.handleErrors(error: error)
                 }
             }
             group.addTask(priority: .userInitiated) {
                 do {
                     try await self.interactor.fetchGenres()
                 } catch let error as AppError {
-                    print("Error of fetching genre: \(error)")
+                    self.handleErrors(error: error)
                 }
             }
+        }
+    }
+    func handleErrors(error: any Error) {
+        if let error = error as? URLError {
+            switch error.code {
+            case .notConnectedToInternet:
+                self.view?.showErrorAlert(message: error.localizedDescription)
+            default:
+                self.view?.showErrorAlert(message: error.localizedDescription)
+            }
+        } else if let error = error as? AppError {
+            self.view?.showErrorAlert(message: error.localizedDescription)
         }
     }
 }
