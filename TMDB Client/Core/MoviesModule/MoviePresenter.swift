@@ -42,8 +42,8 @@ extension MoviePresenter: MoviePresenterProtocol {
         Task {
             do {
                 try await interactor.fetchMovies(by: genre.id)
-            } catch let error as AppError {
-                print(error)
+            } catch let error {
+                self.handleErrors(error: error)
             }
         }
     }
@@ -59,14 +59,14 @@ extension MoviePresenter: MoviePresenterProtocol {
     }
     func viewControllerDidLoad(with tab: TopTabs) {
         Task {
-            try await fetchAllData(with: tab)
+            await fetchAllData(with: tab)
         }
     }
 }
 //MARK: - extra functions
 private extension MoviePresenter {
-    func fetchAllData(with tab: TopTabs) async throws {
-        await withThrowingTaskGroup(of: Void.self) { group in
+    func fetchAllData(with tab: TopTabs) async {
+        await withTaskGroup(of: Void.self) { group in
             group.addTask {
                 do {
                     switch tab {
@@ -84,7 +84,7 @@ private extension MoviePresenter {
             group.addTask(priority: .userInitiated) {
                 do {
                     try await self.interactor.fetchGenres()
-                } catch let error as AppError {
+                } catch let error {
                     self.handleErrors(error: error)
                 }
             }
@@ -94,12 +94,12 @@ private extension MoviePresenter {
         if let error = error as? URLError {
             switch error.code {
             case .notConnectedToInternet:
-                self.view?.showErrorAlert(message: error.localizedDescription)
+                self.view?.showErrorAlert(message: error.localizedDescription, image: Constants.noWiFiIcon, title: Constants.noIternetError)
             default:
-                self.view?.showErrorAlert(message: error.localizedDescription)
+                self.view?.showErrorAlert(message: error.localizedDescription, image: Constants.unexpectedErrorIcon, title: Constants.unexpectedErrorTitle)
             }
         } else if let error = error as? AppError {
-            self.view?.showErrorAlert(message: error.localizedDescription)
+            self.view?.showErrorAlert(message: error.localizedDescription, image: Constants.unexpectedErrorIcon, title: Constants.unexpectedErrorTitle)
         }
     }
 }
