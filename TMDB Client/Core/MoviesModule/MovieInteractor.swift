@@ -75,7 +75,7 @@ extension MovieInteractor: MovieInteractorProtocol {
                 
                 let session = URLSession.shared
                 var request = URLRequest(url: url)
-                request.httpMethod = "GET"
+                request.httpMethod = RequestMethod.get.rawValue.uppercased()
                 request.timeoutInterval = 10
                 
                 group.addTask { [request, weak self] in
@@ -129,7 +129,7 @@ extension MovieInteractor: MovieInteractorProtocol {
                 let session = URLSession.shared
                 var request = URLRequest(url: url)
                 request.timeoutInterval = 10
-                request.httpMethod = "GET"
+                request.httpMethod = RequestMethod.get.rawValue.uppercased()
                 
                 group.addTask { [request] in
                     if movie.posterPath != nil {
