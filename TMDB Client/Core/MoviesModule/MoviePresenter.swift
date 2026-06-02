@@ -43,7 +43,7 @@ extension MoviePresenter: MoviePresenterProtocol {
             do {
                 try await interactor.fetchMovies(by: genre.id)
             } catch let error {
-                self.handleErrors(error: error)
+                self.errorHandler(error: error)
             }
         }
     }
@@ -78,28 +78,22 @@ private extension MoviePresenter {
                         try await self.interactor.fetchMovies(with: MoviesUrls.upcoming(key: Constants.apiKey))
                     }
                 } catch let error {
-                    self.handleErrors(error: error)
+                    self.errorHandler(error: error)
                 }
             }
             group.addTask(priority: .userInitiated) {
                 do {
                     try await self.interactor.fetchGenres()
                 } catch let error {
-                    self.handleErrors(error: error)
+                     self.errorHandler(error: error)
                 }
             }
         }
     }
-    func handleErrors(error: any Error) {
-        if let error = error as? URLError {
-            switch error.code {
-            case .notConnectedToInternet:
-                self.view?.showErrorAlert(message: error.localizedDescription, image: Constants.noWiFiIcon, title: Constants.noIternetError)
-            default:
-                self.view?.showErrorAlert(message: error.localizedDescription, image: Constants.unexpectedErrorIcon, title: Constants.unexpectedErrorTitle)
-            }
-        } else if let error = error as? AppError {
-            self.view?.showErrorAlert(message: error.localizedDescription, image: Constants.unexpectedErrorIcon, title: Constants.unexpectedErrorTitle)
-        }
+}
+//MARK: - conformance to Error Handler protocol
+extension MoviePresenter: ErrorHandler {
+    var viewPresentable: (any AlertRepresentable)? {
+        view
     }
 }

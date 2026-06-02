@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol MovieViewProtocol: AnyObject {
+protocol MovieViewProtocol: AnyObject, AlertRepresentable {
     func show(movies: [Movie], with posters: [Int : UIImage])
     func showGenre(genre: [Genre])
     func showMoviesByGenre(movies: [Movie], with posters: [Int : UIImage])
@@ -365,3 +365,4 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
         }
     }
 }
+
