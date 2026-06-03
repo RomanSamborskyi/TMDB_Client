@@ -44,7 +44,7 @@ final class NetworkManager {
         
         return try decoder.decode(T.self, from: returnedData)
     }
-    
+        
     private func sessionHandler(data: Data?, response: URLResponse) throws -> Data {
         guard let data = data,
               let response = response as? HTTPURLResponse,
