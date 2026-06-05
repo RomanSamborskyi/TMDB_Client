@@ -93,10 +93,10 @@ class MovieDetailsView: UIView {
         self.moviesGenreLabel.text = with.genres?.map { genre in
             genre.name
         }
-        .joined(separator: " • ")
+        .joined(separator: Constants.joinedSeparator)
         
         self.moviesAdditionalInfoLabel.text = Array(arrayLiteral: "\(with.runtime ?? 0) min", with.releaseDate ?? "")
-            .joined(separator: " • ")
+            .joined(separator: Constants.joinedSeparator)
         self.overviewLabel.text = with.overview ?? ""
         if with.watchList ?? false {
             setColorForAddToWatchlist(color: .red)
@@ -137,7 +137,7 @@ private extension MovieDetailsView {
     func setupBackButton() {
         self.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(systemName: "chevron.backward")?.resized(to: CGSize(width: 15, height: 15))?.withTintColor(.white)
+        let image = UIImage(systemName: Constants.chevronBackward)?.resized(to: CGSize(width: 15, height: 15))?.withTintColor(.white)
         backButton.setImage(image, for: .normal)
         backButton.tintColor = .white
         backButton.layer.masksToBounds = true
@@ -195,7 +195,7 @@ private extension MovieDetailsView {
         overviewTextLabel.translatesAutoresizingMaskIntoConstraints = false
         overviewTextLabel.font = .systemFont(ofSize: 20, weight: .bold)
         overviewTextLabel.textColor = .white
-        overviewTextLabel.text = "Overview"
+        overviewTextLabel.text = Constants.overviewLabel
         
         NSLayoutConstraint.activate([
             overviewTextLabel.topAnchor.constraint(equalTo: addToWatchlistButton.bottomAnchor, constant: 30),

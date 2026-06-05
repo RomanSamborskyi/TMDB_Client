@@ -22,6 +22,7 @@ struct Constants {
     static let emptyImageIcon: String = "image"
     static let rectangleAndMagnifyingGlas: String = "rectangle.and.text.magnifyingglass"
     static let listBulletClipboard: String = "list.bullet.clipboard.fill"
+    static let chevronBackward: String = "chevron.backward"
     
     //MARK: - labels
     static let noIternetError: String = "No internet connection"
@@ -33,9 +34,13 @@ struct Constants {
     static let noReviewsLabel: String = "No reviews"
     static let emptyListLabel: String = "The list is empty"
     static let mediaTypeMovie: String = "movie"
+    static let overviewLabel: String = "Overview"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles
     static let movies: String = "Movies"
+    
+    //MARK: - other
+    static let joinedSeparator: String = " • "
 }
 
