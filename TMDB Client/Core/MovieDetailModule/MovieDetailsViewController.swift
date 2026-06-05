@@ -36,10 +36,10 @@ class MovieDetailsViewController: UIViewController {
         return view
     }()
     private lazy var detailView = MovieDetailsView()
-    private lazy var reviewLabelView = ReviewTextLabel(textLabel: "Reviews")
-    private lazy var similarMoviesLabelView = ReviewTextLabel(textLabel: "Similar movies")
-    private lazy var emptyReviewsView = EmptyView(imageName: "rectangle.and.text.magnifyingglass", title: "No reviews")
-    private lazy var emptySimilarMoviesView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
+    private lazy var reviewLabelView = ReviewTextLabel(textLabel: Constants.reviewsLabel)
+    private lazy var similarMoviesLabelView = ReviewTextLabel(textLabel: Constants.similarMoviesLabel)
+    private lazy var emptyReviewsView = EmptyView(imageName: Constants.rectangleAndMagnifyingGlas, title: Constants.noReviewsLabel)
+    private lazy var emptySimilarMoviesView = EmptyView(imageName: Constants.listBulletClipboard, title: Constants.emptyListLabel)
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

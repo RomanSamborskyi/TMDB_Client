@@ -67,9 +67,7 @@ struct Tmdb: Codable {
     }
 }
 
-extension Tmdb: Equatable {
-    
-}
+extension Tmdb: Equatable { }
 
 struct DeleteSession: Codable {
     let success: Bool

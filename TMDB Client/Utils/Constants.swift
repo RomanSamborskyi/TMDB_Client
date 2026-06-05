@@ -20,12 +20,18 @@ struct Constants {
     static let noWiFiIcon: String = "wifi.slash"
     static let unexpectedErrorIcon: String = "xmark.circle"
     static let emptyImageIcon: String = "image"
+    static let rectangleAndMagnifyingGlas: String = "rectangle.and.text.magnifyingglass"
+    static let listBulletClipboard: String = "list.bullet.clipboard.fill"
     
     //MARK: - labels
     static let noIternetError: String = "No internet connection"
     static let unexpectedErrorTitle: String = "Oops, smth go wrong"
     static let okLabel: String = "Ok"
     static let errorStringLabel: String = "Error"
+    static let reviewsLabel: String = "Reviews"
+    static let similarMoviesLabel: String = "Similar movies"
+    static let noReviewsLabel: String = "No reviews"
+    static let emptyListLabel: String = "The list is empty"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles
