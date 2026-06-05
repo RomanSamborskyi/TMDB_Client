@@ -81,12 +81,12 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
                 
                 let session = URLSession.shared
                 var request = URLRequest(url: url)
-                request.httpMethod = "GET"
+                request.httpMethod = RequestMethod.get.rawValue.uppercased()
                 request.timeoutInterval = 10
                 
                 group.addTask { [request, weak self] in
                     if movie.posterPath == nil  {
-                        let image = UIImage(named: "image")!
+                        let image = UIImage(named: Constants.emptyImageIcon)!
                         return [movie.id ?? 0 : image]
                     } else {
                         guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
@@ -137,12 +137,12 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
                 
                 let session = URLSession.shared
                 var request = URLRequest(url: url)
-                request.httpMethod = "GET"
+                request.httpMethod = RequestMethod.get.rawValue.uppercased()
                 request.timeoutInterval = 10
                 
                 group.addTask { [request, weak self] in
                     if review.authorDetails.avatarPath == nil  {
-                        let image = UIImage(named: "image")!
+                        let image = UIImage(named: Constants.emptyImageIcon)!
                         return [review.id : image]
                     } else {
                         guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
@@ -193,12 +193,12 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
                 
                 let session = URLSession.shared
                 var request = URLRequest(url: url)
-                request.httpMethod = "GET"
+                request.httpMethod = RequestMethod.get.rawValue.uppercased()
                 request.timeoutInterval = 10
                 
                 group.addTask { [request, weak self] in
                     if personePhoto.profilePath == nil  {
-                        let image = UIImage(named: "image")!
+                        let image = UIImage(named: Constants.emptyImageIcon)!
                         return [personePhoto.id ?? 0 : image]
                     } else {
                         guard let result = try await self?.imageDownloader.fetchImage(with: session, request: request) else {
@@ -241,7 +241,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         
         let session = URLSession.shared
 
-        let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
+        let body = AddToFavorite(media_type: Constants.mediaTypeMovie, media_id: movieId, favorite: true)
 
         let request = try networkManager.requestFactory(type: body, urlData:  MoviesUrls.addToFavorite(accoutId: accountID, key: Constants.apiKey, sessionId: self.sessionId))
         
@@ -272,7 +272,7 @@ extension MovieDetailsInteractor: MovieDetailsInteractorProtocol {
         
         let session = URLSession.shared
 
-        let body = AddToWatchlist(media_type: "movie", media_id: movieId, watchlist: true)
+        let body = AddToWatchlist(media_type: Constants.mediaTypeMovie, media_id: movieId, watchlist: true)
     
         let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToWatchList(accoutId: accoutID, apiKey: Constants.apiKey, sessionId: self.sessionId))
         

@@ -32,6 +32,7 @@ struct Constants {
     static let similarMoviesLabel: String = "Similar movies"
     static let noReviewsLabel: String = "No reviews"
     static let emptyListLabel: String = "The list is empty"
+    static let mediaTypeMovie: String = "movie"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles
