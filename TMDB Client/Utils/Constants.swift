@@ -41,6 +41,7 @@ struct Constants {
     static let overviewLabel: String = "Overview"
     static let watchTrailerLabel: String = "Watch trailer"
     static let castAndCrewLabel: String = "Cast & Crew"
+    static let namePlaceholder: String = "name placeholder"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles
@@ -48,5 +49,9 @@ struct Constants {
     
     //MARK: - other
     static let joinedSeparator: String = " • "
+    
+    //MARK: - collection views identifier
+    static let moviesCastCollectionViewIdentifier: String = "MoviesCastCollectionView"
+    static let topCollectionViewCellIdentifier: String = "TopCollectionViewCell"
 }
 
