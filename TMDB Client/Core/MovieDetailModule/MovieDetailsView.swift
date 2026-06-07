@@ -261,7 +261,7 @@ private extension MovieDetailsView {
         addToListButton.layer.cornerRadius = 25
         addToListButton.layer.backgroundColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         
-        addToListButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+        addToListButton.setImage(UIImage(systemName: Constants.listBullet), for: .normal)
         addToListButton.tintColor = .white
         
         NSLayoutConstraint.activate([
@@ -280,10 +280,10 @@ private extension MovieDetailsView {
         thrillerButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
         thrillerButton.titleLabel?.textColor = .white
         thrillerButton.layer.cornerRadius = 25
-        thrillerButton.setTitle("Watch trailer", for: .normal)
+        thrillerButton.setTitle(Constants.watchTrailerLabel, for: .normal)
         thrillerButton.layer.backgroundColor = UIColor.purple.withAlphaComponent(0.5).cgColor
         
-        thrillerButton.setImage(UIImage(systemName: "movieclapper"), for: .normal)
+        thrillerButton.setImage(UIImage(systemName: Constants.movieClapper), for: .normal)
         thrillerButton.tintColor = .white
         
         NSLayoutConstraint.activate([
@@ -359,7 +359,7 @@ private extension MovieDetailsView {
         castLabel.translatesAutoresizingMaskIntoConstraints = false
         castLabel.font = .systemFont(ofSize: 20, weight: .bold)
         castLabel.textColor = .white
-        castLabel.text = "Cast & Crew"
+        castLabel.text = Constants.castAndCrewLabel
         
         NSLayoutConstraint.activate([
             castLabel.topAnchor.constraint(equalTo: self.overviewLabel.bottomAnchor, constant: 30),
@@ -368,13 +368,13 @@ private extension MovieDetailsView {
         ])
     }
     func setColorForAddToWatchlist(color: UIColor) {
-        guard let resizedImage = UIImage(systemName: "bookmark.fill") else { return }
+        guard let resizedImage = UIImage(systemName: Constants.bookmarkFill) else { return }
         let image = resizedImage.resized(to: CGSize(width: 20, height: 20))?.withTintColor(color)
         addToWatchlistButton.setImage(image, for: .normal)
         self.layoutIfNeeded()
     }
     func setColorForFavoriteButton(color: UIColor) {
-        let image = UIImage(systemName: "heart.fill")?.resized(to: CGSize(width: 20, height: 20))?.withTintColor(color)
+        let image = UIImage(systemName: Constants.heartFill)?.resized(to: CGSize(width: 20, height: 20))?.withTintColor(color)
         self.addToFavoriteButton.setImage(image, for: .normal)
         self.layoutIfNeeded()
     }

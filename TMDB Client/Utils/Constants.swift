@@ -23,7 +23,11 @@ struct Constants {
     static let rectangleAndMagnifyingGlas: String = "rectangle.and.text.magnifyingglass"
     static let listBulletClipboard: String = "list.bullet.clipboard.fill"
     static let chevronBackward: String = "chevron.backward"
-    
+    static let listBullet: String = "list.bullet"
+    static let movieClapper: String = "movieclapper"
+    static let bookmarkFill: String = "bookmark.fill"
+    static let heartFill: String = "heart.fill"
+    static let starFill: String = "star.fill"
     //MARK: - labels
     static let noIternetError: String = "No internet connection"
     static let unexpectedErrorTitle: String = "Oops, smth go wrong"
@@ -35,6 +39,8 @@ struct Constants {
     static let emptyListLabel: String = "The list is empty"
     static let mediaTypeMovie: String = "movie"
     static let overviewLabel: String = "Overview"
+    static let watchTrailerLabel: String = "Watch trailer"
+    static let castAndCrewLabel: String = "Cast & Crew"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles

@@ -121,7 +121,7 @@ private extension MovieRateView {
 private extension MovieRateView {
     func makeButton() -> UIButton {
         let btn = UIButton()
-        btn.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        btn.setImage(UIImage(systemName: Constants.starFill), for: .normal)
         btn.tintColor = UIColor.gray
         return btn
     }
