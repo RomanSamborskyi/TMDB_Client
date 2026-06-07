@@ -9,7 +9,7 @@ import UIKit
 
 class TopPickerViewCell: UICollectionViewCell {
     //MARK: - property
-    static let identifire: String = "TopPickerViewCell"
+    static let identifire: String = Constants.topPickerViewCellIdentifier
     var tab: TopTabs? {
         didSet {
             guard let tab = tab else { return }

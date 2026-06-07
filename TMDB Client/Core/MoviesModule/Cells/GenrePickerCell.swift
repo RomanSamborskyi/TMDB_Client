@@ -10,7 +10,7 @@ import UIKit
 
 class GenrePickerCell: UICollectionViewCell {
     //MARK: - property
-    static let identifire: String = "GenrePickerCell"
+    static let identifire: String = Constants.genrePickerCellIdentifier
     var tab: Genre? {
         didSet {
             guard let tab = tab else { return }

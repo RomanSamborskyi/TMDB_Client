@@ -10,7 +10,7 @@ import UIKit
 class TopCollectionViewCell: UICollectionViewCell {
 
     //MARK: - property
-    static let identifire: String = "TopCollectionViewCell"
+    static let identifire: String = Constants.topCollectionViewCellIdentifier
     private lazy var movieView = MovieCardView()
     var movie: Movie? {
         didSet {

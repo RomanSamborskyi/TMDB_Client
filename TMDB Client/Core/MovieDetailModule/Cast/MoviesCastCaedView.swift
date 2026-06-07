@@ -41,7 +41,7 @@ private extension MoviesCastCaedView {
     func setupPhotoView() {
         self.addSubview(photoView)
         photoView.translatesAutoresizingMaskIntoConstraints = false
-        photoView.image = UIImage(named: "image")
+        photoView.image = UIImage(named: Constants.emptyImageIcon)
         photoView.clipsToBounds = true
         photoView.layer.cornerRadius = 15
         
@@ -60,7 +60,7 @@ private extension MoviesCastCaedView {
         nameLabel.textAlignment = .center
         nameLabel.minimumScaleFactor = 0.6
         nameLabel.numberOfLines = 2
-        nameLabel.text = "name placeholder"
+        nameLabel.text = Constants.namePlaceholder
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: photoView.bottomAnchor, constant: 20),

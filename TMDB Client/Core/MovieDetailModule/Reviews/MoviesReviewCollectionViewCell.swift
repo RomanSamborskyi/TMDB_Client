@@ -9,7 +9,7 @@ import UIKit
 
 class MoviesReviewCollectionViewCell: UICollectionViewCell {
     //MARK: - property
-    static let identifier: String = "MoviesReviewCollectionViewCell"
+    static let identifier: String = Constants.moviesReviewCollectionViewCellIdentifier
     private lazy var reviewView = MoviesReviewView()
     var review: Review? {
         didSet {

@@ -61,7 +61,7 @@ private extension MoviesReviewView {
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = 15
-        avatarView.image = UIImage(named: "image")
+        avatarView.image = UIImage(named: Constants.emptyImageIcon)
         
         NSLayoutConstraint.activate([
             avatarView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
