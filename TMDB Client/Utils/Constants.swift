@@ -53,5 +53,8 @@ struct Constants {
     //MARK: - collection views identifier
     static let moviesCastCollectionViewIdentifier: String = "MoviesCastCollectionView"
     static let topCollectionViewCellIdentifier: String = "TopCollectionViewCell"
+    static let topPickerViewCellIdentifier: String = "TopPickerViewCell"
+    static let genrePickerCellIdentifier: String = "GenrePickerCell"
+    static let moviesReviewCollectionViewCellIdentifier: String = "MoviesReviewCollectionViewCell"
 }
 
