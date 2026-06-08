@@ -31,7 +31,7 @@ class WatchlistViewController: UIViewController {
         return cell
         
     }()
-    private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
+    private lazy var emptyListView = EmptyView(imageName: Constants.listBulletClipboard, title: Constants.emptyListLabel)
     private var loadingState: LoadingState = .loading
     //MARK: - lifecycle
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class WatchlistViewController: UIViewController {
 //MARK: - UI layout
 private extension WatchlistViewController {
     func setupLayout() {
-        self.navigationItem.title = "Watchlist"
+        self.navigationItem.title = Constants.watchList
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor.customBackground

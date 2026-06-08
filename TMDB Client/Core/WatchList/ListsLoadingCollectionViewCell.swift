@@ -9,7 +9,7 @@ import UIKit
 
 class ListsLoadingCollectionViewCell: UICollectionViewCell {
     //MARK: - proprety
-    static var identifier: String = "ListsLoadingCollectionViewCell"
+    static var identifier: String = Constants.listsLoadingCollectionViewCellIdentidier
     private lazy var itemView: UIView = {
         let view = UIView()
         return view

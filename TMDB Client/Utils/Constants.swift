@@ -28,6 +28,8 @@ struct Constants {
     static let bookmarkFill: String = "bookmark.fill"
     static let heartFill: String = "heart.fill"
     static let starFill: String = "star.fill"
+    static let listBulletCircle: String = "list.bullet.circle"
+    static let heartCircle: String = "heart.circle"
     //MARK: - labels
     static let noIternetError: String = "No internet connection"
     static let unexpectedErrorTitle: String = "Oops, smth go wrong"
@@ -46,6 +48,8 @@ struct Constants {
     
     //MARK: - navigation Bar titles
     static let movies: String = "Movies"
+    static let watchList: String = "Watchlist"
+    static let ratedMovies: String = "Rated movies"
     
     //MARK: - other
     static let joinedSeparator: String = " • "
@@ -56,5 +60,7 @@ struct Constants {
     static let topPickerViewCellIdentifier: String = "TopPickerViewCell"
     static let genrePickerCellIdentifier: String = "GenrePickerCell"
     static let moviesReviewCollectionViewCellIdentifier: String = "MoviesReviewCollectionViewCell"
+    static let movieToWatchCollectionViewCellIdentifier: String = "MovieToWatchCollectionViewCell"
+    static let listsLoadingCollectionViewCellIdentidier: String = "ListsLoadingCollectionViewCell"
 }
 
