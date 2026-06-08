@@ -15,7 +15,7 @@ protocol MovieToWatchCellDelegate: AnyObject {
 
 class MovieToWatchCollectionViewCell: UICollectionViewCell {
     //MARK: - property
-    static let identifier: String = "MovieToWatchCollectionViewCell"
+    static let identifier: String = Constants.movieToWatchCollectionViewCellIdentifier
     weak var actionButtons: MovieToWatchCellDelegate?
     var movie: Movie? {
         didSet {
@@ -148,7 +148,7 @@ private extension MovieToWatchCollectionViewCell {
         
         self.contentView.addSubview(addToListButton)
         addToListButton.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(systemName: "list.bullet.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.white)
+        let image = UIImage(systemName: Constants.listBulletCircle)?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(.white)
         addToListButton.setImage(image, for: .normal)
         addToListButton.addTarget(self, action: #selector(adddToListPressed), for: .touchUpInside)
         
@@ -165,7 +165,7 @@ private extension MovieToWatchCollectionViewCell {
             ])
     }
     func setColorForFavoriteButton(color: UIColor) {
-        let image = UIImage(systemName: "heart.circle")?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
+        let image = UIImage(systemName: Constants.heartCircle)?.resized(to: CGSize(width: 35, height: 35))?.withTintColor(color)
         self.favoriteButton.setImage(image, for: .normal)
         self.layoutIfNeeded()
     }
