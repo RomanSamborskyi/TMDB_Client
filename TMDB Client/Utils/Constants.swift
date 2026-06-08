@@ -49,6 +49,7 @@ struct Constants {
     //MARK: - navigation Bar titles
     static let movies: String = "Movies"
     static let watchList: String = "Watchlist"
+    static let ratedMovies: String = "Rated movies"
     
     //MARK: - other
     static let joinedSeparator: String = " • "

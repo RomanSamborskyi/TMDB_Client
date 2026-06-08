@@ -29,7 +29,7 @@ class RatedMoviesViewController: UIViewController {
         cell.register(ListsLoadingCollectionViewCell.self, forCellWithReuseIdentifier: ListsLoadingCollectionViewCell.identifier)
         return cell
     }()
-    private lazy var emptyListView = EmptyView(imageName: "list.bullet.clipboard.fill", title: "The list is empty")
+    private lazy var emptyListView = EmptyView(imageName: Constants.listBulletClipboard, title: Constants.emptyListLabel)
     private lazy var loadingState: LoadingState = .loading
     //MARK: - lifecycle
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ extension RatedMoviesViewController: RatedMoviesViewProtocol {
 //MARK: - setup layout
 private extension RatedMoviesViewController {
     func setupLayout() {
-        self.navigationItem.title = "Rated movies"
+        self.navigationItem.title = Constants.ratedMovies
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor.customBackground
