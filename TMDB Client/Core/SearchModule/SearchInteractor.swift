@@ -64,12 +64,12 @@ extension SearchInteractor: SearchInteractorProtocol {
                 }
                 
                 var request = URLRequest(url: url)
-                request.httpMethod = "GET"
+                request.httpMethod = RequestMethod.get.rawValue.uppercased()
                 request.timeoutInterval = 10
                 
                 group.addTask { [weak self, request] in
                     if movie.posterPath == nil {
-                        let image = UIImage(named: "image")!
+                        let image = UIImage(named: Constants.emptyImageIcon)!
                         return [movie.id ?? 0 : image]
                     } else {
                         guard let response = try await self?.imageDownloader.fetchImage(with: session, request: request) else {

@@ -9,7 +9,7 @@ import UIKit
 
 class SearchHistoryCollection: UICollectionViewCell {
     //MARK: - property
-    static let identifier: String = "SearchHistoryCollection"
+    static let identifier: String = Constants.searchHistoryCollectionIdentifier
     private lazy var searchHistoryText: UILabel = {
         let lbl = UILabel()
         return lbl

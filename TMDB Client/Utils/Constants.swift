@@ -15,7 +15,17 @@ struct Constants {
     static let sessionKey: String = "session_id"
     static let officialTrailer: String = "Official Trailer"
     static let apiKey: String = TMDB_KEY.key
-    
+    //MARK: - Tab bar
+    static let profileTabLabel: String = "Profile"
+    static let profileTabIconName: String = "person.fill"
+    static let moviesTabLabel: String = "Movies"
+    static let moviesTabIconName: String = "popcorn.fill"
+    static let listsTabLabel: String = "Lists"
+    static let listsTabIconName: String = "list.star"
+    static let watchListTabLabel: String = "Watchlist"
+    static let watchListTabIconName: String = "stopwatch.fill"
+    static let searchTabLabel: String = "Search"
+    static let searchTabIconName: String = "magnifyingglass"
     //MARK: - images names
     static let noWiFiIcon: String = "wifi.slash"
     static let unexpectedErrorIcon: String = "xmark.circle"
@@ -44,13 +54,14 @@ struct Constants {
     static let watchTrailerLabel: String = "Watch trailer"
     static let castAndCrewLabel: String = "Cast & Crew"
     static let namePlaceholder: String = "name placeholder"
+    static let fimography: String = "Filmography"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles
     static let movies: String = "Movies"
     static let watchList: String = "Watchlist"
     static let ratedMovies: String = "Rated movies"
-    
+    static let favoriteMovies: String = "Favorite movies"
     //MARK: - other
     static let joinedSeparator: String = " • "
     
@@ -62,5 +73,9 @@ struct Constants {
     static let moviesReviewCollectionViewCellIdentifier: String = "MoviesReviewCollectionViewCell"
     static let movieToWatchCollectionViewCellIdentifier: String = "MovieToWatchCollectionViewCell"
     static let listsLoadingCollectionViewCellIdentidier: String = "ListsLoadingCollectionViewCell"
+    static let trailerCollectionViewCellIdentifier: String = "TrailerCollectionViewCell"
+    static let searchFieldCollectionReusableViewIdentifier: String = "SearchFieldCollectionReusableView"
+    static let searchHistoryCollectionIdentifier: String = "SearchHistoryCollection"
 }
+
 

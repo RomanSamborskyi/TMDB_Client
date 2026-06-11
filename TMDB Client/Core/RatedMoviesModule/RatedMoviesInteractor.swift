@@ -43,7 +43,7 @@ extension RatedMoviesInteractor: RatedMoviesInteractorProtocol {
   
         let session = URLSession.shared
  
-        let body = AddToFavorite(media_type: "movie", media_id: movieId, favorite: true)
+        let body = AddToFavorite(media_type: Constants.mediaTypeMovie, media_id: movieId, favorite: true)
         
         let request = try networkManager.requestFactory(type: body, urlData: MoviesUrls.addToFavorite(accoutId: self.accountId, key: Constants.apiKey, sessionId: self.sessionId))
         

@@ -78,7 +78,7 @@ private extension MoviesCastView {
     func setupBackButton() {
         self.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(systemName: "chevron.backward")?.resized(to: CGSize(width: 15, height: 15))?.withTintColor(.white)
+        let image = UIImage(systemName: Constants.chevronBackward)?.resized(to: CGSize(width: 15, height: 15))?.withTintColor(.white)
         backButton.setImage(image, for: .normal)
         backButton.tintColor = .white
         backButton.layer.masksToBounds = true
@@ -197,7 +197,7 @@ private extension MoviesCastView {
     func setupFilmographyLabel() {
         self.addSubview(filmographyLabel)
         filmographyLabel.translatesAutoresizingMaskIntoConstraints = false
-        filmographyLabel.text = "Filmography"
+        filmographyLabel.text = Constants.fimography
         filmographyLabel.textColor = .white
         filmographyLabel.font = .systemFont(ofSize: 20, weight: .bold)
         

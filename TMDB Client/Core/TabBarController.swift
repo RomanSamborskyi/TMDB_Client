@@ -55,10 +55,10 @@ private extension TabBarController {
         setupTabs()
     }
     func setupTabs() {
-        profileTab.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 0)
-        moviesTab.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(systemName: "popcorn.fill"), tag: 1)
-        listsTab.tabBarItem = UITabBarItem(title: "Lists", image: UIImage(systemName: "list.star"), tag: 2)
-        watchListTab.tabBarItem = UITabBarItem(title: "Watchlist", image: UIImage(systemName: "stopwatch.fill"), tag: 3)
-        searchTab.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 4)
+        profileTab.tabBarItem = UITabBarItem(title: Constants.profileTabLabel, image: UIImage(systemName: Constants.profileTabIconName), tag: 0)
+        moviesTab.tabBarItem = UITabBarItem(title: Constants.moviesTabLabel, image: UIImage(systemName: Constants.moviesTabIconName), tag: 1)
+        listsTab.tabBarItem = UITabBarItem(title: Constants.listsTabLabel, image: UIImage(systemName: Constants.listsTabIconName), tag: 2)
+        watchListTab.tabBarItem = UITabBarItem(title: Constants.watchListTabLabel, image: UIImage(systemName: Constants.watchListTabIconName), tag: 3)
+        searchTab.tabBarItem = UITabBarItem(title: Constants.searchTabLabel, image: UIImage(systemName: Constants.searchTabIconName), tag: 4)
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 class TrailerCollectionViewCell: UICollectionViewCell {
     //MARK: - property
-    static let identifier: String = "TrailerCollectionViewCell"
+    static let identifier: String = Constants.trailerCollectionViewCellIdentifier
     var trailerView = TrailerView()
     //MARK: lifecycle
     override init(frame: CGRect) {
