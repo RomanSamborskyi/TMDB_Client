@@ -168,6 +168,7 @@ extension FavoriteMoviesViewController: UICollectionViewDelegate, UICollectionVi
 }
 extension FavoriteMoviesViewController: MovieToWatchCellDelegate {
     func didFavoriteButtonPressed(movieId: Int) {
+        //TODO: - do some action here
        //Movie allready in favorites
     }
     func didAddToListButtonPressed(movieId: Int) {

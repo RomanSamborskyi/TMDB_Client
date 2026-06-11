@@ -44,6 +44,7 @@ struct Constants {
     static let watchTrailerLabel: String = "Watch trailer"
     static let castAndCrewLabel: String = "Cast & Crew"
     static let namePlaceholder: String = "name placeholder"
+    static let fimography: String = "Filmography"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles
@@ -62,6 +63,8 @@ struct Constants {
     static let moviesReviewCollectionViewCellIdentifier: String = "MoviesReviewCollectionViewCell"
     static let movieToWatchCollectionViewCellIdentifier: String = "MovieToWatchCollectionViewCell"
     static let listsLoadingCollectionViewCellIdentidier: String = "ListsLoadingCollectionViewCell"
-    
+    static let trailerCollectionViewCellIdentifier: String = "TrailerCollectionViewCell"
+    static let searchFieldCollectionReusableViewIdentifier: String = "SearchFieldCollectionReusableView"
+    static let searchHistoryCollectionIdentifier: String = "SearchHistoryCollection"
 }
 
