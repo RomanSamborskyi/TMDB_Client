@@ -83,7 +83,7 @@ extension FavoriteMoviesInteractor: FavoriteMoviesInteractorProtocol {
                 
                 let session = URLSession.shared
                 var request = URLRequest(url: url)
-                request.httpMethod = "GET"
+                request.httpMethod = RequestMethod.get.rawValue.uppercased()
                 request.timeoutInterval = 10
                 
                 group.addTask { [request, weak self] in

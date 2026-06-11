@@ -50,7 +50,7 @@ struct Constants {
     static let movies: String = "Movies"
     static let watchList: String = "Watchlist"
     static let ratedMovies: String = "Rated movies"
-    
+    static let favoriteMovies: String = "Favorite movies"
     //MARK: - other
     static let joinedSeparator: String = " • "
     
@@ -62,5 +62,6 @@ struct Constants {
     static let moviesReviewCollectionViewCellIdentifier: String = "MoviesReviewCollectionViewCell"
     static let movieToWatchCollectionViewCellIdentifier: String = "MovieToWatchCollectionViewCell"
     static let listsLoadingCollectionViewCellIdentidier: String = "ListsLoadingCollectionViewCell"
+    
 }
 
