@@ -24,7 +24,7 @@ final class NetworkManager {
             request.allHTTPHeaderFields = headers
         }
         
-        if urlData.method.rawValue.uppercased() == "POST" || urlData.method.rawValue.uppercased() == "DELETE" {
+        if urlData.method.rawValue.uppercased() == RequestMethod.post.rawValue.uppercased() || urlData.method.rawValue.uppercased() == RequestMethod.delete.rawValue.uppercased() {
             do {
                 let bodyData = try JSONEncoder().encode(type)
                 request.httpBody = bodyData
