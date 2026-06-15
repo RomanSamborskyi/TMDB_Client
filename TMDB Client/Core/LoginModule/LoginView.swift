@@ -102,7 +102,7 @@ private extension LoginView {
     func setupWellcomeLabel() {
         self.addSubview(wellcomeLabel)
         wellcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-        wellcomeLabel.text = "This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB"
+        wellcomeLabel.text = Constants.wellcomeLabelText
         wellcomeLabel.font = .systemFont(ofSize: 12, weight: .regular)
         wellcomeLabel.textAlignment = .center
         wellcomeLabel.numberOfLines = 0
@@ -117,7 +117,7 @@ private extension LoginView {
     func setupLoginLabel() {
         self.addSubview(loginLabel)
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
-        loginLabel.text = "Login"
+        loginLabel.text = Constants.loginLabelText
         loginLabel.font = .systemFont(ofSize: 15)
         loginLabel.textColor = .lightGray
         
