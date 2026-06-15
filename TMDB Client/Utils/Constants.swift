@@ -55,6 +55,8 @@ struct Constants {
     static let castAndCrewLabel: String = "Cast & Crew"
     static let namePlaceholder: String = "name placeholder"
     static let fimography: String = "Filmography"
+    static let wellcomeLabelText: String = "This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB"
+    static let loginLabelText: String = "Login"
     //MARK: - sizes
     
     //MARK: - navigation Bar titles
