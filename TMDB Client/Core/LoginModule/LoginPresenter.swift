@@ -16,6 +16,7 @@ protocol LoginPresenterProtocol: AnyObject {
 class LoginPresenter {
     
     weak var view: LoginViewControllerProtocol?
+    weak var viewRepresentable: AlertRepresentable?
     let interactor: LoginInteractorProtocol
     let router: LoginRouterProtocol
     let haptic: HapticFeedback
@@ -49,19 +50,24 @@ extension LoginPresenter: LoginPresenterProtocol {
                 self.haptic.tacticNotification(style: .error)
                 switch error {
                 case .badURL:
-                    self.view?.showAlert(title: "Error", messege: error.localized)
+                    self.errorHandler(error: error)
                 case .badResponse:
-                    self.view?.showAlert(title: "Error", messege: error.localized)
+                    self.errorHandler(error: error)
                 case .invalidData:
-                    self.view?.showAlert(title: "Error", messege: error.localized)
+                    self.errorHandler(error: error)
                 case .incorrectUserNameOrPass:
-                    self.view?.showAlert(title: "Error", messege: error.localized)
+                    self.errorHandler(error: error)
                 case .incorrectAccoutId:
-                    self.view?.showAlert(title: "Error", messege: error.localized)
+                    self.errorHandler(error: error)
                 case .invalidStatusCode:
-                    self.view?.showAlert(title: "Error", messege: error.localized)
+                    self.errorHandler(error: error)
                 }
             }
         }
+    }
+}
+extension LoginPresenter: ErrorHandler {
+    var viewPresentable: (any AlertRepresentable)? {
+        view
     }
 }

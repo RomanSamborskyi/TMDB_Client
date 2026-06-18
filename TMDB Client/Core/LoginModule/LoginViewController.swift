@@ -8,8 +8,8 @@
 import UIKit
 import NotificationCenter
 
-protocol LoginViewControllerProtocol: AnyObject {
-    func showAlert(title: String, messege: String)
+protocol LoginViewControllerProtocol: AnyObject, AlertRepresentable {
+    func showErrorAlert(message: String, image name: String, title text: String)
 }
 
 class LoginViewController: UIViewController {
@@ -44,11 +44,11 @@ extension LoginViewController: LoginViewDelegate {
 }
 //MARK: - LoginViewControllerProtocol
 extension LoginViewController: LoginViewControllerProtocol {
-    func showAlert(title: String, messege: String) {
+    func showErrorAlert(message: String, image name: String, title text: String) {
         let action = UIAlertAction(title: "Retry", style: .default) { _ in
             self.activityView.isHidden = true
         }
-        self.showAlert(title: title, messege: messege, action: action)
+        self.showAlert(title: text, messege: message, action: action)
     }
 }
 //MARK: - UI Layout
@@ -124,3 +124,5 @@ private extension LoginViewController {
         }
     }
 }
+
+
