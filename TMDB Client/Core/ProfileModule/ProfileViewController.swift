@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ProfileViewProtocol: AnyObject {
+protocol ProfileViewProtocol: AnyObject, AlertRepresentable {
     func showUserData(user: UserProfile, with avatar: UIImage)
 }
 
@@ -32,6 +32,12 @@ class ProfileViewController: UIViewController {
 }
 //MARK: - ProfileViewProtocol
 extension ProfileViewController: ProfileViewProtocol {
+    func showErrorAlert(message: String, image name: String, title text: String) {
+        Task { @MainActor in
+            let action = UIAlertAction(title: Constants.okLabel, style: .destructive)
+            self.showAlert(title: text, messege: message, action: action)
+        }
+    }
     func showUserData(user: UserProfile, with avatar: UIImage) {
         DispatchQueue.main.async {
             self.profileView.updateView(with: user, with: avatar)

@@ -47,7 +47,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
                     self.router.navigateToLoginView(haptic: self.haptic, networkManager: self.interactor.networkManager, imageDownloader: self.interactor.imageDownloader, keychain: self.interactor.keychain)
                 }
             } catch let error as AppError {
-                print(error)
+                self.errorHandler(error: error)
             }
         }
     }
@@ -70,7 +70,7 @@ private extension ProfilePresenter {
                 do {
                     try await self.interactor.fetchUserData()
                 } catch let error as AppError {
-                    print(error)
+                    self.errorHandler(error: error)
                 }
             }
             group.addTask(priority: .background) {
@@ -78,9 +78,15 @@ private extension ProfilePresenter {
                     try await self.interactor.compareUserData()
                     await viewController.view.layoutIfNeeded()
                 } catch let error as AppError {
-                    print(error)
+                    self.errorHandler(error: error)
                 }
             }
         }
+    }
+}
+//MARK: - error handler protocol
+extension ProfilePresenter: ErrorHandler {
+    var viewPresentable: (any AlertRepresentable)? {
+        view
     }
 }
